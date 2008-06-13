@@ -1,0 +1,117 @@
+#!/usr/bin/ruby1.8
+#
+# Copyright (c) 2007 Thomas Weibel, <thom@beeblebrox.net>
+#
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the
+# Free Software Foundation; either version 2 of the License, or (at your
+# option) any later version.
+require 'autotest/redgreen'
+require 'autotest/timestamp'
+require 'rnotify'
+require 'gtk2'
+
+module Autotest::RNotify
+  class Notification
+    attr_accessor :verbose, :image_root, :tray_icon, :notification, 
+    :image_pass, :image_pending, :image_fail
+    
+    def initialize(timeout = 5000, 
+                   image_root = "#{ENV['HOME']}/.autotest_images" , 
+                   verbose = false)
+      self.verbose = verbose
+      self.image_root = image_root
+      
+      puts 'Autotest Hook: loading Notify' if verbose
+      Notify.init('Autotest') || raise('Failed to initialize Notify')
+
+      puts 'Autotest Hook: initializing tray icon' if verbose
+      self.tray_icon = Gtk::StatusIcon.new
+      tray_icon.icon_name = 'face-monkey'
+      tray_icon.tooltip = 'RSpec Autotest'
+
+      puts 'Autotest Hook: Creating Notifier' if verbose
+      self.notification = Notify::Notification.new('X', nil, nil, tray_icon)
+      notification.timeout = timeout
+      
+      Thread.new { Gtk.main }
+      sleep 1
+      tray_icon.embedded? || raise('Failed to set up tray icon')
+    end
+    
+    def notify(icon, tray, title, message)
+      notification.update(title, message, nil)
+      notification.pixbuf_icon = icon
+      tray_icon.tooltip = "Last Result: #{message}"
+      tray_icon.icon_name = tray
+      notification.show
+    end
+    
+    def passed(title, message)
+      self.image_pass ||= Gdk::Pixbuf.new("#{image_root}/pass.png", 48,48)
+      notify(image_pass, 'face-smile', title, message)
+    end
+    
+    def pending(title, message)
+      self.image_pending ||= Gdk::Pixbuf.new("#{image_root}/pending.png",48,48)
+      notify(image_pending, 'face-plain', title, message)
+    end
+    
+    def failed(title, message) 
+      self.image_fail ||= Gdk::Pixbuf.new("#{image_root}/fail.png", 48,48)
+      notify(image_fail, 'face-sad', title, message)
+    end
+    
+    def quit
+      puts 'Autotest Hook: Shutting Down...' if verbose
+      #Notify.uninit
+      Gtk.main_quit
+    end
+  end
+
+  Autotest.add_hook :initialize do |at|
+    @notify = Notification.new
+  end
+
+  Autotest.add_hook :ran_command do |at|
+    results = at.results.last
+
+    pending=0
+    failures=0
+
+    unless results.nil?
+      # Test::Unit
+      if results.include? 'tests'
+        output = 
+          results[/(\d+)\s+tests?,\s*(\d+)\s+assertions?,\s*(\d+)\s+failures?(,\s*(\d+)\s+errors)?/]
+        if output
+          failures = $~[3].to_i + $~[5].to_i
+        end
+      # RSpec
+      else
+        output = 
+          results[/(\d+)\s+examples?,\s*(\d+)\s+failures?(,\s*(\d+)\s+pending)?/]
+        if output
+          failures = $~[2].to_i
+          pending = $~[4].to_i
+        end
+      end
+      
+      if failures > 0
+        @notify.failed("Tests Failed", output)
+      elsif pending > 0
+        @notify.pending("Tests Pending", output)
+      else
+        unless at.tainted
+          @notify.passed("All Tests Passed", output)
+        else
+          @notify.passed("Tests Passed", output)
+        end
+      end
+    end
+  end
+
+  Autotest.add_hook :quit do |at|
+    @notify.quit
+  end
+end

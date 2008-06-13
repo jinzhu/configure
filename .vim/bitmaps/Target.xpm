@@ -1,0 +1,29 @@
+/* XPM */
+static char *Target[] = {
+/* width height num_colors chars_per_pixel */
+"    20    20        3            1",
+/* colors */
+". c #000080",
+"a c None",
+"b c #ff0000",
+/* pixels */
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaabaaaa...aaaaaaa",
+"aaaabbbaba....aaaaaa",
+"aaaaabbbbaaa...aaaaa",
+"aaaaaabbba.aa...aaaa",
+"aaaaabbbbaa.aa..aaaa",
+"aaaaaaaaa..a.a..aaaa",
+"aaaa..a.a..a.a..aaaa",
+"aaaa..aa.aa.aa..aaaa",
+"aaaa...aa..aa...aaaa",
+"aaaaa...aaaa...aaaaa",
+"aaaaaa........aaaaaa",
+"aaaaaaa......aaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaa"};

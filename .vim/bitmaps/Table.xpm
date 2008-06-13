@@ -1,0 +1,31 @@
+/* XPM */
+static char *Table[] = {
+/* width height num_colors chars_per_pixel */
+"    20    20        5            1",
+/* colors */
+"- c None",
+". c #333366",
+"# c #9999ff",
+"a c #c0c0c0",
+"b c #ffffff",
+/* pixels */
+"--------------------",
+"--------------------",
+"--------------------",
+"--bbbbbbbbbbbbbbb.--",
+"--baaaaaaaaaaaaaa.--",
+"--ba...a...a...aa.--",
+"--ba.#ba.#ba.#baa.--",
+"--ba.#ba.#ba.#baa.--",
+"--ba.#ba.#ba.#baa.--",
+"--babbbabbbabbbaa.--",
+"--baaaaaaaaaaaaaa.--",
+"--ba...a...a...aa.--",
+"--ba.#ba.#ba.#baa.--",
+"--ba.#ba.#ba.#baa.--",
+"--ba.#ba.#ba.#baa.--",
+"--babbbabbbabbbaa.--",
+"--baaaaaaaaaaaaaa.--",
+"--................--",
+"--------------------",
+"--------------------"};
