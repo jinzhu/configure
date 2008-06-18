@@ -9,15 +9,13 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,perl set shiftwidth=2
 autocmd FileType c,cpp,java,javascript,python,xml,xhtml,html set shiftwidth=4
- 
+
 autocmd BufRead,BufNewFile *.yml setf eruby
 autocmd BufRead,BufNewFile *_spec.rb setlocal filetype=rspec
 autocmd BufRead,BufNewFile *.rb setlocal filetype=ruby
-"<F10> 运行ruby
-autocmd BufRead,BufNewFile *.rb map <F10> :% w !ruby<CR>
 "use \rci in normal mode to indent ruby code,should install kode ,sudo gem install kode
 nmap <leader>rci :%!ruby-code-indenter<cr>
- 
+
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
@@ -89,16 +87,18 @@ endif
 :ino <M-9> <C-o>9gt
 :ino <M-0> <C-o>:tablast<CR>
 
+:nn <F1> :%s/\s*$//g<cr>:nohlsearch<cr>''
 :nn <F2> :tabnew <cr>
 :nn <F3> :tabprevious <cr>
 :nn <F4> :tabnext <cr>
-"打开当前目录文件列表
-:nn <F5> : set nu! <CR>
-:nn <F6> : shell <CR>
-:nn <F7> :tabnew .<CR>
-:nn <F8> :TlistToggle<CR>
-"没事，鼠标画线玩的
-:nn <F9> :call ToggleSketch()<CR>
+:nn <F5> :set nu! <CR>
+:nn <F6> :TlistToggle<CR>
+autocmd BufRead,BufNewFile *.rb map <F7> :% w !ruby<CR> "<F7>运行Ruby 
+map <F8> <Esc>:set suffixesadd=.html.erb<CR>gf
+map <F9> <Esc>:set suffixesadd=.rb<CR>gf
+:nn <F10> :shell <CR>
+:nn <F11> :call ToggleSketch()<CR>  "没事，鼠标画线玩的
+
 " <leader n>
 map <leader>1 :set syntax=ruby<cr>
 map <leader>2 :set syntax=xhtml<cr>
@@ -121,7 +121,7 @@ map <leader>5 :set ft=sh<cr>
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1 
+let g:miniBufExplModSelTarget = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " encoding
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -156,6 +156,6 @@ set cmdheight=2 "命令行（在状态行下）的高度，默认为1，这里�
 set magic "Set magic on
 set smarttab
 set expandtab
- 
+
 imap ;w <ESC>:w<CR>
 :nn <Space>w <ESC>:w<CR>
