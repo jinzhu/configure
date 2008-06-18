@@ -26,5 +26,6 @@ HTML.vim: Html
 vibrantink.vim: color
 vividchalk.vim: color
 sketch.vim: paint very fun!
+NERD_commenter: add/remove comment more easy!
 ##code_complete.vim: very useful in .C .CPP
 ##word_commplete.vim: automatic commplete,when typing
