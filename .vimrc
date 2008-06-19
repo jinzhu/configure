@@ -63,7 +63,11 @@ if has("gui_running")
 else
   set background=dark
 endif
+"GUI设置color：guifg, guibg, gui
+"支持彩色显示的Terminal：ctermfg, ctermbg 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"map <C-t> :tabnew<CR>
+"map <C-w> :tabclose<CR> 
 " <N n>
 :nn <M-1> 1gt
 :nn <M-2> 2gt
@@ -88,16 +92,14 @@ endif
 :ino <M-0> <C-o>:tablast<CR>
 
 :nn <F1> :%s/\s*$//g<cr>:nohlsearch<cr>''
-:nn <F2> :tabnew <cr>
-:nn <F3> :tabprevious <cr>
-:nn <F4> :tabnext <cr>
-:nn <F5> :set nu! <CR>
-:nn <F6> :TlistToggle<CR>
-autocmd BufRead,BufNewFile *.rb map <F7> :% w !ruby<CR> "<F7>运行Ruby 
-map <F8> <Esc>:set suffixesadd=.html.erb<CR>gf
-map <F9> <Esc>:set suffixesadd=.rb<CR>gf
-:nn <F10> :shell <CR>
-:nn <F11> :call ToggleSketch()<CR>  "没事，鼠标画线玩的
+:nn <F3> :set nu! <CR>
+:nn <F4> :TlistToggle<CR>
+autocmd BufRead,BufNewFile *.rb map <F5> :% w !ruby<CR>
+map <F6> <Esc>:set suffixesadd=.html.erb<CR>gf
+map <F7> <Esc>:set suffixesadd=.rb<CR>gf
+:nn <F4> :shell <CR>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+:nn <F9> :call ToggleSketch()<CR>  "没事，鼠标画线玩的
 
 " <leader n>
 map <leader>1 :set syntax=ruby<cr>
@@ -111,10 +113,16 @@ map <leader>5 :set ft=sh<cr>
 :ino <M-h> <LEFT>
 :ino <M-l> <RIGHT>
 
+:nn <C-tab> <C-PageDown>
+:nn <C-S-tab> <C-PageUp>
+
 :nn <C-h> <C-w>h
 :nn <C-j> <C-w>j
 :nn <C-k> <C-w>k
 :nn <C-l> <C-w>l
+
+
+map <C-q> "+gP 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "minibufexpl.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
