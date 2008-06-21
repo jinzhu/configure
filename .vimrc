@@ -1,4 +1,9 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"LaTex
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor = "latex"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
@@ -64,10 +69,10 @@ else
   set background=dark
 endif
 "GUI设置color：guifg, guibg, gui
-"支持彩色显示的Terminal：ctermfg, ctermbg 
+"支持彩色显示的Terminal：ctermfg, ctermbg
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "map <C-t> :tabnew<CR>
-"map <C-w> :tabclose<CR> 
+"map <C-w> :tabclose<CR>
 " <N n>
 :nn <M-1> 1gt
 :nn <M-2> 2gt
@@ -91,7 +96,7 @@ endif
 :ino <M-9> <C-o>9gt
 :ino <M-0> <C-o>:tablast<CR>
 
-:nn <F1> :%s/\s*$//g<cr>:nohlsearch<cr>''
+:nn <F2> :%s/\s*$//g<cr>:nohlsearch<cr>''
 :nn <F3> :set nu! <CR>
 :nn <F4> :TlistToggle<CR>
 autocmd BufRead,BufNewFile *.rb map <F5> :% w !ruby<CR>
@@ -122,7 +127,7 @@ map <leader>5 :set ft=sh<cr>
 :nn <C-l> <C-w>l
 
 
-map <C-q> "+gP 
+map <C-q> "+gP
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "minibufexpl.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -133,10 +138,16 @@ let g:miniBufExplModSelTarget = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " encoding
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set fileencodings=utf-8
 set fileencoding=utf-8
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set encoding=utf8 "设置创建、读取、编辑时都采用utf-8编码
-set fencs=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+"set langmenu=none
+"language messages en_US.UTF8
+"let $LANG='zh'
+""set fileencodings=utf-8,GBK
+"set fileencoding=utf8
+"set encoding=utf8
+"set tenc=utf8
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set history=400
 set helplang=cn
