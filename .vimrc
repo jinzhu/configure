@@ -1,8 +1,10 @@
+"set dictionary+=/usr/share/dict/words
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "LaTex
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor = "latex"
+set iskeyword+=:
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
@@ -12,7 +14,8 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-autocmd FileType ruby,perl set shiftwidth=2
+autocmd FileType ruby,perl,tex set shiftwidth=2
+
 autocmd FileType c,cpp,java,javascript,python,xml,xhtml,html set shiftwidth=4
 
 autocmd BufRead,BufNewFile *.yml setf eruby
@@ -96,15 +99,16 @@ endif
 :ino <M-9> <C-o>9gt
 :ino <M-0> <C-o>:tablast<CR>
 
-:nn <F2> :%s/\s*$//g<cr>:nohlsearch<cr>''
-:nn <F3> :set nu! <CR>
-:nn <F4> :TlistToggle<CR>
+:nn <F2> :tabnew<CR>
+:nn <F3> :%s/\s*$//g<cr>:nohlsearch<cr>''
+:nn <F4> :set nu! <CR>
 autocmd BufRead,BufNewFile *.rb map <F5> :% w !ruby<CR>
 map <F6> <Esc>:set suffixesadd=.html.erb<CR>gf
 map <F7> <Esc>:set suffixesadd=.rb<CR>gf
-:nn <F4> :shell <CR>
+:nn <F8> :TlistToggle<CR>
+:nn <F9> :shell <CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:nn <F9> :call ToggleSketch()<CR>  "没事，鼠标画线玩的
+:nn <F10> :call ToggleSketch()<CR>  "没事，鼠标画线玩的
 
 " <leader n>
 map <leader>1 :set syntax=ruby<cr>
@@ -139,7 +143,7 @@ let g:miniBufExplModSelTarget = 1
 " encoding
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set fileencoding=utf-8
-set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set fileencodings=utf-8,gb18030,ucs-bom,gbk,gb2312,cp936
 set encoding=utf8 "设置创建、读取、编辑时都采用utf-8编码
 "set langmenu=none
 "language messages en_US.UTF8
