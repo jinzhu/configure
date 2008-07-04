@@ -19,9 +19,9 @@ autocmd FileType ruby,perl,tex set shiftwidth=2
 
 autocmd FileType c,cpp,java,javascript,python,xml,xhtml,html set shiftwidth=4
 
-autocmd BufRead,BufNewFile *.yml setf eruby
-autocmd BufRead,BufNewFile *_spec.rb setlocal filetype=rspec
-autocmd BufRead,BufNewFile *.rb setlocal filetype=ruby
+autocmd BufNewFile,BufRead *.yml setf eruby
+autocmd BufNewFile,BufRead *_spec.rb source ~/.vim/ftplugin/rails/rspec.vim
+autocmd BufNewFile,BufRead *_test.rb source ~/.vim/ftplugin/rails/shoulda.vim
 "use \rci in normal mode to indent ruby code,should install kode ,sudo gem install kode
 nmap <leader>rci :%!ruby-code-indenter<cr>
 
