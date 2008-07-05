@@ -2,13 +2,9 @@
 Autotest
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 sudo apt-get install ruby-gnome2
-sudo apt-get install build-essential ruby1.8-dev libnotify-dev
+sudo apt-get install build-essential ruby1.8-dev libnotify-dev libinotify-ruby
 sudo gem install redgreen
 
-install ruby-libnotify ( http://rubyforge.org/frs/?group_id=1911&amp;release_id=15878 )
-ruby extconf.rb
-make
-sudo make install
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 VIM
