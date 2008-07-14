@@ -8,10 +8,10 @@ let cd = g:snip_elem_delim
 
 
 
-exec "Snippet cde context ".st."description".et." do<CR>".st."content".et."<CR>end<CR>".st.et
+exec "Snippet cde context \"".st."description".et."\" do<CR>".st."content".et."<CR>end<CR>".st.et
 exec "Snippet sde setup do<CR>".st."content".et."<CR>end<CR>".st.et
-exec "Snippet se should ".st."description".et."<CR>".st."content".et."<CR>end<CR>".st.et
-exec "Snippet see should_eventually ".st."description".et."<CR>".st."content".et."<CR>end<CR>".st.et
+exec "Snippet se should \"".st."description".et."\" do<CR>".st."content".et."<CR>end<CR>".st.et
+exec "Snippet see should_eventually \"".st."description".et."\" do<CR>".st."content".et."<CR>end<CR>".st.et
 
 
 
@@ -29,7 +29,7 @@ exec "Snippet ase assert_same_elements(".st."element1".et.",".st."element2".et."
 exec "Snippet as assert_save ".st.et
 
 exec "Snippet av assert_valid(".st."obj".et.")<CR>".st.et
-
+exec "Snippet at assert_template \"".st."template".et."\"<CR>".st.et
 exec "Snippet axr assert_xml_response ".st.et
 
 exec "Snippet rx request_xml ".st.et

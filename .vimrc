@@ -17,7 +17,7 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,perl,tex set shiftwidth=2
 
-autocmd FileType c,cpp,java,javascript,python,xml,xhtml,html set shiftwidth=4
+autocmd FileType c,cpp,java,javascript,python,xml,xhtml,html set shiftwidth=2
 
 autocmd BufNewFile,BufRead *.yml setf eruby
 autocmd BufNewFile,BufRead *_spec.rb source ~/.vim/ftplugin/rails/rspec.vim
@@ -180,6 +180,6 @@ set cmdheight=2 "命令行（在状态行下）的高度，默认为1，这里�
 set magic "Set magic on
 set smarttab
 set expandtab
-
+set shiftwidth=2
 imap ;w <ESC>:w<CR>
 :nn <Space>w <ESC>:w<CR>
