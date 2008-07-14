@@ -1547,7 +1547,7 @@ function! s:RailsFind()
   if res != ""|return res|endif
   let res = s:singularize(s:findamethod('has_many\|has_and_belongs_to_many','app/models/\1'))
   if res != ""|return res.".rb"|endif
-  let res = s:singularize(s:findamethod('create_table\|drop_table\|add_column\|rename_column\|remove_column\|add_index','app/models/\1'))
+  let res = s:singularize(s:findamethod('create_table\|change_table\|drop_table\|add_column\|rename_column\|remove_column\|add_index','app/models/\1'))
   if res != ""|return res.".rb"|endif
   let res = s:singularize(s:findasymbol('through','app/models/\1'))
   if res != ""|return res.".rb"|endif
@@ -1580,7 +1580,9 @@ function! s:RailsFind()
   let res = s:sub(s:findfromview('javascript_include_tag','public/javascripts/\1.js'),'/defaults>','/application')
   if res != ""|return res|endif
   if RailsFileType() =~ '^controller\>'
-    let res = s:findit('\s*\<def\s\+\(\k\+\)\>(\=',s:sub(s:sub(RailsFilePath(),'/controllers/','/views/'),'_controller\.rb$','').'/\1')
+    let contr = s:controller()
+    let view = s:findit('\s*\<def\s\+\(\k\+\)\>(\=','/\1')
+    let res = s:findview(contr.'/'.view)
     if res != ""|return res|endif
   endif
   let isf_keep = &isfname
@@ -3100,13 +3102,11 @@ function! s:BufSyntax()
         syn keyword rubyRailsAPIMethod api_method inflect_names
       endif
       if t =~ '^model$' || t =~ '^model-arb\>'
-        syn keyword rubyRailsARMethod acts_as_list acts_as_nested_set acts_as_tree composed_of serialize
-        syn keyword rubyRailsARAssociationMethod belongs_to has_one has_many has_and_belongs_to_many
-        "syn match rubyRailsARCallbackMethod '\<\(before\|after\)_\(create\|destroy\|save\|update\|validation\|validation_on_create\|validation_on_update\)\>'
+        syn keyword rubyRailsARMethod named_scope serialize
+        syn keyword rubyRailsARAssociationMethod belongs_to has_one has_many has_and_belongs_to_many composed_of
         syn keyword rubyRailsARCallbackMethod before_create before_destroy before_save before_update before_validation before_validation_on_create before_validation_on_update
         syn keyword rubyRailsARCallbackMethod after_create after_destroy after_save after_update after_validation after_validation_on_create after_validation_on_update
         syn keyword rubyRailsARClassMethod attr_accessible attr_protected establish_connection set_inheritance_column set_locking_column set_primary_key set_sequence_name set_table_name
-        "syn keyword rubyRailsARCallbackMethod after_find after_initialize
         syn keyword rubyRailsARValidationMethod validate validate_on_create validate_on_update validates_acceptance_of validates_associated validates_confirmation_of validates_each validates_exclusion_of validates_format_of validates_inclusion_of validates_length_of validates_numericality_of validates_presence_of validates_size_of validates_uniqueness_of
         syn keyword rubyRailsMethod logger
       endif
@@ -3143,7 +3143,7 @@ function! s:BufSyntax()
         syn keyword rubyRailsFilterMethod verify
       endif
       if t =~ '^\%(db-\)\=\%(migration\|schema\)\>'
-        syn keyword rubyRailsMigrationMethod create_table drop_table rename_table add_column rename_column change_column change_column_default remove_column add_index remove_index
+        syn keyword rubyRailsMigrationMethod create_table change_table drop_table rename_table add_column rename_column change_column change_column_default remove_column add_index remove_index
       endif
       if t =~ '^test\>'
         if s:cacheneeds("user_asserts") && filereadable(RailsRoot()."/test/test_helper.rb")
@@ -3849,8 +3849,8 @@ function! s:BufAbbreviations()
       Rabbrev mac(  add_column
       Rabbrev mrnc( rename_column
       Rabbrev mrc(  remove_column
-      Rabbrev mct( create_table
-      "Rabbrev mct   create_table\ :\ do\ <Bar>t<Bar><CR>end<Esc>k$6hi
+      Rabbrev mct(  create_table
+      Rabbrev mcht( change_table
       Rabbrev mrnt( rename_table
       Rabbrev mdt(  drop_table
       Rabbrev mcc(  t.column
