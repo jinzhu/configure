@@ -115,8 +115,9 @@ map <F7> <Esc>:set suffixesadd=.rb<CR>gf
 map <leader>1 :set syntax=ruby<cr>
 map <leader>2 :set syntax=xhtml<cr>
 map <leader>3 :set ft=javascript<cr>
-map <leader>4 :set ft=vim<cr>
-map <leader>5 :set ft=sh<cr>
+map <leader>4 :set ft=css<cr>
+map <leader>5 :set ft=vim<cr>
+map <leader>6 :set ft=sh<cr>
 " <M-hjkl>
 :ino <M-j> <DOWN>
 :ino <M-k> <UP>
@@ -129,7 +130,6 @@ map <leader>5 :set ft=sh<cr>
 :nn <C-h> <C-w>h
 :nn <C-j> <C-w>j
 :nn <C-k> <C-w>k
-:nn <C-l> <C-w>l
 
 
 map <C-q> "+gP
@@ -146,6 +146,7 @@ let g:miniBufExplModSelTarget = 1
 set fileencoding=utf-8
 set fileencodings=utf-8,gb18030,ucs-bom,gbk,gb2312,cp936
 set encoding=utf8 "设置创建、读取、编辑时都采用utf-8编码
+set guifont=simhei\ 14
 "set langmenu=none
 "language messages en_US.UTF8
 "let $LANG='zh'
@@ -183,3 +184,4 @@ set expandtab
 set shiftwidth=2
 imap ;w <ESC>:w<CR>
 :nn <Space>w <ESC>:w<CR>
+

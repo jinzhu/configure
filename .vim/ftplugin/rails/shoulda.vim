@@ -41,7 +41,7 @@ exec "Snippet sna should_not_assign_to ".st.et
 exec "Snippet snsf should_not_set_the_flash ".st.et
 exec "Snippet ssf should_set_the_flash_to ".st.et
 
-exec "Snippet sr should_redirect_to \"".st."url".et."\"".st.et
+exec "Snippet sr should_redirect_to ".st.et
 
 exec "Snippet srf should_render_a_form ".st.et 
 exec "Snippet srt should_render_template ".st.et
