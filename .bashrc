@@ -65,6 +65,9 @@ fi
 #alias ll='ls -l'
 #alias la='ls -A'
 #alias l='ls -CF'
+alias ss='./script/server'
+alias sc='./script/console'
+alias sd='./script/dbconsole'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -73,4 +76,4 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-CDPATH=".:~:~/GIT:/pillar:/pillar/HOME/:~/Documents/"
+CDPATH=".:~:~/GIT:~/WEB/:~/GIT/:/pillar:/pillar/HOME/:~/Documents/"
