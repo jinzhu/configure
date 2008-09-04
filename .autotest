@@ -114,4 +114,14 @@ module Autotest::RNotify
   Autotest.add_hook :quit do |at|
     @notify.quit
   end
+
+  Autotest.add_hook :run do |autotest|
+    autotest.add_exception(/^\.\/vendor/)
+    autotest.add_exception(/\.svn/)
+    autotest.add_exception(/\.git/)
+  end
+
+  Autotest.add_hook :initialize do |at|
+    at.sleep = 5
+  end
 end
