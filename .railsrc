@@ -1,6 +1,7 @@
 # vim: ft=ruby
 
 require 'logger'
+require 'pp'
 # require 'activesupport'
 Object.const_set(:RAILS_DEFAULT_LOGGER, Logger.new(STDOUT))
 
