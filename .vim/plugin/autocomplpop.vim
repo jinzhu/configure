@@ -12,15 +12,15 @@
 "=============================================================================
 " DOCUMENT: (Japanese: http://vim.g.hatena.ne.jp/keyword/autocomplpop.vim)
 "
-" Description: ---------------------------------------------------------- {{{1
+" Description: ---------------------------------------------------------- 
 "   Install this plugin and your vim comes to automatically opens the popup
 "   menu for completion when you enter characters or move the cursor in Insert
 "   mode.
 "
-" Installation: --------------------------------------------------------- {{{1
+" Installation: --------------------------------------------------------- 
 "   Drop this file in your plugin directory.
 "
-" Usage: ---------------------------------------------------------------- {{{1
+" Usage: ---------------------------------------------------------------- 
 "   If this plugin has been installed, the auto-popup is enabled at startup by
 "   default.
 "
@@ -50,7 +50,7 @@
 "     :AutoComplPopDisable
 "       - removes autocommands for the auto-popup.
 "
-" Options: -------------------------------------------------------------- {{{1
+" Options: -------------------------------------------------------------- 
 "   g:AutoComplPop_NotEnableAtStartup:
 "     The auto-popup is not enabled at startup if non-zero is set.
 "
@@ -123,10 +123,10 @@
 "       ['repeat']:
 "         It automatically repeats a completion if non-zero is set.
 "
-" Thanks: --------------------------------------------------------------- {{{1
+" Thanks: --------------------------------------------------------------- 
 "   vimtip #1386
 "
-" ChangeLog: ------------------------------------------------------------ {{{1
+" ChangeLog: ------------------------------------------------------------ 
 "   2.5:
 "     - Added some options to customize behavior easily:
 "         g:AutoComplPop_BehaviorKeywordLength
@@ -234,10 +234,10 @@
 "   0.1:
 "       - First release.
 "
-" }}}1
+" 
 "=============================================================================
 
-" INCLUDE GUARD: ======================================================== {{{1
+" INCLUDE GUARD: ======================================================== 
 if v:version < 701
   echoerr "Sorry, Autocomplpop doesn't support this version of Vim."
   finish
@@ -247,7 +247,7 @@ endif
 let loaded_autocomplpop = 1
 
 
-" FUNCTION: ============================================================= {{{1
+" FUNCTION: ============================================================= 
 
 "-----------------------------------------------------------------------------
 function! s:GetSidPrefix()
@@ -292,7 +292,7 @@ function! s:Disable()
 endfunction
 
 
-" FUNCTION: BEHAVIOR ==================================================== {{{1
+" FUNCTION: BEHAVIOR ==================================================== 
 
 "-----------------------------------------------------------------------------
 function! s:MakeDefaultBehavior()
@@ -380,7 +380,7 @@ function! s:MakeDefaultBehavior()
   return behavs
 endfunction
 
-" OBJECT: PopupFeeder: ================================================== {{{1
+" OBJECT: PopupFeeder: ================================================== 
 let s:PopupFeeder = { 'behavs' : [], 'lock_count' : 0 }
 "-----------------------------------------------------------------------------
 function! s:PopupFeeder.feed()
@@ -475,7 +475,7 @@ function! s:PopupFeeder.on_popup_post()
 endfunction
 
 
-" OBJECT: OptionManager: sets or restores temporary options ============= {{{1
+" OBJECT: OptionManager: sets or restores temporary options ============= 
 let s:OptionManager = { 'originals' : {} }
 "-----------------------------------------------------------------------------
 function! s:OptionManager.set(name, value)
@@ -492,7 +492,7 @@ function! s:OptionManager.restore_all()
 endfunction
 
 
-" OBJECT: FeedMapping: manages global mappings ========================== {{{1
+" OBJECT: FeedMapping: manages global mappings ========================== 
 let s:FeedMapping = { 'keys' :  [] }
 "-----------------------------------------------------------------------------
 function! s:FeedMapping.map()
@@ -524,9 +524,9 @@ function! s:FeedMapping.unmap()
 endfunction
 
 
-" }}}1
+" 
 
-" GLOBAL OPTIONS: ======================================================= {{{1
+" GLOBAL OPTIONS: ======================================================= 
 "...........................................................................
 if !exists('g:AutoComplPop_NotEnableAtStartup')
   let g:AutoComplPop_NotEnableAtStartup = 0
@@ -586,7 +586,7 @@ endif
 call extend(g:AutoComplPop_Behavior, s:MakeDefaultBehavior(), 'keep')
 
 
-" COMMANDS/AUTOCOMMANDS/MAPPINGS/ETC.: ================================== {{{1
+" COMMANDS/AUTOCOMMANDS/MAPPINGS/ETC.: ================================== 
 command! -bar -narg=0 AutoComplPopEnable  call s:Enable()
 command! -bar -narg=0 AutoComplPopDisable call s:Disable()
 command! -bar -narg=0 AutoComplPopLock    call s:PopupFeeder.lock()
@@ -598,6 +598,6 @@ if !g:AutoComplPop_NotEnableAtStartup
   AutoComplPopEnable
 endif
 
-" }}}1
+" 
 "=============================================================================
 " vim: set fdm=marker:

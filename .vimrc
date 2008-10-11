@@ -1,4 +1,3 @@
-"set dictionary+=/usr/share/dict/words
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "LaTex
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -19,9 +18,12 @@ autocmd FileType ruby,perl,tex set shiftwidth=2
 
 autocmd FileType c,cpp,java,javascript,python,xml,xhtml,html set shiftwidth=2
 
+augroup filetypedetect
+au! BufNewFile,BufRead *.ch setf cheat
 au BufNewFile,BufRead *.liquid setf liquid
 au! BufRead,BufNewFile *.haml setfiletype haml
 autocmd BufNewFile,BufRead *.yml setf eruby
+augroup END
 
 autocmd BufNewFile,BufRead *_spec.rb source ~/.vim/ftplugin/rails/rspec.vim
 autocmd BufNewFile,BufRead *_test.rb source ~/.vim/ftplugin/rails/shoulda.vim
