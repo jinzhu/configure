@@ -354,15 +354,25 @@ Only for CVS buffers:
 
 						*vcscommand-mappings-override*
 
-The default mappings can be overriden by user-provided instead by mapping to
+The default mappings can be overridden by user-provided instead by mapping to
 <Plug>CommandName.  This is especially useful when these mappings collide with
 other existing mappings (vim will warn of this during plugin initialization,
 but will not clobber the existing mappings).
 
-For instance, to override the default mapping for :VCSAdd to set it to '\add',
-add the following to the vimrc:
+There are three methods for controlling mapping:
+
+First, maps can be overriden for individual commands.  For instance, to
+override the default mapping for :VCSAdd to set it to '\add', add the
+following to the vimrc:
 
 nmap \add <Plug>VCSAdd
+
+Second, the default map prefix ('<Leader>c') can be overridden by defining the
+|VCSCommandMapPrefix| variable.
+
+Third, the entire set of default maps can be overridden by defining the
+|VCSCommandMappings| variable.
+
 
 4.3 Automatic buffer variables			*vcscommand-buffer-variables*
 
@@ -414,10 +424,13 @@ The following variables are available:
 |VCSCommandCVSExec|
 |VCSCommandDeleteOnHide|
 |VCSCommandDiffSplit|
+|VCSCommandDisableAll|
 |VCSCommandDisableMappings|
 |VCSCommandDisableExtensionMappings|
 |VCSCommandEdit|
 |VCSCommandEnableBufferSetup|
+|VCSCommandMappings|
+|VCSCommandMapPrefix|
 |VCSCommandResultBufferNameExtension|
 |VCSCommandResultBufferNameFunction|
 |VCSCommandSplit|
@@ -453,6 +466,12 @@ VCSCommandDiffSplit				*VCSCommandDiffSplit*
 This variable overrides the |VCSCommandSplit| variable, but only for buffers
 created with |:VCSVimDiff|.
 
+VCSCommandDisableAll				*VCSCommandDisableAll*
+
+This variable, if set, prevents the plugin or any extensions from loading at
+all.  This is useful when a single runtime distribution is used on multiple
+systems with varying versions.
+
 VCSCommandDisableMappings			*VCSCommandDisableMappings*
 
 This variable, if set to a non-zero value, prevents the default command
@@ -476,6 +495,19 @@ mode see (|vcscommand-buffer-management|).  This mode means that the
 'VCSCommandBufferInfo' variable is filled with version information if the file
 is VCS-controlled.  This is useful for displaying version information in the
 status bar.
+
+VCSCommandMappings				*VCSCommandMappings*
+
+This variable, if set, overrides the default mappings used for shortcuts.  It
+should be a List of 2-element Lists, each containing a shortcut and function
+name pair.  The value of the '|VCSCommandMapPrefix|' variable will be added to
+each shortcut.
+
+VCSCommandMapPrefix				*VCSCommandMapPrefix*
+
+This variable, if set, overrides the default mapping prefix ('<Leader>c').
+This allows customization of the mapping space used by the vcscommand
+shortcuts.
 
 VCSCommandResultBufferNameExtension	*VCSCommandResultBufferNameExtension*
 
@@ -507,7 +539,8 @@ may occur.
 If set to 'horizontal', the resulting windows will be on stacked on top of
 one another.  If set to 'vertical', the resulting windows will be
 side-by-side.  If not set, it defaults to 'horizontal' for all but
-VCSVimDiff windows.
+VCSVimDiff windows.  VCSVimDiff windows default to the user's 'diffopt'
+setting, if set, otherwise 'vertical'.
 
 VCSCommandSVKExec				*VCSCommandSVKExec*
 
@@ -712,7 +745,7 @@ too often.
 
 ==============================================================================
 
-7. Changes from cvscommandi				*cvscommand-changes*
+7. Changes from cvscommand				*cvscommand-changes*
 
 1.  Require Vim 7 in order to leverage several convenient features; also
 because I wanted to play with Vim 7.

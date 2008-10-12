@@ -42,6 +42,10 @@
 
 " Section: Plugin header {{{1
 
+if exists('VCSCommandDisableAll')
+	finish
+endif
+
 if v:version < 700
 	echohl WarningMsg|echomsg 'VCSCommand requires at least VIM 7.0'|echohl None
 	finish
@@ -121,7 +125,7 @@ function! s:svnFunctions.Annotate(argList)
 		let options = ' ' . caption
 	endif
 
-	let resultBuffer = s:DoCommand('blame' . options, 'annotate', caption, {})
+	let resultBuffer = s:DoCommand('blame --non-interactive' . options, 'annotate', caption, {})
 	if resultBuffer > 0
 		set filetype=SVNAnnotate
 	endif
@@ -130,7 +134,7 @@ endfunction
 
 " Function: s:svnFunctions.Commit(argList) {{{2
 function! s:svnFunctions.Commit(argList)
-	let resultBuffer = s:DoCommand('commit -F "' . a:argList[0] . '"', 'commit', '', {})
+	let resultBuffer = s:DoCommand('commit --non-interactive -F "' . a:argList[0] . '"', 'commit', '', {})
 	if resultBuffer == 0
 		echomsg 'No commit needed.'
 	endif
@@ -138,7 +142,7 @@ endfunction
 
 " Function: s:svnFunctions.Delete() {{{2
 function! s:svnFunctions.Delete(argList)
-	return s:DoCommand(join(['delete'] + a:argList, ' '), 'delete', join(a:argList, ' '), {})
+	return s:DoCommand(join(['delete --non-interactive'] + a:argList, ' '), 'delete', join(a:argList, ' '), {})
 endfunction
 
 " Function: s:svnFunctions.Diff(argList) {{{2
@@ -169,7 +173,7 @@ function! s:svnFunctions.Diff(argList)
 		let diffOptions = ['-x -' . svnDiffOpt]
 	endif
 
-	let resultBuffer = s:DoCommand(join(['diff'] + diffExt + diffOptions + revOptions), 'diff', caption, {})
+	let resultBuffer = s:DoCommand(join(['diff --non-interactive'] + diffExt + diffOptions + revOptions), 'diff', caption, {})
 	if resultBuffer > 0
 		set filetype=diff
 	else
@@ -189,7 +193,7 @@ endfunction
 function! s:svnFunctions.GetBufferInfo()
 	let originalBuffer = VCSCommandGetOriginalBuffer(bufnr('%'))
 	let fileName = bufname(originalBuffer)
-	let statusText = system(VCSCommandGetOption('VCSCommandSVNExec', 'svn') . ' status -vu "' . fileName . '"')
+	let statusText = system(VCSCommandGetOption('VCSCommandSVNExec', 'svn') . ' status --non-interactive -vu "' . fileName . '"')
 	if(v:shell_error)
 		return []
 	endif
@@ -212,12 +216,12 @@ endfunction
 
 " Function: s:svnFunctions.Info(argList) {{{2
 function! s:svnFunctions.Info(argList)
-	return s:DoCommand(join(['info'] + a:argList, ' '), 'info', join(a:argList, ' '), {})
+	return s:DoCommand(join(['info --non-interactive'] + a:argList, ' '), 'info', join(a:argList, ' '), {})
 endfunction
 
 " Function: s:svnFunctions.Lock(argList) {{{2
 function! s:svnFunctions.Lock(argList)
-	return s:DoCommand(join(['lock'] + a:argList, ' '), 'lock', join(a:argList, ' '), {})
+	return s:DoCommand(join(['lock --non-interactive'] + a:argList, ' '), 'lock', join(a:argList, ' '), {})
 endfunction
 
 " Function: s:svnFunctions.Log(argList) {{{2
@@ -234,7 +238,7 @@ function! s:svnFunctions.Log(argList)
 		let caption = join(a:argList, ' ')
 	endif
 
-	let resultBuffer = s:DoCommand(join(['log', '-v'] + options), 'log', caption, {})
+	let resultBuffer = s:DoCommand(join(['log --non-interactive', '-v'] + options), 'log', caption, {})
 	return resultBuffer
 endfunction
 
@@ -253,7 +257,7 @@ function! s:svnFunctions.Review(argList)
 		let versionOption = ' -r ' . versiontag . ' '
 	endif
 
-	let resultBuffer = s:DoCommand('cat' . versionOption, 'review', versiontag, {})
+	let resultBuffer = s:DoCommand('cat --non-interactive' . versionOption, 'review', versiontag, {})
 	if resultBuffer > 0
 		let &filetype = getbufvar(b:VCSCommandOriginalBuffer, '&filetype')
 	endif
@@ -266,16 +270,16 @@ function! s:svnFunctions.Status(argList)
 	if len(a:argList) == 0
 		let options = a:argList
 	endif
-	return s:DoCommand(join(['status'] + options, ' '), 'status', join(options, ' '), {})
+	return s:DoCommand(join(['status --non-interactive'] + options, ' '), 'status', join(options, ' '), {})
 endfunction
 
 " Function: s:svnFunctions.Unlock(argList) {{{2
 function! s:svnFunctions.Unlock(argList)
-	return s:DoCommand(join(['unlock'] + a:argList, ' '), 'unlock', join(a:argList, ' '), {})
+	return s:DoCommand(join(['unlock --non-interactive'] + a:argList, ' '), 'unlock', join(a:argList, ' '), {})
 endfunction
 " Function: s:svnFunctions.Update(argList) {{{2
 function! s:svnFunctions.Update(argList)
-	return s:DoCommand('update', 'update', '', {})
+	return s:DoCommand('update --non-interactive', 'update', '', {})
 endfunction
 
 " Section: Plugin Registration {{{1
