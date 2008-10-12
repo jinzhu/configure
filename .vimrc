@@ -1,3 +1,7 @@
+nnoremap <C-p><C-t> :FuzzyFinderTag <C-R>=expand("<cword>")<CR><CR>
+nnoremap <C-p><C-f> :FuzzyFinderFile <C-R>=expand('%:~:.')[:-1-len(expand('%:~:.:t'))]<CR><CR>
+nnoremap <C-p><C-b> :FuzzyFinderBuffer <C-R>=expand("<cword>")<CR><CR>
+nnoremap <C-p>t :FuzzyFinderTextMate<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "LaTex
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
