@@ -77,4 +77,21 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 CDPATH=".:~:~/GIT:~/WEB/:~/GIT/:/pillar:/pillar/HOME/:~/Documents/"
+
 PS1='\w$(__git_ps1 "\033[31m[%s]\033[0m")\$ '
+
+alias bashrc='vi ~/.bashrc && source ~/.bashrc'
+
+alias gb='git branch -a -v'
+alias gs='git status'
+alias gd='git diff'
+
+# gc      => git checkout master
+# gc bugs => git checkout bugs
+function gc {
+  if [ -z "$1" ]; then
+    git checkout master
+  else
+    git checkout $1
+  fi
+}
