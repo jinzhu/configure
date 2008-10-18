@@ -1,0 +1,50 @@
+#root:
+# add_if_not_exist: true
+main:
+#  clone-from: git://github.com/wosmvp/cheat.git
+#  push-to:
+private:
+  clone-from: git@github.com:wosmvp/mycheat.git
+  push-to: git@github.com:wosmvp/mycheat.git
+
+
+#pdf_command: evince
+#pic_command: evince
+#editor: vim
+
+#Set Color
+#1   -   Change text to hicolor (bold) mode
+#4   -      "    "   "  Underline
+#5   -      "    "   "  Blink
+#8   -      "    "   "  Hidden (same color as bg)
+#30  -      "    "   "  Black
+#31  -      "    "   "  Red
+#32  -      "    "   "  Green
+#33  -      "    "   "  Yellow
+#34  -      "    "   "  Blue
+#35  -      "    "   "  Magenta
+#36  -      "    "   "  Cyan
+#37  -      "    "   "  White
+#40  -   Change background to Black
+#41  -      "       "      "  Red
+#42  -      "       "      "  Green
+#43  -      "       "      "  Yellow
+#44  -      "       "      "  Blue
+#45  -      "       "      "  Magenta
+#46  -      "       "      "  Cyan
+#47  -      "       "      "  White
+#0   -   Turn off all attributes.
+#7   -   Change to Black text on a White background
+
+level1: 31
+level2: 32
+level3: 33
+level4: 34
+level5: 0;31;40
+level6: 0;31;40
+level7: 0;31;40
+
+empha: 32;41
+possible_result_title: 31;43
+possible_result_content: 31
+filename: 31
