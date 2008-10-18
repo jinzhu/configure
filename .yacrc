@@ -8,7 +8,7 @@ private:
   push-to: git@github.com:wosmvp/mycheat.git
 
 
-#pdf_command: evince
+pdf_command: apvlv
 #pic_command: evince
 #editor: vim
 
