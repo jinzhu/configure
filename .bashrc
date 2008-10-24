@@ -77,6 +77,7 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 CDPATH=".:~:~/GIT:~/WEB/:~/GIT/:/pillar:/pillar/HOME/:~/Documents/"
+PATH="~/.gem/ruby/1.8/bin:$PATH"
 
 # PS1='\w$(__git_ps1 "\033[31m[%s]\033[0m")\$ '
 
