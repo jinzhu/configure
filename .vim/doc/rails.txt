@@ -63,9 +63,9 @@ Rails application development.
    and several other commands are provided.  |rails-navigation|
 
 5. Enhanced syntax highlighting.  From has_and_belongs_to_many to
-   distance_of_time_in_words, it's here.  For Vim 7 users, 'completefunc' is
-   set to enable syntax based completion on |i_CTRL-X_CTRL-U|, making it easy
-   to complete such long method names. |rails-syntax|
+   distance_of_time_in_words, it's here.  For easy completion of these long
+   method names, 'completefunc' is set to enable syntax based completion on
+   |i_CTRL-X_CTRL-U|. |rails-syntax|
 
 6. Interface to script/*.  Generally, use ":Rscript about" to call
    "script/about".  Most commands have wrappers with additional features:
@@ -92,13 +92,9 @@ directly to |rails-install-plugin| below.
 
 Installing and Configuring Vim ~
 						*rails-install-vim*
-Because it is common for users to utilize an older version of Vim that came
-installed on a system, rails.vim has a design goal of remaining compatible
-with versions of Vim 6.2 and newer.  However, if you have a choice in the
-matter, you are strongly encouraged to install the latest version available.
-Older versions of Vim should work, but increasingly, new plugin features will
-require Vim 7 or newer.  If possible, install a version of Vim with the |Ruby|
-interface compiled in, as a few features will make use of it when available.
+Vim 7 or newer is required.  If possible, install a version of Vim with the
+|Ruby| interface compiled in, as a few features will make use of it when
+available.
 
 If you are new to Vim, you need to create a vimrc.  For Windows, this file
 goes in ~\_vimrc (try :e ~\_vimrc if you don't know where this is).  On other
@@ -143,11 +139,9 @@ actually edit a file from a Rails application.
 			rake).  However, in some contexts, if {targets} are
 			omitted, :Rake defaults to something sensible (like
 			db:migrate in a migration, or your current test).
-			The optional range defaults to the current line and
-			affects the execution in some situations (like only
-			running the test method containing that line in a
-			test).  One can use :0Rake to override any line
-			specific behaviors (e.g., run the full test file).
+			In tests (and specs), giving a line argument runs only
+			the test method (or example) at that line.  Use :.Rake
+			to run the test method at the cursor position.
 
 						*rails-:Rake!*
 :[range]Rake! {targets}	Called with a bang, :Rake will use an alternate
@@ -335,10 +329,10 @@ For the less common cases, a more deliberate set of commands are provided.
 Each of the following takes an optional argument (with tab completion) but
 defaults to a reasonable guess that follows Rails conventions.  For example,
 when editing app/models/employee.rb, :Rcontroller will default to
-app/controllers/employees_controller.rb.  The controller and model options,
-ideally set from  |rails-modelines|,  can override the mapping from model
-related files to controller related files (Rset controller=hiring) and vice
-versa (Rset model=employee).  See |rails-:Rset|.
+app/controllers/employees_controller.rb.  The controller and model options
+can override the mapping from model related files to controller related files
+(Rset controller=hiring) and vice versa (Rset model=employee).  See
+|rails-:Rset|.
 
 Each of the following commands has variants for splitting, vertical splitting
 and opening in a new tab.  For :Rmodel, those variants would be :RSmodel,
@@ -351,8 +345,7 @@ Model Navigation Commands ~
 The default for model navigation commands is the current model, if it can be
 determined.  For example, test/unit/post_test.rb would have a current model
 of post.  Otherwise, if a controller name can be determined, said controller
-name will be singularized and used.  To override this, use a command or
-modeline like: >
+name will be singularized and used.  To override this, use a command like: >
 	Rset model=comment
 
 :Rmodel						|rails-:Rmodel|
@@ -400,7 +393,7 @@ The default for controller navigation commands is the current controller, if
 it can be determined.  For example, test/functional/blog_test.rb would have a
 current controller of blog.  Otherwise, if a model name can be determined,
 said model name will be pluralized and used.  To override this, use a command
-or modeline like: >
+like: >
 	Rset controller=blog
 
 :Rcontroller					|rails-:Rcontroller|
@@ -485,8 +478,7 @@ The following commands are not clearly associated with models or controllers.
 			argument, defaults to editing test/test_helper.rb.
 
 						*rails-:Rspec*
-:Rspec [{name}]
-			Edit the given spec.  With no argument, defaults to
+:Rspec [{name}]		Edit the given spec.  With no argument, defaults to
 			editing spec/spec_helper.rb (If you want to jump to
 			the spec for the given file, use |:A| instead).  This
 			command is only defined if there is a spec folder in
@@ -839,7 +831,7 @@ they all link by default to railsMethod.
 If you feel a method has been wrongfully omitted, submit it to the
 |rails-plugin-author|.
 
-					*rails-@params* *rails-syntax-deprecated*
+				*rails-@params* *rails-syntax-deprecated*
 Certain deprecated syntax (like @params and render_text) is highlighted as an
 error.  If you trigger this highlighting, generally it means you need to
 update your code.
@@ -867,11 +859,11 @@ syntax group is used.  The list of assertions can be refreshed with
 						*rails-syntax-strings*
 In the following line of code, the "?" in the conditions clause and the "ASC"
 in the order clause will be highlighted: >
-  Post.find(:all, :conditions => ["body like ?","%e%"] :order => "title ASC")
+  Post.find(:all, :conditions => ["body like ?","%e%"], :order => "title ASC")
 <
-A string literal using %Q<> delimiters will have its contents highlighted as
-HTML.  This is sometimes useful when writing helpers. >
-  link = %Q<<a href="http://www.vim.org">Vim</a>>
+A string literal using %Q<> or %<> delimiters will have its contents
+highlighted as HTML.  This is sometimes useful when writing helpers. >
+  link = %<<a href="http://www.vim.org">Vim</a>>
 <
 						*rails-syntax-yaml*
 YAML syntax highlighting has been extended to highlight eRuby, which can be
@@ -954,8 +946,7 @@ Rails file is loaded.
 						*config/rails.vim*
 If you have settings particular to a specific project, they can be put in a
 config/rails.vim file in the root directory of the application.  The file is
-sourced in the |sandbox| for security reasons.  This only works in Vim 7 or
-newer.
+sourced in the |sandbox| for security reasons.
 
 						*rails-:Rset*
 :Rset {option}[={value}]
@@ -1016,8 +1007,9 @@ can be enabled by setting them to 1 in your vimrc, and disabled by setting
 them to 0. >
 	let g:rails_some_option=1
 	let g:rails_some_option=0
-Most of these should never need to be used.  The two that might be interesting
-are |g:rails_expensive| and |g:rails_default_database|.
+Most of these seldom need to be used.  So seldom, in fact, that you should
+notify the |rails-plugin-author| if you find any of them useful, as nearly all
+are being considered for removal.
 
 						*g:loaded_rails*  >
 	let g:loaded_rails=1
@@ -1035,8 +1027,7 @@ like table name completion and commands like >
 	:Create database brablog_development
 	:Select * from posts where title like '%Denmark%'
 Note that dbext is a complicated plugin, and may require additional
-configuration.  See |dbext| (if installed) and |sql-completion-dynamic| (in
-Vim 7).
+configuration.  See |dbext| (if installed) and |sql-completion-dynamic|.
 
 						*g:rails_default_file*  >
 	let g:rails_default_file='config/database.yml'
@@ -1123,7 +1114,7 @@ The official homepage is
     http://rails.vim.tpope.net
 The latest stable version can be found at
     http://www.vim.org/scripts/script.php?script_id=1567
-In Vim 7, you can keep up to date with |GetLatestVimScripts|.
+You can keep up to date with |GetLatestVimScripts|.
 
 The very latest development versions can be retrieved from Git:
     http://github.com/tpope/vim-rails

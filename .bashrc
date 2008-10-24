@@ -85,6 +85,7 @@ alias bashrc='vi ~/.bashrc && source ~/.bashrc'
 alias gb='git branch -a -v'
 alias gs='git status'
 alias gd='git diff'
+alias nautilus='thunar'
 
 # gc      => git checkout master
 # gc bugs => git checkout bugs

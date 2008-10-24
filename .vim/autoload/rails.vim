@@ -197,7 +197,7 @@ function! s:lastopeningline(pattern,limit,...)
     let line -= 1
   endwhile
   let lend = s:endof(line)
-  if line > a:limit && lend >= (a:0 ? a:1 : line("."))
+  if line > a:limit && (lend < 0 || lend >= (a:0 ? a:1 : line(".")))
     return line
   else
     return -1
@@ -363,7 +363,7 @@ function! s:error(str)
 endfunction
 
 function! s:debug(str)
-  if g:rails_debug
+  if exists("g:rails_debug") && g:rails_debug
     echohl Debug
     echomsg a:str
     echohl None
@@ -805,6 +805,7 @@ function! rails#new_app_command(bang,...)
     let c += 1
   endwhile
   let dir = expand(dir)
+  let append = ""
   if g:rails_default_database != "" && str !~ '-d \|--database='
     let append .= " -d ".g:rails_default_database
   endif
@@ -895,8 +896,6 @@ endfunction
 
 call s:add_methods('app', ['rake_tasks'])
 
-" Depends: s:sub, s:lastmethodline, s:getopt, s;rquote, s:QuickFixCmdPre, ...
-
 " Current directory
 let s:efm='%D(in\ %f),'
 " Failure and Error headers, start a multiline message
@@ -970,7 +969,7 @@ endfunction
 
 function! s:Rake(bang,lnum,arg)
   let self = rails#app()
-  let lnum = a:lnum < 0 ? line('.') : a:lnum
+  let lnum = a:lnum < 0 ? 0 : a:lnum
   let oldefm = &efm
   if a:bang
     let &l:errorformat = s:efm_backtrace
@@ -1031,14 +1030,8 @@ function! s:Rake(bang,lnum,arg)
     exe "!".&makeprg." routes"
     call s:QuickFixCmdPost()
   elseif t =~ '^fixtures-yaml\>' && lnum
-    let cnum = lnum
-    let label = ""
-    while cnum > 0 && label == ""
-      let label = matchstr(getline(cnum),'^\w\+\ze:')
-      let cnum -= 1
-    endwhile
     call s:QuickFixCmdPre()
-    exe "!".&makeprg." db:fixtures:identify LABEL=".label
+    exe "!".&makeprg." db:fixtures:identify LABEL=".s:lastmethod(lnum)
     call s:QuickFixCmdPost()
   elseif t =~ '^fixtures\>' && lnum == 0
     exe "make db:fixtures:load FIXTURES=".s:sub(fnamemodify(RailsFilePath(),':r'),'^.{-}/fixtures/','')
@@ -1054,7 +1047,7 @@ function! s:Rake(bang,lnum,arg)
   elseif t =~ '^spec\>'
     if RailsFilePath() =~# '\<spec/spec_helper\.rb$'
       make spec SPEC_OPTS=
-    elseif a:lnum > 0 || (a:lnum == -1 && search('\C^\s*\(describe\|context\)\>','bWnc') > search('\C^end\>','bWn'))
+    elseif lnum > 0
       exe 'make spec SPEC="%:p" SPEC_OPTS=--line='.lnum
     else
       make spec SPEC="%:p" SPEC_OPTS=
@@ -1106,9 +1099,6 @@ endfunction
 
 " }}}1
 " Preview {{{1
-
-" Depends: s:getopt, s:sub, s:controller, s:lastmethod
-" Provides: s:initOpenURL
 
 function! s:initOpenURL()
   if !exists(":OpenURL")
@@ -1218,8 +1208,6 @@ endfunction
 " }}}1
 " Script Wrappers {{{1
 
-" Depends: s:rquote, s:sub, s:getopt, ..., s:pluginList, ...
-
 function! s:BufScriptWrappers()
   command! -buffer -bar -nargs=*       -complete=customlist,s:Complete_script   Rscript       :call rails#app().script_command(<bang>0,<f-args>)
   command! -buffer -bar -nargs=*       -complete=customlist,s:Complete_console  Rconsole      :call s:warn("Warning: :Rconsole has been deprecated in favor of :Rscript")|call rails#app().script_command(<bang>0,'console',<f-args>)
@@ -1312,7 +1300,12 @@ function! s:app_server_command(bang,arg) dict
       return
     endif
   endif
-  if has("win32") || has("win64") || (exists("$STY") && !has("gui_running") && s:getopt("gnu_screen","abg") && executable("screen"))
+  if has_key(self,'options') && has_key(self.options,'gnu_screen')
+    let screen = self.options.gnu_screen
+  else
+    let screen = g:rails_gnu_screen
+  endif
+  if has("win32") || has("win64") || (exists("$STY") && !has("gui_running") && screen && executable("screen"))
     call self.background_ruby_command(s:rquote("script/server")." ".a:arg)
   else
     "--daemon would be more descriptive but lighttpd does not support it
@@ -1564,14 +1557,14 @@ function! s:Complete_find(ArgLead, CmdLine, CursorPos)
 endfunction
 
 function! s:Complete_edit(ArgLead, CmdLine, CursorPos)
-  return rails#app().relglob("",s:fuzzyglob(a:ArgLead))
+  return s:completion_filter(rails#app().relglob("",s:fuzzyglob(a:ArgLead)),a:ArgLead)
 endfunction
 
 function! s:Complete_related(ArgLead, CmdLine, CursorPos)
   if a:ArgLead =~# '^\u'
     return s:Complete_find(a:ArgLead, a:CmdLine, a:CursorPos)
   else
-    return s:Complete_edit(a:ArgLead, a:CmdLine, a:CursorPos)
+    return filter(s:Complete_edit(a:ArgLead, a:CmdLine, a:CursorPos),'v:val !~# "^\\u"')
   endif
 endfunction
 
@@ -1885,10 +1878,10 @@ function! s:completion_filter(results,A)
   call filter(results,'v:val !~# "\\~$"')
   let filtered = filter(copy(results),'s:startswith(v:val,a:A)')
   if !empty(filtered) | return filtered | endif
-  let regex = s:sub(a:A,'.','&.*')
-  let filtered = filter(copy(results),'v:val =~ "^".regex')
+  let regex = s:gsub(a:A,'.','[&].*')
+  let filtered = filter(copy(results),'v:val =~# "^".regex')
   if !empty(filtered) | return filtered | endif
-  let filtered = filter(copy(results),'v:val =~ regex')
+  let filtered = filter(copy(results),'v:val =~# regex')
   return filtered
 endfunction
 
@@ -2044,7 +2037,6 @@ function! s:libList(A,L,P)
   let all = rails#app().relglob('lib/',"**/*",".rb")
   if RailsFilePath() =~ '\<vendor/plugins/.'
     let path = s:sub(RailsFilePath(),'<vendor/plugins/[^/]*/\zs.*','lib/')
-    let g:path = path
     let all = rails#app().relglob(path,"**/*",".rb") + all
   endif
   return s:autocamelize(all,a:A)
@@ -2766,8 +2758,6 @@ endfunction
 " }}}1
 " Partial Extraction {{{1
 
-" Depends: s:error, s:sub, s:viewspattern, s:warn
-
 function! s:Extract(bang,...) range abort
   if a:0 == 0 || a:0 > 1
     return s:error("Incorrect number of arguments")
@@ -2908,8 +2898,6 @@ endfunction
 " }}}1
 " Migration Inversion {{{1
 
-" Depends: s:sub, s:endof, s:gsub, s:error
-
 function! s:mkeep(str)
   " Things to keep (like comments) from a migration statement
   return matchstr(a:str,' #[^{].*')
@@ -3015,6 +3003,9 @@ function! s:Invert(bang)
   if !beg || !end
     return s:error(err)
   endif
+  if foldclosed(beg) > 0
+    exe beg."foldopen!"
+  endif
   if beg + 1 < end
     exe (beg+1).",".(end-1)."delete _"
   endif
@@ -3072,8 +3063,6 @@ let s:app_prototype.cache = s:cache_prototype
 
 " }}}1
 " Syntax {{{1
-
-" Depends: s:gsub, cache functions
 
 function! s:resetomnicomplete()
   if exists("+completefunc") && &completefunc == 'syntaxcomplete#Complete'
@@ -3404,9 +3393,6 @@ endfunction
 " }}}1
 " Statusline {{{1
 
-" Depends: nothing!
-" Provides: s:BufInitStatusline
-
 function! s:addtostatus(letter,status)
   let status = a:status
   if status !~ 'Rails' && g:rails_statusline
@@ -3492,9 +3478,6 @@ endfunction
 " }}}1
 " Mappings {{{1
 
-" Depends: nothing!
-" Exports: s:BufMappings
-
 function! s:BufMappings()
   nnoremap <buffer> <silent> <Plug>RailsAlternate  :<C-U>A<CR>
   nnoremap <buffer> <silent> <Plug>RailsRelated    :<C-U>R<CR>
@@ -3530,8 +3513,6 @@ endfunction
 
 " }}}1
 " Project {{{
-
-" Depends: s:gsub, s:escarg, s:warn, s:sub, s:relglob
 
 function! s:Project(bang,arg)
   let rr = rails#app().path()
@@ -3657,8 +3638,6 @@ endfunction
 " }}}1
 " Database {{{1
 
-" Depends: s:environment, s:rv, reloadability
-
 function! s:extractdbvar(str,arg)
   return matchstr("\n".a:str."\n",'\n'.a:arg.'=\zs.\{-\}\ze\n')
 endfunction
@@ -3764,8 +3743,6 @@ call s:add_methods('app', ['dbext_settings'])
 
 " }}}1
 " Abbreviations {{{1
-
-" Depends: s:sub, s:gsub, s:string, s:linepeak, s:error
 
 function! s:selectiveexpand(pat,good,default,...)
   if a:0 > 0
