@@ -19,17 +19,17 @@ shopt -s checkwinsize
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+  debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-xterm-color)
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    ;;
-*)
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-    ;;
+  xterm-color)
+  PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+  ;;
+  *)
+  PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+  ;;
 esac
 
 # Comment in the above and uncomment this below for a color prompt
@@ -37,11 +37,11 @@ esac
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
-    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
-    ;;
-*)
-    ;;
+  xterm*|rxvt*)
+  PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
+  ;;
+  *)
+  ;;
 esac
 
 # Alias definitions.
@@ -55,10 +55,10 @@ esac
 
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ]; then
-    eval "`dircolors -b`"
-    alias ls='ls --color=auto'
-    #alias dir='ls --color=auto --format=vertical'
-    #alias vdir='ls --color=auto --format=long'
+  eval "`dircolors -b`"
+  alias ls='ls --color=auto'
+  #alias dir='ls --color=auto --format=vertical'
+  #alias vdir='ls --color=auto --format=long'
 fi
 
 # some more ls aliases
@@ -73,12 +73,12 @@ alias sd='./script/dbconsole'
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
+  . /etc/bash_completion
 fi
 
 CDPATH=".:~:~/GIT:~/WEB/:~/GIT/:/pillar:/pillar/HOME/:~/Documents/"
 
-PS1='\w$(__git_ps1 "\033[31m[%s]\033[0m")\$ '
+# PS1='\w$(__git_ps1 "\033[31m[%s]\033[0m")\$ '
 
 alias bashrc='vi ~/.bashrc && source ~/.bashrc'
 
@@ -89,9 +89,9 @@ alias gd='git diff'
 # gc      => git checkout master
 # gc bugs => git checkout bugs
 function gc {
-  if [ -z "$1" ]; then
-    git checkout master
-  else
-    git checkout $1
-  fi
+if [ -z "$1" ]; then
+  git checkout master
+else
+  git checkout $1
+fi
 }
