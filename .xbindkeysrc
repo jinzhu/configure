@@ -1,0 +1,25 @@
+# vi ft=shell
+
+"firefox-bin"
+    Control + Alt + f
+"stardict"
+    Control + Alt + s
+"gvim"
+    Control + Alt + v
+"terminal"
+    Control + Alt + t
+"xscreensaver-command -lock"
+    Control + Alt + l
+"xchat"
+    Control + Alt + c
+"totem"
+    Control + Alt + m
+# Sound
+"amixer sset Master 2+ unmute"
+    m:0x4 + c:176
+"amixer sset Master 2- unmute"
+    m:0x4 + c:174
+"amixer sset Master mute"
+    m:0x0 + c:160
+"amixer sset Master unmute"
+    m:0x4 + c:160
