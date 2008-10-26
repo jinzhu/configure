@@ -13,7 +13,7 @@
 if &cp || exists("g:autoloaded_rails")
   finish
 endif
-let g:autoloaded_rails = '3.0'
+let g:autoloaded_rails = '3.1'
 
 let s:cpo_save = &cpo
 set cpo&vim
@@ -832,7 +832,7 @@ function! s:app_tags_command() dict
   else
     return s:error("ctags not found")
   endif
-  exe "!".cmd." -f ".s:escarg(self.path("tmp/tags"))." -R ".s:escarg(self.path())
+  exe "!".cmd." -f ".s:escarg(self.path("tmp/tags"))." --exclude=facebox.js --exclude=jquery.template.js -R ".s:escarg(self.path())
 endfunction
 
 call s:add_methods('app',['tags_command'])
@@ -1462,12 +1462,12 @@ function! s:BufNavCommands()
   command!   -buffer -bar -nargs=* -bang    -complete=customlist,s:Complete_edit RSedit      :call s:Edit(<bang>0,<count>,'S',<f-args>)
   command!   -buffer -bar -nargs=* -bang    -complete=customlist,s:Complete_edit RVedit      :call s:Edit(<bang>0,<count>,'V',<f-args>)
   command!   -buffer -bar -nargs=* -bang    -complete=customlist,s:Complete_edit RTedit      :call s:Edit(<bang>0,<count>,'T',<f-args>)
-  command! -buffer -bar -nargs=0 A  :call s:Alternate(<bang>0,"")
-  command! -buffer -bar -nargs=0 AE :call s:Alternate(<bang>0,"E")
-  command! -buffer -bar -nargs=0 AS :call s:Alternate(<bang>0,"S")
-  command! -buffer -bar -nargs=0 AV :call s:Alternate(<bang>0,"V")
-  command! -buffer -bar -nargs=0 AT :call s:Alternate(<bang>0,"T")
-  command! -buffer -bar -nargs=0 AN :call s:Related(<bang>0,"")
+  command! -buffer -bar -nargs=* -complete=customlist,s:Complete_find    A  :call s:Alternate(<bang>0,"", <f-args>)
+  command! -buffer -bar -nargs=* -complete=customlist,s:Complete_find    AE :call s:Alternate(<bang>0,"E",<f-args>)
+  command! -buffer -bar -nargs=* -complete=customlist,s:Complete_find    AS :call s:Alternate(<bang>0,"S",<f-args>)
+  command! -buffer -bar -nargs=* -complete=customlist,s:Complete_find    AV :call s:Alternate(<bang>0,"V",<f-args>)
+  command! -buffer -bar -nargs=* -complete=customlist,s:Complete_find    AT :call s:Alternate(<bang>0,"T",<f-args>)
+  command! -buffer -bar -nargs=* -complete=customlist,s:Complete_related AN :call s:Related(<bang>0,"" ,<f-args>)
   command! -buffer -bar -nargs=* -complete=customlist,s:Complete_related R  :call s:Related(<bang>0,"" ,<f-args>)
   command! -buffer -bar -nargs=* -complete=customlist,s:Complete_related RE :call s:Related(<bang>0,"E",<f-args>)
   command! -buffer -bar -nargs=* -complete=customlist,s:Complete_related RS :call s:Related(<bang>0,"S",<f-args>)
@@ -2140,9 +2140,18 @@ function! s:EditSimpleRb(bang,cmd,name,target,prefix,suffix)
 endfunction
 
 function! s:migrationfor(file)
+  let self = rails#app()
   let tryagain = 0
   let arg = a:file
-  if arg =~ '^\d$'
+  if arg =~ '^0\+$'
+    if self.has_file('db/schema.rb')
+      return 'db/schema.rb'
+    elseif self.has_file('db/'.s:environment().'_structure.sql')
+      return 'db/'.s:environment().'_structure.sql'
+    else
+      return 'db/schema.rb'
+    endif
+  elseif arg =~ '^\d$'
     let glob = '00'.arg.'_*.rb'
   elseif arg =~ '^\d\d$'
     let glob = '0'.arg.'_*.rb'
@@ -2514,15 +2523,16 @@ function! s:findedit(cmd,files,...) abort
   endif
   if file == ''
     let testcmd = "edit"
+  elseif isdirectory(rails#app().path(file))
+    let arg = file == "." ? rails#app().path() : rails#app().path(file)
+    let testcmd = s:editcmdfor(cmd).' '.(a:0 ? a:1 . ' ' : '').s:escarg(arg)
+    exe testcmd
+    return
   elseif rails#app().path() =~ '://' || cmd =~ 'edit' || cmd =~ 'split'
     if file !~ '^/' && file !~ '^\w:' && file !~ '://'
       let file = s:escarg(rails#app().path(file))
     endif
     let testcmd = s:editcmdfor(cmd).' '.(a:0 ? a:1 . ' ' : '').file
-  elseif isdirectory(rails#app().path(file))
-    let testcmd = s:editcmdfor(cmd).' '.(a:0 ? a:1 . ' ' : '').s:escarg(rails#app().path(file))
-    exe testcmd
-    return
   else
     let testcmd = cmd.' '.(a:0 ? a:1 . ' ' : '').file
   endif
@@ -2542,13 +2552,17 @@ function! s:edit(cmd,file,...)
   endif
 endfunction
 
-function! s:Alternate(bang,cmd)
-  let cmd = a:cmd.(a:bang?"!":"")
-  let file = s:AlternateFile()
-  if file != ""
-    call s:findedit(cmd,file)
+function! s:Alternate(bang,cmd,...)
+  if a:0
+    return call('s:Find',[a:bang,1,a:cmd]+a:000)
   else
-    call s:warn("No alternate file is defined")
+    let cmd = a:cmd.(a:bang?"!":"")
+    let file = s:AlternateFile()
+    if file != ""
+      call s:findedit(cmd,file)
+    else
+      call s:warn("No alternate file is defined")
+    endif
   endif
 endfunction
 
@@ -3077,22 +3091,22 @@ endfunction
 function! s:helpermethods()
   return ""
         \."atom_feed auto_discovery_link_tag auto_link "
-        \."benchmark button_to button_to_function "
-        \."cache capture cdata_section check_box check_box_tag collection_select concat content_for content_tag content_tag_for country_options_for_select country_select cycle "
+        \."benchmark button_to button_to_function button_to_remote "
+        \."cache capture cdata_section check_box check_box_tag collection_select concat content_for content_tag content_tag_for current_cycle cycle "
         \."date_select datetime_select debug define_javascript_functions distance_of_time_in_words distance_of_time_in_words_to_now div_for dom_class dom_id draggable_element draggable_element_js drop_receiving_element drop_receiving_element_js "
         \."error_message_on error_messages_for escape_javascript escape_once evaluate_remote_response excerpt "
         \."field_set_tag fields_for file_field file_field_tag form form_for form_remote_for form_remote_tag form_tag "
         \."hidden_field hidden_field_tag highlight "
         \."image_path image_submit_tag image_tag input "
         \."javascript_cdata_section javascript_include_tag javascript_path javascript_tag "
-        \."label label_tag link_to link_to_function link_to_if link_to_remote link_to_unless link_to_unless_current "
+        \."l label label_tag link_to link_to_function link_to_if link_to_remote link_to_unless link_to_unless_current localize "
         \."mail_to markdown "
         \."number_to_currency number_to_human_size number_to_percentage number_to_phone number_with_delimiter number_with_precision "
         \."observe_field observe_form option_groups_from_collection_for_select options_for_select options_from_collection_for_select "
         \."partial_path password_field password_field_tag path_to_image path_to_javascript path_to_stylesheet periodically_call_remote pluralize "
         \."radio_button radio_button_tag remote_form_for remote_function reset_cycle "
         \."sanitize sanitize_css select select_date select_datetime select_day select_hour select_minute select_month select_second select_tag select_time select_year simple_format sortable_element sortable_element_js strip_links strip_tags stylesheet_link_tag stylesheet_path submit_tag submit_to_remote "
-        \."tag text_area text_area_tag text_field text_field_tag textilize textilize_without_paragraph time_ago_in_words time_select time_zone_options_for_select time_zone_select truncate "
+        \."t tag text_area text_area_tag text_field text_field_tag textilize textilize_without_paragraph time_ago_in_words time_select time_zone_options_for_select time_zone_select translate truncate "
         \."update_page update_page_tag url_for "
         \."visual_effect "
         \."word_wrap"

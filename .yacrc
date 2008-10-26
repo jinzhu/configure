@@ -36,15 +36,17 @@ pdf_command: apvlv
 #0   -   Turn off all attributes.
 #7   -   Change to Black text on a White background
 
-level1: 31
-level2: 32
-level3: 33
-level4: 34
-level5: 0;31;40
-level6: 0;31;40
-level7: 0;31;40
+head1: 31
+head2: 32
+head3: 33
+head4: 34
+head5: 0;31;40
+head6: 0;31;40
+head7: 0;31;40
 
 empha: 32;41
 possible_result_title: 31;43
 possible_result_content: 31
 filename: 31
+line_number: 32
+text:

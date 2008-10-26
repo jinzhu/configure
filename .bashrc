@@ -77,7 +77,7 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 CDPATH=".:~:~/GIT:~/WEB/:~/GIT/:/pillar:/pillar/HOME/:~/Documents/"
-PATH="~/.gem/ruby/1.8/bin:$PATH"
+PATH="./bin/:~/.gem/ruby/1.8/bin/:$PATH"
 
 # PS1='\w$(__git_ps1 "\033[31m[%s]\033[0m")\$ '
 
@@ -86,7 +86,6 @@ alias bashrc='vi ~/.bashrc && source ~/.bashrc'
 alias gb='git branch -a -v'
 alias gs='git status'
 alias gd='git diff'
-alias nautilus='thunar'
 
 # gc      => git checkout master
 # gc bugs => git checkout bugs
