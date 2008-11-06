@@ -1,18 +1,18 @@
 # vi ft=shell
 
-"firefox-bin"
+"firefox"
     Control + Alt + f
 "stardict"
     Control + Alt + s
 "gvim"
     Control + Alt + v
-"terminal"
+"gnome-terminal"
     Control + Alt + t
 "xscreensaver-command -lock"
     Control + Alt + l
 "xchat"
     Control + Alt + c
-"totem"
+"smplayer"
     Control + Alt + m
 # Sound
 "amixer sset Master 2+ unmute"
