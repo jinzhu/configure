@@ -77,7 +77,7 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 CDPATH=".:~:~/GIT:~/WEB/:~/GIT/:/pillar:/pillar/HOME/:~/Documents/"
-PATH="./bin/:~/.gem/ruby/1.8/bin/:$PATH"
+PATH="./bin/:$HOME/bin:$HOME/.gem/ruby/1.8/bin/:$PATH"
 
 # PS1='\w$(__git_ps1 "\033[31m[%s]\033[0m")\$ '
 
@@ -96,3 +96,5 @@ else
   git checkout $1
 fi
 }
+
+alias nautilus='nautilus --no-desktop --browser'
