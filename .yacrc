@@ -9,8 +9,10 @@ private:
 
 
 pdf_command: apvlv
-#pic_command: evince
+#image_command: evince
 #editor: vim
+#pdf_edit_command: ooffice
+#image_edit_command: gimp
 
 #Set Color
 #1   -   Change text to hicolor (bold) mode
@@ -36,17 +38,17 @@ pdf_command: apvlv
 #0   -   Turn off all attributes.
 #7   -   Change to Black text on a White background
 
-head1: 31
-head2: 32
-head3: 33
-head4: 34
-head5: 0;31;40
-head6: 0;31;40
-head7: 0;31;40
+head1: 1;31
+head2: 1;36
+head3: 1;33
+head4: 1;32
+head5: 1;34
+head6: 1;35
+head7: 1;37
 
-empha: 32;41
-possible_result_title: 31;43
-possible_result_content: 31
-filename: 31
+warn: 31
+notice: 33
+empha: 31;43
+filename: 34
 line_number: 32
 text:
