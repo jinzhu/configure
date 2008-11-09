@@ -8,8 +8,8 @@
 # option) any later version.
 require 'autotest/redgreen'
 require 'autotest/timestamp'
-require 'rnotify'
-require 'gtk2'
+#require 'rnotify'
+#require 'gtk2'
 
 module Autotest::RNotify
   class Notification
@@ -69,9 +69,9 @@ module Autotest::RNotify
     end
   end
 
-  Autotest.add_hook :initialize do |at|
-    @notify = Notification.new
-  end
+#  Autotest.add_hook :initialize do |at|
+#    @notify = Notification.new
+#  end
 
   Autotest.add_hook :ran_command do |at|
     results = at.results.last
@@ -98,24 +98,29 @@ module Autotest::RNotify
       end
       
       if failures > 0
-        @notify.failed("Tests Failed", output)
+        `mplayer ~/.autotest_images/fail.wav -af volume=-20`
+        #@notify.failed("Tests Failed", output)
       elsif pending > 0
-        @notify.pending("Tests Pending", output)
+        `mplayer ~/.autotest_images/pending.wav -af volume=-20`
+        #@notify.pending("Tests Pending", output)
       else
         unless at.tainted
-          @notify.passed("All Tests Passed", output)
+          #@notify.passed("All Tests Passed", output)
+          `mplayer ~/.autotest_images/pass.ogg -af volume=-20`
         else
-          @notify.passed("Tests Passed", output)
+          `mplayer ~/.autotest_images/pass.ogg -af volume=-20`
+          #@notify.passed("Tests Passed", output)
         end
       end
     end
   end
 
-  Autotest.add_hook :quit do |at|
-    @notify.quit
-  end
+#  Autotest.add_hook :quit do |at|
+#    @notify.quit
+#  end
 
   Autotest.add_hook :run do |autotest|
+    `mplayer ~/.autotest_images/run.mp3`
     autotest.add_exception(/^\.\/vendor/)
     autotest.add_exception(/\.svn/)
     autotest.add_exception(/\.git/)
@@ -124,4 +129,9 @@ module Autotest::RNotify
   Autotest.add_hook :initialize do |at|
     at.sleep = 5
   end
+#  [:run, :red, :green, :quit, :run_command, :ran_command].each do |hook|
+#    Autotest.add_hook hook do |at|
+#      playsound "#{hook.to_s}.mp3" unless $TESTING
+#    end
+#  end
 end

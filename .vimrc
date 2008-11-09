@@ -156,7 +156,7 @@ let g:miniBufExplModSelTarget = 1
 set fileencoding=utf-8
 set fileencodings=utf-8,gb18030,ucs-bom,gbk,gb2312,cp936
 set encoding=utf8 "设置创建、读取、编辑时都采用utf-8编码
-set guifont=simhei\ 14
+set guifont=simhei\ 20
 "set langmenu=none
 "language messages en_US.UTF8
 "let $LANG='zh'
