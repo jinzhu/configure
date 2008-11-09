@@ -93,32 +93,36 @@ Autotest.add_hook :ran_command do |at|
       output = 
       results[/(\d+)\s+tests?,\s*(\d+)\s+assertions?,\s*(\d+)\s+failures?(,\s*(\d+)\s+errors)?/]
       if output
-        failures = $~[3].to_i + $~[5].to_i
+        tests = $1
+        failures = $3.to_i + $5.to_i
       end
       # RSpec
     else
       output = 
         results[/(\d+)\s+examples?,\s*(\d+)\s+failures?(,\s*(\d+)\s+pending)?/]
       if output
-        failures = $~[2].to_i
-        pending = $~[4].to_i
+        tests = $1
+        failures = $2.to_i
+        pending = $4.to_i
       end
     end
 
     if failures > 0
-        `mplayer ~/.autotest_images/fail.wav -af volume=-20`
+        `mplayer ~/.autotest_images/fail.wav -af volume=0 >/dev/null`
         #@notify.failed("Tests Failed", output)
     elsif pending > 0
-        `mplayer ~/.autotest_images/pending.wav -af volume=-20`
+        `mplayer ~/.autotest_images/pending.wav -af volume=-20 >/dev/null`
         #@notify.pending("Tests Pending", output)
-    else
+    elsif tests 
       unless at.tainted
         #@notify.passed("All Tests Passed", output)
-          `mplayer ~/.autotest_images/pass.ogg -af volume=-20`
+          `mplayer ~/.autotest_images/pass.ogg -af volume=0 >/dev/null`
       else
-          `mplayer ~/.autotest_images/pass.ogg -af volume=-20`
+          `mplayer ~/.autotest_images/pass.ogg -af volume=0 >/dev/null`
           #@notify.passed("Tests Passed", output)
       end
+    else  #Error
+        `mplayer ~/.autotest_images/fail.wav -af volume=0 >/dev/null`
     end
   end
 end
@@ -127,5 +131,5 @@ Autotest.add_hook :run do |autotest|
   autotest.add_exception(/^\.\/vendor/)
   autotest.add_exception(/\.svn/)
   autotest.add_exception(/\.git/)
-    `mplayer ~/.autotest_images/run.mp3`
+    `mplayer ~/.autotest_images/run.mp3 >/dev/null`
 end
