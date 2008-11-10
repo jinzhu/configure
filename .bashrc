@@ -1,7 +1,3 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
-
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -28,12 +24,10 @@ case "$TERM" in
   PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
   ;;
   *)
-  PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+  PS1='${debian_chroot:+($debian_chroot)}\W \$ '
   ;;
 esac
-
-# Comment in the above and uncomment this below for a color prompt
-#PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+# PS1='\w$(__git_ps1 "\033[31m[%s]\033[0m")\$ '
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -45,29 +39,9 @@ case "$TERM" in
 esac
 
 # Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-#if [ -f ~/.bash_aliases ]; then
-#    . ~/.bash_aliases
-#fi
-
-# enable color support of ls and also add handy aliases
-if [ "$TERM" != "dumb" ]; then
-  eval "`dircolors -b`"
-  alias ls='ls --color=auto'
-  #alias dir='ls --color=auto --format=vertical'
-  #alias vdir='ls --color=auto --format=long'
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
 fi
-
-# some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
-alias ss='./script/server'
-alias sc='./script/console'
-alias sd='./script/dbconsole'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -78,23 +52,3 @@ fi
 
 CDPATH=".:~:~/GIT:~/WEB/:~/GIT/:/pillar:/pillar/HOME/:~/Documents/"
 PATH="./bin/:$HOME/bin:$HOME/.gem/ruby/1.8/bin/:$PATH"
-
-# PS1='\w$(__git_ps1 "\033[31m[%s]\033[0m")\$ '
-
-alias bashrc='vi ~/.bashrc && source ~/.bashrc'
-
-alias gb='git branch -a -v'
-alias gs='git status'
-alias gd='git diff'
-
-# gc      => git checkout master
-# gc bugs => git checkout bugs
-function gc {
-if [ -z "$1" ]; then
-  git checkout master
-else
-  git checkout $1
-fi
-}
-
-alias nautilus='nautilus --no-desktop --browser'
