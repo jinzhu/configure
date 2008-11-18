@@ -11,16 +11,6 @@ alias gv='gvim'
 alias sv='sudo vim'
 alias vi='vim'
 
-# Rubygems Operation
-alias g="sudo gem"
-alias gi="sudo gem install"
-alias gu="sudo gem update"
-alias gus="sudo gem update --system"
-alias gs="gem search"
-alias gsr="gem search -r"
-alias gl="gem list"
-alias glr="gem list -r"
-
 # Touchpad
 alias tpf='synclient touchpadoff=1'
 alias tpo='synclient touchpadoff=0'

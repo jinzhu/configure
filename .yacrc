@@ -1,7 +1,7 @@
 #root:
 # add_if_not_exist: true
 main:
-#  clone-from: git://github.com/wosmvp/cheat.git
+  clone-from: git://github.com/wosmvp/cheat.git
 #  push-to:
 private:
   clone-from: git@github.com:wosmvp/mycheat.git

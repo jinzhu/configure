@@ -1,26 +1,30 @@
+"let g:AutoComplPop_NotEnableAtStartup=1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"FuzzyFinder
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <C-p><C-t> :FuzzyFinderTag <C-R>=expand("<cword>")<CR><CR>
 nnoremap <C-p><C-f> :FuzzyFinderFile <C-R>=expand('%:~:.')[:-1-len(expand('%:~:.:t'))]<CR><CR>
 nnoremap <C-p><C-b> :FuzzyFinderBuffer <C-R>=expand("<cword>")<CR><CR>
 nnoremap <C-p>t :FuzzyFinderTextMate<CR>
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:fuzzy_ignore = "*.log"
+let g:fuzzy_matching_limit = 50
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "LaTex
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set winaltkeys=no "shielded ALT
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor = "latex"
 set iskeyword+=:
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType python set omnifunc=pythoncomplete#Complete
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-autocmd FileType ruby,perl,tex set shiftwidth=2
-
-autocmd FileType c,cpp,java,javascript,python,xml,xhtml,html set shiftwidth=2
 
 augroup filetypedetect
 au! BufNewFile,BufRead *.ch setf cheat
@@ -31,29 +35,29 @@ augroup END
 
 autocmd BufNewFile,BufRead *_spec.rb source ~/.vim/ftplugin/rails/rspec.vim
 autocmd BufNewFile,BufRead *_test.rb source ~/.vim/ftplugin/rails/shoulda.vim
-"use \rci in normal mode to indent ruby code,should install kode ,sudo gem install kode
-nmap <leader>rci :%!ruby-code-indenter<cr>
 
-autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+"autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+
 " Load matchit (% to bounce from do to end, etc.)
 runtime! macros/matchit.vim
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vimrc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Fast reloading of the .vimrc
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>s :source ~/.vimrc<cr>
-"Fast editing of .vimrc
 map <leader>e :tabedit ~/.vimrc<cr>
-"When .vimrc is edited, reload it
 autocmd! bufwritepost .vimrc source ~/.vimrc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "STARDICT: Use stardict translate Ctrl+\ , should install sdcv
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <C-\> :!sdcv -u 朗道英汉字典5.0 -u 牛津简明英汉袖珍辞 -u 五笔86 -n <C-R>=expand("<cword>")<CR><CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ctags
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let Tlist_Sort_Type = "name"
 " 在右侧显示窗口
 let Tlist_Use_Right_Window = 1
@@ -67,14 +71,17 @@ let Tlist_File_Fold_Auto_Close = 0
 let Tlist_Enable_Fold_Column = 0
 let Tlist_Close_On_Select=1
 let Tlist_Show_Menu = 1
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" HTML
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"HTML
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:do_xhtml_mappings = 'yes'
 let g:force_html_menu = 'yes'
-"设置为HTML小写
 let g:html_tag_case = 'lowercase'
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 颜色
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Color
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("gui_running")
   set guioptions-=T
   colorscheme vibrantink
@@ -83,7 +90,8 @@ else
 endif
 "GUI设置color：guifg, guibg, gui
 "支持彩色显示的Terminal：ctermfg, ctermbg
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "map <C-t> :tabnew<CR>
 "map <C-w> :tabclose<CR>
 " <N n>
@@ -117,8 +125,10 @@ map <F6> <Esc>:set suffixesadd=.html.erb<CR>gf
 map <F7> <Esc>:set suffixesadd=.rb<CR>gf
 :nn <F8> :TlistToggle<CR>
 :nn <F9> :shell <CR>
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:nn <F10> :call ToggleSketch()<CR>  "没事，鼠标画线玩的
+:nn <F10> :AutoComplPopEnable<CR>
+":nn <F10> :call ToggleSketch()<CR>  "没事，鼠标画线玩的
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " <leader n>
 map <leader>1 :set syntax=ruby<cr>
@@ -140,49 +150,42 @@ map <leader>6 :set ft=sh<cr>
 :nn <C-j> <C-w>j
 :nn <C-k> <C-w>k
 
-
-map <C-q> "+gP
 map <leader>n :nohlsearch<CR>
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "minibufexpl.vim
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" encoding
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Encoding
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set fileencoding=utf-8
 set fileencodings=utf-8,gb18030,ucs-bom,gbk,gb2312,cp936
-set encoding=utf8 "设置创建、读取、编辑时都采用utf-8编码
+set encoding=utf8
 set guifont=simhei\ 20
-"set langmenu=none
-"language messages en_US.UTF8
-"let $LANG='zh'
-""set fileencodings=utf-8,GBK
-"set fileencoding=utf8
-"set encoding=utf8
-"set tenc=utf8
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set history=400
 set helplang=cn
 set ignorecase
 set hlsearch
 
-" 使用鼠标
 set mouse=a
-" 输入的命令显示出来，看的清楚些。
+"输入的命令显示出来，看的清楚些。
 set showcmd
 
-set nocompatible " We're running Vim, not Vi!
-syntax on " Enable syntax highlighting
-filetype plugin indent on " Enable filetype-specific indenting and plugins
+set nocompatible
+syntax on
+filetype plugin indent on
 set autoindent
 set smartindent
 
 set backup " make backup file
-set backupdir=~/.tmp" where to put backup file
+set backupdir=~/.tmp "where to put backup file
 set directory=~/.tmp " directory is the directory for temp file
 set autoread "Set to auto read when a file is changed from the outside
 set noshowmatch "show matching bracets
@@ -194,4 +197,3 @@ set expandtab
 set shiftwidth=2
 imap ;w <ESC>:w<CR>
 :nn <Space>w <ESC>:w<CR>
-
