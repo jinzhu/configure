@@ -27,10 +27,10 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 
 augroup filetypedetect
-au! BufNewFile,BufRead *.ch setf cheat
-au BufNewFile,BufRead *.liquid setf liquid
-au! BufRead,BufNewFile *.haml setfiletype haml
-autocmd BufNewFile,BufRead *.yml setf eruby
+  au! BufNewFile,BufRead *.ch setf cheat
+  au BufNewFile,BufRead *.liquid setf liquid
+  au! BufRead,BufNewFile *.haml setfiletype haml
+  autocmd BufNewFile,BufRead *.yml setf eruby
 augroup END
 
 autocmd BufNewFile,BufRead *_spec.rb source ~/.vim/ftplugin/rails/rspec.vim

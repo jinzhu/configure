@@ -1,6 +1,5 @@
 syntax keyword CheatTodo OBSOLETE FIXME TODO OPTIMIZE
 syntax match CheatComment "^\s*#.*$" contains=CheatTodo
-syntax match CheatFakeComment "^\s*\\#.*$"
 
 syntax match Level1 "^=\s\+.*$"
 syntax match Level2 "^\s*==\s\+.*$"
@@ -10,7 +9,7 @@ syntax match Level5 "^\s*=====\s\+.*$"
 syntax match Level6 "^\s*======\s\+.*$"
 syntax match Level7 "^\s*=======\s\+.*$"
 
-syntax match Empha "@@@.*@@@"
+syntax match Empha "@.*@"
 
 highlight Level1 guifg=#ff6600 ctermfg=blue term=bold
 highlight Level2 guifg=red ctermfg=red term=bold
@@ -22,6 +21,5 @@ highlight Level7 guifg=magenta ctermfg=magenta term=bold
 
 highlight Empha guifg=#ffff00 ctermfg=yellow term=bold
 
-hi link CheatComment Comment
-highlight CheatFakeComment guifg=LightGray ctermfg=LightGray
+highlight CheatComment guifg=LightGray ctermfg=LightGray
 highlight CheatTodo guifg=yellow ctermfg=yellow
