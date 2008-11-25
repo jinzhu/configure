@@ -3,12 +3,12 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "FuzzyFinder
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <C-p><C-t> :FuzzyFinderTag <C-R>=expand("<cword>")<CR><CR>
-nnoremap <C-p><C-f> :FuzzyFinderFile <C-R>=expand('%:~:.')[:-1-len(expand('%:~:.:t'))]<CR><CR>
-nnoremap <C-p><C-b> :FuzzyFinderBuffer <C-R>=expand("<cword>")<CR><CR>
-nnoremap <C-p>t :FuzzyFinderTextMate<CR>
+map <C-p>t :FuzzyFinderTextMate<CR>
+map <C-p>] :FuzzyFinderTag <C-R>=expand("<cword>")<CR><CR>
+map <C-p>f :FuzzyFinderFile <C-R>=expand('%:~:.')[:-1-len(expand('%:~:.:t'))]<CR><CR>
+map <C-p>b :FuzzyFinderBuffer <C-R>=expand("<cword>")<CR><CR>
 let g:fuzzy_ignore = "*.log"
-let g:fuzzy_matching_limit = 50
+let g:fuzzy_matching_limit = 30
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "LaTex
@@ -38,8 +38,8 @@ autocmd BufNewFile,BufRead *_spec.rb source ~/.vim/ftplugin/rails/rspec.vim
 autocmd BufNewFile,BufRead *_test.rb source ~/.vim/ftplugin/rails/shoulda.vim
 
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-"autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+"autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
 " Load matchit (% to bounce from do to end, etc.)
 runtime! macros/matchit.vim
@@ -88,7 +88,9 @@ if has("gui_running")
   colorscheme vibrantink
 else
   set background=dark
+  colorscheme vibrantink
 endif
+
 "GUI设置color：guifg, guibg, gui
 "支持彩色显示的Terminal：ctermfg, ctermbg
 
@@ -132,8 +134,8 @@ map <F7> <Esc>:set suffixesadd=.rb<CR>gf
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " <leader n>
-map <leader>1 :set syntax=ruby<cr>
-map <leader>2 :set syntax=xhtml<cr>
+map <leader>1 :set ft=ruby<cr>
+map <leader>2 :set ft=xhtml<cr>
 map <leader>3 :set ft=javascript<cr>
 map <leader>4 :set ft=css<cr>
 map <leader>5 :set ft=vim<cr>
@@ -150,8 +152,6 @@ map <leader>6 :set ft=sh<cr>
 :nn <C-h> <C-w>h
 :nn <C-j> <C-w>j
 :nn <C-k> <C-w>k
-
-map <leader>n :nohlsearch<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "minibufexpl.vim
@@ -170,20 +170,21 @@ set encoding=utf8
 set guifont=simhei\ 20
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set history=400
 set helplang=cn
 set ignorecase
-set hlsearch
-
-set mouse=a
-"输入的命令显示出来，看的清楚些。
-set showcmd
 
 set nocompatible
+
+"some stuff to get the mouse going in term
+set mouse=a
+set ttymouse=xterm2
+
+"turn on syntax highlighting
 syntax on
-filetype plugin indent on
-set autoindent
-set smartindent
+
+"load ftplugins and indent files
+filetype plugin on
+filetype indent on
 
 set backup " make backup file
 set backupdir=~/.tmp "where to put backup file
@@ -191,10 +192,153 @@ set directory=~/.tmp " directory is the directory for temp file
 set autoread "Set to auto read when a file is changed from the outside
 set noshowmatch "show matching bracets
 set formatoptions=tcrqn "自动格式化
-set cmdheight=2 "命令行（在状态行下）的高度，默认为1，这里是2
 set magic "Set magic on
+
+"indent settings
+set shiftwidth=2
+set softtabstop=4
 set smarttab
 set expandtab
-set shiftwidth=2
+set autoindent
+set smartindent
+
 imap ;w <ESC>:w<CR>
 :nn <Space>w <ESC>:w<CR>
+
+"tell the term has 128 colors
+set t_Co=128
+
+set incsearch   "find the next match as we type the search
+set hlsearch    "hilight searches by default
+"make <c-l> clear the highlight as well as redraw
+nnoremap <C-L> :nohls<CR><C-L>
+inoremap <C-L> <C-O>:nohls<CR>
+
+"set nowrap      "dont wrap lines
+"set linebreak   "wrap lines at convenient points
+
+"folding settings
+set foldmethod=indent   "fold based on indent
+set foldnestmax=3       "deepest fold is 3 levels
+set nofoldenable        "dont fold by default
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"cmd status
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set wildmode=list:longest   "make cmdline tab completion similar to bash
+set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
+set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
+
+set showcmd     "show incomplete cmds down the bottom
+set showmode    "show current mode down the bottom
+
+"store lots of :cmdline history
+set history=1000
+
+"display tabs and trailing spaces
+"set list
+"set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
+
+"Add the variable with the name a:varName to the statusline. Highlight it as
+"'error' unless its value is in a:goodValues (a comma separated string)
+function! AddStatuslineFlag(varName, goodValues)
+  set statusline+=%#error#
+  exec "set statusline+=%{RenderStlFlag(".a:varName.",'".a:goodValues."',1)}"
+  set statusline+=%*
+  exec "set statusline+=%{RenderStlFlag(".a:varName.",'".a:goodValues."',0)}"
+endfunction
+
+"returns a:value or ''
+"
+"a:goodValues is a comma separated string of values that shouldn't be
+"highlighted with the error group
+"
+"a:error indicates whether the string that is returned will be highlighted as
+"'error'
+"
+function! RenderStlFlag(value, goodValues, error)
+  let goodValues = split(a:goodValues, ',', 1)
+  let good = index(goodValues, a:value) != -1
+  if (a:error && !good) || (!a:error && good)
+    return '[' . a:value . ']'
+  else
+    return ''
+  endif
+endfunction
+
+"statusline setup
+set statusline=%t       "tail of the filename
+call AddStatuslineFlag('&ff', 'unix,')    "fileformat
+call AddStatuslineFlag('&fenc', 'utf-8,') "file encoding
+set statusline+=%h      "help file flag
+set statusline+=%y      "filetype
+set statusline+=%r      "read only flag
+set statusline+=%m      "modified flag
+
+"display a warning if &et is wrong, or we have mixed-indenting
+set statusline+=%#error#
+set statusline+=%{StatuslineTabWarning()}
+set statusline+=%*
+
+set statusline+=%{StatuslineTrailingSpaceWarning()}
+
+"display a warning if &paste is set
+set statusline+=%#error#
+set statusline+=%{&paste?'[paste]':''}
+set statusline+=%*
+
+set statusline+=%=      "left/right separator
+set statusline+=%{StatuslineCurrentHighlight()}\ \ "current highlight
+set statusline+=%c,     "cursor column
+set statusline+=%l/%L   "cursor line/total lines
+set statusline+=\ %P    "percent through file
+set laststatus=2
+
+"recalculate the trailing whitespace warning when idle, and after saving
+autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
+
+"return '[\s]' if trailing white space is detected
+"return '' otherwise
+function! StatuslineTrailingSpaceWarning()
+    if !exists("b:statusline_trailing_space_warning")
+        if search('\s\+$', 'nw') != 0
+            let b:statusline_trailing_space_warning = '[\s]'
+        else
+            let b:statusline_trailing_space_warning = ''
+        endif
+    endif
+    return b:statusline_trailing_space_warning
+endfunction
+
+
+"return the syntax highlight group under the cursor ''
+function! StatuslineCurrentHighlight()
+    let name = synIDattr(synID(line('.'),col('.'),1),'name')
+    if name == ''
+        return ''
+    else
+        return '[' . name . ']'
+    endif
+endfunction
+
+"recalculate the tab warning flag when idle and after writing
+autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
+
+"return '[&et]' if &et is set wrong
+"return '[mixed-indenting]' if spaces and tabs are used to indent
+"return an empty string if everything is fine
+function! StatuslineTabWarning()
+    if !exists("b:statusline_tab_warning")
+        let tabs = search('^\t', 'nw') != 0
+        let spaces = search('^ ', 'nw') != 0
+
+        if tabs && spaces
+            let b:statusline_tab_warning =  '[mixed-indenting]'
+        elseif (spaces && !&et) || (tabs && &et)
+            let b:statusline_tab_warning = '[&et]'
+        else
+            let b:statusline_tab_warning = ''
+        endif
+    endif
+    return b:statusline_tab_warning
+endfunction
