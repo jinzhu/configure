@@ -1,3 +1,4 @@
+alias wp='wgetpaste -n Jinzhu'
 # Pakage Operation
 alias em='sudo emerge'
 
