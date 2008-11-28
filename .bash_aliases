@@ -1,11 +1,23 @@
 alias wp='wgetpaste -n Jinzhu'
 # Pakage Operation
+# Gentoo
 alias em='sudo emerge'
+# Arch
+alias p='sudo pacman'
+
+function sp {
+# if Rails App
+  if [ -f 'script/plugin' ];then
+    ./script/plugin $1
+  else
+    sudo pacman $1
+  fi
+}
 
 # Gernel Operation
 alias ls='ls --color=auto'
+alias grep='grep --color'
 alias la='ls -A --color=auto'
-alias nautilus='nautilus --no-desktop --browser'
 
 alias sgv='sudo gvim'
 alias gv='gvim'
@@ -22,8 +34,6 @@ alias sg="./script/generate"
 
 alias sc='./script/console'
 alias sd='./script/dbconsole'
-
-alias sp="./script/plugin"
 
 # Git
 alias gb='git branch -a -v'
