@@ -1,0 +1,8 @@
+#Run Xbindkeys,a program that allows you to launch shell commands with your keyboard or your mouse under X Window.
+xbindkeys &
+
+LC_CTYPE="zh_CN.utf8"
+export XMODIFIERS=@im=fcitx
+export GTK_IM_MODULE=xim
+export QT_IM_MODULE=xim
+fcitx &
