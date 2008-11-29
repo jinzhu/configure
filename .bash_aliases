@@ -1,7 +1,10 @@
-alias wp='wgetpaste -n Jinzhu'
-# Pakage Operation
+############################################################
+# Pakage Management
+#
+
 # Gentoo
 alias em='sudo emerge'
+
 # Arch
 alias p='pacman'
 
@@ -13,28 +16,39 @@ function sp {
   fi
 }
 
-# Gernel Operation
-alias ls='ls --color=auto'
-alias grep='grep --color'
-alias la='ls -A --color=auto'
+############################################################
+# System
+#
 
+alias ls='ls --color=auto'
+alias la='ls -A --color=auto'
+alias grep='grep --color'
+
+alias sd='sudo shutdown -h now'
+
+# VIM
 alias sgv='sudo gvim'
 alias gv='gvim'
 alias sv='sudo vim'
-alias vi='vim'
+alias v='vim'
 
 # Touchpad
 alias tpf='synclient touchpadoff=1'
 alias tpo='synclient touchpadoff=0'
 
+############################################################
 # Rails
+#
 alias ss='./script/server'
 alias sg="./script/generate"
 
 alias sc='./script/console'
 alias sd='./script/dbconsole'
 
+############################################################
 # Git
+#
+
 alias gb='git branch -a -v'
 alias gs='git status'
 alias gd='git diff'

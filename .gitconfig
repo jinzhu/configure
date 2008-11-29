@@ -1,43 +1,43 @@
 [user]
-	email = wosmvp@gmail.com
-	name = wosmvp
+  email = wosmvp@gmail.com
+  name = wosmvp
 [color]
-	ui = auto
+  ui = auto
+[apply]
+  whitespace = nowarn
 [alias]
-        co = checkout
-        ci = commit
-        di = diff
-        st = status
-        br = branch
-        mg = merge
-[apply]
-        whitespace = nowarn
+  co = checkout
+  ci = commit
+  di = diff
+  st = status
+  br = branch
+  mg = merge
 [mirror]
-        summary = true
+  summary = true
 [apply]
-        whitespace = strip
+  whitespace = strip
 [diff]
-        color = auto
-        rename = copy
+  color = auto
+  rename = copy
 [pager]
-        color = true
+  color = true
 [status]
-        color = auto
+  color = auto
 [color]
-        branch = auto
-        diff = auto
-        status = auto
+  branch = auto
+  diff = auto
+  status = auto
 [color "branch"]
-        current = yellow reverse
-        local = yellow
-        remote = green
- 
+  current = yellow reverse
+  local = yellow
+  remote = green
+
 [color "diff"]
-        meta = yellow bold
-        frag = magenta bold
-        old = red bold
-        new = blue bold
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = blue bold
 [color "status"]
-        added = yellow
-        changed = green
-        untracked = cyan
+  added = yellow
+  changed = green
+  untracked = cyan
