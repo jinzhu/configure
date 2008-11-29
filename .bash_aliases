@@ -3,14 +3,13 @@ alias wp='wgetpaste -n Jinzhu'
 # Gentoo
 alias em='sudo emerge'
 # Arch
-alias p='sudo pacman'
+alias p='pacman'
 
 function sp {
-# if Rails App
   if [ -f 'script/plugin' ];then
-    ./script/plugin $1
+    ./script/plugin $@
   else
-    sudo pacman $1
+    sudo pacman $@
   fi
 }
 
