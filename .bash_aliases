@@ -19,6 +19,11 @@ function sp {
 ############################################################
 # System
 #
+alias rm=trash
+trash()
+{
+  mv $@ /pillar/.Trash-mvp
+}
 
 alias ls='ls --color=auto'
 alias la='ls -A --color=auto'
