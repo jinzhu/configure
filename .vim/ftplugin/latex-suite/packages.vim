@@ -2,7 +2,7 @@
 " 	     File: packages.vim
 "      Author: Mikolaj Machowski
 "     Created: Tue Apr 23 06:00 PM 2002 PST
-"         CVS: $Id: packages.vim 997 2006-03-20 09:45:45Z srinathava $
+"         CVS: $Id$
 " 
 "  Description: handling packages from within vim
 "=============================================================================
@@ -311,7 +311,7 @@ endfunction
 function! Tex_ScanForPackages(...)
 	call Tex_Debug("+Tex_ScanForPackages", "pack")
 
-	let pos = line('.').' | normal! '.virtcol('.').'|'
+	let pos = Tex_GetPos()
 
 	" For package files without \begin and \end{document}, we might be told to
 	" search from beginning to end.
@@ -346,6 +346,7 @@ function! Tex_ScanForPackages(...)
 			break
 		endif
 
+		let saveUnnamed = @"
 		let saveA = @a
 
 		" If there are options, then find those.
@@ -398,6 +399,7 @@ function! Tex_ScanForPackages(...)
 
 		" restore @a
 		let @a = saveA
+		let @" = saveUnnamed
 	endwhile
 	call Tex_Debug(":Tex_ScanForPackages: End scan \\usepackage, detected packages = ".g:Tex_package_detected, "pack")
 
@@ -446,7 +448,7 @@ function! Tex_ScanForPackages(...)
 
 	endwhile
 
-	exe pos
+	call Tex_SetPos(pos)
 	" first make a random search so that we push at least one item onto the
 	" search history. Since vim puts only one item in the history per function
 	" call, this way we make sure that one and only item is put into the
@@ -596,15 +598,18 @@ function! <SID>GroupPackageMenuItems(menuList, menuName,
 
 endfunction " }}}
 " Definition of what to do for various package commands {{{
-let s:CommandSpec_bra = '\<+replace+>{<++>}<++>'
 let s:CommandSpec_brs = '\<+replace+><++>'
+let s:CommandSpec_bra = '\<+replace+>{<++>}<++>'
 let s:CommandSpec_brd = '\<+replace+>{<++>}{<++>}<++>'
-let s:CommandSpec_env = '\begin{<+replace+>}'."\<CR><++>\<CR>".'\end{<+replace+>}<++>'
-let s:CommandSpec_ens = '\begin{<+replace+>}<+extra+>'."\<CR><++>\<CR>".'\end{<+replace+>}<++>'
-let s:CommandSpec_eno = '\begin[<++>]{<+replace+>}'."\<CR><++>\<CR>".'\end{<+replace+>}'
+
 let s:CommandSpec_nor = '\<+replace+>'
 let s:CommandSpec_noo = '\<+replace+>[<++>]'
 let s:CommandSpec_nob = '\<+replace+>[<++>]{<++>}{<++>}<++>'
+
+let s:CommandSpec_env = '\begin{<+replace+>}'."\<CR><++>\<CR>".'\end{<+replace+>}<++>'
+let s:CommandSpec_ens = '\begin{<+replace+>}<+extra+>'."\<CR><++>\<CR>".'\end{<+replace+>}<++>'
+let s:CommandSpec_eno = '\begin[<++>]{<+replace+>}'."\<CR><++>\<CR>".'\end{<+replace+>}'
+
 let s:CommandSpec_spe = '<+replace+>'
 let s:CommandSpec_    = '\<+replace+>'
 

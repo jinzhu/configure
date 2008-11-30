@@ -1,13 +1,13 @@
 " File: remoteOpen.vim
 " Author: Srinath Avadhanula <srinath AT fastmail DOT fm>
-" $Id: remoteOpen.vim 997 2006-03-20 09:45:45Z srinathava $
-" 
+" $Id$
+"
 " Description:
 " Often times, an external program needs to open a file in gvim from the
 " command line. However, it will not know if the file is already opened in a
-" previous vim session. It is not sufficient to simply specify 
+" previous vim session. It is not sufficient to simply specify
 "
-" gvim --remote-silent <filename> 
+" gvim --remote-silent <filename>
 "
 " because this simply opens up <filename> in the first remote gvim session it
 " sees. This script provides a command RemoteOpen which is meant to be used
@@ -76,7 +76,7 @@ function! RemoteOpen(arglist)
 	endif
 
 	let i = 1
-	let server = s:Strntok(servers, "\n", i) 
+	let server = s:Strntok(servers, "\n", i)
 	let targetServer = v:servername
 
 	while server != ''
@@ -97,16 +97,16 @@ function! RemoteOpen(arglist)
 			let targetServer = server
 			break
 		end
-		
+
 		let i = i + 1
-		let server = s:Strntok(servers, "\n", i) 
+		let server = s:Strntok(servers, "\n", i)
 	endwhile
 
 	" If none of the servers have the file open, then open this file in the
 	" first server. This has the advantage if yap tries to make vim open
 	" multiple vims, then at least they will all be opened by the same gvim
 	" server.
-	call remote_send(targetServer, 
+	call remote_send(targetServer,
 		\ "\<C-\>\<C-n>".
 		\ ":let g:Remote_Server = 1\<CR>".
 		\ ":drop ".filename."\<CR>".
@@ -131,7 +131,7 @@ function! RemoteInsert(...)
 	let servers = serverlist()
 
 	let i = 1
-	let server = s:Strntok(servers, "\n", i) 
+	let server = s:Strntok(servers, "\n", i)
 	let targetServer = v:servername
 
 	while server != ''
@@ -146,7 +146,7 @@ function! RemoteInsert(...)
 		endif
 
 		let i = i + 1
-		let server = s:Strntok(servers, "\n", i) 
+		let server = s:Strntok(servers, "\n", i)
 	endwhile
 
 	q

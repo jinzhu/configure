@@ -3,7 +3,7 @@
 "      Author: Mikolaj Machowski
 " 	  Version: 1.0 
 "     Created: Tue Apr 23 05:00 PM 2002 PST
-" 	      CVS: $Id: custommacros.vim 997 2006-03-20 09:45:45Z srinathava $
+" 	      CVS: $Id$
 " 
 "  Description: functions for processing custom macros in the
 "               latex-suite/macros directory
@@ -196,7 +196,6 @@ function! <SID>ReadMacro(...)
 
 	let markerString = '<---- Latex Suite End Macro ---->'
 	let _a = @a
-	let position = line('.').' | normal! '.virtcol('.').'|'
 	silent! call append(line('.'), markerString)
 	silent! exec "read ".fname
 	silent! exec "normal! V/^".markerString."$/-1\<CR>\"ax"

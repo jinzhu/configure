@@ -60,7 +60,7 @@
 "    endskip: the pattern which defines the end of the "skip" pattern for
 "             nested folds.
 "
-"    Example: 
+"    Example:
 "    1. A syntax fold region for a latex section is
 "           startpat = "\\section{"
 "           endpat   = "\\section{"
@@ -107,7 +107,7 @@ function! AddSyntaxFoldItem(start, end, startoff, endoff, ...)
 	exe 'let b:endOff_'.b:numFoldItems.' = a:endoff'
 	exe 'let b:skipStartPat_'.b:numFoldItems.' = skipStart'
 	exe 'let b:skipEndPat_'.b:numFoldItems.' = skipEnd'
-endfunction 
+endfunction
 
 
 " }}}
@@ -128,14 +128,14 @@ function! MakeSyntaxFolds(force, ...)
 		let line1 = 1
 		let r = line('.')
 		let c = virtcol('.')
-		
+
 		setlocal fdm=manual
 		normal! zE
 	end
 	if !exists('b:numFoldItems')
 		b:numFoldItems = 1000000
 	end
-	
+
 	let i = 1
 
 	let maxline = line('.')
@@ -145,7 +145,7 @@ function! MakeSyntaxFolds(force, ...)
 		exe 'let endPat = b:endPat_'.i
 		exe 'let startOff = b:startOff_'.i
 		exe 'let endOff = b:endOff_'.i
-		
+
 		let skipStart = ''
 		let skipEnd = ''
 		if exists('b:skipStartPat_'.i)
@@ -167,7 +167,7 @@ function! MakeSyntaxFolds(force, ...)
 	endwhile
 
 	exe maxline
-	
+
 	if a:0 == 0
 		exe r
 		exe "normal! ".c."|"
@@ -190,7 +190,7 @@ function! FoldRegionsWithSkip(startpat, endpat, startoff, endoff, startskip, end
 
 	" start searching for either the starting pattern or the end pattern.
 	while search(a:startskip.'\|'.a:endskip, 'W')
-	
+
 		if getline('.') =~ a:endskip
 
 			let lastBegin = Pop('BeginSkipArray')

@@ -2,7 +2,7 @@
 " 	     File: envmacros.vim
 "      Author: Mikolaj Machowski
 "     Created: Tue Apr 23 08:00 PM 2002 PST
-"  CVS Header: $Id: envmacros.vim 997 2006-03-20 09:45:45Z srinathava $
+"  CVS Header: $Id$
 "  Description: mappings/menus for environments. 
 "=============================================================================
 
@@ -238,7 +238,7 @@ call s:Tex_EnvMacros('EFL', '&Structure.', 'flushleft')
 call s:Tex_EnvMacros('EFR', '&Structure.', 'flushright')
 call s:Tex_EnvMacros('EQN', '&Structure.', 'quotation')
 call s:Tex_EnvMacros('EQE', '&Structure.', 'quote')
-call s:Tex_EnvMacros('ESB', '&Structure.', 'sloppybar')
+call s:Tex_EnvMacros('ESP', '&Structure.', 'sloppypar')
 call s:Tex_EnvMacros('ETI', '&Structure.', 'theindex')
 call s:Tex_EnvMacros('ETP', '&Structure.', 'titlepage')
 call s:Tex_EnvMacros('EVM', '&Structure.', 'verbatim')
@@ -503,7 +503,7 @@ function! Tex_thebibliography(env)
 	else
 		return IMAP_PutTextWithMovement(
 			\ "\\begin{thebibliography}\<CR>".
-			\ "\\item[<+biblabel+>]{<+bibkey+>} <++>\<CR>".
+			\ "\\bibitem[<+biblabel+>]{<+bibkey+>} <++>\<CR>".
 			\ "<++>\<CR>".
 			\ "\\end{thebibliography}<++>")
 	endif
@@ -519,7 +519,7 @@ function! PromptForEnvironment(ask)
 	return Tex_ChooseFromPrompt(
 		\ a:ask."\n" . 
 		\ Tex_CreatePrompt(g:Tex_PromptedEnvironments, 2, ",") .
-		\ "\nEnter nae or number of environment :", 
+		\ "\nEnter name or number of environment :", 
 		\ g:Tex_PromptedEnvironments, ",")
 endfunction " }}}
 " Tex_DoEnvironment: fast insertion of environments {{{
@@ -605,6 +605,7 @@ function! Tex_PutEnvironment(env)
 					endif
 					let i = i + 1
 				endwhile
+			endif
 		endif
 		" If nothing before us managed to create an environment, then just
 		" create a bare-bones environment from the name.
@@ -641,7 +642,7 @@ if g:Tex_PromptedEnvironments != ''
 	function! Tex_FastEnvironmentInsert(isvisual)
 
 		let start_line = line('.')
-		let pos = line('.').' | normal! '.virtcol('.').'|'
+		let pos = Tex_GetPos()
 		let s:isvisual = a:isvisual
 
 		" decide if we are in the preamble of the document. If we are then
@@ -659,11 +660,11 @@ if g:Tex_PromptedEnvironments != ''
 			if start_line < begin_line
 				" return to our original location and insert a package
 				" statement.
-				exe pos
+				call Tex_SetPos(pos)
 				return Tex_package_from_line()
 			else
 				" we are after the preamble. insert an environment.
-				exe pos
+				call Tex_SetPos(pos)
 				return Tex_DoEnvironment()
 			endif
 
@@ -671,13 +672,13 @@ if g:Tex_PromptedEnvironments != ''
 			" if there is only a \documentclass but no \begin{document}, then
 			" the entire file is a preamble. Put a package.
 
-			exe pos
+			call Tex_SetPos(pos)
 			return Tex_package_from_line()
 
 		else
 			" no \documentclass, put an environment.
 
-			exe pos
+			call Tex_SetPos(pos)
 			return Tex_DoEnvironment()
 
 		endif
@@ -730,11 +731,11 @@ if g:Tex_PromptedEnvironments != ''
 		let change_env = PromptForEnvironment('What do you want to change it to? ')
 
 		if change_env == 'eqnarray'
-			call <SID>Change('eqnarray', 1, '', 1)
+			call <SID>Change('eqnarray', 1, '', env_name =~ '\*$')
+		elseif change_env == 'align'
+			call <SID>Change('align', 1, '', env_name =~ '\*$')
 		elseif change_env == 'eqnarray*'
 			call <SID>Change('eqnarray*', 0, '\\nonumber', 0)
-		elseif change_env == 'align'
-			call <SID>Change('align', 1, '', 1)
 		elseif change_env == 'align*'
 			call <SID>Change('align*', 0, '\\nonumber', 0)
 		elseif change_env == 'equation*'
@@ -888,13 +889,13 @@ endfunction " }}}
 "
 " Author: Alan Schmitt
 function! Tex_GetCurrentEnv()
-	let pos = line('.').' | normal! '.virtcol('.').'|'
+	let pos = Tex_GetPos()
 	let i = 0
 	while 1
 		let env_line = search('^[^%]*\\\%(begin\|end\){', 'bW')
 		if env_line == 0
 			" we reached the beginning of the file, so we return the empty string
-			exe pos
+			call Tex_SetPos(pos)
 			return ''
 		endif
 		if match(getline(env_line), '^[^%]*\\begin{') == -1
@@ -905,7 +906,7 @@ function! Tex_GetCurrentEnv()
 			" we found a \\begin which has not been \\end'ed. we are done.
 			if i == 0
 				let env = matchstr(getline(env_line), '\\begin{\zs.\{-}\ze}')
-				exe pos
+				call Tex_SetPos(pos)
 				return env
 			else
 				" this \\begin closes a \\end, continue searching.
@@ -925,7 +926,7 @@ endfunction
 TexLet g:Tex_ItemStyle_itemize = '\item '
 TexLet g:Tex_ItemStyle_enumerate = '\item '
 TexLet g:Tex_ItemStyle_theindex = '\item '
-TexLet g:Tex_ItemStyle_thebibliography = '\item[<+biblabel+>]{<+bibkey+>} <++>'
+TexLet g:Tex_ItemStyle_thebibliography = '\bibitem[<+biblabel+>]{<+bibkey+>} <++>'
 TexLet g:Tex_ItemStyle_description = '\item[<+label+>] <++>'
 
 function! Tex_InsertItem()
@@ -940,9 +941,8 @@ function! Tex_InsertItem()
 endfunction
 " }}}
 " Tex_SetItemMaps: sets the \item inserting maps for current buffer {{{
-" Description: 
 
-inoremap <script> <silent> <Plug>Tex_InsertItemOnThisLine <Esc>a<C-r>=Tex_InsertItem()<CR>
+inoremap <script> <silent> <Plug>Tex_InsertItemOnThisLine <C-r>=Tex_InsertItem()<CR>
 inoremap <script> <silent> <Plug>Tex_InsertItemOnNextLine <ESC>o<C-R>=Tex_InsertItem()<CR>
 
 function! Tex_SetItemMaps()
@@ -1071,7 +1071,7 @@ if g:Tex_PromptedCommands != ''
 	"
 	function! Tex_ChangeCommand(isvisual) 
 
-		let pos_com = line('.').' | normal! '.virtcol('.').'|'
+		let pos_com = Tex_GetPos()
 
 		let com_line = searchpair('\\\k\{-}{', '', '}', 'b')
 
@@ -1082,7 +1082,7 @@ if g:Tex_PromptedCommands != ''
 		
 		if !exists('com_name')
 			echomsg "You are not inside command"
-			exe pos_com
+			call Tex_SetPos(pos_com)
 			return 0
 		endif
 
@@ -1090,11 +1090,11 @@ if g:Tex_PromptedCommands != ''
 		let change_com = PromptForCommand('Do you want to change it to (number or name)? ')
 
 		if change_com == ''
-			exe pos_com
+			call Tex_SetPos(pos_com)
 			return 0
 		else
 			call <SID>ChangeCommand(change_com)
-			exe pos_com
+			call Tex_SetPos(pos_com)
 			return 0
 		endif
 

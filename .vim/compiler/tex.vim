@@ -2,7 +2,7 @@
 "            Type: compiler plugin for LaTeX
 " Original Author: Artem Chuprina <ran@ran.pp.ru>
 "   Customization: Srinath Avadhanula <srinath@fastmail.fm>
-"             CVS: $Id: tex.vim 997 2006-03-20 09:45:45Z srinathava $
+"             CVS: $Id$
 " Description:  {{{
 "   This file sets the 'makeprg' and 'errorformat' options for the LaTeX
 "   compiler. It is customizable to optionally ignore certain warnings and

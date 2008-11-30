@@ -5,7 +5,7 @@
 " Description: make a viewer for various purposes: \cite{, \ref{
 "     License: Vim Charityware License
 "              Part of vim-latexSuite: http://vim-latex.sourceforge.net
-"         CVS: $Id: texviewer.vim 1004 2006-03-25 08:40:15Z srinathava $
+"         CVS: $Id$
 " ============================================================================
 " Tex_SetTexViewerMaps: sets maps for this ftplugin {{{
 function! Tex_SetTexViewerMaps()
@@ -47,7 +47,7 @@ function! Tex_Complete(what, where)
 	let s:origdir = getcwd()
 	cd %:p:h
 
-	let s:pos = line('.').' | normal! '.virtcol('.').'|'
+	let s:pos = Tex_GetPos()
 
 	unlet! s:type
 	unlet! s:typeoption
@@ -147,25 +147,33 @@ function! Tex_Complete(what, where)
 			call Tex_SetupFileCompletion(
 				\ '', 
 				\ '^\.\\|\.tex$\\|\.bib$\\|\.bbl$\\|\.zip$\\|\.gz$', 
-				\ 'noext')
+				\ 'noext', 
+				\ Tex_GetVarValue('Tex_ImageDir', '.'), 
+				\ Tex_GetVarValue('Tex_ImageDir', ''))
 			
 		elseif exists("s:type") && s:type == 'bibliography'
 			call Tex_SetupFileCompletion(
 				\ '\.b..$',
 				\ '',
-				\ 'noext')
+				\ 'noext',
+				\ '.', 
+				\ '')
 
 		elseif exists("s:type") && s:type =~ 'include\(only\)\='
 			call Tex_SetupFileCompletion(
 				\ '\.t..$', 
 				\ '',
-				\ 'noext')
+				\ 'noext',
+				\ '.', 
+				\ '')
 
 		elseif exists("s:type") && s:type == 'input'
 			call Tex_SetupFileCompletion(
 				\ '', 
 				\ '',
-				\ 'ext')
+				\ 'ext',
+				\ '.', 
+				\ '')
 
 		elseif exists('s:type') && exists("g:Tex_completion_".s:type)
 			call <SID>Tex_CompleteRefCiteCustom('plugin_'.s:type)
@@ -212,7 +220,7 @@ endfunction
 " 	``<enter>`` in one of the [Error List] windows which shows the list of
 " 	matches. completeword is the rest of the word which needs to be inserted.
 function! Tex_CompleteWord(completeword)
-	exe s:pos
+	call Tex_SetPos(s:pos)
 
 	" Complete word, check if add closing }
 	exe 'normal! a'.a:completeword."\<Esc>"
@@ -235,23 +243,25 @@ endfunction " }}}
 " ============================================================================== 
 " Tex_SetupFileCompletion:  {{{
 " Description: 
-function! Tex_SetupFileCompletion(accept, reject, ext)
+function! Tex_SetupFileCompletion(accept, reject, ext, dir, root)
 	call FB_SetVar('FB_AllowRegexp', a:accept)
 	call FB_SetVar('FB_RejectRegexp', a:reject)
 	call FB_SetVar('FB_CallBackFunction', 'Tex_CompleteFileName')
-	call FB_SetVar('FB_CallBackFunctionArgs', '"'.a:ext.'"')
+	call FB_SetVar('FB_CallBackFunctionArgs', '"'.a:ext.'", "'.a:root.'"')
 
-	call FB_OpenFileBrowser('.')
+	call FB_OpenFileBrowser(a:dir)
 endfunction " }}}
 " Tex_CompleteFileName:  {{{
 " Description: 
-function! Tex_CompleteFileName(filename, ext)
+function! Tex_CompleteFileName(filename, ext, root)
+	let root = (a:root == '' ? Tex_GetMainFileName(':p:h') : a:root)
+
 	call Tex_Debug('+Tex_CompleteFileName: getting filename '.a:filename, 'view')
 
 	if a:ext == 'noext'
 		let completeword = fnamemodify(a:filename, ':r')
 	endif
-	let completeword = Tex_RelPath(completeword, Tex_GetMainFileName(':p:h'))
+	let completeword = Tex_RelPath(completeword, root)
 
 	call Tex_Debug(":Tex_CompleteFileName: completing with ".completeword, "view")
 	call Tex_CompleteWord(completeword)
@@ -466,7 +476,7 @@ function! Tex_CloseSmallWindows()
 	exe s:winnum.' wincmd w'
 	pclose!
 	cclose
-	exe s:pos
+	call Tex_SetPos(s:pos)
 endfunction " }}}
 " Tex_GoToLocation: Go to chosen location {{{
 " Description: Get number of current line and go to this number
@@ -507,13 +517,13 @@ function! Tex_GrepHelper(prefix, what)
 		exec 'split '.Tex_EscapeSpaces(mainfname)
 	endif
 
-	let pos = line('.').'| normal! '.virtcol('.').'|'
+	let pos = Tex_GetPos()
 	if a:what =~ 'bib'
 		call Tex_ScanFileForCite(a:prefix)
 	else
 		call Tex_ScanFileForLabels(a:prefix)
 	endif
-	exec pos
+	call Tex_SetPos(pos)
 
 	q
 	let &path = _path

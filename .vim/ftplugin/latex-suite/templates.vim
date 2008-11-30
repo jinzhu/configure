@@ -5,7 +5,7 @@
 "              (plus other modifications by Mikolaj Machowski) 
 " 	  Version: 1.0 
 "     Created: Tue Apr 23 05:00 PM 2002 PST
-"         CVS: $Id: templates.vim 1002 2006-03-23 04:02:21Z srinathava $ 
+"         CVS: $Id$ 
 " 
 "  Description: functions for handling templates in latex-suite/templates
 "               directory.
