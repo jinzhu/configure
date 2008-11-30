@@ -120,15 +120,17 @@ endif
 :ino <M-9> <C-o>9gt
 :ino <M-0> <C-o>:tablast<CR>
 
-:nn <F2> :tabnew<CR>
-:nn <F3> :%s/\s*$//g<cr>:nohlsearch<cr>''
-:nn <F4> :set nu! <CR>
+nn <F2> :tabnew<CR>
+nn <F3> :%s/\s*$//g<cr>:nohlsearch<cr>''
+nn <F4> :set nu! <CR>
 autocmd BufRead,BufNewFile *.rb map <F5> :% w !ruby<CR>
-map <F6> <Esc>:set suffixesadd=.html.erb<CR>gf
-map <F7> <Esc>:set suffixesadd=.rb<CR>gf
-:nn <F8> :TlistToggle<CR>
-:nn <F9> :shell <CR>
-:nn <F10> :AutoComplPopEnable<CR>
+nn <F6> <Esc>:set suffixesadd=.html.erb<CR>gf
+nn <F7> <Esc>:set suffixesadd=.rb<CR>gf
+nn <F8> :TlistToggle<CR>
+nn <F9> :shell <CR>
+nn <F10> :AutoComplPopEnable<CR>
+nn <F12> :silent !lss &<CR><C-l>
+imap <F12> <ESC>:silent !lss &<CR><C-l>
 ":nn <F10> :call ToggleSketch()<CR>  "没事，鼠标画线玩的
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
