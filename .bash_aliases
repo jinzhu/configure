@@ -22,7 +22,7 @@ function sp {
 alias rm=trash
 trash()
 {
-  mv $@ /pillar/.Trash-mvp
+  mv $@ /tmp
 }
 
 alias ls='ls --color=auto'
@@ -46,6 +46,7 @@ alias tpo='synclient touchpadoff=0'
 #
 alias ss='./script/server'
 alias sg="./script/generate"
+alias as="./script/autospec"
 
 alias sc='./script/console'
 alias sd='./script/dbconsole'

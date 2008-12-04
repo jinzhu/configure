@@ -1,8 +1,8 @@
 "let g:AutoComplPop_NotEnableAtStartup=1
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "FuzzyFinder
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <C-p>t :FuzzyFinderTextMate<CR>
 map <C-p>] :FuzzyFinderTag <C-R>=expand("<cword>")<CR><CR>
 map <C-p>f :FuzzyFinderFile <C-R>=expand('%:~:.')[:-1-len(expand('%:~:.:t'))]<CR><CR>
@@ -10,15 +10,15 @@ map <C-p>b :FuzzyFinderBuffer <C-R>=expand("<cword>")<CR><CR>
 let g:fuzzy_ignore = "*.log"
 let g:fuzzy_matching_limit = 30
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "LaTex
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set winaltkeys=no "shielded ALT
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor = "latex"
 set iskeyword+=:
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
@@ -44,21 +44,21 @@ autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 " Load matchit (% to bounce from do to end, etc.)
 runtime! macros/matchit.vim
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vimrc
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>s :source ~/.vimrc<cr>
 map <leader>e :tabedit ~/.vimrc<cr>
 autocmd! bufwritepost .vimrc source ~/.vimrc
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "STARDICT: Use stardict translate Ctrl+\ , should install sdcv
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <C-\> :!sdcv -u 朗道英汉字典5.0 -u 牛津简明英汉袖珍辞 -u 五笔86 -n <C-R>=expand("<cword>")<CR><CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ctags
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let Tlist_Sort_Type = "name"
 " 在右侧显示窗口
 let Tlist_Use_Right_Window = 1
@@ -73,16 +73,16 @@ let Tlist_Enable_Fold_Column = 0
 let Tlist_Close_On_Select=1
 let Tlist_Show_Menu = 1
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "HTML
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:do_xhtml_mappings = 'yes'
 let g:force_html_menu = 'yes'
 let g:html_tag_case = 'lowercase'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Color
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("gui_running")
   set guioptions-=T
   colorscheme vibrantink
@@ -94,31 +94,28 @@ endif
 "GUI设置color：guifg, guibg, gui
 "支持彩色显示的Terminal：ctermfg, ctermbg
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"map <C-t> :tabnew<CR>
-"map <C-w> :tabclose<CR>
-" <N n>
-:nn <M-1> 1gt
-:nn <M-2> 2gt
-:nn <M-3> 3gt
-:nn <M-4> 4gt
-:nn <M-5> 5gt
-:nn <M-6> 6gt
-:nn <M-7> 7gt
-:nn <M-8> 8gt
-:nn <M-9> 9gt
-:nn <M-0> :tablast<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+:nn ;1 1gt
+:nn ;2 2gt
+:nn ;3 3gt
+:nn ;4 4gt
+:nn ;5 5gt
+:nn ;6 6gt
+:nn ;7 7gt
+:nn ;8 8gt
+:nn ;9 9gt
+:nn ;0 :tablast<CR>
 
-:ino <M-1> <C-o>1gt
-:ino <M-2> <C-o>2gt
-:ino <M-3> <C-o>3gt
-:ino <M-4> <C-o>4gt
-:ino <M-5> <C-o>5gt
-:ino <M-6> <C-o>6gt
-:ino <M-7> <C-o>7gt
-:ino <M-8> <C-o>8gt
-:ino <M-9> <C-o>9gt
-:ino <M-0> <C-o>:tablast<CR>
+:ino ;1 <C-o>1gt
+:ino ;2 <C-o>2gt
+:ino ;3 <C-o>3gt
+:ino ;4 <C-o>4gt
+:ino ;5 <C-o>5gt
+:ino ;6 <C-o>6gt
+:ino ;7 <C-o>7gt
+:ino ;8 <C-o>8gt
+:ino ;9 <C-o>9gt
+:ino ;0 <C-o>:tablast<CR>
 
 nn <F2> :tabnew<CR>
 nn <F3> :%s/\s*$//g<cr>:nohlsearch<cr>''
@@ -133,7 +130,7 @@ nn <F12> :silent !lss &<CR><C-l>
 imap <F12> <ESC>:silent !lss &<CR><C-l>
 ":nn <F10> :call ToggleSketch()<CR>  "没事，鼠标画线玩的
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " <leader n>
 map <leader>1 :set ft=ruby<cr>
@@ -155,23 +152,23 @@ map <leader>6 :set ft=sh<cr>
 :nn <C-j> <C-w>j
 :nn <C-k> <C-w>k
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "minibufexpl.vim
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Encoding
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set fileencoding=utf-8
 set fileencodings=utf-8,gb18030,ucs-bom,gbk,gb2312,cp936
 set encoding=utf8
 set guifont=simhei\ 20
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set helplang=cn
 set ignorecase
 
@@ -189,8 +186,8 @@ filetype plugin on
 filetype indent on
 
 set backup " make backup file
-set backupdir=~/.tmp "where to put backup file
-set directory=~/.tmp " directory is the directory for temp file
+set backupdir=/tmp "where to put backup file
+set directory=/tmp " directory is the directory for temp file
 set autoread "Set to auto read when a file is changed from the outside
 set noshowmatch "show matching bracets
 set formatoptions=tcrqn "自动格式化
@@ -224,9 +221,9 @@ set foldmethod=indent   "fold based on indent
 set foldnestmax=3       "deepest fold is 3 levels
 set nofoldenable        "dont fold by default
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "cmd status
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set wildmode=list:longest   "make cmdline tab completion similar to bash
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
 set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
