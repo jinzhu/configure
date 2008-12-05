@@ -215,6 +215,8 @@ inoremap <C-L> <C-O>:nohls<CR>
 
 "set nowrap      "dont wrap lines
 "set linebreak   "wrap lines at convenient points
+set noerrorbells
+set novisualbell
 
 "folding settings
 set foldmethod=indent   "fold based on indent

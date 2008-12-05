@@ -41,6 +41,9 @@ alias v='vim'
 alias tpf='synclient touchpadoff=1'
 alias tpo='synclient touchpadoff=0'
 
+
+alias ri='qri'
+
 ############################################################
 # Rails
 #

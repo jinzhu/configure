@@ -1,8 +1,8 @@
-require 'irb/completion'
-require 'irb/ext/save-history'
+['pp','irb/completion','irb/ext/save-history'].each {|lib| require lib}
  
-IRB.conf[:SAVE_HISTORY] = 1000
-IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb_history"
+
+IRB.conf[:SAVE_HISTORY] = 100
+IRB.conf[:HISTORY_FILE] = "~/.irb_history"
  
 IRB.conf[:PROMPT_MODE] = :SIMPLE
  
