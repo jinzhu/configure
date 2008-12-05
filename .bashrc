@@ -10,45 +10,33 @@ export HISTCONTROL=ignoreboth
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-  debian_chroot=$(cat /etc/debian_chroot)
-fi
-
 # set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-  xterm-color)
-  PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-  ;;
-  *)
-  PS1='${debian_chroot:+($debian_chroot)}\W \$ '
-  ;;
-esac
-# PS1='\w$(__git_ps1 "\033[31m[%s]\033[0m")\$ '
+PS1='\033[01;34m\W \$ \033[00m'
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-  xterm*|rxvt*)
-  PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
+# Change the window title of X terminals 
+case ${TERM} in
+  xterm*|rxvt*|Eterm|aterm|kterm|gnome*)
+  PROMPT_COMMAND='echo -ne "\033]0;$(__git_ps1)${PWD/$HOME/~}\007"'
   ;;
-  *)
+  screen)
+  PROMPT_COMMAND='echo -ne "\033_$(__git_ps1) ${PWD/$HOME/~}\033\\"'
   ;;
 esac
+
+# dircolors --print-database uses its own built-in database
+if [ -f ~/.dir_colors ]; then
+  eval $(dircolors -b ~/.dir_colors)
+fi
 
 # Alias definitions.
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+  . ~/.bash_aliases
 fi
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
+# enable programmable completion features
 if [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
 fi
 
-CDPATH=".:~:~/GIT:~/WEB/:~/GIT/:/pillar:/pillar/HOME/:~/Documents/"
+CDPATH=".:~:~/GIT:~/Lab:~/WEB/:~/GIT/:/pillar:/pillar/HOME/:~/Documents/"
 PATH="./bin/:$HOME/bin:$HOME/.gem/ruby/1.8/bin/:$PATH"
