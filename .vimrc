@@ -1,3 +1,4 @@
+let NERDShutUp=1
 "let g:AutoComplPop_NotEnableAtStartup=1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
