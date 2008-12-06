@@ -720,7 +720,7 @@ function! s:BufCommands()
         \ else | call s:Doc(<bang>0,<q-args>) | endif
   command! -buffer -bar -nargs=0 -bang Rrefresh :if <bang>0|unlet! g:autoloaded_rails|source `=s:file`|endif|call s:Refresh(<bang>0)
   if exists(":Project")
-    command! -buffer -bar -nargs=? -bang  Rproject :call s:Project(<bang>0,<q-args>)
+    command! -buffer -bar -nargs=? Rproject :call s:Project(<bang>0,<q-args>)
   endif
   if exists("g:loaded_dbext")
     command! -buffer -bar -nargs=? -bang  -complete=customlist,s:Complete_environments Rdbext  :call s:BufDatabase(2,<q-args>,<bang>0)|let b:dbext_buffer_defaulted = 1
@@ -832,7 +832,7 @@ function! s:app_tags_command() dict
   else
     return s:error("ctags not found")
   endif
-  exe "!".cmd." -f ".s:escarg(self.path("tmp/tags"))." --exclude=facebox.js --exclude=\"*.*.js\" -R ".s:escarg(self.path())
+  exe "!".cmd." -f ".s:escarg(self.path("tmp/tags"))." --exclude=facebox.js --exclude=\"*.*.js\" --langmap=\"ruby:+.rake.builder.rjs\" -R ".s:escarg(self.path())
 endfunction
 
 call s:add_methods('app',['tags_command'])
@@ -1077,7 +1077,16 @@ function! s:Rake(bang,lnum,arg)
   elseif t=~ '^\%(db-\)\=migration\>' && RailsFilePath() !~# '\<db/schema\.rb$'
     let ver = matchstr(RailsFilePath(),'\<db/migrate/0*\zs\d*\ze_')
     if ver != ""
-      exe "make db:migrate VERSION=".ver
+      let method = s:lastmethod(lnum)
+      if method == "down"
+        exe "make db:migrate:down VERSION=".ver
+      elseif method == "up"
+        exe "make db:migrate:up VERSION=".ver
+      elseif lnum > 0
+        exe "make db:migrate:down db:migrate:up VERSION=".ver
+      else
+        exe "make db:migrate VERSION=".ver
+      endif
     else
       make db:migrate
     endif
@@ -3567,7 +3576,7 @@ function! s:Project(bang,arg)
 .
     endif
     let line = line('.')+1
-    call s:NewProject(projname,rr,a:bang)
+    call s:NewProject(projname,rr)
   endif
   normal! zMzo
   if search("^ app=app {","W",line+10)
@@ -3577,9 +3586,9 @@ function! s:Project(bang,arg)
   normal! 0zt
 endfunction
 
-function! s:NewProject(proj,rr,fancy)
+function! s:NewProject(proj,rr)
     let line = line('.')+1
-    let template = s:NewProjectTemplate(a:proj,a:rr,a:fancy)
+    let template = s:NewProjectTemplate(a:proj,a:rr)
     silent put =template
     exe line
     " Ugh. how else can I force detecting folds?
@@ -3603,62 +3612,43 @@ function! s:NewProject(proj,rr,fancy)
     endif
 endfunction
 
-function! s:NewProjectTemplate(proj,rr,fancy)
+function! s:NewProjectTemplate(proj,rr)
   let str = a:proj.'="'.a:rr."\" CD=. filter=\"*\" {\n"
   let str .= " app=app {\n"
-  if isdirectory(a:rr.'/app/apis')
-    let str .= "  apis=apis {\n  }\n"
-  endif
-  let str .= "  controllers=controllers filter=\"**\" {\n  }\n"
-  let str .= "  helpers=helpers filter=\"**\" {\n  }\n"
-  let str .= "  models=models filter=\"**\" {\n  }\n"
-  if a:fancy
-    let str .= "  views=views {\n"
-    let views = s:relglob(a:rr.'/app/views/','*')."\n"
-    while views != ''
-      let dir = matchstr(views,'^.\{-\}\ze\n')
-      let views = s:sub(views,'^.{-}\n','')
-      let str .= "   ".dir."=".dir.' filter="**" {'."\n   }\n"
-    endwhile
-    let str .= "  }\n"
-  else
-    let str .= "  views=views filter=\"**\" {\n  }\n"
-  endif
+  for dir in ['apis','controllers','helpers','models','views']
+    let str .= s:addprojectdir(a:rr,'app',dir)
+  endfor
   let str .= " }\n"
   let str .= " config=config {\n  environments=environments {\n  }\n }\n"
   let str .= " db=db {\n"
-  if isdirectory(a:rr.'/db/migrate')
-    let str .= "  migrate=migrate {\n  }\n"
-  endif
+  let str .= s:addprojectdir(a:rr,'db','migrate')
   let str .= " }\n"
   let str .= " lib=lib filter=\"* */**/*.rb \" {\n  tasks=tasks filter=\"**/*.rake\" {\n  }\n }\n"
   let str .= " public=public {\n  images=images {\n  }\n  javascripts=javascripts {\n  }\n  stylesheets=stylesheets {\n  }\n }\n"
   if isdirectory(a:rr.'/spec')
     let str .= " spec=spec {\n"
-    let str .= "  controllers=controllers filter=\"**\" {\n  }\n"
-    let str .= "  fixtures=fixtures filter=\"**\" {\n  }\n"
-    let str .= "  helpers=helpers filter=\"**\" {\n  }\n"
-    let str .= "  models=models filter=\"**\" {\n  }\n"
-    let str .= "  views=views filter=\"**\" {\n  }\n }\n"
+    for dir in ['controllers','fixtures','helpers','models','views']
+      let str .= s:addprojectdir(a:rr,'spec',dir)
+    endfor
+    let str .= " }\n"
   endif
-  let str .= " test=test {\n"
-  if isdirectory(a:rr.'/test/fixtures')
-    let str .= "  fixtures=fixtures filter=\"**\" {\n  }\n"
-  endif
-  if isdirectory(a:rr.'/test/functional')
-    let str .= "  functional=functional filter=\"**\" {\n  }\n"
-  endif
-  if isdirectory(a:rr.'/test/integration')
-    let str .= "  integration=integration filter=\"**\" {\n  }\n"
-  endif
-  if isdirectory(a:rr.'/test/mocks')
-    let str .= "  mocks=mocks filter=\"**\" {\n  }\n"
-  endif
-  if isdirectory(a:rr.'/test/unit')
-    let str .= "  unit=unit filter=\"**\" {\n  }\n"
-  endif
-  let str .= " }\n}\n"
+  if isdirectory(a:rr.'/test')
+    let str .= " test=test {\n"
+    for dir in ['fixtures','functional','integration','mocks','unit']
+      let str .= s:addprojectdir(a:rr,'test',dir)
+    endfor
+    let str .= " }\n"
+  end
+  let str .= "}\n"
   return str
+endfunction
+
+function! s:addprojectdir(rr,parentdir,dir)
+  if isdirectory(a:rr.'/'.a:parentdir.'/'.a:dir)
+    return '  '.a:dir.'='.a:dir." filter=\"**\" {\n  }\n"
+  else
+    return ''
+  endif
 endfunction
 
 " }}}1

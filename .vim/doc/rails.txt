@@ -141,7 +141,10 @@ actually edit a file from a Rails application.
 			db:migrate in a migration, or your current test).
 			In tests (and specs), giving a line argument runs only
 			the test method (or example) at that line.  Use :.Rake
-			to run the test method at the cursor position.
+			to run the test method at the cursor position.  Use
+			:.Rake inside a self.up or self.down method in a
+			migration to run the db:migrate:up or db:migrate:down
+			task for that particular migration.
 
 						*rails-:Rake!*
 :[range]Rake! {targets}	Called with a bang, :Rake will use an alternate
@@ -662,19 +665,6 @@ place) are also covered in this section.
 			current Rails application.  If it is not found, create
 			a new project, with appropriate directories (app,
 			etc., but not vendor).
-
-						*rails-:Rproject!*
-:Rproject! [{file}]	Same as :Rproject, only delete existing project if it
-			exists and recreate it.  The logic to delete the old
-			project is convoluted and possibly erroneous; report
-			any problems to the |rails-plugin-author|.  A handy
-			mapping might look something like: >
-		autocmd User Rails map <buffer> <F6> :Rproject!|silent w<CR>
-<			As a bonus, this command organizes views into separate
-			directories for easier navigation.  The downside of
-			this is that you will have to regenerate your project
-			each time you add another view directory (which is why
-			this command recreates your project each time!).
 
 						*rails-:Rdbext* *rails-dbext*
 :Rdbext [{environment}] This command is only provided when the |dbext| plugin
