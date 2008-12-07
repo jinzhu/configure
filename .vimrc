@@ -9,7 +9,7 @@ map <C-p>] :FuzzyFinderTag <C-R>=expand("<cword>")<CR><CR>
 map <C-p>f :FuzzyFinderFile <C-R>=expand('%:~:.')[:-1-len(expand('%:~:.:t'))]<CR><CR>
 map <C-p>b :FuzzyFinderBuffer <C-R>=expand("<cword>")<CR><CR>
 let g:fuzzy_ignore = "*.log"
-let g:fuzzy_matching_limit = 30
+let g:fuzzy_enumerating_limit = 30
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "LaTex

@@ -60,9 +60,9 @@ RUBY
     let g:fuzzy_ignore = ""
   endif
 
-  " Configuration option: g:fuzzy_matching_limit
+  " Configuration option: g:fuzzy_enumerating_limit
   " The maximum number of matches to return at a time. Defaults to 200, via the
-  " g:FuzzyFinderMode.TextMate.matching_limit variable, but using a global variable
+  " g:FuzzyFinderMode.TextMate.enumerating_limit variable, but using a global variable
   " makes it easier to set this value.
 
 ruby << RUBY
@@ -97,10 +97,10 @@ RUBY
 
     let result = []
 
-    if exists('g:fuzzy_matching_limit')
-      let l:limit = g:fuzzy_matching_limit
+    if exists('g:fuzzy_enumerating_limit')
+      let l:limit = g:fuzzy_enumerating_limit
     else
-      let l:limit = self.matching_limit
+      let l:limit = self.enumerating_limit
     endif
 
     ruby << RUBY
@@ -116,7 +116,7 @@ RUBY
       end
 RUBY
 
-    if empty(result) || len(result) >= self.matching_limit
+    if empty(result) || len(result) >= self.enumerating_limit
       call s:HighlightError()
     endif
 
