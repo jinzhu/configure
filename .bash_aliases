@@ -22,7 +22,7 @@ function sp {
 alias rm=trash
 trash()
 {
-  mv $@ /tmp
+  mv -f $* /tmp
 }
 
 alias ls='ls --color=auto'
@@ -35,7 +35,13 @@ alias sd='sudo shutdown -h now'
 alias sgv='sudo gvim'
 alias gv='gvim'
 alias sv='sudo vim'
-alias v='vim'
+function v {
+  if [ -n "$*" ]; then
+    vim $*
+  else
+    vim .
+  fi
+}
 
 # Touchpad
 alias tpf='synclient touchpadoff=1'
