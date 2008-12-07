@@ -51,12 +51,14 @@ alias tpo='synclient touchpadoff=0'
 alias ri='qri'
 
 # Jobs fg bg
-alias f='fg'
-alias f1='fg 1'
-alias f2='fg 2'
-alias f3='fg 3'
 alias j='jobs'
+alias f='fg'
 alias b='bg'
+
+for ((i=1;i<5;i++)) do
+  eval alias f$i=\'fg $i\';
+  eval alias b$i=\'bg $i\';
+done
 
 ############################################################
 # Rails
