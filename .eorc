@@ -26,6 +26,10 @@ merb.vim:
   path: ~/GIT/vim/merb.vim
   repo: git://github.com/nono/merb.vim.git
 
+cache-money:
+  path: ~/Lab/cache-money
+  repo: git://github.com/nkallen/cache-money.git
+
 eo:
   path: ~/GIT/easyoperate/
   repo: git@github.com:wosmvp/eo.git
