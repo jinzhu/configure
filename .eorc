@@ -1,0 +1,39 @@
+vim-rails:
+  path: ~/GIT/vim/vim-rails/
+  repo: git://github.com/tpope/vim-rails.git
+
+vim-git:
+  path: ~/GIT/vim/vim-git/
+  repo: git://github.com/tpope/vim-git.git
+
+vim-cucumber:
+  path: ~/GIT/vim/vim-cucumber/
+  repo: git://github.com/tpope/vim-cucumber.git
+
+vimfiles:
+  path: ~/GIT/vim/vimfiles/
+  repo: git://github.com/scrooloose/vimfiles.git
+
+vim-ruby:
+  path: ~/GIT/vim/vim-ruby/
+  repo: git://github.com/vim-ruby/vim-ruby.git
+
+vim-abolish:
+  path: ~/GIT/vim/vim-abolish/
+  repo: git://github.com/tpope/vim-abolish.git
+
+merb.vim:
+  path: ~/GIT/vim/merb.vim
+  repo: git://github.com/nono/merb.vim.git
+
+eo:
+  path: ~/GIT/easyoperate/
+  repo: git@github.com:wosmvp/eo.git
+
+configure:
+  path: ~/GIT/configure/
+  repo: git://github.com/rails/configure.git
+
+yac:
+  path: ~/GIT/configure/
+  repo: git@github.com:wosmvp/yac.git
