@@ -1,3 +1,6 @@
+# vi: ft=yaml
+# Eo - Install : sudo gem install easyoperate
+
 vim-rails:
   path: ~/GIT/vim/vim-rails/
   repo: git://github.com/tpope/vim-rails.git
