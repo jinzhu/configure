@@ -1,6 +1,9 @@
 # vi: ft=yaml
 # Eo - Install : sudo gem install easyoperate
 
+############################################################
+# VIM
+############################################################
 vim-rails:
   path: ~/GIT/vim/vim-rails/
   repo: git://github.com/tpope/vim-rails.git
@@ -8,6 +11,10 @@ vim-rails:
 vim-git:
   path: ~/GIT/vim/vim-git/
   repo: git://github.com/tpope/vim-git.git
+
+git-vim:
+  path: ~/GIT/vim/git-vim/
+  repo: git://github.com/motemen/git-vim.git
 
 vim-cucumber:
   path: ~/GIT/vim/vim-cucumber/
@@ -29,9 +36,69 @@ merb.vim:
   path: ~/GIT/vim/merb.vim
   repo: git://github.com/nono/merb.vim.git
 
+
+############################################################
+## Performance
+############################################################
 cache-money:
   path: ~/Lab/cache-money
   repo: git://github.com/nkallen/cache-money.git
+
+delayed_job:
+  path: ~/Lab/delayed_job
+  repo: git://github.com/tobi/delayed_job.git
+
+cache_fu:
+  path: ~/Lab/cache_fu
+  repo: git://github.com/defunkt/cache_fu.git
+
+############################################################
+## Merb
+############################################################
+
+merb:
+  path: ~/Lab/merb
+  repo: git://github.com/wycats/merb.git
+
+merb-book:
+  path: ~/Lab/merb-book
+  repo: git://github.com/mattetti/merb-book.git
+
+############################################################
+## JQuery
+############################################################
+
+jquery_grid_for_rails:
+  path: ~/Lab/jquery_grid_for_rails
+  repo: git://github.com/scrubber/jquery_grid_for_rails.git
+
+jquery-hotkeys:
+  path: ~/Lab/jquery-hotkeys
+  repo: git://github.com/github/jquery-hotkeys.git
+
+jquery-facebox:
+  path: ~/Lab/jquery-facebox
+  repo: git://github.com/defunkt/facebox.git
+
+############################################################
+## Other
+############################################################
+
+searchlogic:
+  path: ~/Lab/searchlogic
+  repo: git://github.com/binarylogic/searchlogic.git
+
+acts_as_soft_deletable:
+  path: ~/Lab/acts_as_soft_deletable/
+  repo: git://github.com/ajh/acts_as_soft_deletable.git
+
+plugin_test_helper:
+  path: ~/Lab/plugin_test_helper
+  repo: git://github.com/pluginaweek/plugin_test_helper.git
+
+############################################################
+## mine :)
+############################################################
 
 eo:
   path: ~/GIT/easyoperate/
