@@ -78,6 +78,7 @@ alias gb='git branch -a -v'
 alias gs='git status'
 alias gd='git diff'
 alias gp='git push'
+alias gl='git log'
 
 # gc      => git checkout master
 # gc bugs => git checkout bugs

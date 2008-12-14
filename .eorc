@@ -67,6 +67,10 @@ merb-book:
 ############################################################
 ## JQuery
 ############################################################
+jrails:
+  path: ~/Lab/jrails
+  scm: svn
+  repo: http://ennerchi.googlecode.com/svn/trunk/plugins/jrails
 
 jquery_grid_for_rails:
   path: ~/Lab/jquery_grid_for_rails
