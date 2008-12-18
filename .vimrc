@@ -92,10 +92,11 @@ else
   colorscheme vibrantink
 endif
 
-"GUI设置color：guifg, guibg, gui
-"支持彩色显示的Terminal：ctermfg, ctermbg
+" GUI - color：guifg, guibg, gui
+" Terminal：ctermfg, ctermbg
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 :nn ;1 1gt
 :nn ;2 2gt
 :nn ;3 3gt
@@ -201,6 +202,10 @@ set smarttab
 set expandtab
 set autoindent
 set smartindent
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
 
 imap ;w <ESC>:w<CR>
 :nn <Space>w <ESC>:w<CR>
