@@ -52,6 +52,10 @@ cache_fu:
   path: ~/Lab/cache_fu
   repo: git://github.com/defunkt/cache_fu.git
 
+rack:
+  path: ~/Lab/rack
+  repo: git://github.com/chneukirchen/rack.git
+
 ############################################################
 ## Merb
 ############################################################
