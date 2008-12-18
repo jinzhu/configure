@@ -40,3 +40,8 @@ fi
 
 CDPATH=".:~:~/GIT:~/Lab:~/WEB/:~/GIT/:/pillar:/pillar/HOME/:~/Documents/"
 PATH="./bin/:$HOME/bin:$HOME/.gem/ruby/1.8/bin/:$PATH"
+
+export LC_CTYPE=zh_CN.utf8
+export GTK_IM_MODULE=xim
+export QT_IM_MODULE=xim
+export XMODIFIERS="@im=fcitx"

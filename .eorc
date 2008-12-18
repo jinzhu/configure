@@ -88,6 +88,10 @@ jquery-facebox:
 ## Other
 ############################################################
 
+prawn:
+  path: ~/Lab/prawn
+  repo: git://github.com/sandal/prawn.git
+
 searchlogic:
   path: ~/Lab/searchlogic
   repo: git://github.com/binarylogic/searchlogic.git
