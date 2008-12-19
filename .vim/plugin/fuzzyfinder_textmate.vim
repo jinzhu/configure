@@ -21,7 +21,7 @@ endfunction
 " }}}
 " ====================================================================================
 
-command! -bang -narg=? -complete=file   FuzzyFinderTextMate   call FuzzyFinderTextMateLauncher(<q-args>, len(<q-bang>), bufnr('%'), s:GetCurrentTagFiles())
+command! -bang -narg=? -complete=file   FuzzyFinderTextMate   call FuzzyFinderTextMateLauncher(<q-args>, len(<q-bang>))
 
 function! InstantiateTextMateMode() "{{{
 ruby << RUBY
@@ -55,7 +55,8 @@ RUBY
   endif
 
   " Configuration option: g:fuzzy_ignore
-  " A semi-colon delimited list of file glob patterns to ignore
+  " A delimited list of file glob patterns to ignore. Entries may be delimited
+  " with either commas or semi-colons.
   if !exists('g:fuzzy_ignore')
     let g:fuzzy_ignore = ""
   endif
@@ -70,7 +71,7 @@ ruby << RUBY
     @finder ||= begin
       roots = VIM.evaluate("g:fuzzy_roots").split("\n")
       ceiling = VIM.evaluate("g:fuzzy_ceiling").to_i
-      ignore = VIM.evaluate("g:fuzzy_ignore").split(/;/)
+      ignore = VIM.evaluate("g:fuzzy_ignore").split(/[;,]/)
       FuzzyFileFinder.new(roots, ceiling, ignore)
     end
   end
@@ -116,7 +117,7 @@ RUBY
       end
 RUBY
 
-    if empty(result) || len(result) >= self.enumerating_limit
+    if empty(result) || len(result) >= l:limit
       call s:HighlightError()
     endif
 
@@ -127,20 +128,20 @@ RUBY
     return result
   endfunction
 
-  function! FuzzyFinderTextMateLauncher(initial_text, partial_matching, prev_bufnr, tag_files)
-    call g:FuzzyFinderMode.TextMate.launch(a:initial_text, a:partial_matching, a:prev_bufnr, a:tag_files)
+  function! FuzzyFinderTextMateLauncher(initial_text, partial_matching)
+    call g:FuzzyFinderMode.TextMate.launch(a:initial_text, a:partial_matching)
   endfunction
 
   let g:FuzzyFinderOptions.TextMate = copy(g:FuzzyFinderOptions.File)
 endfunction "}}}
 
 if !exists('loaded_fuzzyfinder') "{{{
-  function! FuzzyFinderTextMateLauncher(initial_text, partial_matching, prev_bufnr, tag_files)
+  function! FuzzyFinderTextMateLauncher(initial_text, partial_matching)
     call InstantiateTextMateMode()
-    function! FuzzyFinderTextMateLauncher(initial_text, partial_matching, prev_bufnr, tag_files)
-      call g:FuzzyFinderMode.TextMate.launch(a:initial_text, a:partial_matching, a:prev_bufnr, a:tag_files)
+    function! FuzzyFinderTextMateLauncher(initial_text, partial_matching)
+      call g:FuzzyFinderMode.TextMate.launch(a:initial_text, a:partial_matching)
     endfunction
-    call g:FuzzyFinderMode.TextMate.launch(a:initial_text, a:partial_matching, a:prev_bufnr, a:tag_files)
+    call g:FuzzyFinderMode.TextMate.launch(a:initial_text, a:partial_matching)
   endfunction
   finish
 end "}}}
