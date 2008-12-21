@@ -36,7 +36,6 @@ merb.vim:
   path: ~/GIT/vim/merb.vim
   repo: git://github.com/nono/merb.vim.git
 
-
 ############################################################
 ## Performance
 ############################################################
@@ -91,6 +90,9 @@ jquery-facebox:
 ############################################################
 ## Other
 ############################################################
+ziya:
+  path: ~/Lab/ziya
+  repo:   git://github.com/derailed/ziya.git
 
 prawn:
   path: ~/Lab/prawn
