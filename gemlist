@@ -5,6 +5,7 @@ mocha
 nokogiri
 thoughtbot-shoulda
 ZenTest
+rcov
 
 rails
 merb
@@ -18,6 +19,8 @@ rake
 fastri
 yac
 easyoperate
+
+firewatir
 
 newgem
 hoe
