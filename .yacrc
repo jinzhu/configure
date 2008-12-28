@@ -1,55 +1,19 @@
 #root:
-# add_if_not_exist: true
 main:
   clone-from: git://github.com/wosmvp/cheat.git
-#  push-to:
+# push-to:
 private:
   clone-from: git@github.com:wosmvp/mycheat.git
   push-to: git@github.com:wosmvp/mycheat.git
 
 
-pdf_command: apvlv
-office_command: ooffice
-#image_command: evince
-#editor: vim
-#pdf_edit_command: ooffice
-#image_edit_command: gimp
+editor:  vim
 
-head1: "1;31"
-head2: "1;36"
-head3: "1;33"
-head4: "1;32"
-head5: "1;34"
-head6: "1;35"
-head7: "1;37"
+view_pdf:  evince
+view_image:  eog
+show_office:  ooffice
 
-warn: "31"
-notice: "33"
-empha: "31;43"
-filename: "34"
-line_number: "32"
-text:
+edit_pdf:  ooffice
+edit_image:  gimp
+edit_office:  ooffice
 
-# How To Set Color
-#1   -   Change text to hicolor (bold) mode
-#4   -      "    "   "  Underline
-#5   -      "    "   "  Blink
-#8   -      "    "   "  Hidden (same color as bg)
-#30  -      "    "   "  Black
-#31  -      "    "   "  Red
-#32  -      "    "   "  Green
-#33  -      "    "   "  Yellow
-#34  -      "    "   "  Blue
-#35  -      "    "   "  Magenta
-#36  -      "    "   "  Cyan
-#37  -      "    "   "  White
-#40  -   Change background to Black
-#41  -      "       "      "  Red
-#42  -      "       "      "  Green
-#43  -      "       "      "  Yellow
-#44  -      "       "      "  Blue
-#45  -      "       "      "  Magenta
-#46  -      "       "      "  Cyan
-#47  -      "       "      "  White
-#0   -   Turn off all attributes.
-#7   -   Change to Black text on a White background
