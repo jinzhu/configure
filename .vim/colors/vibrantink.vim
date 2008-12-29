@@ -27,7 +27,7 @@ endif
 let g:colors_name = "vibrantink"
 
 if has("gui_running")
-    highlight Normal guifg=White   guibg=#2E3436
+    highlight Normal guifg=White   guibg=Black
     highlight Cursor guifg=Black   guibg=Yellow
     highlight Keyword guifg=#FF6600
     highlight Define guifg=#FF6600
@@ -48,7 +48,7 @@ if has("gui_running")
     highlight Pmenu  guifg=White guibg=DarkBlue
 else
     set t_Co=256
-    highlight Normal ctermfg=White ctermbg=Black
+    highlight Normal ctermfg=White ctermbg=NONE
     highlight Cursor ctermfg=Black ctermbg=Yellow 
     highlight Keyword ctermfg=202 
     highlight Define ctermfg=202 

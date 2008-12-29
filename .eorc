@@ -67,6 +67,9 @@ rack:
 ############################################################
 ## Merb
 ############################################################
+wycats_rails:
+  path: ~/Lab/wycats_rails/
+  repo: git://github.com/wycats/rails.git wycats_rails
 
 merb:
   path: ~/Lab/merb

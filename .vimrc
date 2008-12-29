@@ -30,6 +30,7 @@ autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 augroup filetypedetect
   au BufRead,BufNewFile *.js set ft=javascript.jquery
   au! BufNewFile,BufRead *.ch setf cheat
+  au! BufNewFile,BufRead *.yac setf cheat
   au BufNewFile,BufRead *.liquid setf liquid
   au! BufRead,BufNewFile *.haml setfiletype haml
   autocmd BufNewFile,BufRead *.yml setf eruby
