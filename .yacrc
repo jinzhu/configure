@@ -9,11 +9,10 @@ private:
 
 editor:  vim
 
-view_pdf:  evince
-view_image:  eog
+show_pdf:  evince
+show_image:  eog
 show_office:  ooffice
 
 edit_pdf:  ooffice
 edit_image:  gimp
 edit_office:  ooffice
-
