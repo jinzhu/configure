@@ -49,9 +49,10 @@ runtime! macros/matchit.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vimrc
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>s :source ~/.vimrc<cr>
-map <leader>e :tabedit ~/.vimrc<cr>
+map <leader>s :source ~/.vimrc<CR>
+map <leader>e :tabedit ~/.vimrc<CR>
 autocmd! bufwritepost .vimrc source ~/.vimrc
+map <leader>b :%s/\s\+$//<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "STARDICT: Use stardict translate Ctrl+\ , should install sdcv

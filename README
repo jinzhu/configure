@@ -44,5 +44,5 @@ Ruby/Rails
 
 .shoulda.conf
 
-.autotest
+.autotest   => ruby-libnotify : http://rubyforge.org/projects/ruby-libnotify/
 .autotest_images
