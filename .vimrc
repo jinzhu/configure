@@ -20,19 +20,19 @@ let g:tex_flavor = "latex"
 set iskeyword+=:
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType c set omnifunc=ccomplete#Complete
+autocmd FileType c          set omnifunc=ccomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType html       set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css        set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml        set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 
 augroup filetypedetect
-  au BufRead,BufNewFile *.js set ft=javascript.jquery
-  au! BufNewFile,BufRead *.ch setf cheat
-  au! BufNewFile,BufRead *.yac setf cheat
-  au BufNewFile,BufRead *.liquid setf liquid
-  au! BufRead,BufNewFile *.haml setfiletype haml
+  au BufRead,BufNewFile *.js       setf javascript.jquery
+  au! BufNewFile,BufRead *.ch      setf cheat
+  au! BufNewFile,BufRead *.yac     setf cheat
+  au BufNewFile,BufRead *.liquid   setf liquid
+  au! BufRead,BufNewFile *.haml    setf haml
   autocmd BufNewFile,BufRead *.yml setf eruby
 augroup END
 
@@ -52,10 +52,11 @@ runtime! macros/matchit.vim
 map <leader>s :source ~/.vimrc<CR>
 map <leader>e :tabedit ~/.vimrc<CR>
 autocmd! bufwritepost .vimrc source ~/.vimrc
+"remove trailing whitespace
 map <leader>b :%s/\s\+$//<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"STARDICT: Use stardict translate Ctrl+\ , should install sdcv
+" STARDICT  <install sdcv>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <C-\> :!sdcv -u 朗道英汉字典5.0 -u 牛津简明英汉袖珍辞 -u 五笔86 -n <C-R>=expand("<cword>")<CR><CR>
 
