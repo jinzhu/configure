@@ -125,7 +125,9 @@ endif
 nn <F2> :tabnew<CR>
 nn <F3> :%s/\s*$//g<cr>:nohlsearch<cr>''
 nn <F4> :set nu! <CR>
-autocmd BufRead,BufNewFile *.rb map <F5> :% w !ruby<CR>
+autocmd BufRead,BufNewFile *.rb map <F5>      :% w !ruby<CR>
+autocmd BufRead,BufNewFile *.rb map <leader>s :!shoes %:p<CR>
+
 nn <F6> <Esc>:set suffixesadd=.html.erb<CR>gf
 nn <F7> <Esc>:set suffixesadd=.rb<CR>gf
 nn <F8> :TlistToggle<CR>

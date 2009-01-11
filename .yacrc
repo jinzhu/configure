@@ -11,8 +11,8 @@ editor:  vim
 
 show_pdf:  evince
 show_image:  eog
-show_office:  ooffice
+show_office:  soffice
 
-edit_pdf:  ooffice
+edit_pdf:  soffice
 edit_image:  gimp
-edit_office:  ooffice
+edit_office:  soffice

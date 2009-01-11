@@ -39,7 +39,7 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 CDPATH=".:~:~/GIT:~/Lab:~/WEB/:~/GIT/:/pillar:/pillar/HOME/:~/Documents/"
-PATH="./bin/:$HOME/bin:$HOME/.gem/ruby/1.8/bin/:/usr/local/bin/:$PATH"
+PATH="./bin/:$HOME/bin:$HOME/.gem/ruby/1.8/bin/:$PATH:/usr/bin:/usr/local/bin/"
 
 export LC_CTYPE=zh_CN.utf8
 export GTK_IM_MODULE=xim
