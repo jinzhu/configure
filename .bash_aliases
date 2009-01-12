@@ -65,7 +65,14 @@ done
 #
 alias ss='./script/server'
 alias sg="./script/generate"
-alias as="./script/autospec"
+function as {
+  if [ -f 'script/autospec' ];then
+    ./script/autospec $@
+  else
+    autotest $@
+  fi
+}
+
 
 alias sc='./script/console'
 alias sd='./script/dbconsole'
