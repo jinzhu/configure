@@ -53,7 +53,7 @@ map <leader>s :source ~/.vimrc<CR>
 map <leader>e :tabedit ~/.vimrc<CR>
 autocmd! bufwritepost .vimrc source ~/.vimrc
 "remove trailing whitespace
-map <leader>b :%s/\s\+$//<CR>
+map <leader>c :%s/\s\+$//<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STARDICT  <install sdcv>
