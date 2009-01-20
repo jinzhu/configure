@@ -36,6 +36,11 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead *.yml setf eruby
 augroup END
 
+augroup VCSCommand
+  au User VCSBufferCreated silent! nmap <unique> <buffer> q :bwipeout<cr>
+  au User VCSBufferCreated setf vcscommit
+augroup END
+
 autocmd BufNewFile,BufRead *_spec.rb source ~/.vim/ftplugin/rails/rspec.vim
 autocmd BufNewFile,BufRead *_test.rb source ~/.vim/ftplugin/rails/shoulda.vim
 

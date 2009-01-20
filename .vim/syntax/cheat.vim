@@ -12,16 +12,16 @@ syntax match Level7 "^\s*=======\s\+.*$"
 syntax match Command "^\s*\$\s\+.*$"
 syntax match Empha "@.*@"
 
-highlight Level1 guifg=#ff6600 ctermfg=darkred term=bold
-highlight Level2 guifg=red     ctermfg=red     term=bold
-highlight Level3 guifg=magenta ctermfg=blue    term=bold
+highlight Level1 guifg=#E20003 ctermfg=darkred term=bold
+highlight Level2 guifg=#43A7FF ctermfg=red     term=bold
+highlight Level3 guifg=#00FFE2 ctermfg=blue    term=bold
 highlight Level4 guifg=magenta ctermfg=cyan    term=bold
 highlight Level5 guifg=magenta ctermfg=cyan    term=bold
 highlight Level6 guifg=magenta ctermfg=cyan    term=bold
 highlight Level7 guifg=magenta ctermfg=cyan    term=bold
 
-highlight Command guifg=#C000C0 ctermfg=magenta term=bold
-highlight Empha guifg=#ffff00 ctermfg=yellow term=bold
+highlight Command guifg=#AD7FA8 ctermfg=magenta term=bold
+highlight Empha guifg=#F8FC00 ctermfg=yellow term=bold
 
 highlight CheatComment guifg=LightGray ctermfg=LightGray
 highlight CheatTodo guifg=yellow ctermfg=yellow
