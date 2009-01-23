@@ -14,7 +14,7 @@
 :nn <Space>r  :Rake 
 
 :nn <Space>e  :e 
-:nn <Space>f  :Rfind  
+:nn <Space>f  :RTfind 
 
 :nn <Space>s  :Rstylesheet 
 :nn <Space>j  :Rjavascript 

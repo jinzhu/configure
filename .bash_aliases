@@ -82,6 +82,7 @@ alias sd='./script/dbconsole'
 #
 
 alias gb='git branch -a -v'
+alias gi='git ci'
 alias gs='git status'
 alias gd='git diff'
 alias gp='git push'

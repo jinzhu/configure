@@ -28,12 +28,12 @@ autocmd FileType xml        set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 
 augroup filetypedetect
-  au BufRead,BufNewFile *.js       setf javascript.jquery
-  au! BufNewFile,BufRead *.ch      setf cheat
-  au! BufNewFile,BufRead *.yac     setf cheat
-  au BufNewFile,BufRead *.liquid   setf liquid
-  au! BufRead,BufNewFile *.haml    setf haml
-  autocmd BufNewFile,BufRead *.yml setf eruby
+  au  BufNewFile,BufRead  *.js     setf javascript.jquery
+  au! BufNewFile,BufRead  *.ch     setf cheat
+  au! BufNewFile,BufRead  *.yac    setf cheat
+  au  BufNewFile,BufRead  *.liquid setf liquid
+  au! BufNewFile,BufRead  *.haml   setf haml
+  au  BufNewFile,BufRead  *.yml    setf eruby
 augroup END
 
 augroup VCSCommand
