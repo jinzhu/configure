@@ -1,14 +1,20 @@
+flog
+
 rspec
 rspec-rails
 cucumber
 mocha
-nokogiri
 thoughtbot-shoulda
+thoughtbot-factory_girl
+jeremymcanally-context
 ZenTest
 rcov
 
+nokogiri
+
 rails
-merb
+haml
+will_paginate
 capistrano
 mysql
 RedCloth

@@ -114,6 +114,14 @@ searchlogic:
   path: ~/Lab/searchlogic
   repo: git://github.com/binarylogic/searchlogic.git
 
+attachment_fu:
+  path: ~/Lab/attachment_fu/
+  repo: git://github.com/technoweenie/attachment_fu.git
+
+exception_notification:
+  path: ~/Lab/exception_notification/
+  repo: git://github.com/rails/exception_notification.git
+
 acts_as_soft_deletable:
   path: ~/Lab/acts_as_soft_deletable/
   repo: git://github.com/ajh/acts_as_soft_deletable.git
