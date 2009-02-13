@@ -1,1 +1,2 @@
-open: vim
+# vi filetype=yml
+open: vim       # command used by ( $ eo -go / $ eo -o / GO / O )

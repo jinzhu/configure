@@ -1,11 +1,13 @@
 # vi: ft=yaml
 # Eo - Install : sudo gem install easyoperate
 system:
+ skip: true
  cmd:
    init: system('sudo pacman -S $(cat ~/GIT/configure/pkglist)')
    update: system('sudo pacman -Suy')
 
 rubygems:
+ skip: true
  cmd:
    init: system('sudo gem install $(cat ~/GIT/configure/gemlist)')
    update: system('sudo gem update')
@@ -48,6 +50,14 @@ merb.vim:
 ############################################################
 ## Performance
 ############################################################
+attachment_fu:
+  path: ~/Lab/attachment_fu/
+  repo: git://github.com/technoweenie/attachment_fu.git
+
+exception_notification:
+  path: ~/Lab/exception_notification/
+  repo: git://github.com/rails/exception_notification.git
+
 cache-money:
   path: ~/Lab/cache-money
   repo: git://github.com/nkallen/cache-money.git
@@ -102,6 +112,11 @@ jquery-facebox:
 ############################################################
 ## Other
 ############################################################
+redmine:
+  path: ~/Lab/redmine/
+  scm:  svn
+  repo: http://redmine.rubyforge.org/svn/trunk
+
 ziya:
   path: ~/Lab/ziya
   repo:   git://github.com/derailed/ziya.git
@@ -113,14 +128,6 @@ prawn:
 searchlogic:
   path: ~/Lab/searchlogic
   repo: git://github.com/binarylogic/searchlogic.git
-
-attachment_fu:
-  path: ~/Lab/attachment_fu/
-  repo: git://github.com/technoweenie/attachment_fu.git
-
-exception_notification:
-  path: ~/Lab/exception_notification/
-  repo: git://github.com/rails/exception_notification.git
 
 acts_as_soft_deletable:
   path: ~/Lab/acts_as_soft_deletable/
@@ -137,11 +144,29 @@ plugin_test_helper:
 eo:
   path: ~/GIT/easyoperate/
   repo: git@github.com:wosmvp/eo.git
+  pushable: true
 
 configure:
   path: ~/GIT/configure/
   repo: git://github.com/rails/configure.git
+  pushable: true
 
 yac:
-  path: ~/GIT/configure/
+  path: ~/GIT/yac/
   repo: git@github.com:wosmvp/yac.git
+  pushable: true
+
+blog:
+  path: ~/GIT/web/
+  repo: git@github.com:wosmvp/blog.git
+  pushable: true
+
+acts_as_tagtree:
+  path: ~/GIT/item/vendor/plugins/acts_as_tagtree
+  repo: git@github.com:wosmvp/acts_as_tagtree.git
+  pushable: true
+
+phase_diagram:
+  path: ~/GIT/design/
+  repo: git@github.com:wosmvp/phase_diagram.git
+  pushable: true
