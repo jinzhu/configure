@@ -170,3 +170,8 @@ phase_diagram:
   path: ~/GIT/design/
   repo: git@github.com:wosmvp/phase_diagram.git
   pushable: true
+
+ipparse:
+  path: ~/GIT/ippaser/
+  repo: git@github.com:wosmvp/ipparse.git
+  pushable: true
