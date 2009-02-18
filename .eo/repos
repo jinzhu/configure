@@ -75,21 +75,6 @@ rack:
   repo: git://github.com/chneukirchen/rack.git
 
 ############################################################
-## Merb
-############################################################
-wycats_rails:
-  path: ~/Lab/wycats_rails/
-  repo: git://github.com/wycats/rails.git wycats_rails
-
-merb:
-  path: ~/Lab/merb
-  repo: git://github.com/wycats/merb.git
-
-merb-book:
-  path: ~/Lab/merb-book
-  repo: git://github.com/mattetti/merb-book.git
-
-############################################################
 ## JQuery
 ############################################################
 jrails:
@@ -136,6 +121,10 @@ acts_as_soft_deletable:
 plugin_test_helper:
   path: ~/Lab/plugin_test_helper
   repo: git://github.com/pluginaweek/plugin_test_helper.git
+
+i18n_google_translate:
+  path: ~/Lab/i18n_google_translate/
+  repo: git://github.com/ihower/i18n_google_translate.git
 
 ############################################################
 ## mine :)
