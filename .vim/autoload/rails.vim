@@ -521,6 +521,8 @@ function! s:app_calculate_file_type(path) dict
     let r = "spec"
   elseif f =~ '_helper\.rb$'
     let r = "helper"
+  elseif f =~ '\<app/metal/.*\.rb$'
+    let r = "metal"
   elseif f =~ '\<app/models\>'
     let top = join(s:readfile(full_path,50),"\n")
     let class = matchstr(top,'\<Acti\w\w\u\w\+\%(::\h\w*\)\+\>')
@@ -1435,7 +1437,7 @@ function! s:Complete_script(ArgLead,CmdLine,P)
       return s:modelList(a:ArgLead,"","")
     elseif target ==# 'migration' || target ==# 'session_migration'
       return s:migrationList(a:ArgLead,"","")
-    elseif target ==# 'integration_test'
+    elseif target ==# 'integration_test' || target ==# 'feature'
       return s:integrationtestList(a:ArgLead,"","")
     elseif target ==# 'observer'
       let observers = s:observerList("","","")
@@ -1890,6 +1892,7 @@ endfunction
 function! s:BufFinderCommands()
   command! -buffer -bar -nargs=+ Rnavcommand :call s:Navcommand(<bang>0,<f-args>)
   command! -buffer -bar -nargs=+ Rcommand    :call s:warn("Warning: :Rcommand has been deprecated in favor of :Rnavcommand")|call s:Navcommand(<bang>0,<f-args>)
+  call s:addfilecmds("metal")
   call s:addfilecmds("model")
   call s:addfilecmds("view")
   call s:addfilecmds("controller")
@@ -1903,7 +1906,7 @@ function! s:BufFinderCommands()
     call s:addfilecmds("unittest")
     call s:addfilecmds("functionaltest")
   endif
-  if rails#app().test_suites('test')
+  if rails#app().test_suites('test') || rails#app().test_suites('features')
     call s:addfilecmds("integrationtest")
   endif
   if rails#app().test_suites('spec')
@@ -2002,6 +2005,10 @@ function! s:javascriptList(A,L,P)
   return s:completion_filter(rails#app().relglob("public/javascripts/","**/*",".js"),a:A)
 endfunction
 
+function! s:metalList(A,L,P)
+  return s:autocamelize(rails#app().relglob("app/metal/","**/*",".rb"),a:A)
+endfunction
+
 function! s:modelList(A,L,P)
   let models = rails#app().relglob("app/models/","**/*",".rb")
   call filter(models,'v:val !~# "_observer$"')
@@ -2054,7 +2061,14 @@ function! s:functionaltestList(A,L,P)
 endfunction
 
 function! s:integrationtestList(A,L,P)
-  return s:autocamelize(rails#app().relglob("test/integration/","**/*","_test.rb"),a:A)
+  let found = []
+  if rails#app().test_suites('test')
+    let found += s:autocamelize(rails#app().relglob("test/integration/","**/*","_test.rb"),a:A)
+  endif
+  if rails#app().test_suites('features')
+    let found += rails#app().relglob("features/","**/*",".feature")
+  endif
+  return found
 endfunction
 
 function! s:specList(A,L,P)
@@ -2254,6 +2268,10 @@ function! s:fixturesEdit(bang,cmd,...)
   endif
 endfunction
 
+function! s:metalEdit(bang,cmd,...)
+  call s:EditSimpleRb(a:bang,a:cmd,"metal",a:0? a:1 : '../../config/boot',"app/metal/",".rb")
+endfunction
+
 function! s:modelEdit(bang,cmd,...)
   call s:EditSimpleRb(a:bang,a:cmd,"model",a:0? a:1 : s:model(1),"app/models/",".rb")
 endfunction
@@ -2397,7 +2415,7 @@ function! s:unittestEdit(bang,cmd,...)
   let mapping = {'test': ['test/unit/','_test.rb'], 'spec': ['spec/models/','_spec.rb']}
   let tests = map(filter(rails#app().test_suites(),'has_key(mapping,v:val)'),'get(mapping,v:val)')
   if empty(tests)
-    let tests = [mapping[tests]]
+    let tests = [mapping['test']]
   endif
   for [prefix, suffix] in tests
     if !a:0 && RailsFileType() =~# '^model-aro\>' && f != '' && f !~# '_observer$'
@@ -2435,11 +2453,27 @@ function! s:functionaltestEdit(bang,cmd,...)
 endfunction
 
 function! s:integrationtestEdit(bang,cmd,...)
-  if a:0
-    return s:EditSimpleRb(a:bang,a:cmd,"integrationtest",a:1,"test/integration/","_test.rb")
-  else
-    call s:EditSimpleRb(a:bang,a:cmd,"integrationtest","test_helper","test/",".rb")
+  if !a:0
+    if rails#app().test_suites('features')
+      return s:EditSimpleRb(a:bang,a:cmd,"integrationtest","support/env","features/",".rb")
+    else
+      return s:EditSimpleRb(a:bang,a:cmd,"integrationtest","test_helper","test/",".rb")
+    endif
   endif
+  let cmd = s:findcmdfor(a:cmd.(a:bang?'!':''))
+  let mapping = {'test': ['test/integration/','_test.rb'], 'features': ['features/','.feature']}
+  let tests = map(filter(rails#app().test_suites(),'has_key(mapping,v:val)'),'get(mapping,v:val)')
+  if empty(tests)
+    let tests = [mapping['test']]
+  endif
+  for [prefix, suffix] in tests
+    if rails#app().has_file(prefix.a:1.suffix)
+      return s:findedit(cmd,prefix.a:1.suffix)
+    elseif rails#app().has_file(prefix.rails#underscore(a:1).suffix)
+      return s:findedit(cmd,prefix.rails#underscore(a:1).suffix)
+    endif
+  endfor
+  return s:findedit(cmd,tests[0][0].a:1.tests[0][1])
 endfunction
 
 function! s:specEdit(bang,cmd,...)
