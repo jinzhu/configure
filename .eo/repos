@@ -164,3 +164,8 @@ ipparse:
   path: ~/GIT/ipparse/
   repo: git@github.com:wosmvp/ipparse.git
   pushable: true
+
+yac_cheat:
+  path: ~/.yac/private
+  repo: git@github.com:wosmvp/mycheat.git
+  pushable: true
