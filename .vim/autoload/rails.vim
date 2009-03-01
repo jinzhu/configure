@@ -329,6 +329,8 @@ function! s:model(...)
     return rails#singularize(s:sub(f,'.*<%(test|spec)/fixtures/(.*)\.\w*\~=$','\1'))
   elseif f =~ '\<\%(test\|spec\)/exemplars/.*_exemplar\.rb$'
     return s:sub(f,'.*<%(test|spec)/exemplars/(.*)_exemplar\.rb$','\1')
+  elseif f =~ '\<\%(test\|spec\)/factories/.*\.rb$'
+    return s:sub(f,'.*<%(test|spec)/factories/(.{-})%(_factory)=\.rb$','\1')
   elseif a:0 && a:1
     return rails#singularize(s:controller())
   endif
@@ -1718,6 +1720,8 @@ function! s:RailsFind()
   if res != ""|return res."\n".s:findview(res)|endif
   let res = s:findamethod('render\s*:\%(template\|action\)\s\+=>\s*','\1.'.format.'\n\1')
   if res != ""|return res|endif
+  let res = s:sub(s:sub(s:findfromview('render','\1'),'^/',''),'\k+$','_&')
+  if res != ""|return res."\n".s:findview(res)|endif
   let res = s:findamethod('redirect_to\s*(\=\s*:action\s\+=>\s*','\1')
   if res != ""|return res|endif
   let res = s:findfromview('stylesheet_link_tag','public/stylesheets/\1.css')
@@ -1771,12 +1775,9 @@ endfunction
 
 function! s:RailsIncludefind(str,...)
   if a:str ==# "ApplicationController"
-    return "app/controllers/application.rb"
+    return "application_controller.rb\napp/controllers/application.rb"
   elseif a:str ==# "Test::Unit::TestCase"
     return "test/unit/testcase.rb"
-  elseif a:str == "<%="
-    " Probably a silly idea
-    return "action_view.rb"
   endif
   let str = a:str
   if a:0 == 1
@@ -1841,7 +1842,6 @@ function! s:RailsIncludefind(str,...)
       endif
     endwhile
   elseif str =~# '_\%(path\|url\)$'
-    " REST helpers
     let str = s:sub(str,'_%(path|url)$','')
     let str = s:sub(str,'^hash_for_','')
     let file = rails#app().named_route_file(str)
@@ -2066,7 +2066,7 @@ function! s:integrationtestList(A,L,P)
     let found += s:autocamelize(rails#app().relglob("test/integration/","**/*","_test.rb"),a:A)
   endif
   if rails#app().test_suites('features')
-    let found += rails#app().relglob("features/","**/*",".feature")
+    let found += s:completion_filter(rails#app().relglob("features/","**/*",".feature"),a:A)
   endif
   return found
 endfunction
@@ -2189,13 +2189,13 @@ function! s:CommandEdit(bang,cmd,name,prefix,suffix,filter,default,...)
   endif
 endfunction
 
-function! s:EditSimpleRb(bang,cmd,name,target,prefix,suffix)
+function! s:EditSimpleRb(bang,cmd,name,target,prefix,suffix,...)
   let cmd = s:findcmdfor(a:cmd.(a:bang?'!':''))
   if a:target == ""
     " Good idea to emulate error numbers like this?
     return s:error("E471: Argument required")
   endif
-  let f = rails#underscore(a:target)
+  let f = a:0 ? a:target : rails#underscore(a:target)
   let jump = matchstr(f,'#.*\|:\d*\%(:in\)\=$')
   let f = s:sub(f,'#.*|:\d*%(:in)=$','')
   if f == '.'
@@ -2402,11 +2402,11 @@ function! s:apiEdit(bang,cmd,...)
 endfunction
 
 function! s:stylesheetEdit(bang,cmd,...)
-  return s:EditSimpleRb(a:bang,a:cmd,"stylesheet",a:0? a:1 : s:controller(1),"public/stylesheets/",".css")
+  return s:EditSimpleRb(a:bang,a:cmd,"stylesheet",a:0? a:1 : s:controller(1),"public/stylesheets/",".css",1)
 endfunction
 
 function! s:javascriptEdit(bang,cmd,...)
-  return s:EditSimpleRb(a:bang,a:cmd,"javascript",a:0? a:1 : "application","public/javascripts/",".js")
+  return s:EditSimpleRb(a:bang,a:cmd,"javascript",a:0? a:1 : "application","public/javascripts/",".js",1)
 endfunction
 
 function! s:unittestEdit(bang,cmd,...)
