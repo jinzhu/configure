@@ -83,17 +83,30 @@ alias sd='./script/dbconsole'
 
 alias gb='git branch -a -v'
 alias gi='git ci'
-alias gs='git status'
-alias gd='git diff'
 alias gp='git push'
 alias gl='git log'
+
+function gs {
+  if [ -d '.svn' ];then
+    svn status $*
+  else
+    git status $*
+  fi
+}
+function gd {
+  if [ -d '.svn' ];then
+    svn diff $*
+  else
+    git diff $*
+  fi
+}
 
 # gc      => git checkout master
 # gc bugs => git checkout bugs
 function gc {
-if [ -z "$1" ]; then
+if [ -z "$*" ]; then
   git checkout master
 else
-  git checkout $1
+  git checkout $*
 fi
 }
