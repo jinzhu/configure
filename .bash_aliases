@@ -84,13 +84,19 @@ alias sd='./script/dbconsole'
 alias gb='git branch -a -v'
 alias gi='git ci'
 alias gp='git push'
-alias gl='git log'
 
 function gs {
   if [ -d '.svn' ];then
     svn status $*
   else
     git status $*
+  fi
+}
+function gl {
+  if [ -d '.svn' ];then
+    svn log $*
+  else
+    git log $*
   fi
 }
 function gd {
