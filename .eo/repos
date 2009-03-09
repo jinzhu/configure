@@ -74,6 +74,10 @@ rack:
   path: ~/Lab/rack
   repo: git://github.com/chneukirchen/rack.git
 
+asset_packager:
+  path: ~/Lab/asset_packager
+  repo: git://github.com/sbecker/asset_packager
+
 ############################################################
 ## JQuery
 ############################################################
