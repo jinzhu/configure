@@ -11,7 +11,7 @@ export HISTCONTROL=ignoreboth
 shopt -s checkwinsize
 
 # set a fancy prompt (non-color, unless we know we "want" color)
-PS1='\[\033[01;34m\]\W \$ \[\033[00m\]'
+PS1='\[\e[01;34m\]\W \[\e[0m\e[01;32m\]\$ \[\e[00m\]'
 
 # Change the window title of X terminals 
 case ${TERM} in
