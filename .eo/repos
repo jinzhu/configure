@@ -98,6 +98,10 @@ jquery-facebox:
   path: ~/Lab/jquery-facebox
   repo: git://github.com/defunkt/facebox.git
 
+jquery_jeditable:
+  path: ~/Lab/jquery-jeditable
+  repo: git://github.com/tuupola/jquery_jeditable.git
+
 ############################################################
 ## Other
 ############################################################
