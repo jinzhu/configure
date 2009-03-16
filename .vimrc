@@ -183,7 +183,7 @@ set guifont=simhei\ 20
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set helplang=cn
-set ignorecase
+set smartcase
 
 set nocompatible
 
