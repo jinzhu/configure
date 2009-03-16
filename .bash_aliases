@@ -26,6 +26,7 @@ trash()
 }
 
 alias ls='ls --color=auto'
+alias ll='ls -l --color=auto'
 alias la='ls -A --color=auto'
 alias grep='grep --color'
 
