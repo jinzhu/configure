@@ -852,7 +852,7 @@ function! s:app_tags_command() dict
   else
     return s:error("ctags not found")
   endif
-  exe "!".cmd." -f ".s:escarg(self.path("tmp/tags"))." --exclude=facebox.js --exclude=\"*.*.js\" --langmap=\"ruby:+.rake.builder.rjs\" -R ".s:escarg(self.path())
+  exe '!'.cmd.' -f '.s:escarg(self.path("tmp/tags")).' -R --langmap="ruby:+.rake.builder.rjs" '.g:rails_ctags_arguments.' '.s:escarg(self.path())
 endfunction
 
 call s:add_methods('app',['tags_command'])
@@ -3082,14 +3082,14 @@ function! s:invertrange(beg,end)
       return -1
     endif
     if add == ""
-      let add = s:sub(line,'^\s*\zs.*','raise ActiveRecord::IrreversableMigration')
+      let add = s:sub(line,'^\s*\zs.*','raise ActiveRecord::IrreversibleMigration')
     elseif add == " "
       let add = ""
     endif
     let str = add."\n".str
     let lnum += 1
   endwhile
-  let str = s:gsub(str,'(\s*raise ActiveRecord::IrreversableMigration\n)+','\1')
+  let str = s:gsub(str,'(\s*raise ActiveRecord::IrreversibleMigration\n)+','\1')
   return str
 endfunction
 
@@ -3123,12 +3123,9 @@ function! s:Invert(bang)
   if beg + 1 < end
     exe (beg+1).",".(end-1)."delete _"
   endif
-  if str != ""
-    let reg_keep = @"
-    let @" = str
-    exe beg."put"
+  if str != ''
+    exe beg.'put =str'
     exe 1+beg
-    let @" = reg_keep
   endif
 endfunction
 
@@ -3193,7 +3190,7 @@ function! s:helpermethods()
         \."atom_feed auto_discovery_link_tag auto_link "
         \."benchmark button_to button_to_function button_to_remote "
         \."cache capture cdata_section check_box check_box_tag collection_select concat content_for content_tag content_tag_for current_cycle cycle "
-        \."date_select datetime_select debug define_javascript_functions distance_of_time_in_words distance_of_time_in_words_to_now div_for dom_class dom_id draggable_element draggable_element_js drop_receiving_element drop_receiving_element_js "
+        \."date_select datetime_select debug distance_of_time_in_words distance_of_time_in_words_to_now div_for dom_class dom_id draggable_element draggable_element_js drop_receiving_element drop_receiving_element_js "
         \."error_message_on error_messages_for escape_javascript escape_once evaluate_remote_response excerpt "
         \."field_set_tag fields_for file_field file_field_tag form form_for form_remote_for form_remote_tag form_tag "
         \."hidden_field hidden_field_tag highlight "
