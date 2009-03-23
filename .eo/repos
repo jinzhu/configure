@@ -177,3 +177,8 @@ yac_cheat:
   path: ~/.yac/private
   repo: git@github.com:wosmvp/mycheat.git
   pushable: true
+
+viewtest:
+  path: ~/GIT/viewtest
+  repo: git@github.com:wosmvp/viewtest.git
+  pushable: true
