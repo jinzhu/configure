@@ -13,7 +13,7 @@ esac
 # set a fancy prompt (non-color, unless we know we "want" color)
 
 function parse_git_branch() {
-  GIT_BRANCH=`__git_ps1`
+  GIT_BRANCH=`git branch 2> /dev/null | grep '^\*' | sed 's/^\*\ //'`
   if [ "$GIT_BRANCH" ] ; then
     GIT_STATUS=`git status 2> /dev/null`
     CLR='2'
@@ -23,12 +23,12 @@ function parse_git_branch() {
 
     pt=`echo $GIT_STATUS | grep 'Your branch is ahead' | awk {'print $13'}`
     if [ "${pt}" ] ; then
-      PTIMES="${pt} ↑ "
+      PTIMES=" ${pt} ↑ "
     else
-      PTIMES=" "
+      PTIMES=""
     fi
 
-    RSLT="[01;3${CLR};40m[${GIT_BRANCH} ${PTIMES}][0m"
+    RSLT="[01;3${CLR};40m[${GIT_BRANCH}${PTIMES}][0m"
   fi
   echo $RSLT
 }
