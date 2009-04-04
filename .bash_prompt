@@ -21,9 +21,11 @@ function parse_git_branch() {
       CLR='1'
     fi
 
-    if pt=`echo $GIT_STATUS | grep 'Your branch is ahead' | awk {'print $13'}`
-      then
+    pt=`echo $GIT_STATUS | grep 'Your branch is ahead' | awk {'print $13'}`
+    if [ "${pt}" ] ; then
       PTIMES="${pt} ↑ "
+    else
+      PTIMES=" "
     fi
 
     RSLT="[01;3${CLR};40m[${GIT_BRANCH} ${PTIMES}][0m"
