@@ -126,6 +126,10 @@ acts_as_soft_deletable:
   path: ~/Lab/acts_as_soft_deletable/
   repo: git://github.com/ajh/acts_as_soft_deletable.git
 
+acts_as_revisable:
+  path: ~/Lab/acts_as_revisable
+  repo: git://github.com/rich/acts_as_revisable.git
+
 plugin_test_helper:
   path: ~/Lab/plugin_test_helper
   repo: git://github.com/pluginaweek/plugin_test_helper.git
