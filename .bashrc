@@ -10,36 +10,27 @@ export HISTCONTROL=ignoreboth
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-PS1='\[\e[01;34m\]\W \[\e[0m\e[01;32m\]\$ \[\e[00m\]'
-
-# Change the window title of X terminals 
-case ${TERM} in
-  xterm*|rxvt*|Eterm|aterm|kterm|gnome*)
-  PROMPT_COMMAND='echo -ne "\033]0;$(__git_ps1)${PWD/$HOME/~}\007"'
-  ;;
-  screen)
-  PROMPT_COMMAND='echo -ne "\033_$(__git_ps1) ${PWD/$HOME/~}\033\\"'
-  ;;
-esac
-
 # dircolors --print-database uses its own built-in database
 if [ -f ~/.dir_colors ]; then
   eval $(dircolors -b ~/.dir_colors)
 fi
 
-# Alias definitions.
-if [ -f ~/.bash_aliases ]; then
-  . ~/.bash_aliases
-fi
-
 # enable programmable completion features
 if [ -f /etc/bash_completion ]; then
-  . /etc/bash_completion
+  source /etc/bash_completion
+fi
+
+if [ -f ~/.bash_prompt ]; then
+  source ~/.bash_prompt
+fi
+
+# Alias definitions.
+if [ -f ~/.bash_aliases ]; then
+  source ~/.bash_aliases
 fi
 
 CDPATH=".:~:~/GIT:~/Lab:~/WEB/:~/GIT/:/pillar:/pillar/HOME/:~/Documents/"
-PATH="./bin/:$HOME/bin:$HOME/.gem/ruby/1.8/bin/:$PATH:/usr/bin:/usr/local/bin/"
+PATH="./bin/:$HOME/bin:$PATH:/usr/local/bin/"
 
 export LC_CTYPE=zh_CN.utf8
 export GTK_IM_MODULE=xim
