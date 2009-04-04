@@ -28,9 +28,9 @@ function parse_git_branch() {
       PTIMES=""
     fi
 
-    RSLT="[01;3${CLR};40m[${GIT_BRANCH}${PTIMES}][0m"
+    RSLT="\e[01;3${CLR};40m[${GIT_BRANCH}${PTIMES}]\e[0m"
   fi
-  echo $RSLT
+  echo -e "${RSLT}"
 }
 
 COL=`expr $COLUMNS - 1`
@@ -42,5 +42,5 @@ do
   LINE="${LINE}─"
 done
 
-export PS1='┌${LINE}[${COL}D────[01;30m[\u@\h][0m─────[01;36m[\t][0m─────[01;34m[\W][0m─────$(parse_git_branch)───
-└─> [01;32m\$[0m '
+export PS1='┌${LINE}[${COL}D────\[\e[01;30m\][\u@\h]\[\e[0m\]─────\[\e[01;36m\][\t]\[\e[0m\]─────\[\e[01;34m\][\W]\[\e[0m\]─────$(parse_git_branch)───
+└─> \[\e[01;32m\]\$\[\e[0m\] '
