@@ -83,8 +83,7 @@ asset_packager:
 ############################################################
 jrails:
   path: ~/Lab/jrails
-  scm: svn
-  repo: http://ennerchi.googlecode.com/svn/trunk/plugins/jrails
+  repo: git://github.com/aaronchi/jrails.git
 
 jquery_grid_for_rails:
   path: ~/Lab/jquery_grid_for_rails
