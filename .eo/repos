@@ -103,6 +103,7 @@ jquery_jeditable:
 
 jgrowl:
  path: ~/Lab/jgrowl/
+ intro: http://stanlemon.net/projects/jgrowl.html
  cmd:
    init: system('cd ~/Lab/ && cvs -z6 -d:pserver:anonymous:anonymous@cvs.drupal.org:/cvs/drupal-contrib checkout -d jgrowl contributions/modules/jgrowl/')
    update: system('cvs update')
