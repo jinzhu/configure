@@ -101,6 +101,12 @@ jquery_jeditable:
   path: ~/Lab/jquery-jeditable
   repo: git://github.com/tuupola/jquery_jeditable.git
 
+jgrowl:
+ path: ~/Lab/jgrowl/
+ cmd:
+   init: system('cd ~/Lab/ && cvs -z6 -d:pserver:anonymous:anonymous@cvs.drupal.org:/cvs/drupal-contrib checkout -d jgrowl contributions/modules/jgrowl/')
+   update: system('cvs update')
+
 ############################################################
 ## Other
 ############################################################
