@@ -1,51 +1,5 @@
 # vi: ft=yaml
 # Eo - Install : sudo gem install easyoperate
-system:
- skip: true
- cmd:
-   init: system('sudo pacman -S $(cat ~/GIT/configure/pkglist)')
-   update: system('sudo pacman -Suy')
-
-rubygems:
- skip: true
- cmd:
-   init: system('sudo gem install $(cat ~/GIT/configure/gemlist)')
-   update: system('sudo gem update')
-
-############################################################
-# VIM
-############################################################
-vim-rails:
-  path: ~/Lab/VIM/vim-rails/
-  repo: git://github.com/tpope/vim-rails.git
-
-vim-git:
-  path: ~/Lab/VIM/vim-git/
-  repo: git://github.com/tpope/vim-git.git
-
-git-vim:
-  path: ~/Lab/VIM/git-vim/
-  repo: git://github.com/motemen/git-vim.git
-
-vim-cucumber:
-  path: ~/Lab/VIM/vim-cucumber/
-  repo: git://github.com/tpope/vim-cucumber.git
-
-vimfiles:
-  path: ~/Lab/VIM/vimfiles/
-  repo: git://github.com/scrooloose/vimfiles.git
-
-vim-ruby:
-  path: ~/Lab/VIM/vim-ruby/
-  repo: git://github.com/vim-ruby/vim-ruby.git
-
-vim-abolish:
-  path: ~/Lab/VIM/vim-abolish/
-  repo: git://github.com/tpope/vim-abolish.git
-
-snipmate.vim:
-  path: ~/Lab/VIM/snipmate.vim/
-  repo: git://github.com/meese/snipmate.vim.git
 
 ############################################################
 ## Performance
@@ -62,10 +16,6 @@ cache-money:
   path: ~/Lab/cache-money
   repo: git://github.com/nkallen/cache-money.git
 
-delayed_job:
-  path: ~/Lab/delayed_job
-  repo: git://github.com/tobi/delayed_job.git
-
 cache_fu:
   path: ~/Lab/cache_fu
   repo: git://github.com/defunkt/cache_fu.git
@@ -77,36 +27,6 @@ rack:
 asset_packager:
   path: ~/Lab/asset_packager
   repo: git://github.com/sbecker/asset_packager
-
-############################################################
-## JQuery
-############################################################
-jrails:
-  path: ~/Lab/JQuery/jrails
-  repo: git://github.com/aaronchi/jrails.git
-
-jquery_grid_for_rails:
-  path: ~/Lab/JQuery/jquery_grid_for_rails
-  repo: git://github.com/scrubber/jquery_grid_for_rails.git
-
-jquery-hotkeys:
-  path: ~/Lab/JQuery/jquery-hotkeys
-  repo: git://github.com/github/jquery-hotkeys.git
-
-jquery-facebox:
-  path: ~/Lab/JQuery/jquery-facebox
-  repo: git://github.com/defunkt/facebox.git
-
-jquery_jeditable:
-  path: ~/Lab/JQuery/jquery-jeditable
-  repo: git://github.com/tuupola/jquery_jeditable.git
-
-jgrowl:
- path: ~/Lab/JQuery/jgrowl/
- intro: http://stanlemon.net/projects/jgrowl.html
- cmd:
-   init: system('cd ~/Lab/ && cvs -z6 -d:pserver:anonymous:anonymous@cvs.drupal.org:/cvs/drupal-contrib checkout -d jgrowl contributions/modules/jgrowl/')
-   update: system('cvs update')
 
 ############################################################
 ## Other
@@ -147,102 +67,3 @@ i18n_google_translate:
 sequel:
   path: ~/Lab/sequel
   repo: git://github.com/jeremyevans/sequel.git
-############################################################
-## MQ
-############################################################
-mq:
-  path: ~/Lab/MQ/mq 	 
-  repo: git://github.com/mdarby/mq.git
-
-active_queue:
-  path: ~/Lab/MQ/active_queue 	 
-  repo: git://github.com/mojodna/active_queue.git 
-
-rabbitbal:
-  path: ~/Lab/MQ/rabbitbal
-  repo: git://github.com/somic/rabbitbal.git
-
-starling:
-  path: ~/Lab/MQ/starling
-  repo: git://github.com/starling/starling.git
-
-workling:
-  path: ~/Lab/MQ/workling
-  repo: git://github.com/purzelrakete/workling.git
-
-nanite:
-  path: ~/Lab/MQ/nanite
-  repo: git://github.com/ezmobius/nanite.git
-
-amqp:
-  path: ~/Lab/MQ/amqp
-  repo: git://github.com/tmm1/amqp.git
-
-lizzy:
-  path: ~/Lab/MQ/lizzy
-  repo: git://github.com/bmizerany/lizzy.git
-
-rosetta_queue:
-  path: ~/Lab/MQ/rosetta_queue
-  repo: git://github.com/bmabey/rosetta_queue.git
-
-spawn:
-  path: ~/Lab/MQ/spawn
-  repo: git://github.com/tra/spawn.git
-
-eventmachine:
-  path: ~/Lab/MQ/eventmachine
-  repo: git://github.com/eventmachine/eventmachine.git
-
-rubyqueues:
-  path: ~/Lab/MQ/rubyqueues
-  repo: git://github.com/igal/rubyqueues.git
-
-############################################################
-## mine :)
-############################################################
-
-eo:
-  path: ~/GIT/easyoperate/
-  repo: git@github.com:wosmvp/eo.git
-  pushable: true
-
-configure:
-  path: ~/GIT/configure/
-  repo: git://github.com/rails/configure.git
-  pushable: true
-
-yac:
-  path: ~/GIT/yac/
-  repo: git@github.com:wosmvp/yac.git
-  pushable: true
-
-blog:
-  path: ~/GIT/web/
-  repo: git@github.com:wosmvp/blog.git
-  pushable: true
-
-acts_as_tagtree:
-  path: ~/GIT/item/vendor/plugins/acts_as_tagtree
-  repo: git@github.com:wosmvp/acts_as_tagtree.git
-  pushable: true
-
-phase_diagram:
-  path: ~/GIT/design/
-  repo: git@github.com:wosmvp/phase_diagram.git
-  pushable: true
-
-ipparse:
-  path: ~/GIT/ipparse/
-  repo: git@github.com:wosmvp/ipparse.git
-  pushable: true
-
-yac_cheat:
-  path: ~/.yac/private
-  repo: git@github.com:wosmvp/mycheat.git
-  pushable: true
-
-viewtest:
-  path: ~/GIT/viewtest
-  repo: git@github.com:wosmvp/viewtest.git
-  pushable: true

@@ -1,0 +1,31 @@
+# vi: ft=yaml
+
+############################################################
+## JQuery
+############################################################
+jrails:
+  path: ~/Lab/JQuery/jrails
+  repo: git://github.com/aaronchi/jrails.git
+
+jquery_grid_for_rails:
+  path: ~/Lab/JQuery/jquery_grid_for_rails
+  repo: git://github.com/scrubber/jquery_grid_for_rails.git
+
+jquery-hotkeys:
+  path: ~/Lab/JQuery/jquery-hotkeys
+  repo: git://github.com/github/jquery-hotkeys.git
+
+jquery-facebox:
+  path: ~/Lab/JQuery/jquery-facebox
+  repo: git://github.com/defunkt/facebox.git
+
+jquery_jeditable:
+  path: ~/Lab/JQuery/jquery-jeditable
+  repo: git://github.com/tuupola/jquery_jeditable.git
+
+jgrowl:
+ path: ~/Lab/JQuery/jgrowl/
+ intro: http://stanlemon.net/projects/jgrowl.html
+ cmd:
+   init: system('cd ~/Lab/ && cvs -z6 -d:pserver:anonymous:anonymous@cvs.drupal.org:/cvs/drupal-contrib checkout -d jgrowl contributions/modules/jgrowl/')
+   update: system('cvs update')

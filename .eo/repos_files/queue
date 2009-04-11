@@ -1,0 +1,56 @@
+# vi: ft=yaml
+
+############################################################
+## Queue
+############################################################
+mq:
+  path: ~/Lab/MQ/mq 	 
+  repo: git://github.com/mdarby/mq.git
+
+active_queue:
+  path: ~/Lab/MQ/active_queue 	 
+  repo: git://github.com/mojodna/active_queue.git 
+
+rabbitbal:
+  path: ~/Lab/MQ/rabbitbal
+  repo: git://github.com/somic/rabbitbal.git
+
+starling:
+  path: ~/Lab/MQ/starling
+  repo: git://github.com/starling/starling.git
+
+workling:
+  path: ~/Lab/MQ/workling
+  repo: git://github.com/purzelrakete/workling.git
+
+nanite:
+  path: ~/Lab/MQ/nanite
+  repo: git://github.com/ezmobius/nanite.git
+
+amqp:
+  path: ~/Lab/MQ/amqp
+  repo: git://github.com/tmm1/amqp.git
+
+lizzy:
+  path: ~/Lab/MQ/lizzy
+  repo: git://github.com/bmizerany/lizzy.git
+
+rosetta_queue:
+  path: ~/Lab/MQ/rosetta_queue
+  repo: git://github.com/bmabey/rosetta_queue.git
+
+spawn:
+  path: ~/Lab/MQ/spawn
+  repo: git://github.com/tra/spawn.git
+
+eventmachine:
+  path: ~/Lab/MQ/eventmachine
+  repo: git://github.com/eventmachine/eventmachine.git
+
+rubyqueues:
+  path: ~/Lab/MQ/rubyqueues
+  repo: git://github.com/igal/rubyqueues.git
+
+delayed_job:
+  path: ~/Lab/delayed_job
+  repo: git://github.com/tobi/delayed_job.git

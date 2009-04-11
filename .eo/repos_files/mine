@@ -1,0 +1,50 @@
+# vi: ft=yaml
+
+############################################################
+## mine :)
+############################################################
+
+eo:
+  path: ~/GIT/easyoperate/
+  repo: git@github.com:wosmvp/eo.git
+  pushable: true
+
+configure:
+  path: ~/GIT/configure/
+  repo: git://github.com/rails/configure.git
+  pushable: true
+
+yac:
+  path: ~/GIT/yac/
+  repo: git@github.com:wosmvp/yac.git
+  pushable: true
+
+blog:
+  path: ~/GIT/web/
+  repo: git@github.com:wosmvp/blog.git
+  pushable: true
+
+acts_as_tagtree:
+  path: ~/GIT/item/vendor/plugins/acts_as_tagtree
+  repo: git@github.com:wosmvp/acts_as_tagtree.git
+  pushable: true
+
+phase_diagram:
+  path: ~/GIT/design/
+  repo: git@github.com:wosmvp/phase_diagram.git
+  pushable: true
+
+ipparse:
+  path: ~/GIT/ipparse/
+  repo: git@github.com:wosmvp/ipparse.git
+  pushable: true
+
+yac_cheat:
+  path: ~/.yac/private
+  repo: git@github.com:wosmvp/mycheat.git
+  pushable: true
+
+viewtest:
+  path: ~/GIT/viewtest
+  repo: git@github.com:wosmvp/viewtest.git
+  pushable: true

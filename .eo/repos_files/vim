@@ -1,0 +1,36 @@
+# vi: ft=yaml
+
+############################################################
+# VIM
+############################################################
+vim-rails:
+  path: ~/Lab/VIM/vim-rails/
+  repo: git://github.com/tpope/vim-rails.git
+
+vim-git:
+  path: ~/Lab/VIM/vim-git/
+  repo: git://github.com/tpope/vim-git.git
+
+git-vim:
+  path: ~/Lab/VIM/git-vim/
+  repo: git://github.com/motemen/git-vim.git
+
+vim-cucumber:
+  path: ~/Lab/VIM/vim-cucumber/
+  repo: git://github.com/tpope/vim-cucumber.git
+
+vimfiles:
+  path: ~/Lab/VIM/vimfiles/
+  repo: git://github.com/scrooloose/vimfiles.git
+
+vim-ruby:
+  path: ~/Lab/VIM/vim-ruby/
+  repo: git://github.com/vim-ruby/vim-ruby.git
+
+vim-abolish:
+  path: ~/Lab/VIM/vim-abolish/
+  repo: git://github.com/tpope/vim-abolish.git
+
+snipmate.vim:
+  path: ~/Lab/VIM/snipmate.vim/
+  repo: git://github.com/meese/snipmate.vim.git
