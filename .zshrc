@@ -1,7 +1,14 @@
+EDITOR="vim"
+VISUAL=$EDITOR
 ZDOTDIR=~/.zsh
-[ -f $ZDOTDIR/.zshenv ] && . $ZDOTDIR/.zshenv
-[ -f $HOME/.bash_aliases ] && . $HOME/.bash_aliases
+[[ -f $ZDOTDIR/.zshenv ]] && . $ZDOTDIR/.zshenv
+[[ -f $HOME/.bash_aliases ]] && . $HOME/.bash_aliases
+[[ -f $HOME/.zsh_cache ]] || touch $HOME/.zsh_cache
 
+
+for file in $HOME/.zsh/* ; do
+  source $file
+done
 
 HISTFILE=~/.zsh_history
 export HISTSIZE=10000
@@ -31,17 +38,30 @@ setopt LIST_AMBIGUOUS
 setopt AUTO_LIST
 setopt AUTO_MENU
 #开启此选项，补全时会直接选中菜单项
-#setopt MENU_COMPLETE
+setopt MENU_COMPLETE
 
 ## Background jobs notify its status immediately
 setopt NOTIFY
 
 setopt PROMPT_SUBST
 setopt CORRECT
+setopt CORRECT_ALL       # Try to autocorrect commands & file names
 setopt COMPLETE_IN_WORD
 setopt IGNORE_EOF
 
+setopt MULTIOS                      # this enables various goodness
+
 setopt INTERACTIVE_COMMENTS     
+
+
+# Completion ssh en fonction des known_hosts (recupere la liste des hosts dans known_hosts
+# local _myhosts
+# if [ -d ~/.ssh ]; then
+#   if [ -f ~/.ssh/known_hosts ];then
+#     _myhosts=(${=${${(f)"$(<$HOME/.ssh/known_hosts)"}%%[# ]*}//,/ })
+#   fi
+# fi
+# zstyle ':completion:*' hosts $_myhosts
 
 ## Allow single quotes inside single quotes: ''
 setopt RC_QUOTES
@@ -57,12 +77,20 @@ bindkey -e
 WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
 #}}}
 
+
+# this enables autocompletion for pretty much everything
 autoload -U compinit
 compinit
+## Automagically escape URLs correctly :)
+autoload -U url-quote-magic
+zle -N self-insert url-quote-magic
+# ESC-h, ESC-H, ALT-h ou ALT-H lance le man sur la commande en cours.
+autoload run-help
 
 #自动补全缓存
 zstyle ':completion::complete:*' use-cache 1
-zstyle ':completion::complete:*' cache-path .zcache
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh_cache
 zstyle ':completion:*:cd:*' ignore-parents parent pwd
 
 #自动补全选项
@@ -71,6 +99,7 @@ zstyle ':completion::prefix-1:*' completer _complete
 zstyle ':completion:predict:*' completer _complete
 zstyle ':completion:incremental:*' completer _complete _correct
 zstyle ':completion:*' completer _complete _prefix _correct _prefix _match _approximate
+
 
 #路径补全
 zstyle ':completion:*' expand 'yes'
@@ -85,8 +114,12 @@ eval $(dircolors -b)
 export ZLSCOLORS="${LS_COLORS}"
 zmodload zsh/complist
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# pretty kill completion. colored, cpu load & process tree
+zstyle ':completion:*:kill:*' command 'ps xf -u $USER -o pid,%cpu,cmd'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 
+setopt    bg_nice                      # [set -6] Renice background jobs
 #修正大小写
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 #错误校正     
@@ -184,15 +217,20 @@ PROMPT="%{$bold_color$fg[grey]$bg[grey]%} [%n@%m] %{$reset_color%}    %{$bold_co
 zmodload zsh/mathfunc
 function calc { echo $(($@)) }
 
-bindkey "^[[1;5D" beginning-of-line
-bindkey "^[OH"    beginning-of-line
-bindkey "^[[1;5C" end-of-line
-bindkey "^[OF"    end-of-line
-bindkey "^[[1;3D" backward-word
-bindkey "^[[1;3C" forward-word
-bindkey "^[[3~"   delete-char
-bindkey "^[[A"    history-search-backward
-bindkey "^[[B"    history-search-forward
+if [ -f ~/.dir_colors ]; then
+  eval $(dircolors -b ~/.dir_colors)
+fi
+
+bindkey "^[[1;5D" beginning-of-line # CTRL + <
+bindkey "^[OH"    beginning-of-line # HOME
+bindkey "^[[1;5C" end-of-line       # CTRL + >
+bindkey "^[OF"    end-of-line       # END
+bindkey "^[[1;3D" backward-word     # ALT  + <
+bindkey "^[[1;3C" forward-word      # ALT  + >
+bindkey "^[[3~"   delete-char       # DELETE
+bindkey "^[[A"    history-search-backward # up   arrow
+bindkey "^[[B"    history-search-forward  # down arrow
+bindkey "^[[2~"   overwrite-mode          # Insert
 
 
 ## Vi/Emacs-style keybindings
