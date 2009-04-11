@@ -16,35 +16,35 @@ rubygems:
 # VIM
 ############################################################
 vim-rails:
-  path: ~/GIT/vim/vim-rails/
+  path: ~/Lab/VIM/vim-rails/
   repo: git://github.com/tpope/vim-rails.git
 
 vim-git:
-  path: ~/GIT/vim/vim-git/
+  path: ~/Lab/VIM/vim-git/
   repo: git://github.com/tpope/vim-git.git
 
 git-vim:
-  path: ~/GIT/vim/git-vim/
+  path: ~/Lab/VIM/git-vim/
   repo: git://github.com/motemen/git-vim.git
 
 vim-cucumber:
-  path: ~/GIT/vim/vim-cucumber/
+  path: ~/Lab/VIM/vim-cucumber/
   repo: git://github.com/tpope/vim-cucumber.git
 
 vimfiles:
-  path: ~/GIT/vim/vimfiles/
+  path: ~/Lab/VIM/vimfiles/
   repo: git://github.com/scrooloose/vimfiles.git
 
 vim-ruby:
-  path: ~/GIT/vim/vim-ruby/
+  path: ~/Lab/VIM/vim-ruby/
   repo: git://github.com/vim-ruby/vim-ruby.git
 
 vim-abolish:
-  path: ~/GIT/vim/vim-abolish/
+  path: ~/Lab/VIM/vim-abolish/
   repo: git://github.com/tpope/vim-abolish.git
 
 snipmate.vim:
-  path: ~/Lab/snipmate.vim/
+  path: ~/Lab/VIM/snipmate.vim/
   repo: git://github.com/meese/snipmate.vim.git
 
 ############################################################
@@ -82,27 +82,27 @@ asset_packager:
 ## JQuery
 ############################################################
 jrails:
-  path: ~/Lab/jrails
+  path: ~/Lab/JQuery/jrails
   repo: git://github.com/aaronchi/jrails.git
 
 jquery_grid_for_rails:
-  path: ~/Lab/jquery_grid_for_rails
+  path: ~/Lab/JQuery/jquery_grid_for_rails
   repo: git://github.com/scrubber/jquery_grid_for_rails.git
 
 jquery-hotkeys:
-  path: ~/Lab/jquery-hotkeys
+  path: ~/Lab/JQuery/jquery-hotkeys
   repo: git://github.com/github/jquery-hotkeys.git
 
 jquery-facebox:
-  path: ~/Lab/jquery-facebox
+  path: ~/Lab/JQuery/jquery-facebox
   repo: git://github.com/defunkt/facebox.git
 
 jquery_jeditable:
-  path: ~/Lab/jquery-jeditable
+  path: ~/Lab/JQuery/jquery-jeditable
   repo: git://github.com/tuupola/jquery_jeditable.git
 
 jgrowl:
- path: ~/Lab/jgrowl/
+ path: ~/Lab/JQuery/jgrowl/
  intro: http://stanlemon.net/projects/jgrowl.html
  cmd:
    init: system('cd ~/Lab/ && cvs -z6 -d:pserver:anonymous:anonymous@cvs.drupal.org:/cvs/drupal-contrib checkout -d jgrowl contributions/modules/jgrowl/')
@@ -143,6 +143,60 @@ plugin_test_helper:
 i18n_google_translate:
   path: ~/Lab/i18n_google_translate/
   repo: git://github.com/ihower/i18n_google_translate.git
+
+sequel:
+  path: ~/Lab/sequel
+  repo: git://github.com/jeremyevans/sequel.git
+############################################################
+## MQ
+############################################################
+mq:
+  path: ~/Lab/MQ/mq 	 
+  repo: git://github.com/mdarby/mq.git
+
+active_queue:
+  path: ~/Lab/MQ/active_queue 	 
+  repo: git://github.com/mojodna/active_queue.git 
+
+rabbitbal:
+  path: ~/Lab/MQ/rabbitbal
+  repo: git://github.com/somic/rabbitbal.git
+
+starling:
+  path: ~/Lab/MQ/starling
+  repo: git://github.com/starling/starling.git
+
+workling:
+  path: ~/Lab/MQ/workling
+  repo: git://github.com/purzelrakete/workling.git
+
+nanite:
+  path: ~/Lab/MQ/nanite
+  repo: git://github.com/ezmobius/nanite.git
+
+amqp:
+  path: ~/Lab/MQ/amqp
+  repo: git://github.com/tmm1/amqp.git
+
+lizzy:
+  path: ~/Lab/MQ/lizzy
+  repo: git://github.com/bmizerany/lizzy.git
+
+rosetta_queue:
+  path: ~/Lab/MQ/rosetta_queue
+  repo: git://github.com/bmabey/rosetta_queue.git
+
+spawn:
+  path: ~/Lab/MQ/spawn
+  repo: git://github.com/tra/spawn.git
+
+eventmachine:
+  path: ~/Lab/MQ/eventmachine
+  repo: git://github.com/eventmachine/eventmachine.git
+
+rubyqueues:
+  path: ~/Lab/MQ/rubyqueues
+  repo: git://github.com/igal/rubyqueues.git
 
 ############################################################
 ## mine :)
