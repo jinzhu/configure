@@ -1,0 +1,43 @@
+# vi:ft=zsh
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+parse_scm() {
+  if [ -d '.git' ];then
+    branch=$(git branch 2> /dev/null | grep '^\*' | sed 's/^\*\ //') || return
+
+    if [ "$branch" ] ; then
+      git_status=`git status 2> /dev/null`
+      CLR='2'
+      if [ "`echo $git_status | grep 'Changed but not updated'`" ] ; then
+        CLR='1'
+      fi
+
+      pt=`echo $git_status | grep 'Your branch is ahead' | awk {'print $9'}`
+      if [ "${pt}" ] ; then
+        ptimes=" ${pt} ↑ "
+      else
+        ptimes=""
+      fi
+
+      echo "    %{\033[01;3${CLR};40m%}[${branch}${ptimes}]%{$reset_color%}"
+    fi
+  fi
+
+  if [ -d '.svn' ];then
+    local DIRTY REV=$(svn info 2>/dev/null | grep Revision | sed -e 's/Revision: //')
+    [ "$REV" ] || return
+    
+    CLR='2'
+    if [ "$(svn st)" ] ; then
+      CLR='1'
+    fi
+    
+    echo -e "     %{\033[01;3${CLR};40m%}[r$REV$DIRTY]" && return
+  fi
+}
+
+#命令提示符 {{{
+  RPROMPT=$(echo '%{\033[31m%}%D %T%{\033[m%}')
+  PROMPT=$(echo -e '%{\033[01;30;40m%} [%n@%m]     %{\033[01;36m%}[%t]     %{\033[01;34m%}[%1~]$(parse_scm)%{\033[0m%}
+%{\033[01;32m%}\$%{\033[0m%} ')
+#}}}

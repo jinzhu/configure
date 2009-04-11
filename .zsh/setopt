@@ -1,0 +1,38 @@
+# vim:ft=zsh
+
+setopt AUTO_CD
+setopt AUTO_PUSHD
+## Expand directory expressions as if they all started with ~
+setopt CDABLE_VARS
+setopt PUSHD_IGNORE_DUPS
+
+## Append a slash to autocompleted parameters that correspond to directories.
+setopt AUTO_PARAM_SLASH
+## Remove trailing slashes if they are not relevant to the command executed.
+## (set by default)
+unsetopt AUTO_REMOVE_SLASH
+## Complete non-ambiguous prefix/suffix first, then display the ambiguities
+## after another function call.
+setopt LIST_AMBIGUOUS
+setopt AUTO_LIST
+setopt AUTO_MENU
+#开启此选项，补全时会直接选中菜单项
+setopt MENU_COMPLETE
+
+## Background jobs notify its status immediately
+setopt NOTIFY
+
+setopt PROMPT_SUBST
+setopt CORRECT
+setopt CORRECT_ALL       # Try to autocorrect commands & file names
+setopt COMPLETE_IN_WORD
+setopt IGNORE_EOF
+
+setopt MULTIOS                      # this enables various goodness
+
+setopt INTERACTIVE_COMMENTS     
+
+## Allow single quotes inside single quotes: ''
+setopt RC_QUOTES
+
+setopt bg_nice                      # [set -6] Renice background jobs

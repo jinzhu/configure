@@ -1,0 +1,14 @@
+# vi:ft=zsh
+
+# 载入数学模块
+zmodload zsh/mathfunc
+function calc { echo $(($@)) }
+
+# this enables autocompletion for pretty much everything
+autoload -U compinit
+compinit
+## Automagically escape URLs correctly :)
+autoload -U url-quote-magic
+zle -N self-insert url-quote-magic
+# ESC-h, ESC-H, ALT-h ou ALT-H lance le man sur la commande en cours.
+autoload run-help

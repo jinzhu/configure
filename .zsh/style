@@ -1,0 +1,49 @@
+# vim:ft=zsh
+
+#自动补全缓存
+zstyle ':completion::complete:*' use-cache 1
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh_cache
+zstyle ':completion:*:cd:*' ignore-parents parent pwd
+
+#自动补全选项
+zstyle ':completion:*:match:*' original only
+zstyle ':completion::prefix-1:*' completer _complete
+zstyle ':completion:predict:*' completer _complete
+zstyle ':completion:incremental:*' completer _complete _correct
+zstyle ':completion:*' completer _complete _prefix _correct _prefix _match _approximate
+
+#路径补全
+zstyle ':completion:*' expand 'yes'
+zstyle ':completion:*' squeeze-shlashes 'yes'
+zstyle ':completion::complete:*' '\\'
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*:*:default' force-list always
+
+#彩色补全菜单
+eval $(dircolors -b)
+export ZLSCOLORS="${LS_COLORS}"
+zmodload zsh/complist
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# pretty kill completion. colored, cpu load & process tree
+zstyle ':completion:*:kill:*' command 'ps xf -u $USER -o pid,%cpu,cmd'
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+
+#修正大小写
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+#错误校正     
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*:match:*' original only
+zstyle ':completion:*:approximate:*' max-errors 1 numeric
+
+#补全类型提示分组
+zstyle ':completion:*:matches' group 'yes'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:options' auto-description '%d'
+zstyle ':completion:*:descriptions' format $'\e[01;33m -- %d --\e[0m'
+zstyle ':completion:*:messages' format $'\e[01;35m -- %d --\e[0m'
+zstyle ':completion:*:warnings' format $'\e[01;31m -- No Matches Found --\e[0m'
+#}}}
