@@ -156,7 +156,7 @@ function parse_scm {
         PTIMES=""
       fi
 
-      RSLT="     \e[01;3${CLR};40m[${GIT_BRANCH}${PTIMES}]"
+      RSLT="     %{\033[01;3${CLR};40m%}[${GIT_BRANCH}${PTIMES}]%{$reset_color%}"
     fi
     echo -e "${RSLT}" && return
   fi
@@ -170,14 +170,14 @@ function parse_scm {
       CLR='1'
     fi
     
-    echo -e "     \e[01;3${CLR};40m[r$REV$DIRTY]" && return
+    echo -e "    %{\033[01;3${CLR};40m%}[r$REV$DIRTY]%{$reset_color%}" && return
   fi
 }
 
 #命令提示符 {{{
 RPROMPT=$(echo '%{\033[31m%}%D %T%{\033[m%}')
-PROMPT=$(echo "%{\033[34m%}%M%{\033[32m%}  %/ `parse_scm`
-%{\033[01;33m%} >>> %{\033[m%}")
+PROMPT="%{$bold_color$fg[grey]$bg[grey]%} [%n@%m] %{$reset_color%}    %{$bold_color$fg[cyan]%}[%t]%{$reset_color%}     %{$bold_color$fg[blue]%}[%1~]%{$reset_color%}$(parse_scm)
+%{$bold_color$fg[green]%}%#%{$reset_color%} "
 #}}}
 
 # 载入数学模块

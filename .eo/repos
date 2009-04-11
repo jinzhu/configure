@@ -43,9 +43,9 @@ vim-abolish:
   path: ~/GIT/vim/vim-abolish/
   repo: git://github.com/tpope/vim-abolish.git
 
-merb.vim:
-  path: ~/GIT/vim/merb.vim
-  repo: git://github.com/nono/merb.vim.git
+snipmate.vim:
+  path: ~/Lab/snipmate.vim/
+  repo: git://github.com/meese/snipmate.vim.git
 
 ############################################################
 ## Performance
