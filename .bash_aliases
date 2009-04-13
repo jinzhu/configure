@@ -77,6 +77,8 @@ function as {
 
 alias sc='./script/console'
 alias sd='./script/dbconsole'
+alias rdm='rake db:migrate'
+alias rdc='rake db:create'
 
 ############################################################
 # Git
