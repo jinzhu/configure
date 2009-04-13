@@ -67,3 +67,11 @@ i18n_google_translate:
 sequel:
   path: ~/Lab/sequel
   repo: git://github.com/jeremyevans/sequel.git
+
+scruffy:
+  path: ~/Lab/scruffy/
+  repo: http://scruffy.rubyforge.org/svn/
+
+chronic:
+  path: ~/Lab/chronic
+  repo: git://github.com/mojombo/chronic.git
