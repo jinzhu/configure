@@ -2,7 +2,7 @@
 
 [ -f ~/.dir_colors ] && eval $(dircolors -b ~/.dir_colors)
 
-CDPATH=".:~:/pillar:/pillar/Project/"
+CDPATH=".:~:/pillar:/pillar/Project"
 PATH="$PATH:/usr/local/bin/:/usr/local/sbin"
 
 export LC_CTYPE=zh_CN.utf8
