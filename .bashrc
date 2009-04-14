@@ -30,7 +30,7 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 CDPATH=".:~:~/GIT:~/Lab:~/WEB/:~/GIT/:/pillar:/pillar/HOME/:~/Documents/"
-PATH="./bin/:$HOME/bin:$PATH:/usr/local/bin/"
+PATH="./bin/:$HOME/bin:$PATH:/usr/local/bin/:/usr/local/sbin"
 
 export LC_CTYPE=zh_CN.utf8
 export GTK_IM_MODULE=xim

@@ -15,7 +15,7 @@ CDPATH=".:~:~/GIT:~/Lab:/pillar:/pillar/HOME/:~/Documents/"
 limit coredumpsize 0
 #以下字符视为单词的一部分
 WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
-
+PATH="./bin/:$HOME/bin:$PATH:/usr/local/bin/:/usr/local/sbin"
 # Completion ssh en fonction des known_hosts (recupere la liste des hosts dans known_hosts
 # local _myhosts
 # if [ -d ~/.ssh ]; then
