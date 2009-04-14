@@ -71,6 +71,7 @@ sequel:
 scruffy:
   path: ~/Lab/scruffy/
   repo: http://scruffy.rubyforge.org/svn/
+  scm:  svn
 
 chronic:
   path: ~/Lab/chronic
