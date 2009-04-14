@@ -19,7 +19,7 @@ parse_scm() {
         ptimes=""
       fi
 
-      echo "    %{\033[01;3${CLR};40m%}[${branch}${ptimes}]%{$reset_color%}"
+      echo "%{\033[01;3${CLR}m%}[${branch}${ptimes}]%{$reset_color%}"
     fi
   fi
 
@@ -32,12 +32,12 @@ parse_scm() {
       CLR='1'
     fi
     
-    echo -e "     %{\033[01;3${CLR};40m%}[r$REV$DIRTY]" && return
+    echo -e "%{\033[01;3${CLR}m%}[r$REV$DIRTY]" && return
   fi
 }
 
 #命令提示符 {{{
   RPROMPT=$(echo '%{\033[31m%}%D %T%{\033[m%}')
-  PROMPT=$(echo -e '%{\033[01;30;40m%} [%n@%m]     %{\033[01;36m%}[%t]     %{\033[01;34m%}[%1~]$(parse_scm)%{\033[0m%}
+  PROMPT=$(echo -e '%{\033[01;30m%} [%n@%m]     %{\033[01;36m%}[%t]     %{\033[01;34m%}[%1~]     $(parse_scm)%{\033[0m%}
 %{\033[01;32m%}\$%{\033[0m%} ')
 #}}}
