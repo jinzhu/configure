@@ -7,9 +7,9 @@ parse_scm() {
 
     if [ "$branch" ] ; then
       git_status=`git status 2> /dev/null`
-      CLR='2'
-      if [ "`echo $git_status | grep 'Changed but not updated'`" ] ; then
-        CLR='1'
+      CLR='1'
+      if [ "`echo $git_status | grep 'nothing to commit'`" ] ; then
+        CLR='2'
       fi
 
       pt=`echo $git_status | grep 'Your branch is ahead' | awk {'print $9'}`
