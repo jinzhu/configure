@@ -29,7 +29,7 @@ function parse_scm {
         PTIMES=""
       fi
 
-      RSLT="     \e[01;3${CLR};40m[${GIT_BRANCH}${PTIMES}]"
+      RSLT="     \e[01;3${CLR}m[${GIT_BRANCH}${PTIMES}]"
     fi
     echo -e "${RSLT}" && return
   fi
@@ -43,9 +43,9 @@ function parse_scm {
       CLR='1'
     fi
     
-    echo -e "     \e[01;3${CLR};40m[r$REV$DIRTY]" && return
+    echo -e "     \e[01;3${CLR}m[r$REV$DIRTY]" && return
   fi
 }
 
-export PS1='\[\e[01;30;40m\] [\u@\h]     \[\e[01;36m\][\t]     \[\e[01;34m\][\W]$(parse_scm)\[\e[0m
+export PS1='\[\e[01;30m\] [\u@\h]     \[\e[01;36m\][\t]     \[\e[01;34m\][\W]$(parse_scm)\[\e[0m
 \[\e[01;32m\]\$\[\e[0m\] '

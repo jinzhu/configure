@@ -76,3 +76,7 @@ scruffy:
 chronic:
   path: ~/Lab/chronic
   repo: git://github.com/mojombo/chronic.git
+
+rest-client:
+  path: ~/Lab/rest-client
+  repo: git://github.com/adamwiggins/rest-client.git
