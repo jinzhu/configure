@@ -57,8 +57,8 @@ alias f='fg'
 alias b='bg'
 
 for ((i=1;i<5;i++)) do
-  eval alias f$i=\'fg $i\';
-  eval alias b$i=\'bg $i\';
+  eval alias f$i=\'fg %$i\';
+  eval alias b$i=\'bg %$i\';
 done
 
 ############################################################
