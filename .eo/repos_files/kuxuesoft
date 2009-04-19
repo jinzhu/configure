@@ -1,0 +1,19 @@
+LexueAPI:
+  path: ~/Kuxue/lexue_api/
+  repo: git@git.enjoyrails.com:lexue_api.git
+  pushable: true
+
+LexueSDK:
+  path: ~/Kuxue/lexue_sdk/
+  repo: git@git.enjoyrails.com:lexue_sdk.git
+  pushable: true
+
+Lexue:
+  path: ~/Kuxue/lexue/
+  repo: git@git.enjoyrails.com:lexue.git
+  pushable: true
+
+MegaLand:
+  path: ~/Kuxue/megaland/
+  repo: git@git.enjoyrails.com:megaland.git
+  pushable: true
