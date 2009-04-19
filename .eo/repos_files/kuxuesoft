@@ -1,3 +1,5 @@
+# vi: ft=yaml
+
 LexueAPI:
   path: ~/Kuxue/lexue_api/
   repo: git@git.enjoyrails.com:lexue_api.git

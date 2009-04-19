@@ -1,0 +1,36 @@
+# vi: ft=yaml
+
+AliSNS:
+  path: ~/Ali/alisns/
+  repo: http://svn.ali-dev.com/alisns/trunk
+  pushable: true
+
+AliBBS:
+  path: ~/Ali/bbs/
+  repo: http://svn.alixueyuan.org/bbs/trunk
+  pushable: true
+
+AliKecheng:
+  path: ~/Ali/kecheng/
+  repo: http://svn.ali-dev.com/kecheng/trunk
+  pushable: true
+
+AliMegagame:
+  path: ~/Ali/megagame/
+  repo: http://svn.ali-dev.com/megagame/trunk
+  pushable: true
+
+AliRenzheng:
+  path: ~/Ali/renzheng/
+  repo: http://svn.alixueyuan.org/renzheng/trunk
+  pushable: true
+
+AliUserSystem:
+  path: ~/Ali/us/
+  repo: http://svn.alixueyuan.org/us/trunk
+  pushable: true
+
+AliShouYe:
+  path: ~/Ali/shouye/
+  repo: http://svn.ali-dev.com/shouye/trunk
+  pushable: true
