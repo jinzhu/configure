@@ -3,7 +3,7 @@
 [ -f ~/.dir_colors ] && eval $(dircolors -b ~/.dir_colors)
 
 CDPATH=".:~:/pillar:/pillar/Project"
-PATH="$PATH:/usr/local/bin/:/usr/local/sbin"
+PATH="~/.flex_sdk/bin/:$PATH:/usr/local/bin/:/usr/local/sbin/"
 
 export LC_CTYPE=zh_CN.utf8
 export GTK_IM_MODULE=xim
