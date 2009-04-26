@@ -34,6 +34,8 @@ augroup filetypedetect
   au  BufNewFile,BufRead  *.liquid setf liquid
   au! BufNewFile,BufRead  *.haml   setf haml
   au  BufNewFile,BufRead  *.yml    setf eruby
+  au  BufNewFile,BufRead  *.mxml   setf mxml
+  au  BufNewFile,BufRead  *.as     setf actionscript
 augroup END
 
 augroup VCSCommand
