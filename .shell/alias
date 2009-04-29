@@ -87,6 +87,7 @@ alias rdc='rake db:create'
 alias gb='git branch -a -v'
 alias gi='git ci'
 alias gp='git push'
+alias gsb='git show-branch'
 
 function gs {
   if [ -d '.svn' ];then
