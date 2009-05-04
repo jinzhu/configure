@@ -36,7 +36,7 @@ parse_scm() {
   fi
 }
 parse_jobs() {
-  echo -e "  %{\e[01;32m%}[jobs $(jobs | grep ']' | wc -l )]%{\e[m%}"
+  echo -e "  %{\e[01;35m%}[jobs $(jobs | grep ']' | wc -l )]%{\e[m%}"
 }
 
 #命令提示符 {{{
