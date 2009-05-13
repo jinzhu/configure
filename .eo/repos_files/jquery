@@ -11,6 +11,10 @@ jquery_grid_for_rails:
   path: ~/Lab/JQuery/jquery_grid_for_rails
   repo: git://github.com/scrubber/jquery_grid_for_rails.git
 
+2dc_jqgrid:
+  path: ~/Lab/JQuery/2dc_jqgrid
+  repo: git://github.com/ahe/2dc_jqgrid.git
+
 jquery-hotkeys:
   path: ~/Lab/JQuery/jquery-hotkeys
   repo: git://github.com/github/jquery-hotkeys.git
