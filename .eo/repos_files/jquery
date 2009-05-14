@@ -17,7 +17,7 @@ jquery_grid_for_rails:
 
 jquery-hotkeys:
   path: ~/Lab/JQuery/jquery-hotkeys
-  repo: git://github.com/github/jquery-hotkeys.git
+  repo: git://github.com/tzuryby/jquery.hotkeys.git
 
 jquery-facebox:
   path: ~/Lab/JQuery/jquery-facebox
