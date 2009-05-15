@@ -1,5 +1,5 @@
-['pp','irb/completion','irb/ext/save-history'].each {|lib| require lib}
- 
+# sudo gem install genki-irb_rocket
+%w(rubygems irb_rocket).map {|x| require x}
 
 IRB.conf[:SAVE_HISTORY] = 100
 IRB.conf[:HISTORY_FILE] = "~/.irb_history"
