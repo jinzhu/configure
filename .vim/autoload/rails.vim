@@ -421,7 +421,7 @@ function! rails#singularize(word)
   let word = s:sub(word,'ves$','fs')
   let word = s:sub(word,'ss%(es)=$','sss')
   let word = s:sub(word,'s$','')
-  let word = s:sub(word,'%(tatus|lias)\zse$','')
+  let word = s:sub(word,'%([nrt]ch|tatus|lias)\zse$','')
   let word = s:sub(word,'%(nd|rt)\zsice$','ex')
   return word
 endfunction
@@ -920,75 +920,25 @@ endfunction
 
 call s:add_methods('app', ['rake_tasks'])
 
-" Current directory
-let s:efm='%D(in\ %f),'
-" Failure and Error headers, start a multiline message
-let s:efm=s:efm
-      \.'%A\ %\\+%\\d%\\+)\ Failure:,'
-      \.'%A\ %\\+%\\d%\\+)\ Error:,'
-      \.'%+A'."'".'%.%#'."'".'\ FAILED,'
-" Exclusions
-let s:efm=s:efm
-      \.'%C%.%#(eval)%.%#,'
-      \.'%C-e:%.%#,'
-      \.'%C%.%#/lib/gems/%\\d.%\\d/gems/%.%#,'
-      \.'%C%.%#/lib/ruby/%\\d.%\\d/%.%#,'
-      \.'%C%.%#/vendor/rails/%.%#,'
-" Specific to template errors
-let s:efm=s:efm
-      \.'%C\ %\\+On\ line\ #%l\ of\ %f,'
-      \.'%CActionView::TemplateError:\ compile\ error,'
-" stack backtrace is in brackets. if multiple lines, it starts on a new line.
-let s:efm=s:efm
-      \.'%Ctest_%.%#(%.%#):%#,'
-      \.'%C%.%#\ [%f:%l]:,'
-      \.'%C\ \ \ \ [%f:%l:%.%#,'
-      \.'%C\ \ \ \ %f:%l:%.%#,'
-      \.'%C\ \ \ \ \ %f:%l:%.%#]:,'
-      \.'%C\ \ \ \ \ %f:%l:%.%#,'
-" Catch all
-let s:efm=s:efm
-      \.'%Z%f:%l:\ %#%m,'
-      \.'%Z%f:%l:,'
-      \.'%C%m,'
-" Syntax errors in the test itself
-let s:efm=s:efm
-      \.'%.%#.rb:%\\d%\\+:in\ `load'."'".':\ %f:%l:\ syntax\ error\\\, %m,'
-      \.'%.%#.rb:%\\d%\\+:in\ `load'."'".':\ %f:%l:\ %m,'
-" And required files
-let s:efm=s:efm
-      \.'%.%#:in\ `require'."'".':in\ `require'."'".':\ %f:%l:\ syntax\ error\\\, %m,'
-      \.'%.%#:in\ `require'."'".':in\ `require'."'".':\ %f:%l:\ %m,'
-" Exclusions
-let s:efm=s:efm
-      \.'%-G%.%#/lib/gems/%\\d.%\\d/gems/%.%#,'
-      \.'%-G%.%#/lib/ruby/%\\d.%\\d/%.%#,'
-      \.'%-G%.%#/vendor/rails/%.%#,'
-      \.'%-G%.%#%\\d%\\d:%\\d%\\d:%\\d%\\d%.%#,'
-" Final catch all for one line errors
-let s:efm=s:efm
-      \.'%-G%\\s%#from\ %.%#,'
-      \.'%f:%l:\ %#%m,'
-" Drop everything else
-let s:efm=s:efm
-      \.'%-G%.%#'
-
 let s:efm_backtrace='%D(in\ %f),'
       \.'%\\s%#from\ %f:%l:%m,'
+      \.'%\\s%#from\ %f:%l:,'
       \.'%\\s#{RAILS_ROOT}/%f:%l:\ %#%m,'
       \.'%\\s%#[%f:%l:\ %#%m,'
-      \.'%\\s%#%f:%l:\ %#%m'
+      \.'%\\s%#%f:%l:\ %#%m,'
+      \.'%\\s%#%f:%l:'
 
 function! s:makewithruby(arg,bang,...)
-  if &efm == s:efm
-    if (a:0 ? a:1 : 1) && !a:bang
-      setlocal efm=\%-E-e:%.%#,\%+E%f:%l:\ parse\ error,%W%f:%l:\ warning:\ %m,%E%f:%l:in\ %*[^:]:\ %m,%E%f:%l:\ %m,%-C%\tfrom\ %f:%l:in\ %.%#,%-Z%\tfrom\ %f:%l,%-Z%p^,%-G%.%#
-    endif
-  endif
   let old_make = &makeprg
-  let &l:makeprg = rails#app().ruby_shell_command(a:arg)
-  exe 'make'.(a:bang ? '!' : '')
-  let &l:makeprg = old_make
+  try
+    let &l:makeprg = rails#app().ruby_shell_command(a:arg)
+    exe 'make'.(a:bang ? '!' : '')
+    if !a:bang
+      cwindow
+    endif
+  finally
+    let &l:makeprg = old_make
+  endtry
 endfunction
 
 function! s:Rake(bang,lnum,arg)
@@ -1000,7 +950,7 @@ function! s:Rake(bang,lnum,arg)
     if &l:makeprg !~# 'rake'
       let &l:makeprg = 'rake'
     endif
-    let &l:errorformat = a:bang ? s:efm_backtrace : s:efm
+    let &l:errorformat = s:efm_backtrace
     let t = RailsFileType()
     let arg = a:arg
     if &filetype == "ruby" && arg == '' && g:rails_modelines
@@ -1026,15 +976,15 @@ function! s:Rake(bang,lnum,arg)
       let &l:errorformat = '%-P%f:,\ \ *\ [%*[\ ]%l]\ [%t%*[^]]] %m,\ \ *\ [%*[\ ]%l] %m,%-Q'
       " %D to chdir is apparently incompatible with %P multiline messages
       call s:push_chdir(1)
-      exe 'make '.arg
+      exe 'make! '.arg
       call s:pop_command()
-      if a:bang
-        copen
+      if !a:bang
+        cwindow
       endif
     elseif arg =~# '^\%(stats\|routes\|secret\|time:zones\|db:\%(charset\|collation\|fixtures:identify\>.*\|version\)\)\%(:\|$\)'
       let &l:errorformat = '%D(in\ %f),%+G%.%#'
-      exe 'make '.arg
-      if a:bang
+      exe 'make! '.arg
+      if !a:bang
         copen
       endif
     elseif arg =~ '^preview\>'
@@ -1063,7 +1013,10 @@ function! s:Rake(bang,lnum,arg)
       let arg = s:sub(arg,'#(\w+[?!=]=)$',' -- -n\1')
       call s:makewithruby(withrubyargs.'-r'.arg,a:bang,arg !~# '_\%(spec\|test\)\.rb$')
     else
-      exe 'make'.(a:bang ? '!' : '').' '.arg
+      exe 'make! '.arg
+      if !a:bang
+        cwindow
+      endif
     endif
   finally
     let &l:errorformat = old_errorformat
@@ -1746,12 +1699,15 @@ function! s:RailsFind()
     let res = s:findview(contr.'/'.view)
     if res != ""|return res|endif
   endif
-  let isf_keep = &isfname
-  set isfname=@,48-57,/,-,_,: ",\",'
-  " TODO: grab visual selection in visual mode
-  let cfile = expand("<cfile>")
+  let old_isfname = &isfname
+  try
+    set isfname=@,48-57,/,-,_,: ",\",'
+    " TODO: grab visual selection in visual mode
+    let cfile = expand("<cfile>")
+  finally
+    let &isfname = old_isfname
+  endtry
   let res = s:RailsIncludefind(cfile,1)
-  let &isfname = isf_keep
   return res
 endfunction
 
@@ -3005,10 +2961,13 @@ function! s:Extract(bang,...) range abort
   silent exe range."yank"
   let partial = @@
   let @@ = buf
-  let ai = &ai
-  let &ai = 0
-  silent exe "norm! :".first.",".last."change\<CR>".fspaces.renderstr."\<CR>.\<CR>"
-  let &ai = ai
+  let old_ai = &ai
+  try
+    let &ai = 0
+    silent exe "norm! :".first.",".last."change\<CR>".fspaces.renderstr."\<CR>.\<CR>"
+  finally
+    let &ai = old_ai
+  endtry
   if renderstr =~ '<%'
     norm ^6w
   else
@@ -3802,6 +3761,7 @@ function! s:app_dbext_settings(environment) dict
         let dict['dbname'] = self.path(dict['dbname'])
       endif
       let dict['profile'] = ''
+      let dict['srvname'] = s:extractdbvar(out,'host')
       let dict['host'] = s:extractdbvar(out,'host')
       let dict['port'] = s:extractdbvar(out,'port')
       let dict['dsnname'] = s:extractdbvar(out,'dsn')
@@ -3837,7 +3797,7 @@ function! s:BufDatabase(...)
     return
   endif
   let dict = self.dbext_settings(env)
-  for key in ['type', 'profile', 'bin', 'user', 'passwd', 'dbname', 'host', 'port', 'dsnname', 'extra', 'integratedlogin']
+  for key in ['type', 'profile', 'bin', 'user', 'passwd', 'dbname', 'srvname', 'host', 'port', 'dsnname', 'extra', 'integratedlogin']
     let b:dbext_{key} = get(dict,key,'')
   endfor
   if b:dbext_type == 'PGSQL'
@@ -4265,8 +4225,6 @@ endfunction
 call s:add_methods('app',['source_callback'])
 
 function! RailsBufInit(path)
-  let cpo_save = &cpo
-  set cpo&vim
   let firsttime = !(exists("b:rails_root") && b:rails_root == a:path)
   let b:rails_root = a:path
   if !has_key(s:apps,a:path)
@@ -4360,7 +4318,6 @@ function! RailsBufInit(path)
   call app.source_callback("config/rails.vim")
   call s:BufModelines()
   call s:BufMappings()
-  let &cpo = cpo_save
   return b:rails_root
 endfunction
 
@@ -4393,7 +4350,7 @@ function! s:BufSettings()
   endif
   call s:SetBasePath()
   let rp = s:gsub(rails#app().path(),'[ ,]','\\&')
-  let &l:errorformat = s:efm
+  let &l:errorformat = s:efm_backtrace
   setlocal makeprg=rake
   if stridx(&tags,rp) == -1
     let &l:tags = rp . "/tmp/tags," . &tags . "," . rp . "/tags"
