@@ -27,6 +27,9 @@ autocmd FileType css        set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml        set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 
+compiler rubyunit
+nmap <Leader>fd :cf /tmp/autotest.txt<cr> :compiler rubyunit<cr>
+
 augroup filetypedetect
   au  BufNewFile,BufRead  *.js     setf javascript.jquery
   au! BufNewFile,BufRead  *.ch     setf cheat

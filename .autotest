@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'autotest/redgreen'
+require 'autotest/restart'
 require 'autotest/timestamp'
 require 'rnotify'
 require 'gtk2'
@@ -58,9 +59,12 @@ module Autotest::RNotify
 
   Autotest.add_hook :initialize do |at|
     @notify = Notification.new
+    at.unit_diff = 'cat'
   end
 
   Autotest.add_hook :ran_command do |at|
+    File.open('/tmp/autotest.txt', 'wb') { |f| f.write(at.results.join) }
+
     results = at.results.last
 
     if results
