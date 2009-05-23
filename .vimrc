@@ -1,3 +1,16 @@
+set lz " Don't redraw screen during macros
+set tf " Improves redrawing for newer computers
+set sc " Show incomplete command at bottom right
+set tm=500 " Lower timeout for mappings
+set cot=menu " Don't show extra info on completions
+if &diff | syn off | endif " Turn syntax highlighting off for diff
+let bufpane_showhelp = 0
+
+" Paste yanked text
+nmap gp "0p
+nmap gP "+P
+vmap gy "+y
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let NERDShutUp=1
 "let g:AutoComplPop_NotEnableAtStartup=1
 
@@ -212,11 +225,9 @@ set formatoptions=tcrqn "自动格式化
 set magic "Set magic on
 
 "indent settings
-set shiftwidth=2
-set softtabstop=4
+set ai ts=2 sw=2  "autoindent shiftwidth softtabstop
 set smarttab
 set expandtab
-set autoindent
 set smartindent
 
 " allow backspacing over everything in insert mode
