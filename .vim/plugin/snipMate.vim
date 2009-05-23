@@ -1,6 +1,6 @@
 " File:          snipMate.vim
 " Author:        Michael Sanders
-" Version:       0.78
+" Version:       0.81
 " Description:   snipMate.vim implements some of TextMate's snippets features in
 "                Vim. A snippet is a piece of often-typed text that you can
 "                insert into your document using a trigger word followed by a "<tab>".
@@ -77,7 +77,7 @@ fun! ExtractSnipsFile(file, ft)
 			let inSnip = 0
 		endif
 
-		if stridx(line, 'snippet') == 0
+		if line[:6] == 'snippet'
 			let inSnip = 1
 			let trigger = strpart(line, 8)
 			let name = ''
@@ -142,19 +142,17 @@ fun! TriggerSnippet()
 
 	let word = matchstr(getline('.'), '\S\+\%'.col('.').'c')
 	for scope in [bufnr('%')] + split(&ft, '\.') + ['_']
-		let trigger = s:GetSnippet(word, scope)
-		if exists('g:snippet') | break | endif
+		let [trigger, snippet] = s:GetSnippet(word, scope)
+		" If word is a trigger for a snippet, delete the trigger & expand
+		" the snippet.
+		if snippet != ''
+			let col = col('.') - len(trigger)
+			sil exe 's/\V'.escape(trigger, '/').'\%#//'
+			return snipMate#expandSnip(snippet, col)
+		endif
 	endfor
 
-	" If word is a trigger for a snippet, delete the trigger & expand the snippet.
-	if exists('g:snippet')
-		if g:snippet == '' " If user cancelled a multi snippet, quit.
-			unl g:snippet | return ''
-		endif
-		let col = col('.') - len(trigger)
-		sil exe 's/'.escape(trigger, '.^$/\*[]').'\%#//'
-		return snipMate#expandSnip(col)
-	elseif exists('SuperTabKey')
+	if exists('SuperTabKey')
 		call feedkeys(SuperTabKey)
 		return ''
 	endif
@@ -164,18 +162,19 @@ endf
 " Check if word under cursor is snippet trigger; if it isn't, try checking if
 " the text after non-word characters is (e.g. check for "foo" in "bar.foo")
 fun s:GetSnippet(word, scope)
-	let word = a:word
-	wh !exists('g:snippet')
+	let word = a:word | let snippet = ''
+	while snippet == ''
 		if exists('s:snippets["'.a:scope.'"]["'.escape(word, '\"').'"]')
-			let g:snippet = s:snippets[a:scope][word]
+			let snippet = s:snippets[a:scope][word]
 		elseif exists('s:multi_snips["'.a:scope.'"]["'.escape(word, '\"').'"]')
-			let g:snippet = s:ChooseSnippet(a:scope, word)
+			let snippet = s:ChooseSnippet(a:scope, word)
+			if snippet == '' | break | endif
 		else
 			if match(word, '\W') == -1 | break | endif
 			let word = substitute(word, '.\{-}\W', '', '')
 		endif
 	endw
-	return word
+	return [word, snippet]
 endf
 
 fun s:ChooseSnippet(scope, trigger)
@@ -188,5 +187,34 @@ fun s:ChooseSnippet(scope, trigger)
 	if i == 2 | return s:multi_snips[a:scope][a:trigger][0][1] | endif
 	let num = inputlist(snippet) - 1
 	return num == -1 ? '' : s:multi_snips[a:scope][a:trigger][num][1]
+endf
+
+fun ShowAvailableSnips()
+	let word = matchstr(getline('.'), '\S\+\%'.col('.').'c')
+	let words = [word]
+	if stridx(word, '.')
+		let words += split(word, '\.', 1)
+	endif
+	let matchpos = 0
+	let matches = []
+	for scope in [bufnr('%')] + split(&ft, '\.') + ['_']
+		let triggers = exists('s:snippets["'.scope.'"]') ? keys(s:snippets[scope]) : []
+		if exists('s:multi_snips["'.scope.'"]')
+			let triggers += keys(s:multi_snips[scope])
+		endif
+		for trigger in triggers
+			for word in words
+				if word == ''
+					let matches += [trigger] " Show all matches if word is empty
+				elseif trigger =~ '^'.word
+					let matches += [trigger]
+					let len = len(word)
+					if len > matchpos | let matchpos = len | endif
+				endif
+			endfor
+		endfor
+	endfor
+	call complete(col('.') - matchpos, matches)
+	return ''
 endf
 " vim:noet:sw=4:ts=4:ft=vim
