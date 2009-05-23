@@ -1,3 +1,10 @@
+" let g:vimim_enable_static_menu=1
+let g:vimim_enable_wildcard_search=1
+let g:vimim_enable_menu_extra_text=1
+let g:vimim_enable_menu_ctrl_jk=1
+let g:vimim_disable_chinese_punctuation=1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set lz " Don't redraw screen during macros
 set tf " Improves redrawing for newer computers
 set sc " Show incomplete command at bottom right
