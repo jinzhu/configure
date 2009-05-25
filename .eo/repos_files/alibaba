@@ -2,35 +2,42 @@
 
 AliSNS:
   path: ~/Ali/alisns/
+  scm: git-svn
   repo: http://svn.ali-dev.com/alisns/trunk
   pushable: true
 
 AliBBS:
   path: ~/Ali/bbs/
+  scm: git-svn
   repo: http://svn.alixueyuan.org/bbs/trunk
   pushable: true
 
 AliKecheng:
   path: ~/Ali/kecheng/
+  scm: git-svn
   repo: http://svn.ali-dev.com/kecheng/trunk
   pushable: true
 
 AliMegagame:
   path: ~/Ali/megagame/
+  scm: git-svn
   repo: http://svn.ali-dev.com/megagame/trunk
   pushable: true
 
 AliRenzheng:
   path: ~/Ali/renzheng/
+  scm: git-svn
   repo: http://svn.alixueyuan.org/renzheng/trunk
   pushable: true
 
 AliUserSystem:
   path: ~/Ali/us/
+  scm: git-svn
   repo: http://svn.alixueyuan.org/us/trunk
   pushable: true
 
 AliShouYe:
   path: ~/Ali/shouye/
+  scm: git-svn
   repo: http://svn.ali-dev.com/shouye/trunk
   pushable: true
