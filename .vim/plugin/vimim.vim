@@ -13,7 +13,7 @@
 "      File: vimim.vim
 "    Author: Sean Ma <vimim@googlegroups.com>
 "   License: GNU Lesser General Public License
-"    Latest: 20090523T170539
+"    Latest: 20090527T230408
 " -----------------------------------------------------------
 "    Readme: The VimIM is a Vim plugin designed as an independent
 "            IM (Input Method) to support the input of any language.
@@ -110,15 +110,14 @@
 
 " # To enable VimIM "Default Off" Options
 "   -------------------------------------
-"   let g:vimim_enable_static_menu=1
-"   let g:vimim_enable_tab_for_one_key=1
+"   let g:vimim_enable_fuzzy_search=1
 "   let g:vimim_enable_wildcard_search=1
 "   let g:vimim_enable_...
 
 " # To disable VimIM "Default On" Options
 "   -------------------------------------
-"   let g:vimim_disable_fuzzy_search=1
 "   let g:vimim_disable_unicode_input=1
+"   let g:vimim_disable_one_key=1
 "   let g:vimim_disable_...
 
 " ---------------------
@@ -175,7 +174,7 @@ if a:start
                 let seamless_column = s:seamless_positions[2]-1
                 let len = start_column - seamless_column
                 let snip = strpart(current_line, seamless_column, len)
-                if snip !~ '\W'
+                if snip !~ '\W' && len(snip) > 0
                     let s:start_column_before = seamless_column
                     let s:start_row_before = seamless_lnum
                     return seamless_column
@@ -222,29 +221,36 @@ if a:start
 
     let s:current_positions = current_positions
     let len = current_positions[2]-1 - start_column
-    let s:zero_keyboard = strpart(current_line, start_column, len)
+    let s:keyboard_leading_zero = strpart(current_line, start_column, len)
 
     return start_column
 
 else
 
     if s:vimim_debug > 0
-        let g:s_keyboard=s:zero_keyboard
+        let g:s_keyboard=s:keyboard_leading_zero
         let g:a_keyboard=a:keyboard
     endif
 
     let keyboard = a:keyboard
     if s:vimim_enable_four_corner > 0
-        if str2nr(keyboard) > 0 && str2nr(s:zero_keyboard) > 0
-            let keyboard = s:zero_keyboard
+        if str2nr(keyboard) > 0 && str2nr(s:keyboard_leading_zero) > 0
+            let keyboard = s:keyboard_leading_zero
         endif
     endif
     if a:keyboard !~ '\p'
         let keyboard = ''
     endif
 
+    if s:vimim_chinese_mode > 1
+    \&& s:keyboard_enter_flag > 0
+        let s:keyboard_enter_flag  = 0
+        return [" "]
+    endif
+
     if str2nr(keyboard) < 1
-    \&& keyboard !=# toupper(keyboard) && keyboard !=# tolower(keyboard)
+    \&& keyboard !=# toupper(keyboard)
+    \&& keyboard !=# tolower(keyboard)
         let s:seamless_positions = []
     endif
 
@@ -270,20 +276,25 @@ else
     endif
     let &pumheight=s:saved_pumheight
 
-    " do quick english input and hunt for easter eggs
+    " do nothing for all uppercase English
     " -----------------------------------------------
-    let english = s:VimIM_quick_English_input(keyboard)
-    if len(english) > 0
-        return english
+    if str2nr(keyboard) < 1 && keyboard ==# toupper(keyboard)
+        return keyboard
+    endif
+
+    " hunt for easter egg only if enabled
+    " -----------------------------------------------
+    if s:vimim_enable_easter_egg > 0
+        let egg = s:VimIM_easter_egg(keyboard)
+        if len(egg) > 0
+            return egg
+        endif
     endif
 
     " Now, build again valid keyboard characters
     " ------------------------------------------
     if strlen(keyboard) < 1
-    \||  keyboard !~ s:valid_key || keyboard =~ '\'
-"   \|| (keyboard =~ '[' && keyboard =~ ']')
-"xxx
-    \|| (keyboard =~ '^[.*?]\+' && s:current_datafile_has_dot_key<1)
+    \||  keyboard !~ s:valid_key
     \|| (keyboard !~# "vim" && s:vimim_easter_eggs>0)
         return
     endif
@@ -342,7 +353,7 @@ else
     " support major Double Pinyin with various rules
     " ----------------------------------------------
     if len(keyboards) > 0
-        let s:vimim_enable_static_menu=1
+        let s:vimim_enable_static_input_style=1
         let total_results = []
         for key in keyboards
             let match_start = match(lines, '^'.key)
@@ -385,10 +396,10 @@ else
     if len(keyboards) > 1
         let s:keyboards = keyboards
         let fuzzy_lines = s:VimIM_quick_fuzzy_search(keyboards[0], lines)
-        let hash_menu_0 = s:VimIM_lines_to_hash(fuzzy_lines)
+        let hash_menu_0 = s:VimIM_diy_lines_to_hash(fuzzy_lines)
         let fuzzy_lines = s:VimIM_quick_fuzzy_search(keyboards[1], lines)
-        let hash_menu_1 = s:VimIM_lines_to_hash(fuzzy_lines)
-        let mixtures = s:VimIM_double_menu(hash_menu_0, hash_menu_1)
+        let hash_menu_1 = s:VimIM_diy_lines_to_hash(fuzzy_lines)
+        let mixtures = s:VimIM_diy_double_menu(hash_menu_0, hash_menu_1)
         if len(mixtures) > 0
             return s:VimIM_popupmenu_list(sort(mixtures), localization)
         endif
@@ -408,11 +419,10 @@ else
     " do wildcard search: explicitly fuzzy search
     " -------------------------------------------
     if s:vimim_enable_wildcard_search > 0
-        let wildcard_pattern = '[.*?]'
+    \&& s:vimim_chinese_mode < 2
+        let wildcard_pattern = '[*?]'
         if s:current_datafile =~? 'wubi'
             let wildcard_pattern = '[z]'
-        elseif s:current_datafile_has_dot_key > 0
-            let wildcard_pattern = '[*?]'
         endif
         let wildcard = match(keyboard, wildcard_pattern)
         if wildcard > 0
@@ -457,60 +467,77 @@ else
     " ----------------------------------------
     " do exact match search on sorted datafile
     " ----------------------------------------
-    let results = []
+    let s:vimim_pattern_not_found = 0
+    let stridx = stridx(keyboard, ".")
+    if stridx > -1 && s:vimim_enable_word_by_word_match > 0
+        let match_start = -1
+    endif
     if match_start > -1
         let s:keyboard_menu = keyboard
         let digital = -1
+        let results = []
         if s:vimim_enable_four_corner > 0
             let digital = match(keyboard, '\d\+')
             if  digital > -1
-                let results = s:VimIM_quick_fuzzy_search(keyboard, lines)
+                let results = s:VimIM_quick_fuzzy_search(keyboard,lines)
             endif
         endif
         if digital < 0 |" [normal] do fine tunning exact match
             let s:menu_order_update_flag = 1
-            let results = s:VimIM_exact_match(match_start, keyboard, lines)
+            let s:keyboard_sentence = ''
+            let results = s:VimIM_exact_match(match_start,keyboard,lines)
         endif
         return s:VimIM_popupmenu_list(results, localization)
+    else
+        let s:vimim_pattern_not_found = 1
     endif
 
     " -------------------------------------------
     " make both work: hex unicode and 4 corner
     " -------------------------------------------
-    if s:vimim_enable_four_corner > 0
-    \&& match_start < 0 && strlen(keyboard) == 4
+    if match_start < 0
+    \&& s:vimim_enable_four_corner > 0
     \&& s:vimim_chinese_mode < 2
+    \&& strlen(keyboard) == 4
         let four_digit = match(keyboard, '^\d\{4}')
         if  four_digit == 0 && &encoding == "utf-8"
             let digit = str2nr(keyboard, 16)
             if digit >= str2nr(s:unicode_start,16)
             \&& digit <= str2nr(s:unicode_end,16)
+                let s:vimim_insert_without_popup = 1
                 let unicode = nr2char(digit)
                 let menu = 'u'.keyboard.'　'.digit
                 let results = [menu.' '.unicode]
-                let s:vimim_insert_without_popup = 1
                 return s:VimIM_popupmenu_list(results, 3)
             endif
+        endif
+    endif
+
+    " -----------------------------------------------------
+    " word matching algorithm for chinese word segmentation
+    " -----------------------------------------------------
+    if match_start < 0
+        let delimiter = "."
+        let stridx = stridx(a:keyboard, delimiter)
+      " let stridx_2 = stridx(a:keyboard, delimiter, stridx+1)
+        if stridx < 0
+            let results = s:VimIM_sentence_match(keyboard, lines)
+        else
+            let results = s:VimIM_part_by_part_match(keyboard, lines)
+        endif
+        if len(results) > 0
+            return s:VimIM_popupmenu_list(results, localization)
         endif
     endif
 
     " -------------------------------------------
     " do fuzzy search: implicitly wildcard search
     " -------------------------------------------
-    if s:vimim_disable_fuzzy_search < 1
-    \&& match_start < 0 && strlen(keyboard) > 1
-        let fuzzies = join(split(keyboard,'\ze'),'.*')
-        let fuzzy = '^' .  fuzzies . '.*'
-        let results = filter(lines, 'v:val =~ fuzzy')
-        if s:vimim_chinese_mode < 2
-            if strlen(keyboard) == 2
-                let fuzzy = '\s\+.\{2}$'
-            elseif strlen(keyboard) == 3
-                let fuzzy = '\s\+.\{3}$'
-            endif
-            let results = filter(results, 'v:val =~ fuzzy')
+    if match_start < 0
+        let results = s:VimIM_fuzzy_match(keyboard, lines)
+        if len(results) > 0
+            return s:VimIM_popupmenu_list(results, localization)
         endif
-        return s:VimIM_popupmenu_list(results, localization)
     endif
 
 endif
@@ -565,6 +592,58 @@ function! s:VimIM_double_pinyin(shengmu, yunmu, keyboard)
     return pairs
 endfunction
 
+" -----------------------------------------------
+function! s:VimIM_sentence_match(keyboard, lines)
+" -----------------------------------------------
+    let demo = 'jiandaolaoshiwenshenghao'
+    if s:vimim_enable_word_by_word_match < 1
+    \|| s:vimim_chinese_mode > 1
+    \|| strlen(a:keyboard) < 5
+        return []
+    endif
+    let results = []
+    let match_start = 0
+    let part = ""
+    let len = len(a:keyboard)
+    while len > 2
+        let len -= 1
+        let part = strpart(a:keyboard, 0, len)
+        let pattern = '^' . part . '\>'
+        let match_start = match(a:lines, pattern)
+        if  match_start > -1
+            let s:keyboard_sentence = strpart(a:keyboard, len)
+            break
+        endif
+    endwhile
+    if len(part) > 1
+        let results = s:VimIM_exact_match(match_start, part, a:lines)
+    endif
+    return results
+endfunction
+
+" ---------------------------------------------------
+function! s:VimIM_part_by_part_match(keyboard, lines)
+" ---------------------------------------------------
+    let demo = 'meet.teacher.say.hello'
+    if s:vimim_disable_part_by_part_match > 0
+    \|| s:vimim_chinese_mode > 1
+    \|| strlen(a:keyboard) < 3
+        return []
+    endif
+    let results = []
+    let stridx = stridx(a:keyboard, ".")
+    let part = strpart(a:keyboard, 0, stridx)
+    let s:keyboard_sentence = strpart(a:keyboard, stridx+1)
+    let pattern = '^' . part . '\>'
+    let match_start = match(a:lines, pattern)
+    if match_start < 0
+        let results = s:VimIM_fuzzy_match(part, a:lines)
+    else
+        let results = s:VimIM_exact_match(match_start, part, a:lines)
+    endif
+    return results
+endfunction
+
 " --------------------------------------
 function! s:VimIM_diy_keyboard(keyboard)
 " --------------------------------------
@@ -575,18 +654,21 @@ function! s:VimIM_diy_keyboard(keyboard)
         return []
     endif
     " -------------------------------------
-    let keyboards = []
     let delimiter = "."
-    let char_first = strpart(keyboard,0,1)
-    let char_last  = strpart(keyboard,len(keyboard)-1,1)
     let stridx_1 = stridx(keyboard, delimiter)
     let stridx_2 = stridx(keyboard, delimiter, stridx_1+1)
-    if char_first != delimiter && char_last != delimiter
-    \&& stridx_1 > -1 && stridx_2 < 0
+    let char_first = strpart(keyboard,0,1)
+    let char_last  = strpart(keyboard,len(keyboard)-1,1)
+    if stridx_1 > -1
+        if char_first == delimiter
+        \|| char_last == delimiter
+        \|| stridx_2 > -1
+        \|| len(s:keyboard_sentence) > 0
+            return []
+        endif
         let alpha_string = strpart(keyboard, 0, stridx_1)
         let digit_string = strpart(keyboard, stridx_1+1)
-        if s:vimim_enable_diy_mixture_im > 0
-        \&& s:vimim_enable_four_corner > 0
+        if s:vimim_enable_four_corner > 0
             let digit = match(digit_string, '\d\+')
             if digit < 0
                 let tmp = alpha_string
@@ -602,8 +684,7 @@ function! s:VimIM_diy_keyboard(keyboard)
         return [alpha_string, digit_string]
     endif
     " -------------------------------------
-    if s:vimim_enable_diy_mixture_im > 0
-    \&& s:vimim_enable_four_corner > 0
+    if s:vimim_enable_four_corner > 0
         let digit = match(keyboard, '\d\+')
         let alpha = match(keyboard, '\a\+')
         if digit < 0 || alpha < 0
@@ -628,6 +709,50 @@ function! s:VimIM_diy_keyboard(keyboard)
         endif
         return [alpha_string, digit_string]
     endif
+endfunction
+
+" ----------------------------------------
+function! s:VimIM_diy_lines_to_hash(lines)
+" ----------------------------------------
+    if len(a:lines) < 1
+        return {}
+    endif
+    let hash_menu = {}
+    for line in a:lines
+        let words = split(line)
+        let menu = words[0]
+        for word in words
+            if word != menu
+                let hash_menu[word] = menu
+            endif
+        endfor
+    endfor
+    return hash_menu
+endfunction
+
+" ---------------------------------------------------------
+function! s:VimIM_diy_double_menu(hash_menu_0, hash_menu_1)
+" ---------------------------------------------------------
+    let hash_menu_0 = a:hash_menu_0 |" {'马力':'mali','马':'ma'}
+    let hash_menu_1 = a:hash_menu_1 |" {'马':'7712'}
+    let values = []
+    if empty(hash_menu_0) || empty(hash_menu_1)
+        return []
+    endif
+    for key in keys(hash_menu_0)
+        let one_char = key
+        if len(key) > 1
+            let one_char = strpart(key, 0, s:multibyte)
+        endif
+        if has_key(hash_menu_1, one_char)
+            let menu_vary = hash_menu_0[key]       |" ma
+            let menu_fix  = hash_menu_1[one_char]  |" 7712
+            let menu = menu_fix . "　" . menu_vary |" 7712 ma
+            let pair = menu . " " . key            |" 7712 ma 马
+            call add(values, pair)
+        endif
+    endfor
+    return values
 endfunction
 
 " ---------------------------------------------------
@@ -657,7 +782,7 @@ function! s:VimIM_quick_fuzzy_search(keyboard, lines)
     else
         " ------------------- for digit_string
         let patterns = "^" .  a:keyboard
-        if s:vimim_enable_diy_mixture_im == 1001
+        if s:vimim_enable_four_corner == 1001
             " another choice: top-left & bottom-right
             let char_first = strpart(a:keyboard,0,1)
             let char_last  = strpart(a:keyboard,len(a:keyboard)-1,1)
@@ -666,50 +791,6 @@ function! s:VimIM_quick_fuzzy_search(keyboard, lines)
     endif
     call filter(results, 'v:val =~ patterns')
     return results
-endfunction
-
-" ------------------------------------
-function! s:VimIM_lines_to_hash(lines)
-" ------------------------------------
-    if len(a:lines) < 1
-        return {}
-    endif
-    let hash_menu = {}
-    for line in a:lines
-        let words = split(line)
-        let menu = words[0]
-        for word in words
-            if word != menu
-                let hash_menu[word] = menu
-            endif
-        endfor
-    endfor
-    return hash_menu
-endfunction
-
-" -----------------------------------------------------
-function! s:VimIM_double_menu(hash_menu_0, hash_menu_1)
-" -----------------------------------------------------
-    let hash_menu_0 = a:hash_menu_0 |" {'马力':'mali','马':'ma'}
-    let hash_menu_1 = a:hash_menu_1 |" {'马':'7712'}
-    let values = []
-    if empty(hash_menu_0) || empty(hash_menu_1)
-        return []
-    endif
-    for key in keys(hash_menu_0)
-        let one_char = key
-        if len(key) > 1
-            let one_char = strpart(key, 0, s:multibyte)
-        endif
-        if has_key(hash_menu_1, one_char)
-            let menu_vary = hash_menu_0[key]       |" ma
-            let menu_fix  = hash_menu_1[one_char]  |" 7712
-            let menu = menu_fix . "　" . menu_vary |" 7712 ma
-            let pair = menu . " " . key            |" 7712 ma 马
-            call add(values, pair)
-        endif
-    endfor
-    return values
 endfunction
 
 " ----------------------------------------------------------
@@ -740,7 +821,7 @@ function! s:VimIM_popupmenu_list(matched_list, localization)
         \&& s:vimim_chinese_mode < 2
         \&& i == 1
             let four_hex = '^\d\{4}'
-            let match_four_hex = match(s:zero_keyboard, four_hex)
+            let match_four_hex = match(s:keyboard_leading_zero, four_hex)
             if match_four_hex > -1 && len(s:keyboards) < 1
                 let four_hex = strpart(menu,0,4)
                 let digit = str2nr(four_hex, 16)
@@ -801,17 +882,37 @@ function! s:VimIM_popupmenu_list(matched_list, localization)
     if s:vimim_wubi_non_stop < 1
         return []
     else
-        let s:vimim_pattern_not_found = 0
-        if len(popupmenu_list) < 1
-            let s:vimim_pattern_not_found = 1
-        endif
         return popupmenu_list
     endif
+endfunction
+
+" --------------------------------------------
+function! s:VimIM_fuzzy_match(keyboard, lines)
+" --------------------------------------------
+    if len(a:keyboard) < 1 || len(a:lines) < 1
+    \|| s:vimim_enable_fuzzy_search < 1
+        return []
+    endif
+    let fuzzies = join(split(a:keyboard,'\ze'),'.*')
+    let fuzzy = '^' .  fuzzies . '.*'
+    let results = filter(a:lines, 'v:val =~ fuzzy')
+    if s:vimim_chinese_mode < 2
+        if strlen(a:keyboard) == 2
+            let fuzzy = '\s\+.\{2}$'
+        elseif strlen(a:keyboard) == 3
+            let fuzzy = '\s\+.\{3}$'
+        endif
+        let results = filter(results, 'v:val =~ fuzzy')
+    endif
+    return results
 endfunction
 
 " ---------------------------------------------------
 function! s:VimIM_exact_match(start, keyboard, lines)
 " ---------------------------------------------------
+    if len(a:keyboard) < 1 || len(a:lines) < 1
+        return []
+    endif
     let words_limit = 128
     let match_start = a:start
     let match_end = match_start
@@ -994,71 +1095,6 @@ function! s:VimIM_fuzzy_pinyin(keyboard)
     return pattern
 endfunction
 
-" ---------------------------------
-function! s:VimIM_unicode(keyboard)
-" ---------------------------------
-    let digits = []
-    let unicode_prefix = 'u'
-    let keyboard = a:keyboard
-    let keyboard_number = str2nr(keyboard)
-    let s:vimim_insert_without_popup = 0
-    if keyboard =~ '\d\{5}'
-    \&& s:vimim_chinese_mode < 2
-        let digits = [keyboard_number]
-        let s:vimim_insert_without_popup = 1
-    elseif keyboard =~ '\d\{4}'
-    \&& keyboard_number < 5000
-    \&& s:vimim_enable_four_corner < 1
-        let digit_ranges = range(10)
-        for i in digit_ranges
-            let last_unicode = keyboard . i
-            let digit = str2nr(last_unicode)
-            call add(digits, digit)
-        endfor
-    elseif s:vimim_chinese_mode < 2
-        let four_hex   = match(keyboard, '^\x\{4}')
-        let four_digit = match(keyboard, '^\d\{4}')
-        if four_hex == 0 && four_digit < 0
-            let keyboard = unicode_prefix . keyboard
-        endif
-        let x_hex = match(keyboard, unicode_prefix.'\x\x\x\x\=')
-        if x_hex < 0
-            return []
-        else
-            let keyboard = strpart(keyboard,1)
-        endif
-        if keyboard =~ '\x\{4}'
-        \&& s:vimim_chinese_mode < 2
-            let digits = [str2nr(keyboard, 16)]
-            let s:vimim_insert_without_popup = 1
-        elseif keyboard =~ '\x\{3}'
-            let hex_ranges = extend(range(10),['a','b','c','d','e','f'])
-            for i in hex_ranges
-                let last_unicode = keyboard . i
-                let digit = str2nr(last_unicode, 16)
-                call add(digits, digit)
-            endfor
-        endif
-    else
-        return []
-    endif
-    let unicodes = []
-    let start = 19968-19000
-    let end = 40870
-    for digit in digits
-        if digit > start && digit < end
-            let hex = printf('%04x', digit)
-            let menu = unicode_prefix . hex .'　'. digit
-            let unicode = menu.' '.nr2char(digit)
-            call add(unicodes, unicode)
-        endif
-    endfor
-    if len(unicodes) < 1
-        let s:vimim_insert_without_popup = 0
-    endif
-    return unicodes
-endfunction
-
 " ===================================== }}}
 
 " ====  "The VimIM Core FrontEnd"  ==== {{{
@@ -1096,58 +1132,14 @@ function! s:VimIM_localization()
     return localization
 endfunction
 
-" ---------------------------
-function! s:VimIM_seed_data()
-" ---------------------------
-    if s:vimim_seed_data_loaded
-        return
-    else
-        let s:vimim_seed_data_loaded = 1
+" ------------------------------------
+function! s:VimIM_easter_egg(keyboard)
+" ------------------------------------
+    let keyboard = a:keyboard
+    if keyboard !~ '^*'
+        return []
     endif
-    " ------------------------
-    let s:punctuations = {}
-    let punctuations = {}
-    let punctuations['#']='＃'
-    let punctuations['%']='％'
-    let punctuations['$']='￥'
-    let punctuations['&']='※'
-    let punctuations['!']='！'
-    let punctuations['~']='～'
-    let punctuations['+']='＋'
-    let punctuations['-']='－'
-    let punctuations[',']='，'
-    let punctuations[';']='；'
-    let punctuations['.']='。'
-    let punctuations['*']='﹡'
-    let punctuations['\']='、'
-    let punctuations['?']='？'
-    let punctuations['@']='・'
-    let punctuations[':']='：'
-    let punctuations['<']='《'
-    let punctuations['>']='》'
-    let punctuations['(']='（'
-    let punctuations[')']='）'
-    let punctuations['{']='『'
-    let punctuations['}']='』'
-    let punctuations['[']='【'
-    let punctuations[']']='】'
-    let punctuations['=']='＝'
-    let punctuations["'"]='‘’'
-    let punctuations['"']='“”'
-    let punctuations['^']='……'
-    let punctuations['_']='——'
-    if s:vimim_disable_square_bracket < 1
-        unlet punctuations['[']
-        unlet punctuations[']']
-    endif
-    let s:punctuations_all = copy(punctuations)
-    for char in s:vimim_valid_keys
-        if has_key(punctuations, char)
-            unlet punctuations[char]
-        endif
-    endfor
-    let s:punctuations = punctuations
-    " -------------------------------
+    " --------------------------------
     let ecdict = {}
     let ecdict['casino']='中奖啦！'
     let ecdict['grass']='天涯何处无芳草！'
@@ -1158,8 +1150,6 @@ function! s:VimIM_seed_data()
     let ecdict['hour']='时'
     let ecdict['minute']='分'
     let ecdict['second']='秒'
-    let ecdict[',']='，'
-    let ecdict['.']='。'
     let ecdict['january']=   '一月'
     let ecdict['february']=  '二月'
     let ecdict['march']=     '三月'
@@ -1189,10 +1179,107 @@ function! s:VimIM_seed_data()
     let ecdict['7']='七'
     let ecdict['8']='八'
     let ecdict['9']='九'
+    let ecdict[',']='，'
+    let ecdict['.']='。'
     let s:ecdict = ecdict
     " --------------------------------
     let s:dummy=copy(s:translators)
     let s:dummy.dict=copy(s:ecdict)
+    " --------------------------------
+    let result = ''
+    " play with intial single star or double stars
+    if keyboard =~ '^*\{1}\w' && s:vimim_chinese_mode < 2
+        let result = strpart(keyboard,1)
+    elseif keyboard =~ '^*\{2}\w'
+        let chinese=copy(s:translators)
+        let chinese.dict=s:ecdict
+        if keyboard =~ '*\{2}casino'
+            " **casino -> congratulations! US$88000
+            let casino = matchstr(localtime(),'..$')*1000
+            let casino = 'casino US$'.casino
+            let casino = chinese.translate(casino)
+            let result = casino
+        elseif keyboard =~ '*\{2}girls'
+            let result = chinese.translate('grass')
+        elseif keyboard =~ '*\{2}today' || keyboard =~ '*\{2}now'
+            " **today  -> 2009 year February 22 day Wednesday
+            if keyboard =~ '*\{2}today'
+                let today = strftime("%Y year %B %d day %A")
+                let today = chinese.translate(today)
+                let result = today
+            " **now -> Sunday AM 8 hour 8 minute 8 second
+            elseif keyboard =~ '*\{2}now'
+                let now=strftime("%A %p %I hour %M minute %S second")
+                let now=chinese.translate(now)
+                let result = now
+            endif
+        elseif keyboard =~ '*\{2}\d\+'
+            let number = join(split(strpart(keyboard,2),'\ze'),' ')
+            let number = chinese.translate(number)
+            let number = join(split(number),'')
+            let result = number
+        endif
+    endif
+    let results = []
+    if len(result)>0
+        let result .= ' '
+        let results = [result]
+        let s:vimim_insert_without_popup = 1
+    endif
+    return results
+endfunction
+
+" ---------------------------
+function! s:VimIM_seed_data()
+" ---------------------------
+    if s:vimim_seed_data_loaded
+        return
+    else
+        let s:vimim_seed_data_loaded = 1
+    endif
+    " ------------------------
+    let s:punctuations = {}
+    let punctuations = {}
+    let punctuations['#']='＃'
+    let punctuations['%']='％'
+    let punctuations['$']='￥'
+    let punctuations['&']='※'
+    let punctuations['!']='！'
+    let punctuations['~']='～'
+    let punctuations['+']='＋'
+    let punctuations['-']='－'
+    let punctuations[',']='，'
+    let punctuations[';']='；'
+    let punctuations['*']='﹡'
+    let punctuations['\']='、'
+    let punctuations['?']='？'
+    let punctuations['@']='・'
+    let punctuations[':']='：'
+    let punctuations['<']='《'
+    let punctuations['>']='》'
+    let punctuations['(']='（'
+    let punctuations[')']='）'
+    let punctuations['{']='『'
+    let punctuations['}']='』'
+    let punctuations['[']='【'
+    let punctuations[']']='】'
+    let punctuations['=']='＝'
+    let punctuations["'"]='‘’'
+    let punctuations['"']='“”'
+    let punctuations['^']='……'
+    let punctuations['_']='——'
+    if s:vimim_disable_square_bracket < 1
+        unlet punctuations['[']
+        unlet punctuations[']']
+    endif
+    let s:punctuations_all = copy(punctuations)
+    for char in s:vimim_valid_keys
+        if has_key(punctuations, char)
+            unlet punctuations[char]
+        endif
+    endfor
+    let punctuations['.']='。'
+    let s:punctuations = punctuations
     " --------------------------------------------
     let s:easter_eggs =         ["vi 文本编辑器"]
     call add(s:easter_eggs, "vim 最牛文本编辑器")
@@ -1334,10 +1421,10 @@ function! s:VimIM_insert_entry(entries, lines)
         let line_before = a:lines[position-1]
         let line_after = a:lines[position+1]
         let line_position = a:lines[position]
-        " avoid insert the same line  (todo)
-        if entry == line_before
-        \|| entry == line_after
-        \|| entry == line_position
+        " avoid insert the same line
+        if entry ==? line_before
+        \|| entry ==? line_after
+        \|| entry ==? line_position
             continue
         endif
         if position < 0
@@ -1606,7 +1693,8 @@ function! s:VimIM_label_on()
             let label = 1 - s:vimim_enable_zero_based_label
             let repeat_times = a:n - label
             let counts = repeat("\<C-N>", repeat_times)
-            let end = '\<C-Y>'
+            let end = "\<C-Y>"
+            let end = s:VimIM_keyboard_by_word()
             sil!exe 'sil!return "' . counts . end . '"'
         else
             return a:n
@@ -1631,17 +1719,17 @@ function! s:VimIM_hjkl_on()
         let hjkl = key
         if pumvisible()
             if key == 'e'
-                let hjkl = '\<C-E>'
+                let hjkl = "\<C-E>"
             elseif key == 'y'
-                let hjkl = '\<C-Y>'
+                let hjkl = "\<C-Y>"
             elseif key == 'h'
-                let hjkl = '\<PageUp>'
+                let hjkl = "\<PageUp>"
             elseif key == 'j'
-                let hjkl = '\<C-N>'
+                let hjkl = "\<C-N>"
             elseif key == 'k'
-                let hjkl = '\<C-P>'
+                let hjkl = "\<C-P>"
             elseif key == 'l'
-                let hjkl = '\<PageDown>'
+                let hjkl = "\<PageDown>"
             endif
         endif
         sil!exe 'sil!return "' . hjkl . '"'
@@ -1663,7 +1751,7 @@ function! <SID>VimIM_search(key)
     let key = a:key
     let slash  = key
     if pumvisible()
-        let slash  = '\<C-Y>'
+        let slash  = "\<C-Y>"
         if s:start_search_backward > 0
             if key == "?"
                 let key = "/"
@@ -1727,7 +1815,7 @@ function! <SID>VimIM_square_bracket(key)
             let right = "\<Right>"
         endif
         let backspace = '\<C-R>=VimIM_bracket_backspace('.i.')\<CR>'
-        let yes = '\<C-Y>'
+        let yes = "\<C-Y>"
         let bracket = yes . left . backspace . right
     endif
     sil!exe 'sil!return "' . bracket . '"'
@@ -1766,10 +1854,12 @@ function! s:VimIM_setting_on()
     let s:saved_pumheight=&pumheight
     let s:saved_paste=&paste
     let s:saved_ignorecase=&ignorecase
+    let s:saved_hlsearch=&hlsearch
     set cpo&vim
     set nopaste
     set nolazyredraw
     set noignorecase
+    set hlsearch
     let &l:iminsert=1
     let &pumheight=9
     highlight! lCursor guifg=bg guibg=green
@@ -1780,6 +1870,7 @@ function! s:VimIM_setting_off()
 " -----------------------------
     let &cpo=s:saved_cpo
     let &lazyredraw=s:saved_lazyredraw
+    let &hlsearch=s:saved_hlsearch
     let &pumheight=s:saved_pumheight
     let &paste=s:saved_paste
     let &ignorecase=s:saved_ignorecase
@@ -1809,7 +1900,7 @@ function! s:VimIM_insert_on()
 " ---------------------------
     let s:vimim_chinese_insert_on = 1
     sil!call s:VimIM_setting_on()
-    if s:vimim_enable_static_menu > 0
+    if s:vimim_enable_static_input_style > 0
         let s:vimim_chinese_mode = 1 |" static_menu  (default off)
         imap<silent><Space> <Plug>VimimSpace
     else
@@ -1817,12 +1908,12 @@ function! s:VimIM_insert_on()
         " --------------------------------
         inoremap<silent> <Space>
         \ <C-R>=<SID>VimIM_smart_space()<CR>
-        \<C-R>=<SID>VimIM_dynamic_key()<CR>
+        \<C-R>=VimIM_CTRL_X_CTRL_U()<CR>
         " --------------------------------
         for char in s:vimim_valid_keys
             sil!exe 'inoremap<silent> ' . char . '
             \ <C-R>=<SID>VimIM_dynamic_End()<CR>'. char .
-            \'<C-R>=<SID>VimIM_dynamic_key()<CR>'
+            \'<C-R>=VimIM_CTRL_X_CTRL_U()<CR>'
         endfor
         " --------------------------------
         if s:vimim_disable_smart_backspace < 1
@@ -1842,6 +1933,7 @@ function! s:VimIM_insert_on()
     endif
     " --------------------------------------
     if s:vimim_disable_chinese_punctuation < 1
+    \&& s:vimim_chinese_mode > 1
         sil!call s:VimIM_punctuation_toggle(1)
     else
         sil!call s:VimIM_punctuation_toggle(0)
@@ -1857,11 +1949,7 @@ function! s:VimIM_insert_on()
         endif
     endif
     " --------------------------------------
-    let s:seamless_positions = []
-    if s:start_search_forward < 1 && s:start_search_backward < 1
-    \&& s:vimim_disable_seamless_english_input < 1
-        let s:seamless_positions = getpos(".")
-    endif
+    sil!call VimIM_set_seamless_position()
     " --------------------------------------
 endfunction
 
@@ -1869,8 +1957,8 @@ endfunction
 function! s:VimIM_insert_off()
 " ----------------------------
     let s:vimim_chinese_insert_on = 0
-    let s:vimim_onekey_loaded = 0
     let s:vimim_chinese_mode = 0
+    let s:vimim_onekey_loaded = 0
     let s:start_search_forward = 0
     let s:start_search_backward = 0
     let s:seamless_positions = []
@@ -2011,6 +2099,7 @@ function! s:VimIM_initialize_global()
     call add(G, "g:vimim_enable_double_pinyin_nature")
     call add(G, "g:vimim_enable_double_pinyin_plusplus")
     call add(G, "g:vimim_enable_double_pinyin_purple")
+    call add(G, "g:vimim_enable_easter_egg")
     call add(G, "g:vimim_enable_english_to_chinese")
     call add(G, "g:vimim_enable_four_corner")
     call add(G, "g:vimim_enable_fuzzy_pinyin")
@@ -2019,17 +2108,18 @@ function! s:VimIM_initialize_global()
     call add(G, "g:vimim_enable_menu_extra_text")
     call add(G, "g:vimim_enable_sexy_input_style")
     call add(G, "g:vimim_enable_smart_punctuation")
-    call add(G, "g:vimim_enable_smart_wildcard")
-    call add(G, "g:vimim_enable_static_menu")
+    call add(G, "g:vimim_enable_static_input_style")
     call add(G, "g:vimim_enable_tab_for_one_key")
     call add(G, "g:vimim_enable_unicode_lookup")
     call add(G, "g:vimim_enable_wildcard_search")
+    call add(G, "g:vimim_enable_fuzzy_search")
+    call add(G, "g:vimim_enable_word_by_word_match")
     " ------------------------------------------------
+    call add(G, "g:vimim_disable_part_by_part_match")
     call add(G, "g:vimim_disable_chinese_input_mode")
     call add(G, "g:vimim_disable_chinese_punctuation")
     call add(G, "g:vimim_disable_dynamic_mode_autocmd")
     call add(G, "g:vimim_disable_english_input_on_enter")
-    call add(G, "g:vimim_disable_fuzzy_search")
     call add(G, "g:vimim_disable_menu_hjkl")
     call add(G, "g:vimim_disable_menu_label")
     call add(G, "g:vimim_disable_one_key")
@@ -2059,15 +2149,31 @@ function! s:VimIM_initialize()
 " ----------------------------
     sil!call s:VimIM_initialize_global()
     let s:current_datafile = s:VimIM_get_datafile_name()
-    let s:input_method = ''
-    let s:saved_pumheight=&pumheight
-    " ------------------------------------------------
-    let keys = map(range(char2nr('a'),char2nr('z')),'nr2char(v:val)')
+    " --------------------------------------------------
+    if s:vimim_debug > 0
+        let s:vimim_enable_static_input_style=0
+        let s:vimim_enable_wildcard_search=1
+        let s:vimim_enable_tab_for_one_key=1
+        let s:vimim_enable_four_corner=1
+        let s:vimim_enable_diy_mixture_im=1
+        let s:vimim_enable_english_to_chinese=1
+        let s:vimim_enable_unicode_lookup=1
+        let s:vimim_enable_menu_extra_text=1
+        let s:vimim_enable_easter_egg=1
+        let &pumheight=9
+    endif
+    " ----------------------------------- pinyin
+    let s:input_method = ""
     if s:current_datafile =~? 'pinyin'
-    \|| s:vimim_enable_diy_mixture_im > 0
+    \|| s:current_datafile =~# 'vimim.txt'
         let s:input_method = 'pinyin'
+    endif
+    if s:input_method == 'pinyin'
+        let s:vimim_enable_fuzzy_search=1
+        let s:vimim_enable_word_by_word_match=1
         let s:shengmu = {}
         let s:yunmu = {}
+        let keys = map(range(char2nr('a'),char2nr('z')),'nr2char(v:val)')
         for key in keys
             let s:shengmu[key] = key
             let s:yunmu[key] = [key]
@@ -2075,21 +2181,13 @@ function! s:VimIM_initialize()
         let s:shengmu["o"] = "'"
         let s:yunmu["o"] = ["uo", "o"]
     endif
-    " ------------------------------------------------
-    let s:multibyte = 2
-    if &encoding == "utf-8"
-        let s:multibyte = 3
-    endif
-    " -------------------------------------------------
-    let s:unicode_start = '2600'
-    let s:unicode_end = '9fa5'
-    " -------------------------------------------------
+    " -----------------------------------
     let wildcard = s:vimim_enable_wildcard_search
     let s:valid_key = s:VimIM_valid_key(s:current_datafile, wildcard)
     let key = s:VimIM_expand_character_class(s:valid_key)
     let keys = split(key, '\zs')
     let s:vimim_valid_keys = keys
-    " ------------------------------------------------
+    " -----------------------------------
     let s:diy_double_input_delimiter = 0
     let s:vimim_insert_without_popup = 0
     let s:vimim_chinese_mode = 0
@@ -2097,28 +2195,30 @@ function! s:VimIM_initialize()
     let s:vimim_chinese_insert_on = 0
     let s:vimim_punctuation = 0
     let s:vimim_enable_zero_based_label = 0
-    " ------------------------------------------------
-    let s:zero_keyboard = ''
-    let s:keyboard_wubi = ''
-    let s:keyboard_menu = ''
-    let s:keyboard_chinese = ''
-    let s:keyboard_counts = 0
+    " -----------------------------------
     let s:menu_order_update_flag = 0
     let s:start_row_before = 0
     let s:start_column_before = 1
     let s:start_search_forward = 0
     let s:start_search_backward = 0
     let s:vimim_pattern_not_found = 0
-    " ------------------------------------------------
+    " -----------------------------------
     let s:vimim_onekey_loaded = 0
     let s:vimim_seed_data_loaded = 0
     let s:vimim_datafile_loaded = 0
-    " ------------------------------------------------
+    " -----------------------------------
     let s:vimim_dictionary_loaded = 0
     let s:vimim_four_corner_loaded = 0
     let s:vimim_pinyin_loaded = 0
-    let s:vimim_xingma_im = 0
-    " ------------------------------------------------
+    " -----------------------------------
+    let s:keyboard_enter_flag  = 0
+    let s:keyboard_wubi = ''
+    let s:keyboard_sentence = ''
+    let s:keyboard_leading_zero = ''
+    let s:keyboard_chinese = ''
+    let s:keyboard_menu = ''
+    let s:keyboard_counts = 0
+    " -----------------------------------
     let s:menu_hjkl = []
     let s:keyboards = []
     let s:datafile_lines = []
@@ -2133,7 +2233,16 @@ function! s:VimIM_initialize()
     if s:vimim_disable_seamless_english_input < 1
         let s:seamless_positions = getpos(".")
     endif
-    " ------------------------------------------------
+    " -----------------------------------
+    let s:multibyte = 2
+    if &encoding == "utf-8"
+        let s:multibyte = 3
+    endif
+    " -----------------------------------
+    let s:unicode_start = '2600'
+    let s:unicode_end = '9fa5'
+    let s:saved_pumheight=&pumheight
+    " -----------------------------------
     if s:vimim_enable_menu_color < 1
         highlight! link PmenuSel  Title
         highlight! Pmenu          NONE
@@ -2145,7 +2254,72 @@ function! s:VimIM_initialize()
             highlight! PmenuThumb NONE
         endif
     endif
-    " ------------------------------------------------
+    " -----------------------------------
+endfunction
+
+" ---------------------------------
+function! s:VimIM_unicode(keyboard)
+" ---------------------------------
+    let digits = []
+    let unicode_prefix = 'u'
+    let keyboard = a:keyboard
+    let keyboard_number = str2nr(keyboard)
+    let s:vimim_insert_without_popup = 0
+    if keyboard =~ '\d\{5}'
+    \&& s:vimim_chinese_mode < 2
+        let digits = [keyboard_number]
+        let s:vimim_insert_without_popup = 1
+    elseif keyboard =~ '\d\{4}'
+    \&& keyboard_number < 5000
+    \&& s:vimim_enable_four_corner < 1
+        let digit_ranges = range(10)
+        for i in digit_ranges
+            let last_unicode = keyboard . i
+            let digit = str2nr(last_unicode)
+            call add(digits, digit)
+        endfor
+    elseif s:vimim_chinese_mode < 2
+        let four_hex   = match(keyboard, '^\x\{4}')
+        let four_digit = match(keyboard, '^\d\{4}')
+        if four_hex == 0 && four_digit < 0
+            let keyboard = unicode_prefix . keyboard
+        endif
+        let x_hex = match(keyboard, unicode_prefix.'\x\x\x\x\=')
+        if x_hex < 0
+            return []
+        else
+            let keyboard = strpart(keyboard,1)
+        endif
+        if keyboard =~ '\x\{4}'
+        \&& s:vimim_chinese_mode < 2
+            let digits = [str2nr(keyboard, 16)]
+            let s:vimim_insert_without_popup = 1
+        elseif keyboard =~ '\x\{3}'
+            let hex_ranges = extend(range(10),['a','b','c','d','e','f'])
+            for i in hex_ranges
+                let last_unicode = keyboard . i
+                let digit = str2nr(last_unicode, 16)
+                call add(digits, digit)
+            endfor
+        endif
+    else
+        return []
+    endif
+    let unicodes = []
+    let start = 19968-19000
+    let end = 40870
+    for digit in digits
+        if digit > start && digit < end
+            let hex = printf('%04x', digit)
+            let menu = unicode_prefix . hex .'　'. digit
+            let unicode = menu.' '.nr2char(digit)
+            call add(unicodes, unicode)
+        endif
+    endfor
+    if len(unicodes) < 1
+        let s:vimim_insert_without_popup = 0
+    endif
+    return unicodes
 endfunction
 
 " -------------------------------------------------
@@ -2154,6 +2328,7 @@ function! s:VimIM_double_pinyin_microsoft(keyboard)
     if len(a:keyboard) < 2
         return []
     endif
+    let rule = "~/vim/keymap/double_pinyin.py"
     let shengmu = copy(s:shengmu)
     let yunmu = copy(s:yunmu)
     unlet shengmu["a"]
@@ -2392,41 +2567,37 @@ function! s:VimIM_valid_key(input_method, wildcard)
     let s:vimim_wubi_non_stop = 0
     let input_method = a:input_method
     let key = "[a-z]"
-    let key_plus_wildcard = "[*0-9a-z]"
-    if input_method =~# 'vimim.txt'
-        let key = "[0-9a-z]"
-        let key_plus_wildcard = "[.*0-9a-z]"
-    elseif input_method =~ 'wubi'
+    let key_wildcard = ""
+    if input_method =~ 'wubi'
         let key = "[a-z]"
-        let key_plus_wildcard = key
     elseif input_method =~ 'phonetic'
         let s:current_datafile_has_dot_key = 1
         let key = "[0-9a-z.,;/\-]"
-        let key_plus_wildcard = "[?*0-9a-z.,;/\-]"
+        let key_wildcard = "[?*0-9a-z.,;/\-]"
     elseif input_method =~ 'array'
         let s:current_datafile_has_dot_key = 1
         let key = "[a-z.,;/]"
-        let key_plus_wildcard = "[?*a-z.,;/]"
+        let key_wildcard = "[?*a-z.,;/]"
     elseif input_method =~ 'erbi'
         let s:current_datafile_has_dot_key = 1
         let key = "[a-z;,./']"
-        let key_plus_wildcard = "[?*a-z;,./']"
+        let key_wildcard = "[?*a-z;,./']"
     elseif input_method =~ 'double_pinyin'
         let key = "[a-z;]"
-        let key_plus_wildcard = "[*a-z;]"
     endif
     if input_method =~ 'pinyin'
-        let key = "[0-9a-z]"
-        let key_plus_wildcard = "[*0-9a-z]"
+    \|| input_method =~# 'vimim.txt'
+        let key = "[.0-9a-z]"
+        let key_wildcard = "[.*?0-9a-z]"
         if s:vimim_enable_double_pinyin_microsoft > 0
         \|| s:vimim_enable_double_pinyin_purple > 0
             let key = "[a-z;]"
-            let key_plus_wildcard = "[*a-z;]"
+            let key_wildcard = "[*a-z;]"
         elseif s:vimim_enable_double_pinyin_abc > 0
         \|| s:vimim_enable_double_pinyin_nature > 0
         \|| s:vimim_enable_double_pinyin_plusplus > 0
             let key = "[a-z]"
-            let key_plus_wildcard = "[*a-z]"
+            let key_wildcard = "[*a-z]"
         endif
     endif
     if s:current_datafile_has_dot_key > 0
@@ -2434,18 +2605,16 @@ function! s:VimIM_valid_key(input_method, wildcard)
     \|| input_method =~? 'cangjie'
     \|| input_method =~? 'quick'
     \|| input_method =~? 'corner'
-        let s:vimim_xingma_im = 1
-        let s:vimim_disable_fuzzy_search=1
         let s:vimim_save_input_history_frequency=-1
     endif
-    if s:vimim_enable_static_menu < 1
+    if s:vimim_enable_static_input_style < 1
         if input_method =~? 'wubi'
         \&& s:vimim_disable_wubi_non_stop < 1
             let s:vimim_wubi_non_stop = 1
         endif
     endif
-    if a:wildcard > 0
-        let key = key_plus_wildcard
+    if a:wildcard > 0 && len(key_wildcard) > 0
+        let key = key_wildcard
     endif
     let s:valid_minimum_key = key
     return key
@@ -2459,23 +2628,25 @@ function! s:VimIM_smart_punctuation(punctuations, key)
     let char_before = current_line[col(".")-2]
     let char_before_before = current_line[col(".")-3]
     if (char_before_before =~ '\W' || char_before_before == '')
-    \&& char_before =~ '[.*?:]'
-        let onekey = s:VimIM_smart_wildcard(char_before)
-    elseif (char_before_before =~ '\W' || char_before_before == '')
     \&& has_key(a:punctuations, char_before)
         let replace = a:punctuations[char_before]
-        let onekey = "\<BS>" . replace
+        if s:vimim_chinese_mode == 1
+        \|| s:vimim_enable_smart_punctuation > 0
+            let onekey = "\<BS>" . replace
+        endif
     elseif char_before !~ s:valid_key
         let onekey = a:key
     endif
     return onekey
 endfunction
 
-" ---------------------------------
-function! VimIM_seamless_position()
-" ---------------------------------
+" -------------------------------------
+function! VimIM_set_seamless_position()
+" -------------------------------------
     let s:seamless_positions = []
     if s:vimim_disable_seamless_english_input < 1
+    \&& s:start_search_forward < 1
+    \&& s:start_search_backward < 1
         let s:seamless_positions = getpos(".")
     endif
     return ""
@@ -2486,7 +2657,7 @@ function! <SID>VimIM_smart_ctrl_u()
 " ---------------------------------
     let backspace = "\<C-U>"
     if !pumvisible()
-        let backspace .= '\<C-R>=VimIM_seamless_position()\<CR>'
+        let backspace .= '\<C-R>=VimIM_set_seamless_position()\<CR>'
     endif
     sil!exe 'sil!return "' . backspace . '"'
 endfunction
@@ -2495,24 +2666,81 @@ endfunction
 function! <SID>VimIM_smart_ctrl_w()
 " ---------------------------------
     let backspace = "\<C-W>"
-    let backspace .= '\<C-R>=VimIM_seamless_position()\<CR>'
+    let backspace .= '\<C-R>=VimIM_set_seamless_position()\<CR>'
     sil!exe 'sil!return "' . backspace . '"'
 endfunction
 
 " ------------------------------------
 function! <SID>VimIM_smart_backspace()
-" ------------------------------------ xxx
+" ------------------------------------
     let backspace = "\<BS>"
     if pumvisible()
-        let backspace .= '\<C-X>\<C-U>\<C-R>=VimIM_menu_select()\<CR>'
+        let backspace .= '\<C-R>=VimIM_CTRL_X_CTRL_U()\<CR>'
         if s:vimim_wubi_non_stop > 0
             let s:keyboard_wubi = ''
         endif
         let s:seamless_positions = []
+    elseif s:vimim_pattern_not_found > 0
+        let s:vimim_pattern_not_found = 0
+        let backspace .= '\<C-R>=VimIM_CTRL_X_CTRL_U()\<CR>'
     else
-        let backspace .= '\<C-R>=VimIM_seamless_position()\<CR>'
+        let backspace .= '\<C-R>=VimIM_set_seamless_position()\<CR>'
     endif
     sil!exe 'sil!return "' . backspace . '"'
+endfunction
+
+" --------------------------
+function! <SID>Smart_Enter()
+" --------------------------
+    sil!call VimIM_set_seamless_position()
+    let key = "\<CR>"
+    if pumvisible()
+        let key = "\<C-E>"
+        let key = "\<C-Y>"
+        "xxx
+        if s:vimim_disable_seamless_english_input > 0
+            let key .= " "
+        endif
+        if s:current_datafile =~? 'wubi'
+            let key = "\<C-Y>"
+        endif
+    else
+        let char_before = getline(".")[col(".")-2]
+        if char_before =~ s:valid_key
+            if s:vimim_pattern_not_found > 0
+                let s:vimim_pattern_not_found = 0
+                if  s:vimim_chinese_mode > 1
+                    let s:seamless_positions = []
+                    let s:keyboard_wubi = ""
+                    let s:keyboard_enter_flag = 1
+                    let key = "\<C-X>\<C-U>\<BS>"
+                endif
+            endif
+        endif
+        if s:start_search_forward > 0 || s:start_search_backward > 0
+            let key  = '\<C-R>=VimIM_slash_search()\<CR>'
+            if s:start_search_forward > 0
+                let key .= '/'
+            elseif s:start_search_backward > 0
+                let key .= '?'
+            endif
+            let key .= '\<CR>'
+        endif
+    endif
+    sil!exe 'sil!return "' . key . '"'
+endfunction
+
+" ----------------------------------
+function! s:VimIM_keyboard_by_word()
+" ----------------------------------
+    let key = "\<C-Y>"
+    if len(s:keyboard_sentence) > 0
+    \&& (s:vimim_enable_word_by_word_match > 0
+    \|| s:vimim_disable_part_by_part_match < 1)
+        let space = '\<C-R>=VimIM_CTRL_X_CTRL_U()\<CR>'
+        let key .= s:keyboard_sentence . space
+    endif
+    return key
 endfunction
 
 " --------------------------------
@@ -2520,14 +2748,13 @@ function! <SID>VimIM_smart_space()
 " --------------------------------
     let space = " "
     if pumvisible()
-        let space = "\<C-Y>"
-        let s:seamless_positions = []
         if s:vimim_wubi_non_stop > 0
             let s:keyboard_wubi = ''
         endif
+        let s:seamless_positions = []
+        let space = s:VimIM_keyboard_by_word()
     else
-        if s:vimim_chinese_mode > 0
-        \&& s:vimim_enable_smart_punctuation > 0
+        if s:vimim_chinese_mode == 2
             let space = s:VimIM_smart_punctuation(s:punctuations, space)
         endif
         if len(space) < 1
@@ -2541,80 +2768,21 @@ function! <SID>VimIM_smart_space()
     sil!exe 'sil!return "' . space . '"'
 endfunction
 
-" --------------------------
-function! <SID>VimIM_space()
-" --------------------------
+" ---------------------------------
+function! <SID>VimIM_static_space()
+" ---------------------------------
     sil!call s:VimIM_label_on()
     sil!call s:VimIM_hjkl_on()
     let space = " "
     if pumvisible()
-        let space = "\<C-Y>"
+        let space = s:VimIM_keyboard_by_word()
     elseif s:vimim_chinese_mode == 1
-        if s:vimim_enable_smart_punctuation > 0
-            let space = s:VimIM_smart_punctuation(s:punctuations, space)
-        endif
+        let space = s:VimIM_smart_punctuation(s:punctuations, space)
         if len(space) < 1
-            let space = '\<C-X>\<C-U>\<C-R>=VimIM_menu_select()\<CR>'
+            let space = '\<C-R>=VimIM_CTRL_X_CTRL_U()\<CR>'
         endif
     endif
     sil!exe 'sil!return "' . space . '"'
-endfunction
-
-" --------------------------
-function! <SID>Smart_Enter()
-" --------------------------
-    let s:seamless_positions = []
-    if s:start_search_forward < 1 && s:start_search_backward < 1
-    \&& s:vimim_disable_seamless_english_input < 1
-        let s:seamless_positions = getpos(".")
-    endif
-    if pumvisible()
-        let key = "\<C-E>"
-        if s:vimim_disable_seamless_english_input > 0
-            let key .= " "
-        endif
-    else
-        let key = "\<CR>"
-        let char_before = getline(".")[col(".")-2]
-        if char2nr(char_before) < 128
-            let key = ""
-        endif
-        if s:start_search_forward > 0 || s:start_search_backward > 0
-            let key  = '\<C-R>=VimIM_slash_search()\<CR>'
-            if s:start_search_forward > 0
-                let key .= '/'
-            elseif s:start_search_backward > 0
-                let key .= '?'
-            endif
-            let key .= '\<CR>'
-        endif
-    endif
-    if s:current_datafile =~? 'wubi'
-        let s:seamless_positions = []
-        let s:keyboard_wubi = ''
-        let key = "\<CR>"
-    endif
-    sil!exe 'sil!return "' . key . '"'
-endfunction
-
-" ------------------------------------
-function! s:VimIM_smart_wildcard(char)
-" ------------------------------------
-    let replace = ""
-    if a:char == '.'
-        let replace = '。'
-    elseif a:char == '*'
-        let replace = '﹡'
-    elseif a:char == '?'
-        let replace = '？'
-    elseif a:char == ':'
-        let replace = '：'
-    endif
-    let smart_wildcard = "\<BS>" . replace
-    if s:vimim_enable_smart_wildcard < 1
-        let smart_wildcard = ""
-    endif
-    return smart_wildcard
 endfunction
 
 " --------------------------------
@@ -2633,18 +2801,12 @@ function! <SID>VimIM_dynamic_End()
     sil!exe 'sil!return "' . end . '"'
 endfunction
 
-" --------------------------------
-function! <SID>VimIM_dynamic_key()
-" --------------------------------
+" -----------------------------
+function! VimIM_CTRL_X_CTRL_U()
+" -----------------------------
     let key = ""
     let char_before = getline(".")[col(".")-2]
-    let char_before_before = getline(".")[col(".")-3]
-    if char_before =~ '[.*?:]'
-    \&& (char_before_before =~ '\W' || char_before_before == '')
-        let key = s:VimIM_smart_wildcard(char_before)
-    elseif char_before !~ s:valid_key
-        let key = ""
-    else
+    if char_before =~ s:valid_key
         let key = "\<C-X>\<C-U>"
         if s:vimim_enable_sexy_input_style < 1
             let key .= '\<C-R>=VimIM_menu_select()\<CR>'
@@ -2656,8 +2818,6 @@ endfunction
 " ----------------------------
 function! <SID>VimIM_one_key()
 " ----------------------------
-    set pumheight=9
-    set hlsearch
     let s:vimim_chinese_mode = 0
     if s:vimim_onekey_loaded < 1
         let s:vimim_onekey_loaded = 1
@@ -2675,89 +2835,24 @@ function! <SID>VimIM_one_key()
     endif
     let onekey = ""
     if pumvisible()
-        let onekey = "\<C-Y>"
+        let onekey = s:VimIM_keyboard_by_word()
     else
-        if s:vimim_enable_smart_punctuation > 0
-            let onekey = s:VimIM_smart_punctuation(punctuations,"\t")
-        endif
+        let onekey = s:VimIM_smart_punctuation(punctuations,"\t")
         if len(onekey) < 1
-            let onekey = '\<C-X>\<C-U>\<C-R>=VimIM_menu_select()\<CR>'
+            let onekey = '\<C-R>=VimIM_CTRL_X_CTRL_U()\<CR>'
         endif
     endif
     sil!exe 'sil!return "' . onekey . '"'
-endfunction
-
-" ---------------------------------------------
-function! s:VimIM_quick_English_input(keyboard)
-" ---------------------------------------------
-    let keyboard = a:keyboard
-    let result = ''
-    """ all capitals remain the same
-    if str2nr(keyboard) < 1 && keyboard ==# toupper(keyboard)
-        let result = keyboard
-    endif
-    """ intial single star or double star
-    if keyboard =~ '^*' && keyboard !~ '^\d\+\s\+'
-        if keyboard =~ '^*\{1}\w'
-            let result = strpart(keyboard,1)
-        elseif keyboard =~ '^*\{2}\w'
-            let chinese=copy(s:translators)
-            let chinese.dict=s:ecdict
-            if keyboard =~ '*\{2}casino'
-                " **casino -> congratulations! US$88000
-                let casino = matchstr(localtime(),'..$')*1000
-                let casino = 'casino US$'.casino
-                let casino = chinese.translate(casino)
-                let result = casino
-            elseif keyboard =~ '*\{2}girls'
-                let result = chinese.translate('grass')
-            elseif keyboard =~ '*\{2}today' || keyboard =~ '*\{2}now'
-                " **today  -> 2009 year February 22 day Wednesday
-                if keyboard =~ '*\{2}today'
-                    let today = strftime("%Y year %B %d day %A")
-                    let today = chinese.translate(today)
-                    let result = today
-                " **now -> Sunday AM 8 hour 8 minute 8 second
-                elseif keyboard =~ '*\{2}now'
-                    let now=strftime("%A %p %I hour %M minute %S second")
-                    let now=chinese.translate(now)
-                    let result = now
-                endif
-            elseif keyboard =~ '*\{2}\d\+'
-                let number = join(split(strpart(keyboard,2),'\ze'),' ')
-                let number = chinese.translate(number)
-                let number = join(split(number),'')
-                let result = number
-            elseif keyboard =~ '*\{2}credits'
-                let a='VimIM would never have become what it is now,'
-                let a.=' without the help of these people!'
-                let a.=' (1) those on vim_use for inspiration'
-                let a.=' (2) those on newsmth.net for discussion'
-                let a.=' (3) all users for feedback and encouragement'
-                let a.=' (4) Yue Wu on newsmth.net for dynamic mode etc'
-                let a.=' (5) Tony Mechelynck on vim_use for char_class'
-                let a.=' (6) freeai.blogspot.com for Double Pinyin'
-                let a.=' (7) dots on groups.google.com for WuBi feedback'
-                let result = a
-            endif
-        endif
-    endif
-    let results = []
-    if len(result)>0
-        let result .= ' '
-        let results = [result]
-    endif
-    return results
 endfunction
 
 " -------------------------
 function! s:VimIM_mapping()
 " -------------------------
     inoremap<silent><expr><Plug>VimimOneKey <SID>VimIM_one_key()
-    inoremap<silent><expr><Plug>VimimChineseMode <SID>VimIM_toggle()
+    inoremap<silent><expr><Plug>VimimChineseToggle <SID>VimIM_toggle()
     if s:vimim_disable_chinese_input_mode < 1
-        if s:vimim_enable_static_menu > 0
-            inoremap<silent><expr><Plug>VimimSpace <SID>VimIM_space()
+        if s:vimim_enable_static_input_style > 0
+            inoremap<silent><expr><Plug>VimimSpace <SID>VimIM_static_space()
         endif
     endif
     " ----------------------------------------------------------
@@ -2775,7 +2870,10 @@ function! s:VimIM_mapping()
     " ----------------------------------------------------------
     if s:vimim_disable_chinese_input_mode < 1
         if !hasmapto('<C-^>', 'i')
-            imap<silent> <C-^> <Plug>VimimChineseMode
+            imap<silent> <C-^> <Plug>VimimChineseToggle
+        endif
+        if !hasmapto('<C-L>', 'i')
+          " imap<silent> <C-L> <Plug>VimimChineseToggle
         endif
     elseif s:vimim_disable_one_key < 1
         if !hasmapto('<C-^>', 'i')
