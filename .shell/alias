@@ -87,7 +87,7 @@ alias rdc='rake db:create'
 alias gb='git branch -a -v'
 alias gi='git ci'
 alias gci='git ci -am'
-alias gp='git push'
+alias gp='git push origin master'
 alias gsb='git show-branch'
 
 function gs {
