@@ -6,7 +6,7 @@
 
 " URL:   http://vim.sourceforge.net/scripts/script.php?script_id=2506
 " Group: http://groups.google.com/group/vimim
-" Code:  http://groups.google.com/group/vimim.html
+" Code:  http://maxiangjiang.googlepages.com/vimim.vim.html
 " Demo:  http://maxiangjiang.googlepages.com/vimim.html
 
 " ====  VimIM Introduction    ==== {{{
@@ -14,7 +14,7 @@
 "      File: vimim.vim
 "    Author: Sean Ma <vimim@googlegroups.com>
 "   License: GNU Lesser General Public License
-"    Latest: 20090603T002718
+"    Latest: 20090604T000000
 " -----------------------------------------------------------
 "    Readme: VimIM is a Vim plugin designed as an independent
 "            IM (Input Method) to support the input of any language.
@@ -53,7 +53,6 @@
 " Usage (1): [in Insert Mode] "to insert/search Chinese ad hoc":
 "            # to insert: type keycode and hit <C-\> to trigger
 "            # to search: hit '/' or '?' from popup menu
-" ----------
 " Usage (2): [in Insert Mode] "to type Chinese continuously":
 "            # hit <C-^> to toggle to VimIM Chinese Input Mode:
 "              (2.1) [dynamic] mode: any valid key code => Chinese
@@ -117,13 +116,13 @@
 "   -------------------------------------
 "   let g:vimim_enable_fuzzy_search=1
 "   let g:vimim_enable_wildcard_search=1
-"   let g:vimim_enable_...
+"   let g:vimim_enable_...=1
 
 " # To disable VimIM "Default On" Options
 "   -------------------------------------
 "   let g:vimim_disable_unicode_input=1
 "   let g:vimim_disable_one_key=1
-"   let g:vimim_disable_...
+"   let g:vimim_disable_...=1
 
 " -----------------
 " "VimIM Data File"
@@ -175,6 +174,7 @@ function! s:VimIM_initialize_global()
     call add(G, "g:vimim_enable_english_to_chinese")
     call add(G, "g:vimim_enable_four_corner")
     call add(G, "g:vimim_enable_fuzzy_pinyin")
+    call add(G, "g:vimim_enable_fuzzy_search")
     call add(G, "g:vimim_enable_menu_color")
     call add(G, "g:vimim_enable_menu_ctrl_jk")
     call add(G, "g:vimim_enable_menu_extra_text")
@@ -184,10 +184,7 @@ function! s:VimIM_initialize_global()
     call add(G, "g:vimim_enable_tab_for_one_key")
     call add(G, "g:vimim_enable_unicode_lookup")
     call add(G, "g:vimim_enable_wildcard_search")
-    call add(G, "g:vimim_enable_fuzzy_search")
     " ------------------------------------------------
-    call add(G, "g:vimim_disable_word_by_word_match")
-    call add(G, "g:vimim_disable_part_by_part_match")
     call add(G, "g:vimim_disable_chinese_input_mode")
     call add(G, "g:vimim_disable_chinese_punctuation")
     call add(G, "g:vimim_disable_dynamic_mode_autocmd")
@@ -195,6 +192,7 @@ function! s:VimIM_initialize_global()
     call add(G, "g:vimim_disable_menu_hjkl")
     call add(G, "g:vimim_disable_menu_label")
     call add(G, "g:vimim_disable_one_key")
+    call add(G, "g:vimim_disable_part_by_part_match")
     call add(G, "g:vimim_disable_quick_key")
     call add(G, "g:vimim_disable_reverse_lookup")
     call add(G, "g:vimim_disable_save_new_entry")
@@ -203,6 +201,7 @@ function! s:VimIM_initialize_global()
     call add(G, "g:vimim_disable_smart_backspace")
     call add(G, "g:vimim_disable_square_bracket")
     call add(G, "g:vimim_disable_unicode_input")
+    call add(G, "g:vimim_disable_word_by_word_match")
     call add(G, "g:vimim_disable_wubi_non_stop")
     " ------------------------------------------------
     for variable in G
@@ -228,12 +227,10 @@ function! s:VimIM_initialize()
         let s:vimim_enable_wildcard_search=1
         let s:vimim_enable_diy_mixture_im=1
         let s:vimim_enable_four_corner=1
-        let s:vimim_enable_unicode_lookup=1
         let s:vimim_enable_english_to_chinese=1
         let s:vimim_enable_menu_extra_text=1
         let s:vimim_enable_easter_egg=1
         let s:vimim_save_input_history_frequency=0
-        let s:vimim_enable_double_pinyin_abc=0
     endif
     " ----------------------------------- pinyin
     let s:input_method = ""
@@ -304,14 +301,14 @@ function! s:VimIM_initialize()
         let s:seamless_positions = getpos(".")
     endif
     " -----------------------------------
+    let s:unicode_start = str2nr('2600',16) "|  9728
+    let s:unicode_end   = str2nr('9fa5',16) "| 40869
+    let s:saved_pumheight=&pumheight
+    " -----------------------------------
     let s:multibyte = 2
     if &encoding == "utf-8"
         let s:multibyte = 3
     endif
-    " -----------------------------------
-    let s:unicode_start = str2nr('2600',16) "|  9728
-    let s:unicode_end   = str2nr('9fa5',16) "| 40869
-    let s:saved_pumheight=&pumheight
     " -----------------------------------
     if s:vimim_enable_menu_color < 1
         highlight! link PmenuSel  Title
@@ -551,8 +548,8 @@ if a:start
 else
 
     if s:vimim_debug > 0
-        let g:s_keyboard=s:keyboard_leading_zero
-        let g:a_keyboard=a:keyboard
+        let g:keyboard_s=s:keyboard_leading_zero
+        let g:keyboard_a=a:keyboard
     endif
 
     let keyboard = a:keyboard
@@ -613,9 +610,9 @@ else
     " Now, build again valid keyboard characters
     " ------------------------------------------
     if strlen(keyboard) < 1
-    \||  keyboard !~ s:valid_key
-    \||  strpart(keyboard,0,1) ==# "[A-Z]"
-    \||  (len(keyboard)<2 && keyboard =~ '[.?*]')
+    \|| keyboard !~ s:valid_key
+    \|| strpart(keyboard,0,1) ==# "[A-Z]"
+    \|| (len(keyboard)<2 && keyboard =~ '[.?*]')
     \|| (keyboard !~# "vim" && s:vimim_easter_eggs>0)
         let s:vimim_pattern_not_found = 1
         return
@@ -1687,22 +1684,23 @@ function! <SID>Smart_Enter()
 " --------------------------
     sil!call VimIM_set_seamless_position()
     let key = "\<CR>"
+    let wubi_enter_as_remove_trash = 0
     if pumvisible()
         let key = "\<C-E>"
         if s:vimim_disable_seamless_english_input > 0
             let key .= " "
         endif
-""       if s:current_datafile =~? 'wubi'
-""           let key = "\<C-Y>"
-""       endif
+        if wubi_enter_as_remove_trash > 0
+            let key = "\<C-Y>"
+        endif
     else
-    ""   if s:current_datafile =~? 'wubi'
-    ""       let key = s:Vimim_bs_for_trash()
-    ""   endif
+        if wubi_enter_as_remove_trash > 0
+            let key = s:Vimim_bs_for_trash()
+        endif
         let char_before = getline(".")[col(".")-2]
         if (char_before =~ s:valid_key || char_before ==# "[A-Z]")
-""       \&& s:input_method == 'pinyin'
-             let key = ""
+        \&& wubi_enter_as_remove_trash < 1
+            let key = ""
         endif
         if s:start_search_forward > 0 || s:start_search_backward > 0
             let key = '\<C-R>=VimIM_slash_search()\<CR>'
