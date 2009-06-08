@@ -12,7 +12,7 @@
     Control + Alt + l
 "xchat"
     Control + Alt + c
-"smplayer"
+"totem"
     Control + Alt + m
 # Sound
 "amixer sset Master 2+ unmute"
