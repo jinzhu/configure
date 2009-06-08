@@ -1,13 +1,11 @@
 ############################################################
 # Pakage Management
-#
+############################################################
 
 # Gentoo
 alias em='sudo emerge'
 
 # Arch
-alias p='pacman'
-
 function sp {
   if [ -f 'script/plugin' ];then
     ./script/plugin $@
@@ -18,10 +16,9 @@ function sp {
 
 ############################################################
 # System
-#
+############################################################
 alias rm=trash
-trash()
-{
+function trash {
   mv -f $* /tmp
 }
 
@@ -29,12 +26,9 @@ alias ls='ls --color=auto'
 alias ll='ls -l --color=auto'
 alias la='ls -A --color=auto'
 alias grep='grep --color'
-
-alias sd='sudo shutdown -h now'
+alias x='exit'
 
 # VIM
-alias sgv='sudo gvim'
-alias gv='gvim'
 alias sv='sudo vim'
 function v {
   if [ -n "$*" ]; then
@@ -45,11 +39,8 @@ function v {
 }
 
 # Touchpad
-alias tpf='synclient touchpadoff=1'
+alias tpc='synclient touchpadoff=1'
 alias tpo='synclient touchpadoff=0'
-
-
-alias ri='qri'
 
 # Jobs fg bg
 alias j='jobs'
@@ -62,10 +53,14 @@ for ((i=1;i<5;i++)) do
 done
 
 ############################################################
-# Rails
-#
+# Ruby/Rails
+############################################################
+alias ri='qri'
+
 alias ss='./script/server'
 alias sg="./script/generate"
+
+# Autotest
 function as {
   if [ -f 'script/autospec' ];then
     ./script/autospec $@
@@ -81,8 +76,8 @@ alias rdm='rake db:migrate'
 alias rdc='rake db:create'
 
 ############################################################
-# Git
-#
+# Git/SVN
+############################################################
 
 alias gb='git branch -a -v'
 alias gi='git ci'
@@ -97,6 +92,7 @@ function gs {
     git status $*
   fi
 }
+
 function gl {
   if [ -d '.svn' ];then
     svn log $*
@@ -104,6 +100,7 @@ function gl {
     git log $*
   fi
 }
+
 function gd {
   if [ -d '.svn' ];then
     svn diff $*
