@@ -1,6 +1,6 @@
 require 'rake'
-path = File.dirname(__FILE__)
-files = `find #{path} -maxdepth 1  -iname '\.?*' -not -name '.git'`.to_a
+path  = File.dirname(__FILE__)
+files = `find #{path} -maxdepth 1 -iname '\.?*' -not -name '.git'`.split("\n")
 
 task :install do
   files.each do |x|
