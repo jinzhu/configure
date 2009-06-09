@@ -48,3 +48,8 @@ viewtest:
   path: ~/GIT/viewtest
   repo: git@github.com:wosmvp/viewtest.git
   pushable: true
+
+pinyin:
+  path: ~/GIT/pinyin
+  repo: git@github.com:wosmvp/pinyin.git
+  pushable: true

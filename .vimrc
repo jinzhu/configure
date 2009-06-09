@@ -302,7 +302,7 @@ let g:miniBufExplModSelTarget = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Paste Yanked Text
 nmap gp "0p
-nmap gP "+P
+nmap gP "+p
 vmap gy "+y
 
 " .vimrc
