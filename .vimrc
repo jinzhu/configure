@@ -120,8 +120,8 @@ set nofoldenable        "dont fold by default
 set history=1000
 
 " display tabs and trailing spaces
-set list
-set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
+" set list
+" set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CMD status
@@ -378,3 +378,5 @@ nnoremap ; <C-w>
 " Save
 imap ;w <ESC>:w<CR>
 nn   ;w <ESC>:w<CR>
+
+cnoreabbrev te tabedit
