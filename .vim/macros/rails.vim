@@ -31,3 +31,7 @@ nn <Space>p  :Rplugin
 nn <Space>C  :Rconsole 
 nn <Space>D  :Rdoc 
 nn <Space>S  :Rserver! 
+
+cmap <C-t> <Home><Right>T<End>
+cmap <C-v> <Home><Right>V<End>
+cmap <C-s> <Home><Right>S<End>
