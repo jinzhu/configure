@@ -322,6 +322,18 @@ function! s:MakeDefaultBehavior()
     endfor
   endif
 
+  """""""""""BEGIN FIXME ZhangJinzhu
+  if g:AutoComplPop_BehaviorSnipMateLength >= 0
+    for key in keys(behavs)
+      call add(behavs[key], {
+            \   'command'  : "\<c-r>=ShowAvailableSnips()\<cr>",
+            \   'pattern'  : printf('\k\{%d,}$',g:AutoComplPop_BehaviorSnipMateLength),
+            \   'repeat'   : 0,
+            \ })
+    endfor
+  endif
+  """""""""""END ZhangJinzhu
+
   if g:AutoComplPop_BehaviorFileLength >= 0
     for key in keys(behavs)
       call add(behavs[key], {
@@ -401,7 +413,7 @@ function! s:PopupFeeder.feed()
   let cursor_moved = self.check_cursor_and_update()
   if exists('self.behavs[0]') && self.behavs[0].repeat
     let self.behavs = (self.behavs[0].repeat ? [ self.behavs[0] ] : [])
-  elseif cursor_moved 
+  elseif cursor_moved
     let self.behavs = copy(exists('g:AutoComplPop_Behavior[&filetype]') ? g:AutoComplPop_Behavior[&filetype]
           \                                                             : g:AutoComplPop_Behavior['*'])
   else
@@ -554,6 +566,12 @@ endif
 if !exists('g:AutoComplPop_BehaviorKeywordLength')
   let g:AutoComplPop_BehaviorKeywordLength = 2
 endif
+".........................................................................
+"""""""""""BEGIN FIXME ZhangJinzhu
+if !exists('g:AutoComplPop_BehaviorSnipMateLength')
+  let g:AutoComplPop_BehaviorSnipMateLength = 0
+endif
+"""""""""""END ZhangJinzhu
 ".........................................................................
 if !exists('g:AutoComplPop_BehaviorFileLength')
   let g:AutoComplPop_BehaviorFileLength = 0
