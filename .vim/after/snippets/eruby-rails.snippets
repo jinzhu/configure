@@ -1,0 +1,58 @@
+snippet h
+	<%= h(${1}) %>
+snippet conf
+	<% content_for :${1:layout} do -%>
+		${2}
+	<% end -%>
+
+# Form
+snippet ff
+	<% form_for @${1:model} do |f| -%>
+		<%= f.error_messages %>
+		<%= f.submit "${2:button}" %>
+	<% end -%>
+snippet fftext_area
+	<%= f.text_area :${1:attribute} %>
+snippet fftext_field
+	<%= f.text_field :${1:attribute} %>
+snippet fffile_field
+	<%= f.file_field :${1:attribute} %>
+snippet ffhidden_field
+	<%= f.hidden_field :${1:attribute} %>
+snippet fflabel
+	<%= f.label :${1:attribute}, '${2:label}' %>
+snippet ffpassword_field
+	<%= f.password_field :${1:attribute} %>
+snippet ffradio_button
+	<%= f.radio_button :${1:attribute}, :${2:tag_value} %>
+snippet ffsubmit
+	<%= f.submit "${1:Submit}" %>
+
+snippet fieldsf
+	<% fields_for :${1:model}, @${2:model} do |f| -%>
+		${3}
+	<% end -%>
+snippet formt
+	<% form_tag(:action => "${1:action}") do -%>
+		${2}
+	<% end -%>
+
+snippet jstag
+	<%= javascript_include_tag('${1:javascript_filename}') %>
+snippet sttag
+	<%= stylesheet_link_tag "${1:stylesheet_filename}" %>
+
+snippet imaget
+	<%= image_tag "${1:image_path}" %>
+snippet lt
+	<%= link_to '${1:caption}', ${2:path} %>
+snippet ltp
+	<%= link_to '${1:caption}', ${2:model}_path(@${3:instance}) %>
+snippet ltpp
+	<%= link_to '${1:caption}', ${2:model}s_path %>
+
+snippet rp
+	<%= render :partial => '${1:partial}' %>
+snippet rt
+	<%= render :template => "${1:file}" %>
+

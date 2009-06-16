@@ -1,0 +1,24 @@
+snippet each
+	<% ${1:collection}.each do |${2:member}| -%>
+		${3}
+	<% end -%>
+snippet =
+	<%= ${1} %>
+snippet -
+	<% ${1} -%>
+snippet if
+	<% if ${1:cond} -%>
+		${2}	
+	<% end -%>
+snippet unless
+	<% unless ${1:cond} -%>
+		${2}	
+	<% end -%>
+snippet ife
+	<% if ${1:cond} -%>
+		${2}	
+	<% else -%>
+		${3}
+	<% end -%>
+snippet yield
+	<%= yield ${1::partial} %>

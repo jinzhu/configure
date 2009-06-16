@@ -30,7 +30,7 @@ autocmd BufNewFile,BufRead *_test.rb source ~/.vim/ftplugin/rails/shoulda.vim
 set lz                     " Don't redraw screen during macros
 set tf                     " Improves redrawing for newer computers
 set sc                     " Show incomplete command at bottom right
-set tm=300                 " Lower timeout for mappings
+set tm=400                 " Lower timeout for mappings
 set cot=menu               " Don't show extra info on completions
 if &diff | syn off | endif " Turn syntax highlighting off for diff
 let bufpane_showhelp = 0
