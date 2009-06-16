@@ -283,11 +283,9 @@ let Tlist_Close_On_Select      = 1
 let Tlist_Show_Menu            = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" HTML
+" snipMate.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:do_xhtml_mappings = 'yes'
-let g:force_html_menu   = 'yes'
-let g:html_tag_case     = 'lowercase'
+let g:snippets_dir = '~/.vim/snippets/,~/.vim/after/snippets'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MiniBufexpl.vim
