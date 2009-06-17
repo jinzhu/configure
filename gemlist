@@ -1,5 +1,6 @@
 flog
 genki-irb_rocket
+heroku
 
 rspec
 rspec-rails
@@ -10,6 +11,8 @@ thoughtbot-factory_girl
 jeremymcanally-context
 ZenTest
 rcov
+aws-s3
+amqb
 
 nokogiri
 
@@ -21,6 +24,7 @@ mysql
 RedCloth
 sqlite3-ruby
 mongrel
+passenger
 
 rake
 fastri
@@ -39,4 +43,12 @@ ruport
 ruport-util
 
 mini_magick
+rmagick
 rest-client
+
+Selenium
+selenium-client
+selenium-rails
+
+rack
+rack-contrib
