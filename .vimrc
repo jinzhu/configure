@@ -303,6 +303,7 @@ let g:miniBufExplModSelTarget = 1
 " Paste Yanked Text
 nmap gp "0p
 nmap gP "+p
+vmap gP "+p
 vmap gy "+y
 
 " .vimrc
@@ -379,4 +380,16 @@ nnoremap ; <C-w>
 imap ;w <ESC>:w<CR>
 nn   ;w <ESC>:w<CR>
 
-cnoreabbrev te tabedit
+noreabbrev te tabedit
+map <leader>cd :cd %:p:h<CR>
+cnoremap <C-A>    <Home>
+cnoremap <C-E>    <End>
+
+let g:browser = 'firefox -new-tab '
+" Open the Ruby ApiDock page for the word under cursor, in a new Firefox tab
+function! OpenDoc(lang,keyword)
+  let url = 'http://apidock.com/'.a:lang.'/'.a:keyword
+  exec '!'.g:browser.' '.url.' &'
+endfunction
+noremap <leader>rb :call OpenDoc('ruby',expand('<cword>'))<CR>
+noremap <leader>rr :call OpenDoc('rails',expand('<cword>'))<CR>
