@@ -2,7 +2,7 @@
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 parse_scm() {
-  if [ -d '.git' ];then
+  if [ -n 'git rev-parse --git-dir 2>/dev/null' ];then
     branch=$(git branch 2> /dev/null | grep '^\*' | sed 's/^\*\ //') || return
 
     if [ "$branch" ] ; then
