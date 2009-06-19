@@ -1,4 +1,6 @@
+#!/bin/sh
 xbindkeys &
 
 fcitx &
 
+exec xmonad

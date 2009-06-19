@@ -72,6 +72,9 @@ xf86-input-mouse
 xf86-input-synaptics
 xorg-server
 xterm
+xmonad
+xmonad-contrib
+dmenu
 zlib
 zsh
 iotop
