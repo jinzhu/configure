@@ -44,6 +44,7 @@ main = do
 		[ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
 		, ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
 		, ((mod4Mask, xK_Return), spawn terminal')
+		, ((mod4Mask, xK_o), windows W.focusDown >> kill)
 		, ((mod4Mask .|. shiftMask, xK_Return), windows W.swapMaster)	-- Swap the focused window and the master window
 		, ((0, xK_Print), spawn "scrot")
 		, ((mod4Mask, xK_c), kill)
