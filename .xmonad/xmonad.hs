@@ -7,7 +7,8 @@ import XMonad.Prompt.Shell
 import XMonad.Prompt
 import XMonad.Prompt.XMonad
 import XMonad.Util.Run
-import XMonad.Util.Loggers
+import XMonad.Util.Dmenu
+-- import XMonad.Util.Loggers
 import XMonad.ManageHook
 import qualified XMonad.StackSet as W
 import XMonad.Prompt.AppendFile
@@ -15,12 +16,34 @@ import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.SetWMName
 import XMonad.Actions.DynamicWorkspaces
 import XMonad.Actions.CycleWS
+import XMonad.Hooks.ManageHelpers (doCenterFloat)
+import XMonad.Layout
+import XMonad.Layout.SimplestFloat
+import XMonad.Layout.SimpleDecoration
+import XMonad.Layout.MagicFocus
+import XMonad.Layout.ThreeColumns
 
+
+modMask'    = mod4Mask	-- Rebind Mod(ALT) to Windows Key
 terminal'   = "gnome-terminal"
+workspaces' = ["dev","www","doc"] ++ map show [4..7] ++ ["mov","im"]
+
 tall = Tall 1 (3/100) (1/2)
 myManageHook = composeAll
-    [ className =? "Gimp"      --> doFloat
-    , className =? "firefox" --> doF (W.shift "www")
+    [ className =? "Gimp"      --> doCenterFloat
+    -- Browser
+    , className =? "Gran Paradiso" --> doF (W.shift "www") -- Firefox On Arch
+    , className =? "Firefox" --> doF (W.shift "www")
+    , className =? "Opera" --> doF (W.shift "www")
+    -- DOC
+    , className =? "Evince" --> doF (W.shift "doc")
+    -- MUSIC
+    , className =? "Rhythmbox" --> doF (W.shift "mov")
+    , className =? "Totem" --> doF (W.shift "mov")
+    , className =? "MPlayer" --> doF (W.shift "mov")
+    -- IM
+    , className =? "Pidgin" --> doF (W.shift "im")
+    , className =? "Xchat" --> doF (W.shift "im")
     ]
 
 main = do
@@ -30,16 +53,15 @@ main = do
 	unsafeSpawn "if [ -x /usr/bin/nm-applet ] ; then nm-applet --sm-disable & fi"
 	xmonad $ defaultConfig
 		{ manageHook = myManageHook <+> manageDocks <+> manageHook defaultConfig
-		, layoutHook = avoidStruts (tall ||| Full)
+		, layoutHook = avoidStruts (tall ||| Full ||| simpleDeco shrinkText defaultTheme (simplestFloat))
 		, logHook    = dynamicLogWithPP $ xmobarPP
 				{ ppOutput = hPutStrLn xmproc
 				, ppTitle  = xmobarColor "green" "" . shorten 50
-        , ppOrder = \(ws:l:t:_) -> [ws,l]
 				}
-		, modMask  = mod4Mask	-- Rebind Mod(ALT) to Windows Key
+		, modMask  = modMask'
 		, terminal = terminal'
 	  , borderWidth = 1
-	  , workspaces = ["dev","news","www","4","5","6","7","8","music"]
+	  , workspaces = workspaces'
 		} `additionalKeys`
 		[ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
 		, ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
@@ -54,7 +76,7 @@ main = do
 		, ((mod4Mask, xK_Left), prevWS)
 		, ((mod4Mask, xK_Up), toggleWS)
 		, ((mod4Mask, xK_Down), toggleWS)
-		, ((mod1Mask .|. shiftMask, xK_Right), shiftToNext >> nextWS)
-		, ((mod1Mask .|. shiftMask, xK_Left), shiftToPrev >> prevWS)
-		, ((mod1Mask .|. shiftMask, xK_f), shiftTo Next EmptyWS)
+		, ((mod4Mask .|. shiftMask, xK_Right), shiftToNext >> nextWS)
+		, ((mod4Mask .|. shiftMask, xK_Left), shiftToPrev >> prevWS)
+		, ((mod4Mask .|. shiftMask, xK_f), shiftTo Next EmptyWS)
 		]
