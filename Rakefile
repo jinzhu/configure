@@ -2,7 +2,12 @@ require 'rake'
 path  = File.dirname(__FILE__)
 files = `find #{path} -maxdepth 1 -iname '\.?*' -not -name '.git'`.split("\n")
 
-task :install do
+task :make_dwm do
+  system('cd dwm && make && sudo make install') 
+  system('xmonad --recompile') 
+end
+
+task :install => :make_dwm do
   files.each do |x|
     x.strip!
     system("ln -nfs #{x} ~/")

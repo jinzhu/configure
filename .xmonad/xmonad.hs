@@ -15,13 +15,14 @@ main = do
 	xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar.conf"
 	xmonad $ defaultConfig
 		{ manageHook = manageDocks <+> myManageHook <+> manageHook defaultConfig
-		, layoutHook = avoidStruts  $  layoutHook defaultConfig
+		, layoutHook = avoidStruts $  layoutHook defaultConfig
 		, logHook    = dynamicLogWithPP $ xmobarPP
 				{ ppOutput = hPutStrLn xmproc
 				, ppTitle  = xmobarColor "green" "" . shorten 50
 				}
 		, modMask  = mod4Mask	-- Rebind Mod(ALT) to Windows Key
 		, terminal = terminal'
+	  , borderWidth = 0
 	  -- , workspaces = ["e-mail","news","www","4","5","6","7","8","music"]
 		} `additionalKeys`
 		[ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")

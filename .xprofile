@@ -3,4 +3,9 @@ xbindkeys &
 
 fcitx &
 
-exec xmonad
+while true; do
+  xsetroot -name "`date +'%F %T %a'` "
+  sleep 1
+done &
+exec xmonad 
+# while true; do dwm;  done
