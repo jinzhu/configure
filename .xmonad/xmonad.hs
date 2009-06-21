@@ -12,21 +12,20 @@ import XMonad.Util.Dmenu
 import XMonad.ManageHook
 import qualified XMonad.StackSet as W
 import XMonad.Prompt.AppendFile
+import XMonad.Actions.DwmPromote
 import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.SetWMName
 import XMonad.Actions.DynamicWorkspaces
 import XMonad.Actions.CycleWS
 import XMonad.Hooks.ManageHelpers (doCenterFloat)
 import XMonad.Layout
-import XMonad.Layout.SimplestFloat
-import XMonad.Layout.SimpleDecoration
-import XMonad.Layout.MagicFocus
-import XMonad.Layout.ThreeColumns
+import XMonad.Layout.Tabbed
 
 
 modMask'    = mod4Mask	-- Rebind Mod(ALT) to Windows Key
 terminal'   = "gnome-terminal"
 workspaces' = ["dev","www","doc"] ++ map show [4..7] ++ ["mov","im"]
+layoutHook' = avoidStruts (tall ||| tabbed shrinkText defaultTheme ||| Full )
 
 tall = Tall 1 (3/100) (1/2)
 myManageHook = composeAll
@@ -53,7 +52,7 @@ main = do
 	unsafeSpawn "if [ -x /usr/bin/nm-applet ] ; then nm-applet --sm-disable & fi"
 	xmonad $ defaultConfig
 		{ manageHook = myManageHook <+> manageDocks <+> manageHook defaultConfig
-		, layoutHook = avoidStruts (tall ||| Full ||| simpleDeco shrinkText defaultTheme (simplestFloat))
+		, layoutHook = layoutHook'
 		, logHook    = dynamicLogWithPP $ xmobarPP
 				{ ppOutput = hPutStrLn xmproc
 				, ppTitle  = xmobarColor "green" "" . shorten 50
@@ -65,9 +64,9 @@ main = do
 		} `additionalKeys`
 		[ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
 		, ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
-		, ((mod4Mask, xK_Return), spawn terminal')
+		, ((mod4Mask .|. shiftMask, xK_Return), spawn terminal')
 		, ((mod4Mask, xK_o), windows W.focusDown >> kill)
-		, ((mod4Mask .|. shiftMask, xK_Return), windows W.swapMaster)	-- Swap the focused window and the master window
+		, ((mod4Mask, xK_Return), dwmpromote >>  windows W.focusDown )	-- Swap the focused window and the master window
 		, ((0, xK_Print), spawn "scrot")
 		, ((mod4Mask, xK_c), kill)
 		, ((mod4Mask, xK_F2), shellPrompt defaultXPConfig)

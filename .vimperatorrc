@@ -6,6 +6,10 @@ noremap <C-Z> <C-z>
 noremap <C-c> <C-v><C-c>
 noremap <C-a> <C-v><C-a>
 noremap <C-w> <C-v><C-w>
+
+noremap j <C-v>j
+noremap k <C-v>k
+
 cnoremap <C-c> <C-v><C-c>
 cnoremap <C-v> <C-v><C-v>
 cnoremap <C-x> <C-v><C-x>
