@@ -51,6 +51,7 @@ main = do
 	unsafeSpawn "if [ -x /usr/bin/gnome-terminal ] ; then gnome-terminal & fi"
 	unsafeSpawn "if [ -x /usr/bin/nm-applet ] ; then nm-applet --sm-disable & fi"
 	unsafeSpawn "if [ -x /usr/bin/gnome-power-manager ] ; then gnome-power-manager & fi"
+	unsafeSpawn "if [ -x /usr/bin/xscreensaver ] ; then xscreensaver & fi"
 	xmonad $ defaultConfig
 		{ manageHook = myManageHook <+> manageDocks <+> manageHook defaultConfig
 		, layoutHook = layoutHook'
@@ -80,4 +81,5 @@ main = do
 		, ((mod4Mask .|. shiftMask, xK_Right), shiftToNext >> nextWS)
 		, ((mod4Mask .|. shiftMask, xK_Left), shiftToPrev >> prevWS)
 		, ((mod4Mask .|. shiftMask, xK_f), shiftTo Next EmptyWS)
+		, ((mod4Mask .|. shiftMask, xK_l), spawn "xscreensaver-command -lock")
 		]
