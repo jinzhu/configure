@@ -33,4 +33,4 @@ vim-abolish:
 
 snipmate.vim:
   path: ~/Lab/VIM/snipmate.vim/
-  repo: git://github.com/meese/snipmate.vim.git
+  repo: git://github.com/msanders/snipmate.vim.git
