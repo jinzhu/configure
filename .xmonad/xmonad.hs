@@ -50,6 +50,7 @@ main = do
 	unsafeSpawn "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --tint 0x000000 --height 19 &"
 	unsafeSpawn "if [ -x /usr/bin/gnome-terminal ] ; then gnome-terminal & fi"
 	unsafeSpawn "if [ -x /usr/bin/nm-applet ] ; then nm-applet --sm-disable & fi"
+	unsafeSpawn "if [ -x /usr/bin/gnome-power-manager ] ; then gnome-power-manager & fi"
 	xmonad $ defaultConfig
 		{ manageHook = myManageHook <+> manageDocks <+> manageHook defaultConfig
 		, layoutHook = layoutHook'
