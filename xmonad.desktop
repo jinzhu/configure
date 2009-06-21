@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Xmonad
+Comment=This session logs you into Xmonad
+Type=Application
+Exec=/usr/bin/xmonad
+TryExec=/usr/bin/xmonad
+

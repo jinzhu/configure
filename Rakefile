@@ -2,12 +2,16 @@ require 'rake'
 path  = File.dirname(__FILE__)
 files = `find #{path} -maxdepth 1 -iname '\.?*' -not -name '.git'`.split("\n")
 
+task :cp_xmonad do
+  system('sudo cp xmonad.desktop /usr/share/xsessions/') 
+end
+
 task :make_dwm do
   system('cd dwm && make && sudo make install') 
   system('xmonad --recompile') 
 end
 
-task :install => :make_dwm do
+task :install => {:make_dwm,:cp_xmonad} do
   files.each do |x|
     x.strip!
     system("ln -nfs #{x} ~/")
