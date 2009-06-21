@@ -69,6 +69,7 @@ main = do
 		, ((mod4Mask, xK_Return), dwmpromote >>  windows W.focusDown )	-- Swap the focused window and the master window
 		, ((0, xK_Print), spawn "scrot")
 		, ((mod4Mask, xK_c), kill)
+		, ((mod4Mask, xK_F1), xmonadPrompt defaultXPConfig)
 		, ((mod4Mask, xK_F2), shellPrompt defaultXPConfig)
 		, ((mod4Mask, xK_F3), appendFilePrompt defaultXPConfig "/home/mvp/TODO")
 		, ((mod4Mask, xK_Right), nextWS)
