@@ -82,4 +82,5 @@ main = do
 		, ((mod4Mask .|. shiftMask, xK_Left), shiftToPrev >> prevWS)
 		, ((mod4Mask .|. shiftMask, xK_f), shiftTo Next EmptyWS)
 		, ((mod4Mask .|. shiftMask, xK_l), spawn "xscreensaver-command -lock")
+		, ((mod4Mask .|. controlMask .|. shiftMask, xK_s), spawn "sudo pm-suspend")
 		]
