@@ -6,7 +6,7 @@
 
 eo:
   path: ~/GIT/easyoperate/
-  repo: git@github.com:wosmvp/eo.git
+  repo: git@github.com:jinzhu/eo.git
   pushable: true
 
 configure:
@@ -16,40 +16,40 @@ configure:
 
 yac:
   path: ~/GIT/yac/
-  repo: git@github.com:wosmvp/yac.git
+  repo: git@github.com:jinzhu/yac.git
   pushable: true
 
 blog:
   path: ~/GIT/web/
-  repo: git@github.com:wosmvp/blog.git
+  repo: git@github.com:jinzhu/blog.git
   pushable: true
 
 acts_as_tagtree:
   path: ~/GIT/item/vendor/plugins/acts_as_tagtree
-  repo: git@github.com:wosmvp/acts_as_tagtree.git
+  repo: git@github.com:jinzhu/acts_as_tagtree.git
   pushable: true
 
 phase_diagram:
   path: ~/GIT/design/
-  repo: git@github.com:wosmvp/phase_diagram.git
+  repo: git@github.com:jinzhu/phase_diagram.git
   pushable: true
 
 ipparse:
   path: ~/GIT/ipparse/
-  repo: git@github.com:wosmvp/ipparse.git
+  repo: git@github.com:jinzhu/ipparse.git
   pushable: true
 
 yac_cheat:
   path: ~/.yac/private
-  repo: git@github.com:wosmvp/mycheat.git
+  repo: git@github.com:jinzhu/mycheat.git
   pushable: true
 
 viewtest:
   path: ~/GIT/viewtest
-  repo: git@github.com:wosmvp/viewtest.git
+  repo: git@github.com:jinzhu/viewtest.git
   pushable: true
 
 pinyin:
   path: ~/GIT/pinyin
-  repo: git@github.com:wosmvp/pinyin.git
+  repo: git@github.com:jinzhu/pinyin.git
   pushable: true
