@@ -1,0 +1,11 @@
+# vi: ft=yaml
+
+piqshare:
+  path: ~/GIT/piqshare/
+  repo: git@github.com:anatole/piqshare.git
+  pushable: true
+
+joblet:
+  path: ~/GIT/joblet/
+  repo: git@github.com:anatole/joblet.git
+  pushable: true
