@@ -28,6 +28,11 @@ alias la='ls -A --color=auto'
 alias grep='grep --color'
 alias x='exit'
 
+# GEM
+alias sgi='sudo gem install'
+alias sgu='sudo gem uninstall'
+alias sgl='sudo gem list'
+
 # VIM
 alias sv='sudo vim'
 function v {
