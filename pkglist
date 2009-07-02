@@ -90,3 +90,4 @@ gstreamer0.10-ffmpeg
 gstreamer0.10-ugly-plugins
 gdm
 evince
+patch

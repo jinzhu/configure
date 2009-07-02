@@ -3,7 +3,7 @@
 *.swp
 tags
 
-.xmonad/xmonad-i386-linux
+.xmonad/xmonad-*
 .xmonad/xmonad.errors
 .xmonad/xmonad.hi
 .xmonad/xmonad.o
