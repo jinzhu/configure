@@ -11,7 +11,7 @@ task :make_dwm do
   system('xmonad --recompile') 
 end
 
-task :install => {:make_dwm,:cp_xmonad} do
+task :install => [:make_dwm,:cp_xmonad] do
   files.each do |x|
     x.strip!
     system("ln -nfs #{x} ~/")
