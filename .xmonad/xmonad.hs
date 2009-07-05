@@ -30,11 +30,10 @@ workspaces' = ["dev","www","doc"] ++ map show [4..7] ++ ["mov","im"]
 layoutHook' = avoidStruts (windowNavigation (ResizableTall 1 (3/100) (1/2) []) ||| tabbed shrinkText defaultTheme ||| Full )
 
 
-
-tall = Tall 1 (3/100) (1/2)
 myManageHook = composeAll
     [ className =? "Gimp"      --> doCenterFloat
     -- Browser
+    , className =? "Shiretoko" --> doF (W.shift "www") -- Firefox 3.5 On Arch
     , className =? "Gran Paradiso" --> doF (W.shift "www") -- Firefox On Arch
     , className =? "Firefox" --> doF (W.shift "www")
     , className =? "Opera" --> doF (W.shift "www")
