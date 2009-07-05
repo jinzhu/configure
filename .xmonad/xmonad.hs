@@ -20,12 +20,15 @@ import XMonad.Actions.CycleWS
 import XMonad.Hooks.ManageHelpers (doCenterFloat)
 import XMonad.Layout
 import XMonad.Layout.Tabbed
+import XMonad.Layout.ResizableTile
 
 
 modMask'    = mod4Mask	-- Rebind Mod(ALT) to Windows Key
 terminal'   = "gnome-terminal"
 workspaces' = ["dev","www","doc"] ++ map show [4..7] ++ ["mov","im"]
-layoutHook' = avoidStruts (tall ||| tabbed shrinkText defaultTheme ||| Full )
+-- layoutHook' = avoidStruts (tall ||| tabbed shrinkText defaultTheme ||| Full )
+layoutHook' =  ResizableTall 1 (3/100) (1/2) []
+
 
 tall = Tall 1 (3/100) (1/2)
 myManageHook = composeAll
@@ -83,4 +86,6 @@ main = do
 		, ((mod4Mask .|. shiftMask, xK_f), shiftTo Next EmptyWS)
 		, ((mod4Mask .|. shiftMask, xK_l), spawn "xscreensaver-command -lock")
 		, ((mod4Mask .|. controlMask .|. shiftMask, xK_s), spawn "sudo pm-suspend")
+		, ((mod4Mask ,               xK_a), sendMessage MirrorShrink)
+		, ((mod4Mask ,               xK_z), sendMessage MirrorExpand)
 		]
