@@ -21,13 +21,14 @@ import XMonad.Hooks.ManageHelpers (doCenterFloat)
 import XMonad.Layout
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ResizableTile
+import XMonad.Layout.WindowNavigation
 
 
 modMask'    = mod4Mask	-- Rebind Mod(ALT) to Windows Key
 terminal'   = "gnome-terminal"
 workspaces' = ["dev","www","doc"] ++ map show [4..7] ++ ["mov","im"]
--- layoutHook' = avoidStruts (tall ||| tabbed shrinkText defaultTheme ||| Full )
-layoutHook' =  ResizableTall 1 (3/100) (1/2) []
+layoutHook' = avoidStruts (windowNavigation (ResizableTall 1 (3/100) (1/2) []) ||| tabbed shrinkText defaultTheme ||| Full )
+
 
 
 tall = Tall 1 (3/100) (1/2)
@@ -77,15 +78,19 @@ main = do
 		, ((mod4Mask, xK_F1), xmonadPrompt defaultXPConfig)
 		, ((mod4Mask, xK_F2), shellPrompt defaultXPConfig)
 		, ((mod4Mask, xK_F3), appendFilePrompt defaultXPConfig "/home/mvp/TODO")
-		, ((mod4Mask, xK_Right), nextWS)
-		, ((mod4Mask, xK_Left), prevWS)
-		, ((mod4Mask, xK_Up), toggleWS)
-		, ((mod4Mask, xK_Down), toggleWS)
-		, ((mod4Mask .|. shiftMask, xK_Right), shiftToNext >> nextWS)
-		, ((mod4Mask .|. shiftMask, xK_Left), shiftToPrev >> prevWS)
+		, ((mod4Mask, xK_F4), spawn "xscreensaver-command -lock")
 		, ((mod4Mask .|. shiftMask, xK_f), shiftTo Next EmptyWS)
-		, ((mod4Mask .|. shiftMask, xK_l), spawn "xscreensaver-command -lock")
 		, ((mod4Mask .|. controlMask .|. shiftMask, xK_s), spawn "sudo pm-suspend")
-		, ((mod4Mask ,               xK_a), sendMessage MirrorShrink)
-		, ((mod4Mask ,               xK_z), sendMessage MirrorExpand)
+		, ((mod4Mask , xK_l), sendMessage $ Go R)
+		, ((mod4Mask , xK_h ), sendMessage $ Go L)
+		, ((mod4Mask , xK_k   ), sendMessage $ Go U)
+		, ((mod4Mask , xK_j ), sendMessage $ Go D)
+		, ((mod4Mask .|. shiftMask, xK_l   ), sendMessage Expand)
+		, ((mod4Mask .|. shiftMask, xK_h   ), sendMessage Shrink)
+		, ((mod4Mask .|. shiftMask, xK_k   ), sendMessage MirrorExpand)
+		, ((mod4Mask .|. shiftMask, xK_j ), sendMessage MirrorShrink)
+		, ((mod4Mask .|. controlMask, xK_l), sendMessage $ Swap R)
+		, ((mod4Mask .|. controlMask, xK_h ), sendMessage $ Swap L)
+		, ((mod4Mask .|. controlMask, xK_k   ), sendMessage $ Swap U)
+		, ((mod4Mask .|. controlMask, xK_j ), sendMessage $ Swap D)
 		]
