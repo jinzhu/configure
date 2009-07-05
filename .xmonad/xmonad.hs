@@ -93,4 +93,10 @@ main = do
 		, ((mod4Mask .|. controlMask, xK_h ), sendMessage $ Swap L)
 		, ((mod4Mask .|. controlMask, xK_k   ), sendMessage $ Swap U)
 		, ((mod4Mask .|. controlMask, xK_j ), sendMessage $ Swap D)
+		, ((mod4Mask, xK_Right), nextWS)
+		, ((mod4Mask, xK_Left), prevWS)
+		, ((mod4Mask, xK_Up), toggleWS)
+		, ((mod4Mask, xK_Down), toggleWS)
+		, ((mod4Mask .|. shiftMask, xK_Right), shiftToNext >> nextWS)
+		, ((mod4Mask .|. shiftMask, xK_Left), shiftToPrev >> prevWS)
 		]
