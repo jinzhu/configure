@@ -39,10 +39,8 @@ parse_jobs() {
   echo -e " %{\e[01;35m%}[jobs $(jobs | grep ']' | wc -l )]%{\e[m%}"
 }
 
-#命令提示符 {{{
 RPROMPT=$(echo '%{\033[31m%}%D %T%{\033[0m%}')
 # PROMPT=$(echo -e '%{\033[01;30m%}[%n@%m] %{\033[01;36m%}[%t] %{\033[01;34m%}[%1~] $(parse_scm)%{\033[0m%}$(parse_jobs)
 # %{\033[01;32m%}\$%{\033[0m%} ')
-PROMPT=$(echo -e '%{\033[01;30m%}[%1~] $(parse_scm)%{\033[0m%} $(parse_jobs)
+PROMPT=$(echo -e '%{\033[01;34m%}[%1~] $(parse_scm)%{\033[0m%} $(parse_jobs)
 %{\033[01;32m%}\$%{\033[0m%} ')
-#}}}
