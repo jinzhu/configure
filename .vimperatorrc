@@ -15,6 +15,17 @@ inoremap <C-x> <C-v><C-x>
 inoremap <C-z> <C-v><C-z>
 inoremap <C-y> <C-v><C-y>
 
+noremap ;1 1gt
+noremap ;2 2gt
+noremap ;3 3gt
+noremap ;4 4gt
+noremap ;5 5gt
+noremap ;6 6gt
+noremap ;7 7gt
+noremap ;8 8gt
+noremap ;9 9gt
+noremap ;0 :tablast<CR>
+
 set nextpattern+=^下一页|››$
 set previouspattern+=^上一页|‹‹$
 
