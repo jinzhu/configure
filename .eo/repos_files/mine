@@ -53,3 +53,8 @@ pinyin:
   path: ~/GIT/pinyin
   repo: git@github.com:jinzhu/pinyin.git
   pushable: true
+
+grb:
+  path: ~/GIT/grb
+  repo: git@github.com:jinzhu/grb.git
+  pushable: true
