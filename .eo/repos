@@ -80,3 +80,7 @@ chronic:
 rest-client:
   path: ~/Lab/rest-client
   repo: git://github.com/adamwiggins/rest-client.git
+
+system-timer:
+  path: ~/Lab/system-timer
+  repo: git://github.com/ph7/system-timer.git
