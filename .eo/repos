@@ -84,3 +84,7 @@ rest-client:
 system-timer:
   path: ~/Lab/system-timer
   repo: git://github.com/ph7/system-timer.git
+
+rtranslate:
+  path: ~/Lab/rtranslate
+  repo: git://github.com/sishen/rtranslate.git
