@@ -2180,13 +2180,14 @@ endfunction
 
 function! s:app_migration(file) dict
   let arg = a:file
-  if arg =~ '^0\+$'
+  if arg =~ '^0\+$\|^0*[#:]'
+    let suffix = s:sub(arg,'^0*','')
     if self.has_file('db/schema.rb')
-      return 'db/schema.rb'
+      return 'db/schema.rb'.suffix
     elseif self.has_file('db/'.s:environment().'_structure.sql')
-      return 'db/'.s:environment().'_structure.sql'
+      return 'db/'.s:environment().'_structure.sql'.suffix
     else
-      return 'db/schema.rb'
+      return 'db/schema.rb'.suffix
     endif
   elseif arg =~ '^\d$'
     let glob = '00'.arg.'_*.rb'
@@ -2842,7 +2843,7 @@ function! s:RelatedFile()
   elseif t=~ '^helper\>'
     return s:findlayout(s:controller())
   elseif t =~ '^model-arb\>'
-    return rails#app().migration('create_'.rails#pluralize(s:gsub(s:model(),'/','_')))
+    return rails#app().migration('0#'.rails#pluralize(s:gsub(s:model(),'/','_')))
   elseif t =~ '^model-aro\>'
     return s:sub(f,'_observer\.rb$','.rb')
   elseif t =~ '^api\>'
@@ -4382,6 +4383,8 @@ function! s:BufSettings()
     let &l:suffixesadd=".rb,.".s:gsub(s:view_types,',',',.').",.yml,.csv,.rake,s.rb"
     if expand('%:e') == 'rake'
       setlocal define=^\\s*def\\s\\+\\(self\\.\\)\\=\\\|^\\s*\\%(task\\\|file\\)\\s\\+[:'\"]
+    elseif expand('%:t') == 'schema.rb'
+      setlocal define=^\\s*def\\s\\+\\(self\\.\\)\\=\\\|^\\s*create_table\\s\\+[:'\"]
     else
       setlocal define=^\\s*def\\s\\+\\(self\\.\\)\\=
     endif

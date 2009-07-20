@@ -31,10 +31,10 @@ asset_packager:
 ############################################################
 ## Other
 ############################################################
-redmine:
-  path: ~/Lab/redmine/
-  scm:  svn
-  repo: http://redmine.rubyforge.org/svn/trunk
+# redmine:
+#   path: ~/Lab/redmine/
+#   scm:  svn
+#   repo: http://redmine.rubyforge.org/svn/trunk
 
 ziya:
   path: ~/Lab/ziya
