@@ -123,3 +123,9 @@ else
   git checkout $*
 fi
 }
+
+function pdf {
+  if [ -f '/usr/bin/evince' ];then
+    evince $@
+  fi
+}
