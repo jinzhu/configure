@@ -9,3 +9,8 @@ joblet:
   path: ~/GIT/joblet/
   repo: git@github.com:anatole/joblet.git
   pushable: true
+
+asics:
+  path: ~/GIT/asics/
+  repo: git@github.com:anatole/asics.git
+  pushable: true
