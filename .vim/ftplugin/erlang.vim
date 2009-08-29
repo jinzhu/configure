@@ -6,8 +6,8 @@
 " ------------------------------------------------------------------------------
 " Usage: {{{1
 "
-" To disable folding put
-" let g:erlangFold=0
+" To enable folding put
+" let g:erlangFold=1
 " in your vimrc
 "
 " Folding will make only one fold for a complete function, even though it has
@@ -37,19 +37,17 @@ let s:doneFunctionDefinitions=1
 " Local settings {{{1
 " Run Erlang make instead of GNU Make
 function s:SetErlangOptions()
-	if version >= 700
-		setlocal omnifunc=erlangcomplete#Complete
-	endif
+	compiler erlang
+	setlocal omnifunc=erlangcomplete#Complete
 
 	" {{{2 Settings for folding
-	if (!exists("g:erlangFold")) || g:erlangFold
+	if (exists("g:erlangFold")) && g:erlangFold
 		setlocal foldmethod=expr
 		setlocal foldexpr=GetErlangFold(v:lnum)
 		setlocal foldtext=ErlangFoldText()
 		"setlocal fml=2
 	endif
 endfunction
-
 
 " Define folding functions {{{1
 if !exists("*GetErlangFold")
@@ -190,11 +188,5 @@ if !exists("*GetErlangFold")
 endif " }}}
 
 call s:SetErlangOptions()
-
-" Skeletons {{{1
-function GenServer()
-	echo foo 
-endfunction
-" }}}
 
 " vim: set foldmethod=marker:
