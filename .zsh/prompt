@@ -36,7 +36,8 @@ parse_scm() {
   fi
 }
 parse_jobs() {
-  echo -e " %{\e[01;35m%}[jobs $(jobs | grep ']' | wc -l )]%{\e[m%}"
+  # echo -e " %{\e[01;35m%}[jobs $(jobs | grep ']' | wc -l )]%{\e[m%}"
+  echo -e " %{\e[01;35m%}[jobs %j]%{\e[m%}"
 }
 
 RPROMPT=$(echo '%{\033[31m%}%D %T%{\033[0m%}')
@@ -44,3 +45,9 @@ RPROMPT=$(echo '%{\033[31m%}%D %T%{\033[0m%}')
 # %{\033[01;32m%}\$%{\033[0m%} ')
 PROMPT=$(echo -e '%{\033[01;34m%}[%1~] $(parse_scm)%{\033[0m%} $(parse_jobs)
 %{\033[01;32m%}\$%{\033[0m%} ')
+
+case $TERM in
+  (xterm*)
+  function precmd () { print -Pn "\e]0;(%j) %2d\a" }
+  ;;
+esac
