@@ -1,148 +1,206 @@
-" ------------------------------------------------------------------------------
 " Vim indent file
-" Language:    Erlang
-" Maintainer:  Oscar Hellström <oscar@oscarh.net>
-" URL:         http://personal.oscarh.net
-" Version:     2006-05-24
-" ------------------------------------------------------------------------------
+" Language:     Erlang
+" Maintainer:   Csaba Hoch <csaba.hoch@gmail.com>
+" Contributor:  Edwin Fine <efine145_nospam01 at usa dot net>
+" Last Change:  2008 Mar 12
 
-" Only load this indent file when no other was loaded {{{1
-"if exists("b:did_indent")
-"  finish
-"endif
-"let b:did_indent = 1
+" Only load this indent file when no other was loaded.
+if exists("b:did_indent")
+  finish
+endif
+let b:did_indent = 1
 
-" Set up our indention expression and the triggers {{{1
-setlocal indentexpr=GetErlangIndent()
-setlocal indentkeys=o,O,e
-setlocal indentkeys+==end
+setlocal indentexpr=ErlangIndent()
+setlocal indentkeys+==after,=end,=catch,=),=],=}
 
-if exists("*GetErlangIndent")
-	finish
+" Only define the functions once.
+if exists("*ErlangIndent")
+   finish
 endif
 
-" 1) Patterns to be used for determining the indentation {{{1
-"
-" Commends are ignored at end of lines
-let s:erlangIgnorePattern       = '\(%.*\)\?'
+" The function go through the whole line, analyses it and sets the indentation
+" (ind variable).
+" l: the number of the line to be examined.
+function s:ErlangIndentAtferLine(l)
+    let i = 0 " the index of the current character in the line
+    let length = strlen(a:l) " the length of the line
+    let ind = 0 " how much should be the difference between the indentation of
+                " the current line and the indentation of the next line?
+                " e.g. +1: the indentation of the next line should be equal to
+                " the indentation of the current line plus one shiftwidth
+    let lastFun = 0 " the last token was a 'fun'
+    let lastReceive = 0 " the last token was a 'receive'; needed for 'after'
+    let lastHashMark = 0 " the last token was a 'hashmark'
 
-" The following patterns will always get the ignore pattern and
-" the EOL char appended
-" Pattern that add to the indentation
-let s:erlangAddIndentPattern    = '\(if\|of\|receive\|after\|catch\|->\)'
-" Pattern that resets indentation
-let s:erlangZeroIndentPattern   = '\.'
-" Pattern that will keep the current indentation
-let s:erlangKeepIndentPattern   = '\(,\|.\+\s\+->\s\+.\+;\|\<try\>\s\+\w.*\)'
-" Pattern that deletes from the current indentation
-let s:erlangRemoveIndentPattern = ';'
-" end of pattern which get EOL appended
+    while 0<= i && i < length
 
+        " m: the next value of the i
+        if a:l[i] == '%'
+            break
+        elseif a:l[i] == '"'
+            let m = matchend(a:l,'"\%([^"\\]\|\\.\)*"',i)
+            let lastReceive = 0
+        elseif a:l[i] == "'"
+            let m = matchend(a:l,"'[^']*'",i)
+            let lastReceive = 0
+        elseif a:l[i] =~# "[a-z]"
+            let m = matchend(a:l,".[[:alnum:]_]*",i)
+            if lastFun
+                let ind = ind - 1
+                let lastFun = 0
+                let lastReceive = 0
+            elseif a:l[(i):(m-1)] =~# '^\%(case\|if\|try\)$'
+                let ind = ind + 1
+            elseif a:l[(i):(m-1)] =~# '^receive$'
+                let ind = ind + 1
+                let lastReceive = 1
+            elseif a:l[(i):(m-1)] =~# '^begin$'
+                let ind = ind + 2
+                let lastReceive = 0
+            elseif a:l[(i):(m-1)] =~# '^end$'
+                let ind = ind - 2
+                let lastReceive = 0
+            elseif a:l[(i):(m-1)] =~# '^after$'
+                if lastReceive == 0
+                    let ind = ind - 1
+                else
+                    let ind = ind + 0
+                end
+                let lastReceive = 0
+            elseif a:l[(i):(m-1)] =~# '^fun$'
+                let ind = ind + 1
+                let lastFun = 1
+                let lastReceive = 0
+            endif
+        elseif a:l[i] =~# "[A-Z_]"
+            let m = matchend(a:l,".[[:alnum:]_]*",i)
+            let lastReceive = 0
+        elseif a:l[i] == '$'
+            let m = i+2
+            let lastReceive = 0
+        elseif a:l[i] == "." && (i+1>=length || a:l[i+1]!~ "[0-9]")
+            let m = i+1
+            if lastHashMark
+                let lastHashMark = 0
+            else
+                let ind = ind - 1
+            end
+            let lastReceive = 0
+        elseif a:l[i] == '-' && (i+1<length && a:l[i+1]=='>')
+            let m = i+2
+            let ind = ind + 1
+            let lastReceive = 0
+        elseif a:l[i] == ';'
+            let m = i+1
+            let ind = ind - 1
+            let lastReceive = 0
+        elseif a:l[i] == '#'
+            let m = i+1
+            let lastHashMark = 1
+        elseif a:l[i] =~# '[({[]'
+            let m = i+1
+            let ind = ind + 1
+            let lastFun = 0
+            let lastReceive = 0
+            let lastHashMark = 0
+        elseif a:l[i] =~# '[)}\]]'
+            let m = i+1
+            let ind = ind - 1
+            let lastReceive = 0
+        else
+            let m = i+1
+        endif
 
-" Pattern that should align indentation with block opening line
-let s:erlangAlingIdentPattern   = '\(\<after\>\|\<catch\>\s*$\|after\s\+?\?\w\s\+->\)'
+        let i = m
 
-" Pattern that opens blocks
-let s:erlangBlockbegPattern     = '.*\%(fun(.*)\s\+\%(when\s\+.\+\s\+\)\?->.*'
-let s:erlangBlockbegPattern    .= '\|receive\|if\|query'
-let s:erlangBlockbegPattern    .= '\|case\s.\+\sof'
-let s:erlangBlockbegPattern    .= '\|try\s.\+\sof'
-let s:erlangBlockbegPattern    .= '\|catch\)'
+    endwhile
 
-" Pattern that closes block
-let s:erlangBlockendPattern     = 'end'
+    return ind
 
-" Empty line
-let s:erlangEmptyLine           = '^\s*$'
-
-" 2)  Auxiliary functions: {{{1
-" These usually return line numbers
-"
-" Matches the whole string
-function s:Match(line, exp)
-	return a:line =~ a:exp
 endfunction
 
-" Matches the end of a string
-" Any pattern that should be ignored before a line end is ignored
-function s:MatchEnd(line, exp)
-	return a:line =~ a:exp . '\s*' . s:erlangIgnorePattern . '$'
-endfunction
-
-" Find the previous nonblank line
-" ignoring lines only containing comments
 function s:FindPrevNonBlankNonComment(lnum)
-	let lnum = prevnonblank(a:lnum)
-	let line = getline(lnum)
-	" continue to search above if the current line begins with a '%'
-	while line =~ '^\s*%.*$'
-		let lnum = prevnonblank(lnum - 1)
-		if 0 == lnum
-			return 0
-		endif
-		let line = getline(lnum)
-	endwhile
-	return lnum
+    let lnum = prevnonblank(a:lnum)
+    let line = getline(lnum)
+    " continue to search above if the current line begins with a '%'
+    while line =~# '^\s*%.*$'
+        let lnum = prevnonblank(lnum - 1)
+        if 0 == lnum
+            return 0
+        endif
+        let line = getline(lnum)
+    endwhile
+    return lnum
 endfunction
 
-" 3) Define the indent function {{{1
-function GetErlangIndent()
+function ErlangIndent()
 
-	" 1) Check the current line {{{2
+    " Find a non-blank line above the current line.
+    let lnum = prevnonblank(v:lnum - 1)
 
-	let lnum = v:lnum
-	let line = getline(lnum)
+    " Hit the start of the file, use zero indent.
+    if lnum == 0
+        return 0
+    endif
 
-	" At the beginning of the file, zero indentation
-	if 0 == lnum
-		return 0
-	endif
+    let prevline = getline(lnum)
+    let currline = getline(v:lnum)
 
-	" If the current line is the end of a block,
-	" find the indentation of the block opener
-	if s:MatchEnd(line, s:erlangBlockendPattern)
-		let begline = searchpair(s:erlangBlockbegPattern, '',
-			\ s:erlangBlockendPattern, 'bW',
-			\ 'synIDattr(synID(line("."), col("."), 0), "name") =~? "string"')
-		if begline != lnum
-			return indent(begline)
-		endif
-	endif
+    let ind = indent(lnum) + &sw * s:ErlangIndentAtferLine(prevline)
 
-	" 2) check the previous line(s) {{{2
+    " special cases:
+    if prevline =~# '^\s*\%(after\|end\)\>'
+        let ind = ind + 2*&sw
+    endif
+    if currline =~# '^\s*end\>'
+        let ind = ind - 2*&sw
+    endif
+    if currline =~# '^\s*after\>'
+        let plnum = s:FindPrevNonBlankNonComment(v:lnum-1)
+        if getline(plnum) =~# '^[^%]*\<receive\>\s*\%(%.*\)\=$'
+            let ind = ind - 1*&sw
+            " If the 'receive' is not in the same line as the 'after'
+        else
+            let ind = ind - 2*&sw
+        endif
+    endif
+    if prevline =~# '^\s*[)}\]]'
+        let ind = ind + 1*&sw
+    endif
+    if currline =~# '^\s*[)}\]]'
+        let ind = ind - 1*&sw
+    endif
+    if prevline =~# '^\s*\%(catch\)\s*\%(%\|$\)'
+        let ind = ind + 1*&sw
+    endif
+    if currline =~# '^\s*\%(catch\)\s*\%(%\|$\)'
+        let ind = ind - 1*&sw
+    endif
 
-	" Find a non-blank, non-multi-line string line above the current line.
-	let lnum = s:FindPrevNonBlankNonComment(v:lnum - 1)
+    if ind<0
+        let ind = 0
+    endif
+    return ind
 
-	" Read line 
-	let line = getline(lnum)
-
-	" Beginning of file
-	if 0 == lnum
-		return 0
-	endif
-
-	" Check for pattern that will add to indentation
-	if s:MatchEnd(line, s:erlangAddIndentPattern)
-		return indent(lnum) + &sw
-	endif
-
-	" Check for patterns that will keep indent
-	if s:MatchEnd(line, s:erlangKeepIndentPattern)
-		return indent(lnum)
-	endif
-
-	" Check for patterns that will decrease indent
-	if s:MatchEnd(line, s:erlangRemoveIndentPattern)
-		return indent(lnum) - &sw
-	endif
-
-	" Check for patterns that will reset indentation
-	if s:MatchEnd(line, s:erlangZeroIndentPattern)
-		return 0
-	endif
-
-	" 3) can't find a pattern, get indent from line before
-	return indent(lnum) + &sw
 endfunction
-" vim: set foldmethod=marker:
+
+" TODO:
+" 
+" f() ->
+"     x("foo
+"         bar")
+"         ,
+"         bad_indent.
+"
+" fun
+"     init/0,
+"     bad_indent
+"
+"     #rec
+"     .field,
+" bad_indent
+"
+" case X of
+"     1 when A; B ->
+"     bad_indent
+
