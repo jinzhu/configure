@@ -1,0 +1,123 @@
+*SudoEdit.txt*	Edit Files using Sudo/su - Vers 0.6		Jul 14, 2009
+
+Author:  Christian Brabandt <cb@256bit.org>
+Copyright: (c) 2009 by Christian Brabandt 		*SudoEdit-copyright*
+           The VIM LICENSE applies to SudoEdit.vim and SudoEdit.txt
+           (see |copyright|) except use SudoEdit instead of "Vim".
+	   NO WARRANTY, EXPRESS OR IMPLIED.  USE AT-YOUR-OWN-RISK.
+
+
+==============================================================================
+1. Contents				*SudoEdit* *SudoEdit-contents*
+
+	1.  Contents......................................: |SudoEdit-contents|
+	2.  SudoEdit Manual...............................: |SudoEdit-manual|
+	2.1 SudoEdit: SudoRead............................: |SudoRead|
+	2.2 SudoEdit: SudoWrite...........................: |SudoWrite|
+	3.  SudoEdit Configuration........................: |SudoEdit-config|
+	4.  SudoEdit History..............................: |SudoEdit-history|
+
+==============================================================================
+2. SudoEdit Manual					*SudoEdit-manual*
+
+Functionality
+
+This plugin enables vim to read files, using sudo or su or any other tool that
+can be used for changing the authentication of a user. Therefore it needs any
+of sudo or su installed and usable by the user. This means, you have to know
+the credentials to authenticate yourself as somebody else.
+
+That's why this plugin probably won't work on Windows, but you might be able
+to configure it to use a method that works on Windows (see |SudoEdit-config|)
+
+By default SudoEdit will first try to use sudo and if sudo is not found it
+will fall back and try to use su. Note, that you might have to configure these
+tools, before they can use them successfully.
+
+SudoEdit requires at least a Vim Version 7 with patch 111 installed. Patch 111
+introduced the |shellescape()| functionality.
+
+The SudoEdit Plugin provides 2 Commands:
+
+==============================================================================
+2.1 SudoRead							 *SudoRead*
+
+	:SudoRead [file]
+
+SudoRead will read the given file name using any of the configured methods for
+superuser authtication. It basically does something like this:
+
+:r !sudo cat file
+
+If no filename is given, SudoRead will try to reread the current file name.
+If the current buffer does not contain any file, it will abort.
+
+SudoRead provides file completion, so you can use <Tab> on the commandline to
+specify the file to read.
+
+==============================================================================
+2.2 SudoWrite							 *SudoWrite*
+
+	:[range]SudoWrite [file]
+
+SudoWrite will write the given file using any of the configured methods for
+superuser authtication. It basically does something like this:
+
+:w !sudo tee >/dev/null file
+
+If no filename is given, SudoWrite will try to write the current file name.
+If the current buffer does not contain any file, it will abort.
+
+You can specify a range to write just like |:w|. If no range is given, it will
+write the whole file.
+
+==============================================================================
+3. SudoEdit Configuration				*SudoEdit-config* 
+
+By default SudoEdit will try to use sudo and if it is not found, it will try
+to use su. Just because SudoEdit finds either sudo or su installed, does not
+mean, that you can already use it. You might have to configure it and of
+course you need to have the credentials for super-user access.
+
+								*g:sudoAuth*
+
+The tool to use for authentication is can be changed by setting the variable
+g:sudoAuth. If this variable exists, SudoEdit will first try to use the
+specified tool before falling back to either sudo or su (in that order).
+
+For example, you could use ssh to use as authentication tool by setting
+g:sudoAuth in your .vimrc as follows:
+
+let g:sudoAuth="ssh"
+
+							       *g:sudoAuthArg*
+
+The variable g:sudoAuthArg specifies how to use the given authentication tool.
+You can specify additional parameters that will be used. You could for example
+also define here which user to change to. By default, SudoEdit will try to
+become the superuser e.g. root. 
+
+If you want to use ssh as authentication facility, you can set g:sudoAuthArg
+as follows in your .vimrc:
+
+let g:sudoAuthArg="root@localhost"
+
+For su, you would use g:sudoAuthArg="-c", but you do not have to set it, the
+plugin will automatically use -c if it detects, that su is used.
+==============================================================================
+4. SudoEdit History					    *SudoEdit-history*
+	0.6: July 14, 2009	: Fix minor bug, that prevents setting the 
+				  filename correctly when writing.
+	0.5: July 08, 2009	: Enables the plugin for |GetLatestVimScripts|
+	0.4: July 08, 2009	: First release
+				  Added Documentation
+	0.3: July 07, 2009	: Internal version, added su support
+				  Added configuration variables
+	0.2: July 07, 2009	: Internal version, Working sudo support
+				  Created plugin
+	0.1: July 07, 2009	: Internal version, First working version, 
+				  using simple commands
+
+==============================================================================
+Modeline:
+vim:tw=78:ts=8:ft=help

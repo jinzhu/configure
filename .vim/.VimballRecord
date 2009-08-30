@@ -1,2 +1,3 @@
 tComment.vba: call delete('/home/mvp/.vim/doc/tComment.txt')|call delete('/home/mvp/.vim/plugin/tComment.vim')|call delete('/home/mvp/.vim/autoload/tcomment.vim')
 Align.vba: call delete('/home/mvp/.vim/plugin/AlignPlugin.vim')|call delete('/home/mvp/.vim/plugin/AlignMapsPlugin.vim')|call delete('/home/mvp/.vim/plugin/cecutil.vim')|call delete('/home/mvp/.vim/doc/Align.txt')|call delete('/home/mvp/.vim/autoload/Align.vim')|call delete('/home/mvp/.vim/autoload/AlignMaps.vim')
+SudoEdit.vba: call delete('/home/mvp/.vim/plugin/SudoEdit.vim')|call delete('/home/mvp/.vim/doc/SudoEdit.txt')
