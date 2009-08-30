@@ -4,11 +4,12 @@ set runtimepath=/home/mvp/.vimperator
 noremap <C-V> <C-v>
 noremap <C-Z> <C-z>
 noremap <C-c> <C-v><C-c>
+
 cnoremap <C-c> <C-v><C-c>
 cnoremap <C-v> <C-v><C-v>
 cnoremap <C-x> <C-v><C-x>
 
-inoremap <C-a> <C-v><C-a>
+inoremap <C-f> <C-v><C-a>
 inoremap <C-c> <C-v><C-c>
 inoremap <C-v> <C-v><C-v>
 inoremap <C-x> <C-v><C-x>
@@ -26,9 +27,11 @@ noremap ;8 8gt
 noremap ;9 9gt
 noremap ;0 :tablast<CR>
 
+map <C-l> :sidebar LiveHTTPHeaders<CR>
+
 set nextpattern+=^下一页|››$
 set previouspattern+=^上一页|‹‹$
 
 source! ~/.vimperatorrc.local
 
-" vim: set ft=vimperator:
+" vim: set ft=vim:
