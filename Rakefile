@@ -1,30 +1,34 @@
-require 'rake'
-path  = File.dirname(__FILE__)
-files = `find #{path} -maxdepth 1 -iname '\.?*' -not -name '.git'`.split("\n")
+IGNORES   = %w(.gitignore .git)
+IRREGULAR = {'xmonad.desktop' => '/usr/share/xsessions/xmonad.desktop'}
 
-task :cp_xmonad do
-  system('sudo cp xmonad.desktop /usr/share/xsessions/') 
-end
+FILES = Dir.entries('.').select do |x|
+  x !~ /^\.*$/ && x =~ /^\./ && !(IGNORES||[]).include?(x)
+end.inject({}) do |s,x|
+  s.merge({x.to_s => File.join(ENV['HOME'],x.to_s)})
+end.merge(IRREGULAR)
 
 task :make_dwm do
   system('cd dwm && make && sudo make install') 
+end
+
+task :make_xmonad do
   system('xmonad --recompile') 
 end
 
-task :install => [:make_dwm,:cp_xmonad] do
-  files.each do |x|
-    x.strip!
-    system("ln -nfs #{x} ~/")
-    puts "\e[32m#{File.basename(x)} Installed\e[0m"
+def exec(str)
+  FILES.each do |k,v|
+    command = str.gsub('KEY',File.join(Dir.pwd,k)).gsub('VALUE',v)
+    puts("\e[32m#{command}\e[0m")
+    system(command)
   end
+end
+
+task :install do
+  exec("ln -nfs KEY VALUE")
   puts "\e[33mInstall Complete\e[0m"
 end
 
 task :remove do
-  files.each do |x|
-    x.strip!
-    system("rm -f ~/#{File.basename(x)}")
-    puts "\e[32m#{File.basename(x)} Removed\e[0m"
-  end
+  exec("rm -f VALUE")
   puts "\e[33mAll Removed\e[0m"
 end
