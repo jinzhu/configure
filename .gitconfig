@@ -41,3 +41,8 @@
   added = yellow
   changed = green
   untracked = cyan
+
+[mergetool "vimdiff"]
+	cmd = exec /usr/bin/vimdiff $LOCAL $MERGED $REMOTE
+[merge]
+	tool = vimdiff
