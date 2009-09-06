@@ -58,3 +58,7 @@ grb:
   path: ~/GIT/grb
   repo: git@github.com:jinzhu/grb.git
   pushable: true
+
+system_note:
+  path: ~/GIT/system_note
+  repo: git@gist.github.com:112fdb14d6d8032ea198.git
