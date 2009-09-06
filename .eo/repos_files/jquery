@@ -33,3 +33,7 @@ jgrowl:
  cmd:
    init: system('cd ~/Lab/ && cvs -z6 -d:pserver:anonymous:anonymous@cvs.drupal.org:/cvs/drupal-contrib checkout -d jgrowl contributions/modules/jgrowl/')
    update: system('cvs update')
+
+sammy:
+ path: ~/Lab/JQuery/sammy
+ repo: git://github.com/quirkey/sammy.git
