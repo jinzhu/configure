@@ -370,6 +370,10 @@ ino <M-k> <UP>
 ino <M-h> <LEFT>
 ino <M-l> <RIGHT>
 
+nnoremap k gk
+nnoremap j gj
+nnoremap gk k
+nnoremap gj j
 " make <c-l> clear the highlight as well as redraw
 nnoremap <C-L> :nohls<CR><C-L>
 inoremap <C-L> <C-O>:nohls<CR>
