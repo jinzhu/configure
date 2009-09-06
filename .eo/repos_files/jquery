@@ -37,3 +37,7 @@ jgrowl:
 sammy:
  path: ~/Lab/JQuery/sammy
  repo: git://github.com/quirkey/sammy.git
+
+js-beautify:
+  path: ~/Lab/JQuery/js-beautify/
+  repo: git://github.com/einars/js-beautify.git
