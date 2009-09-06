@@ -16,9 +16,6 @@ nn <Space>lo :Rlog
 nn <Space>tm :Runittest
 nn <Space>tc :Rfunctionaltest
 nn <Space>ta :Rtask 
-" nn <Space>tv :Re spec/views/
-" nn <Space>th :Re spec/helpers/
-" nn <Space>tf :Re spec/fixtures/
 
 nn <Space>g  :Rgenerate 
 nn <Space>d  :Rdestory 
