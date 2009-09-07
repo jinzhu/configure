@@ -62,3 +62,7 @@ grb:
 system_note:
   path: ~/GIT/system_note
   repo: git@gist.github.com:112fdb14d6d8032ea198.git
+
+javascript_localize:
+  path: ~/GIT/javascript_localize/
+  repo: git@github.com:jinzhu/javascript_localize.git
