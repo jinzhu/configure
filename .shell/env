@@ -2,6 +2,7 @@
 
 [ -f ~/.dir_colors ] && eval  $(dircolors -b ~/.dir_colors)
 [ -f ~/.amazon_keys ] && source ~/.amazon_keys
+[ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm
 
 CDPATH=".:~:/pillar:/pillar/Project"
 PATH="~/.flex_sdk/bin/:$PATH:/usr/local/bin/:/usr/local/sbin/"

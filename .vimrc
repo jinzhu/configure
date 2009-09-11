@@ -375,7 +375,7 @@ nnoremap j gj
 nnoremap gk k
 nnoremap gj j
 " make <c-l> clear the highlight as well as redraw
-nnoremap <C-L> :nohls<CR><C-L>:SearchBuffersReset<CR>
+nnoremap <C-L> :nohls<CR><C-L>
 inoremap <C-L> <C-O>:nohls<CR>
 
 " Windows
