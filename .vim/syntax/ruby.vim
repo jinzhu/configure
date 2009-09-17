@@ -64,7 +64,7 @@ syn region rubyRegexpParens	matchgroup=rubyRegexpSpecial   start="(\(?:\|?<\=[=!
 syn region rubyRegexpBrackets	matchgroup=rubyRegexpCharClass start="\[\^\="									skip="\\\]" end="\]" contained transparent contains=rubyStringEscape,rubyRegexpEscape,rubyRegexpCharClass oneline
 syn match  rubyRegexpCharClass	"\\[DdHhSsWw]"		contained display
 syn match  rubyRegexpCharClass	"\[:\^\=\%(alnum\|alpha\|ascii\|blank\|cntrl\|digit\|graph\|lower\|print\|punct\|space\|upper\|xdigit\):\]"		contained
-syn match  rubyRegexpEscape	"\\[].*?+^$|\\/(){}[]"	contained display
+syn match  rubyRegexpEscape	"\\[].*?+^$|\\/(){}[]"	contained
 syn match  rubyRegexpQuantifier	"[*?+][?+]\="		contained display
 syn match  rubyRegexpQuantifier	"{\d\+\%(,\d*\)\=}?\="	contained display
 syn match  rubyRegexpAnchor	"[$^]\|\\[ABbGZz]"	contained display
@@ -101,6 +101,7 @@ syn match  rubySymbol			"[]})\"':]\@<!:\%(\^\|\~\|<<\|<=>\|<=\|<\|===\|==\|=\~\|
 syn match  rubySymbol			"[]})\"':]\@<!:\$\%(-.\|[`~<=>_,;:!?/.'"@$*\&+0]\)"
 syn match  rubySymbol			"[]})\"':]\@<!:\%(\$\|@@\=\)\=\h\w*"
 syn match  rubySymbol			"[]})\"':]\@<!:\h\w*\%([?!=]>\@!\)\="
+syn match  rubySymbol			"[]})\"':]\@<!\h\w*[!?]\=\%(::\@!\)\@="
 syn region rubySymbol			start="[]})\"':]\@<!:'"  end="'"  skip="\\\\\|\\'"  contains=rubyQuoteEscape fold
 syn region rubySymbol			start="[]})\"':]\@<!:\"" end="\"" skip="\\\\\|\\\"" contains=@rubyStringSpecial fold
 
@@ -206,7 +207,7 @@ if !exists("b:ruby_no_expensive") && !exists("ruby_no_expensive")
   syn match  rubyDefine "\<undef\>"		nextgroup=rubyFunction skipwhite skipnl
   syn match  rubyClass	"\<class\>"		nextgroup=rubyClassDeclaration	skipwhite skipnl
   syn match  rubyModule "\<module\>"		nextgroup=rubyModuleDeclaration skipwhite skipnl
-  syn region rubyMethod start="\<def\>"		matchgroup=rubyDefine end="\%(\<def\_s\+\)\@<!\<end\>" contains=ALLBUT,@rubyNotTop fold
+  syn region rubyMethodBlock start="\<def\>"	matchgroup=rubyDefine end="\%(\<def\_s\+\)\@<!\<end\>" contains=ALLBUT,@rubyNotTop fold
   syn region rubyBlock  start="\<class\>"	matchgroup=rubyClass  end="\<end\>" contains=ALLBUT,@rubyNotTop fold
   syn region rubyBlock  start="\<module\>"	matchgroup=rubyModule end="\<end\>" contains=ALLBUT,@rubyNotTop fold
 
