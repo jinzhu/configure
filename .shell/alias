@@ -130,3 +130,7 @@ function pdf {
     evince $@
   fi
 }
+
+function t {
+  rtranslate -t $@
+}
