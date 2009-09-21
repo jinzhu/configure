@@ -66,3 +66,7 @@ system_note:
 javascript_localize:
   path: ~/GIT/javascript_localize/
   repo: git@github.com:jinzhu/javascript_localize.git
+
+cacheAjax:
+  path: ~/GIT/cacheAjax
+  repo: git@github.com:jinzhu/cacheAjax.git
