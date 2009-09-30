@@ -49,11 +49,6 @@ viewtest:
   repo: git@github.com:jinzhu/viewtest.git
   pushable: true
 
-pinyin:
-  path: ~/GIT/pinyin
-  repo: git@github.com:jinzhu/pinyin.git
-  pushable: true
-
 grb:
   path: ~/GIT/grb
   repo: git@github.com:jinzhu/grb.git
@@ -70,3 +65,7 @@ javascript_localize:
 cacheAjax:
   path: ~/GIT/cacheAjax
   repo: git@github.com:jinzhu/cacheAjax.git
+
+js_template:
+  path: ~/GIT/js_template/
+  repo: git@github.com:jinzhu/js_template.git
