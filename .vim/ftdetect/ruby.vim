@@ -14,6 +14,6 @@ au BufNewFile,BufRead [rR]antfile,*.rant		set filetype=ruby
 au BufNewFile,BufRead .irbrc,irbrc			set filetype=ruby
 
 " eRuby
-au BufNewFile,BufRead *.erb,*.rhtml			 set filetype=eruby
+au BufNewFile,BufRead *.erb        			 set filetype=eruby
 au BufNewFile,BufRead *.html.erb,*.rhtml set filetype=eruby.html
 au BufNewFile,BufRead *.js.erb,*.rjs     set filetype=eruby.javascript.jquery
