@@ -8,6 +8,7 @@ system:
 
 rubygems:
  skip: true
+ autorun: 'cd /usr/lib/ruby/gems/1.8/specifications/; sudo rm *0.10.1*' # remove datamapper series
  cmd:
    init: system('sudo gem install $(cat ~/GIT/configure/gemlist)')
    update: system('sudo gem update')
