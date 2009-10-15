@@ -34,3 +34,7 @@ vim-abolish:
 snipmate.vim:
   path: ~/Lab/VIM/snipmate.vim/
   repo: git://github.com/msanders/snipmate.vim.git
+
+vim-fugitive:
+  path: ~/Lab/VIM/vim-fugitive
+  repo: git://github.com/tpope/vim-fugitive.git
