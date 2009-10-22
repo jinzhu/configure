@@ -88,3 +88,7 @@ system-timer:
 rtranslate:
   path: ~/Lab/rtranslate
   repo: git://github.com/sishen/rtranslate.git
+
+watir:
+ path: ~/Lab/watir
+ repo: git://github.com/bret/watir.git
