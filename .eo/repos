@@ -4,6 +4,11 @@
 ############################################################
 ## Performance
 ############################################################
+couchdb:
+  path: ~/Lab/couchdb/
+  repo: https://svn.apache.org/repos/asf/couchdb/trunk 
+  scm:  svn
+
 attachment_fu:
   path: ~/Lab/attachment_fu/
   repo: git://github.com/technoweenie/attachment_fu.git
