@@ -1,0 +1,13 @@
+# vi: ft=yaml
+
+watir:
+ path: ~/Lab/Test/watir
+ repo: git://github.com/bret/watir.git
+
+cucumber:
+  path: ~/Lab/Test/cucumber
+  repo: git://github.com/aslakhellesoy/cucumber.git
+
+webrat:
+  path: ~/Lab/Test/webrat
+  repo: git://github.com/brynary/webrat.git
