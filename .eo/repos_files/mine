@@ -69,3 +69,7 @@ cacheAjax:
 js_template:
   path: ~/GIT/js_template/
   repo: git@github.com:jinzhu/js_template.git
+
+JavascriptAutolink:
+  path: ~/GIT/JavascriptAutolink/
+  repo: git@github.com:jinzhu/JavascriptAutolink.git
