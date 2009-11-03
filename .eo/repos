@@ -6,7 +6,7 @@
 ############################################################
 unicorn:
   path: ~/Lab/unicorn
-  repo: git://repo.or.cz/unicorn.git
+  repo: git://git.bogomips.org/unicorn.git
 
 couchdb:
   path: ~/Lab/couchdb/
