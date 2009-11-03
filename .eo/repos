@@ -4,6 +4,10 @@
 ############################################################
 ## Performance
 ############################################################
+unicorn:
+  path: ~/Lab/unicorn
+  repo: git://repo.or.cz/unicorn.git
+
 couchdb:
   path: ~/Lab/couchdb/
   repo: https://svn.apache.org/repos/asf/couchdb/trunk 
