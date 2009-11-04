@@ -57,19 +57,29 @@ grb:
 system_note:
   path: ~/GIT/system_note
   repo: git@gist.github.com:112fdb14d6d8032ea198.git
+  pushable: true
 
 javascript_localize:
   path: ~/GIT/javascript_localize/
   repo: git@github.com:jinzhu/javascript_localize.git
+  pushable: true
 
 cacheAjax:
   path: ~/GIT/cacheAjax
   repo: git@github.com:jinzhu/cacheAjax.git
+  pushable: true
 
 js_template:
   path: ~/GIT/js_template/
   repo: git@github.com:jinzhu/js_template.git
+  pushable: true
 
 JavascriptAutolink:
   path: ~/GIT/JavascriptAutolink/
   repo: git@github.com:jinzhu/JavascriptAutolink.git
+  pushable: true
+
+IRCBot:
+  path: ~/GIT/lingdao/
+  repo: jan@ci.theplant.jp:repos/lingdao.git
+  pushable: true
