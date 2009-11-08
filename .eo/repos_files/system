@@ -3,8 +3,8 @@
 system:
  skip: true
  cmd:
-   init: system('sudo pacman -S $(cat ~/GIT/configure/pkglist)')
-   update: system('sudo yaourt -Suy --aur')
+   init: system('yaourt -S $(cat ~/GIT/configure/pkglist)')
+   update: system('yaourt -Suy --aur')
 
 rubygems:
  skip: true
