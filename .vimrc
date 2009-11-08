@@ -17,6 +17,7 @@ augroup filetypedetect
   au  BufNewFile,BufRead  *.yml    setf eruby
   au  BufNewFile,BufRead  *.mxml   setf mxml
   au  BufNewFile,BufRead  *.as     setf actionscript
+  au! BufNewFile,BufRead  *.feature set filetype=cucumber
 augroup END
 
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
