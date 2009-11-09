@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
-require 'autotest/redgreen'
+# require 'redgreen'
+# require 'redgreen/autotest'
 require 'autotest/restart'
 require 'autotest/timestamp'
 require 'rnotify'
