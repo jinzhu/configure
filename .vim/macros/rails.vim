@@ -10,6 +10,8 @@ nn <Space>e  :Redit
 nn <Space>E  :Renvironment 
 nn <Space>f  :RTfind 
 
+nn <Space>i  :Rinitializer 
+
 nn <Space>la :Rlayout 
 nn <Space>li :Rlib 
 nn <Space>lo :Rlog 
