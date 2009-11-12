@@ -7,6 +7,7 @@ nn <Space>s  :Rstylesheet
 nn <Space>j  :Rjavascript 
 
 nn <Space>e  :Redit 
+nn <Space>E  :Renvironment 
 nn <Space>f  :RTfind 
 
 nn <Space>la :Rlayout 
