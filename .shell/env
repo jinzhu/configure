@@ -5,7 +5,7 @@
 [ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm
 
 CDPATH=".:~:/pillar:/pillar/Project"
-PATH="~/.flex_sdk/bin/:$PATH:/usr/local/bin/:/usr/local/sbin/"
+PATH="$HOME/.flex_sdk/bin/:$PATH:/usr/local/bin/:/usr/local/sbin/:$HOME/go/bin"
 
 export LC_CTYPE=zh_CN.utf8
 export GTK_IM_MODULE=xim
@@ -18,3 +18,9 @@ export PATH=$PATH:$EC2_HOME/bin
 export EC2_PRIVATE_KEY=pk-theplant.pem
 export EC2_CERT=cert-theplant.pem
 export JAVA_HOME=/opt/java
+
+# go lang
+export GOROOT=$HOME/go
+export GOOS="linux"
+echo $(uname -m)| grep -q 86_64  && export GOARCH="amd64" || export GOARCH="386"
+export GOBIN=$HOME/go/bin
