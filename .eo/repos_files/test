@@ -4,6 +4,14 @@ watir:
  path: ~/Lab/Test/watir
  repo: git://github.com/bret/watir.git
 
+watir2:
+  path: ~/Lab/Test/watir2
+  repo: git://github.com/jarib/watir2.git
+
+watchr:
+  path: ~/Lab/Test/watchr
+  repo: git://github.com/mynyml/watchr.git
+
 cucumber:
   path: ~/Lab/Test/cucumber
   repo: git://github.com/aslakhellesoy/cucumber.git
@@ -11,10 +19,6 @@ cucumber:
 webrat:
   path: ~/Lab/Test/webrat
   repo: git://github.com/brynary/webrat.git
-
-watir2:
-  path: ~/Lab/Test/watir2
-  repo: git://github.com/jarib/watir2.git
 
 celerity:
   path: ~/Lab/Test/celerity
