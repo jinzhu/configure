@@ -11,3 +11,19 @@ cucumber:
 webrat:
   path: ~/Lab/Test/webrat
   repo: git://github.com/brynary/webrat.git
+
+watir2:
+  path: ~/Lab/Test/watir2
+  repo: git://github.com/jarib/watir2.git
+
+celerity:
+  path: ~/Lab/Test/celerity
+  repo: git://github.com/jarib/celerity.git
+
+testjour:
+  path: ~/Lab/Test/testjour
+  repo: git://github.com/brynary/testjour.git
+
+parallel_specs:
+  path: ~/Lab/Test/parallel_specs
+  repo: git://github.com/grosser/parallel_specs.git
