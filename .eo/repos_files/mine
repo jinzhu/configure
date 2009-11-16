@@ -88,3 +88,8 @@ vimlike-smooziee:
   path: ~/GIT/vimlike-smooziee
   repo: git@github.com:jinzhu/vimlike-smooziee.git
   pushable: true
+
+autorun:
+  path: ~/GIT/autorun
+  repo: git@github.com:jinzhu/autorun.git
+  pushable: true
