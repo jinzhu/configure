@@ -1,22 +1,10 @@
 # vi:ft=sh
-[ -f ~/.dir_colors ] && eval  $(dircolors -b ~/.dir_colors)
-[ -f ~/.amazon_keys ] && source ~/.amazon_keys
+[ -f ~/.dir_colors ]      && eval   $(dircolors -b ~/.dir_colors)
+[ -f ~/.amazon_keys ]     && source ~/.amazon_keys
 [ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm
 
-CDPATH=".:~:/pillar:/pillar/Project"
+CDPATH=".:~:/Juice:/Juice/Project"
 PATH="$HOME/.flex_sdk/bin/:$PATH:/usr/local/bin/:/usr/local/sbin/:$HOME/go/bin"
-
-export LC_CTYPE=zh_CN.utf8
-export GTK_IM_MODULE=xim
-export QT_IM_MODULE=xim
-export XMODIFIERS="@im=fcitx"
-export HAXE_LIBRARY_PATH=/opt/haxe/std:.
-
-export EC2_HOME=~/.ec2
-export PATH=$PATH:$EC2_HOME/bin
-export EC2_PRIVATE_KEY=pk-theplant.pem
-export EC2_CERT=cert-theplant.pem
-export JAVA_HOME=/opt/java
 
 # go lang
 export GOROOT=$HOME/go
@@ -26,3 +14,15 @@ export GOBIN=$HOME/go/bin
 
 # grep
 export GREP_OPTIONS='--color=auto'
+
+export HAXE_LIBRARY_PATH=/opt/haxe/std:.
+export EC2_HOME=~/.ec2
+export PATH=$PATH:$EC2_HOME/bin
+export EC2_PRIVATE_KEY=pk-theplant.pem
+export EC2_CERT=cert-theplant.pem
+export JAVA_HOME=/opt/java
+
+export LC_CTYPE=zh_CN.utf8
+export GTK_IM_MODULE=xim
+export QT_IM_MODULE=xim
+export XMODIFIERS="@im=fcitx"

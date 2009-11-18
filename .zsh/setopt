@@ -16,8 +16,9 @@ unsetopt AUTO_REMOVE_SLASH
 setopt LIST_AMBIGUOUS
 setopt AUTO_LIST
 setopt AUTO_MENU
+
 #开启此选项，补全时会直接选中菜单项
-setopt MENU_COMPLETE
+# setopt MENU_COMPLETE
 
 ## Background jobs notify its status immediately
 setopt NOTIFY
