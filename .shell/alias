@@ -35,6 +35,16 @@ function trash {
   mv -f $* /tmp
 }
 
+function pdf {
+  if [ -f '/usr/bin/evince' ];then
+    evince $@
+  fi
+}
+
+function t {
+  rtranslate -t $@
+}
+
 alias ls='ls --color=auto'
 alias ll='ls -l --color=auto'
 alias la='ls -A --color=auto'
@@ -103,6 +113,8 @@ alias gci='git ci -am'
 alias gmt='git mergetool'
 alias gp='git push origin master'
 alias gsb='git show-branch'
+alias gdv='git diff -w "$@" | vim -R -'
+alias gcount='git shortlog -sn'
 
 function gs {
   if [ -d '.svn' ];then
@@ -136,14 +148,4 @@ if [ -z "$*" ]; then
 else
   git checkout $*
 fi
-}
-
-function pdf {
-  if [ -f '/usr/bin/evince' ];then
-    evince $@
-  fi
-}
-
-function t {
-  rtranslate -t $@
 }
