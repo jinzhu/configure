@@ -7,7 +7,9 @@ alias em='sudo emerge'
 
 # Arch
 function sp {
-  if [ -f 'script/plugin' ];then
+  echo $@ | grep -P "^-S" >/dev/null
+
+  if [[ $? != 0 && -f 'script/plugin' ]];then
     ./script/plugin $@
   else
     sudo pacman $@
