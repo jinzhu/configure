@@ -1,5 +1,4 @@
 # vi:ft=sh
-
 [ -f ~/.dir_colors ] && eval  $(dircolors -b ~/.dir_colors)
 [ -f ~/.amazon_keys ] && source ~/.amazon_keys
 [ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm
@@ -24,3 +23,6 @@ export GOROOT=$HOME/go
 export GOOS="linux"
 echo $(uname -m)| grep -q 86_64  && export GOARCH="amd64" || export GOARCH="386"
 export GOBIN=$HOME/go/bin
+
+# grep
+export GREP_OPTIONS='--color=auto'
