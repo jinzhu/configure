@@ -14,3 +14,11 @@ asics:
   path: ~/GIT/asics/
   repo: git@github.com:anatole/asics.git
   pushable: true
+
+QorCMS:
+  path: ~/GIT/QorCMS/
+  repo: git@github.com:anatole/QorCMS.git
+
+tis:
+  path: ~/GIT/tis
+  repo: git@github.com:anatole/tis.git
