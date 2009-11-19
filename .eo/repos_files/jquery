@@ -1,6 +1,19 @@
 # vi: ft=yaml
 
 ############################################################
+## JavaScript
+############################################################
+closure-library:
+  path: ~/Lab/closure-library/
+  repo: http://closure-library.googlecode.com/svn/trunk
+  scm: svn
+
+closure-compiler:
+  path: ~/Lab/closure-compiler/
+  repo: http://closure-compiler.googlecode.com/svn/trunk
+  scm: svn
+
+############################################################
 ## JQuery
 ############################################################
 jrails:
