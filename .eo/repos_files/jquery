@@ -13,6 +13,11 @@ closure-compiler:
   repo: http://closure-compiler.googlecode.com/svn/trunk
   scm: svn
 
+closure-templates:
+  path: ~/Lab/closure-templates/
+  repo: http://closure-templates.googlecode.com/svn/trunk/
+  scm: svn
+
 ############################################################
 ## JQuery
 ############################################################
