@@ -32,9 +32,14 @@ alias ...='cd ../..'
 alias -- -='cd -'
 
 
-alias rm=trash
-function trash {
-  mv -f $* /tmp
+function rm {
+  echo $@ | grep -P '\W?-rf\b'
+  if [[ $? != 0 ]];then
+    mv -f $* /tmp
+  else
+    arg=$(echo $@ | sed 's/-rf\?\s*//')
+    sudo rm -rfi $arg
+  fi
 }
 
 function pdf {
