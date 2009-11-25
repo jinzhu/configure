@@ -18,7 +18,19 @@ asics:
 QorCMS:
   path: ~/GIT/QorCMS/
   repo: git@github.com:anatole/QorCMS.git
+  pushable: true
 
 tis:
   path: ~/GIT/tis
   repo: git@github.com:anatole/tis.git
+  pushable: true
+
+theplant-project-management:
+  path: ~/GIT/theplant-project-management/
+  repo: git@github.com:anatole/theplant-project-management.git
+  pushable: true
+
+joblet_resume_processor:
+  path: ~/GIT/joblet_resume_processor/
+  repo: git@github.com:anatole/joblet_resume_processor.git
+  pushable: true
