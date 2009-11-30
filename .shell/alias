@@ -20,13 +20,13 @@ function sp {
 # System
 ############################################################
 # Basic directory operations
-function . {
-  if [ -z "$*" ]; then
-    pwd
-  else
-    source $*
-  fi
-}
+# function . {
+#  if [ -z "$*" ]; then
+#    pwd
+#  else
+#    source $*
+#  fi
+#}
 
 alias ...='cd ../..'
 alias -- -='cd -'

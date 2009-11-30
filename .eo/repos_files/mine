@@ -93,3 +93,8 @@ autorun:
   path: ~/GIT/autorun
   repo: git@github.com:jinzhu/autorun.git
   pushable: true
+
+plugin_test_tool:
+  path: ~/GIT/plugin_test_tool/
+  repo: git@github.com:jinzhu/plugin_test_tool.git
+  pushable: true
