@@ -94,7 +94,7 @@ autorun:
   repo: git@github.com:jinzhu/autorun.git
   pushable: true
 
-plugin_test_tool:
-  path: ~/GIT/plugin_test_tool/
-  repo: git@github.com:jinzhu/plugin_test_tool.git
+newplugin:
+  path: ~/GIT/newplugin/
+  repo: git@github.com:jinzhu/newplugin.git
   pushable: true
