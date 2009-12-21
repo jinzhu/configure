@@ -97,9 +97,11 @@ alias sg="./script/generate"
 # Autotest
 function as {
   if [ -f 'script/autospec' ];then
-    AUTOFEATURE=true autospec $@
+    autospec $@
+    # AUTOFEATURE=true autospec $@
   else
-    AUTOFEATURE=true autotest $@
+    autotest $@
+    # AUTOFEATURE=true autotest $@
   fi
 }
 
