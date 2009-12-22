@@ -84,9 +84,9 @@ IRCBot:
   repo: jan@ci.theplant.jp:repos/lingdao.git
   pushable: true
 
-vimlike-smooziee:
-  path: ~/GIT/vimlike-smooziee
-  repo: git@github.com:jinzhu/vimlike-smooziee.git
+Vrome:
+  path: ~/GIT/vrome
+  repo: git@github.com:jinzhu/vrome.git
   pushable: true
 
 autorun:
