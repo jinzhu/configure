@@ -98,3 +98,8 @@ newplugin:
   path: ~/GIT/newplugin/
   repo: git@github.com:jinzhu/newplugin.git
   pushable: true
+
+mysite:
+  path: ~/GIT/mysite
+  repo: git@codaset.com:jinzhu/mysite.git
+  pushable: true
