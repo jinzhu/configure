@@ -103,3 +103,13 @@ mysite:
   path: ~/GIT/mysite
   repo: git@codaset.com:jinzhu/mysite.git
   pushable: true
+
+chrome-ext-gen:
+  path: ~/GIT/chrome-ext-gen
+  repo: git@codaset.com:jinzhu/chrome-ext-gen.git
+  pushable: true
+
+Zadmin:
+  path: ~/GIT/zadmin
+  repo: git@codaset.com:jinzhu/zadmin.git
+  pushable: true
