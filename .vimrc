@@ -403,3 +403,9 @@ function! OpenDoc(lang,keyword)
 endfunction
 noremap <leader>rb :call OpenDoc('ruby',expand('<cword>'))<CR>
 noremap <leader>rr :call OpenDoc('rails',expand('<cword>'))<CR>
+
+
+nn <Space>e  :edit 
+cmap <C-t> <Esc>:tabedit 
+cmap <C-s> <Esc>:sview 
+cmap <C-v> <Esc>:vnew 
