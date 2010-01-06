@@ -113,3 +113,8 @@ Zadmin:
   path: ~/GIT/zadmin
   repo: git@codaset.com:jinzhu/zadmin.git
   pushable: true
+
+webTester:
+  path: ~/GIT/webTester
+  repo: git@codaset.com:jinzhu/webtester.git
+  pushable: true
