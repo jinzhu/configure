@@ -59,3 +59,11 @@ sammy:
 js-beautify:
   path: ~/Lab/JQuery/js-beautify/
   repo: git://github.com/einars/js-beautify.git
+
+jquery-approach: #A jQuery plugin that allows you to animate style properties based on the cursor's proximity to an object
+  path: ~/Lab/JQuery/jquery-approach
+  repo: git://github.com/srobbin/jquery-approach.git
+
+jmaps: #jMaps is a jQuery plugin that provides a really easy API to create and manage multiple google maps on any page.
+  path: ~/Lab/JQuery/jmaps
+  repo: git://github.com/digitalspaghetti/jmaps.git

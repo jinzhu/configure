@@ -1,0 +1,17 @@
+# vi: ft=yaml
+
+APE_Server: #Ajax Push Engine : Lightweight HTTP Streaming server. Fully written in C language, it provides best performances, making it the faster Comet server to date. APE now support server-side javascript modules through spidermonkey
+  path: ~/Lab/Server/APE_Server
+  repo: git://github.com/APE-Project/APE_Server.git
+
+APE_JSF: #Ajax Push Engine : APE JavaScript Framework. Based on Mootools, it handles the basics of the APE Server.
+  path: ~/Lab/Server/APE_JSF
+  repo: git://github.com/APE-Project/APE_JSF.git
+
+sinatra-flv-streaming-example:
+  path: ~/Lab/Server/sinatra-flv-streaming-example
+  repo: git://github.com/hubertlepicki/sinatra-flv-streaming-example.git
+
+nginx-stat:
+  path: ~/Lab/Server/nginx-stat
+  repo: git://github.com/brynary/nginx-stat.git

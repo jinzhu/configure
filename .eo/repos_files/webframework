@@ -1,0 +1,5 @@
+# vi: ft=yaml
+
+rango: #Rango is ultralightweight, ultracustomizable, ultracool web framework inspired by Django.
+  path: ~/Lab/WebFramework/rango
+  repo: git://github.com/botanicus/rango.git

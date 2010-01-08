@@ -1,0 +1,21 @@
+# vi: ft=yaml
+
+excelsior: # Ruby gem that uses C bindings to read CSV files superfast. I'm totally serial! 
+  path: ~/Lab/RubyGem/excelsior
+  repo: git://github.com/toastyapps/excelsior.git
+
+patron: #Ruby HTTP client based on libcurl
+  path: ~/Lab/RubyGem/patron
+  repo: git://github.com/toland/patron.git
+
+geoip: # The Ruby gem for querying Maxmind.com's GeoIP database, which returns the geographic location of a server given its IP address
+  path: ~/Lab/RubyGem/geoip
+  repo: git://github.com/cjheath/geoip.git
+
+handsoap: #Handsoap is a library for creating SOAP clients in Ruby
+  path: ~/Lab/RubyGem/handsoap
+  repo: git://github.com/unwire/handsoap.git
+
+anemone: #Anemone web-spider framework
+  path: ~/Lab/RubyGem/anemone
+  repo: git://github.com/chriskite/anemone.git

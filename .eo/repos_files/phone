@@ -1,0 +1,5 @@
+# vi: ft=yaml
+
+three20: #Three20 is an Objective-C library for iPhone developers
+  path: ~/Lab/Phone/three20
+  repo: git://github.com/facebook/three20.git

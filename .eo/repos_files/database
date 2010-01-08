@@ -1,0 +1,5 @@
+# vi: ft=yaml
+
+mongomapper: #Awesome gem for modeling your domain and storing it in mongo
+  path: ~/Lab/Database/mongomapper
+  repo: git://github.com/jnunemaker/mongomapper.git

@@ -1,0 +1,13 @@
+# vi: ft=yaml
+
+underscore: #Functional Programming Aid for Javascript. Works well with jQuery. 
+  path: ~/Lab/Javascript/underscore
+  repo: git://github.com/documentcloud/underscore.git
+
+express: #Sinatra-like JavaScript web development framework built on node.js -- insanely fast, insanely sexy
+  path: ~/Lab/Javascript/express
+  repo: git://github.com/visionmedia/express.git
+
+jsflay: #Analyze JavaScript code to eradicate duplication
+  path: ~/Lab/Javascript/jsflay
+  repo: git://github.com/brynary/jsflay.git

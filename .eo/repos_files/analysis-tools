@@ -1,0 +1,9 @@
+# vi: ft=yaml
+
+rails-analysis-tools:
+  path: ~/Lab/Analysis/rails-analysis-tools
+  repo: git://github.com/andyjeffries/rails-analysis-tools.git
+
+deadweight-css-coverage-analysis: #CSS coverage tool
+  path: ~/Lab/Analysis/deadweight-css-coverage-analysis
+  repo: git://github.com/aanand/deadweight.git

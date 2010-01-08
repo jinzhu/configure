@@ -54,3 +54,7 @@ rubyqueues:
 delayed_job:
   path: ~/Lab/delayed_job
   repo: git://github.com/tobi/delayed_job.git
+
+bunny: #Another synchronous Ruby AMQP client
+  path: ~/Lab/Queue/bunny
+  repo: git://github.com/celldee/bunny.git

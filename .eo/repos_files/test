@@ -1,14 +1,25 @@
 # vi: ft=yaml
+testswarm: #Distributed continuous integration testing for JavaScript.
+  path: ~/Lab/Test/testwarm
+  repo: git://github.com/jeresig/testswarm.git
+
+culerity: #Culerity integrates Cucumber and Celerity in order to test your application's full stack including Javascript. Your Rails app doesn't have to run in JRuby
+  path: ~/Lab/Test/culerity
+  repo: git://github.com/langalex/culerity.git
 
 watir:
  path: ~/Lab/Test/watir
  repo: git://github.com/bret/watir.git
 
+steam: # Headless integration testing w/ HtmlUnit: enables testing JavaScript-driven web sites
+  path: ~/Lab/Test/steam
+  repo: git://github.com/svenfuchs/steam.git
+
 watir2:
   path: ~/Lab/Test/watir2
   repo: git://github.com/jarib/watir2.git
 
-watchr:
+watchr: # Modern continuous testing (flexible alternative to Autotest)
   path: ~/Lab/Test/watchr
   repo: git://github.com/mynyml/watchr.git
 
@@ -28,6 +39,10 @@ testjour:
   path: ~/Lab/Test/testjour
   repo: git://github.com/brynary/testjour.git
 
-parallel_specs:
+parallel_specs: # Rails: 2 CPUs = 2x Testing Speed for RSpec, Test::Unit and Cucumber
   path: ~/Lab/Test/parallel_specs
   repo: git://github.com/grosser/parallel_specs.git
+
+tickle: #Run your tests in parallel processes
+  path: ~/Lab/Test/tickle
+  repo: git://github.com/lifo/tickle.git

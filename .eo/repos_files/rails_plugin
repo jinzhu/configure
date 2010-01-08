@@ -1,0 +1,21 @@
+# vi: ft=yaml
+
+validates_captcha:
+  path: ~/Lab/RailsPlugin/validates_captcha
+  repo: git://github.com/m4n/validates_captcha.git
+
+sitemap_generator:
+  path: ~/Lab/RailsPlugin/sitemap_generator
+  repo: git://github.com/adamsalter/sitemap_generator.git
+
+jaxy_file_uploads: #Rails plugin to make ajax file uploads Just Work.
+  path: ~/Lab/RailsPlugin/jaxy_file_uploads
+  repo: git://github.com/adamlogic/jaxy_file_uploads.git
+
+auto-session-timeout: #Provides automatic session timeout in a Rails application
+  path: ~/Lab/RailsPlugin/auto-session-timeout
+  repo: git://github.com/pelargir/auto-session-timeout.git
+
+modporter: #Scale your file uploads
+  path: ~/Lab/RailsPlugin/modporter
+  repo: git://github.com/actionrails/modporter.git
