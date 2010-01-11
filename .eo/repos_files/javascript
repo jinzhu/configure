@@ -11,3 +11,7 @@ express: #Sinatra-like JavaScript web development framework built on node.js -- 
 jsflay: #Analyze JavaScript code to eradicate duplication
   path: ~/Lab/Javascript/jsflay
   repo: git://github.com/brynary/jsflay.git
+
+sammy:
+  path: ~/Lab/Javascript/sammy/
+  repo: git://github.com/quirkey/sammy.git
