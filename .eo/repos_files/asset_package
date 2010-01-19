@@ -1,7 +1,7 @@
 # vi: ft=yaml
 
 jammit:
-  path ~/Lab/Package/jammit
+  path: ~/Lab/Package/jammit
   repo: git://github.com/documentcloud/jammit.git
 
 asset-trip: #Rails asset bundling plugin that will expand your mind
