@@ -4,6 +4,10 @@ underscore: #Functional Programming Aid for Javascript. Works well with jQuery.
   path: ~/Lab/Javascript/underscore
   repo: git://github.com/documentcloud/underscore.git
 
+node: #evented I/O for v8 javascript
+  path: ~/Lab/node
+  repo: git://github.com/ry/node.git
+
 express: #Sinatra-like JavaScript web development framework built on node.js -- insanely fast, insanely sexy
   path: ~/Lab/Javascript/express
   repo: git://github.com/visionmedia/express.git
