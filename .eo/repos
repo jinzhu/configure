@@ -2,6 +2,21 @@
 # Eo - Install : sudo gem install easyoperate
 
 ############################################################
+## OAuth
+############################################################
+OAuth:
+  path: ~/Lab/OAuth
+  repo: git://github.com/mojodna/oauth.git
+
+OAuth-Proxy:
+  path: ~/Lab/OAuth-Proxy
+  repo: git://github.com/mojodna/oauth-proxy.git
+
+OAuth-Provider:
+  path: ~/Lab/OAuth-Provider
+  repo: git://github.com/mojodna/sample-oauth-provider.git
+
+############################################################
 ## Performance
 ############################################################
 unicorn:
