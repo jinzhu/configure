@@ -11,4 +11,4 @@ rubygems:
  autorun: 'cd /usr/lib/ruby/gems/1.8/specifications/; sudo rm dm-*0.10.*' # remove datamapper 0.10.* series
  cmd:
    init: system('sudo gem install $(cat ~/GIT/configure/gemlist)')
-   update: system('sudo gem update; cd /usr/lib/ruby/gems/1.8/specifications/; sudo rm dm-*0.10.*')
+   update: system('sudo gem update')
