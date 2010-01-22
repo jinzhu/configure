@@ -1,6 +1,6 @@
-# #!/usr/bin/ruby
+# #!/usr/bin/env ruby
 snippet #!
-	#!/usr/bin/ruby
+	#!/usr/bin/env ruby
 
 # New Block
 snippet =b
@@ -29,10 +29,6 @@ snippet when
 snippet def
 	def ${1:method_name}
 		${2}
-	end
-snippet defi
-	def initialize
-		${1}
 	end
 snippet deft
 	def test_${1:case_name}
@@ -283,15 +279,15 @@ snippet sub
 snippet sca
 	scan(${1:/pattern/}) { |${2:match}| ${3} }
 snippet max
-	max { |a, b|, ${1} }
+	max { |a, b| ${1} }
 snippet min
-	min { |a, b|, ${1} }
+	min { |a, b| ${1} }
 snippet par
-	partition { |${1:e}|, ${2} }
+	partition { |${1:e}| ${2} }
 snippet rej
-	reject { |${1:e}|, ${2} }
+	reject { |${1:e}| ${2} }
 snippet sel
-	select { |${1:e}|, ${2} }
+	select { |${1:e}| ${2} }
 snippet lam
 	lambda { |${1:args}| ${2} }
 snippet do
