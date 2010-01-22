@@ -1,5 +1,5 @@
 " autoload/rails.vim
-" Author:       Tim Pope <vimNOSPAM@tpope.info>
+" Author:       Tim Pope <vimNOSPAM@tpope.org>
 
 " Install this file as autoload/rails.vim.  This file is sourced manually by
 " plugin/rails.vim.  It is in autoload directory to allow for future usage of
@@ -13,7 +13,7 @@
 if &cp || exists("g:autoloaded_rails")
   finish
 endif
-let g:autoloaded_rails = '4.0'
+let g:autoloaded_rails = '4.1'
 
 let s:cpo_save = &cpo
 set cpo&vim
@@ -1210,11 +1210,11 @@ function! s:readable_default_rake_task(lnum) dict abort
     endif
   elseif t =~ '^spec\>'
     if self.name() =~# '\<spec/spec_helper\.rb$'
-      return 'spec SPEC_OPTS='
+      return 'spec'
     elseif lnum > 0
-      return 'spec SPEC="%:p" SPEC_OPTS=--line='.lnum
+      return 'spec SPEC="%:p":'.lnum
     else
-      return 'spec SPEC="%:p" SPEC_OPTS='
+      return 'spec SPEC="%:p"'
     endif
   elseif t =~ '^test\>'
     let meth = self.last_method(lnum)
@@ -1734,7 +1734,7 @@ function! s:Edit(count,cmd,...)
 endfunction
 
 function! s:fuzzyglob(arg)
-  return '*'.s:gsub(s:gsub(a:arg,'[^/]','[&]*'),'/','/*')
+  return s:gsub(s:gsub(a:arg,'[^/.]','[&]*'),'%(/|^)\.@!|\.','&*')
 endfunction
 
 function! s:Complete_find(ArgLead, CmdLine, CursorPos)
@@ -3402,7 +3402,7 @@ function! s:helpermethods()
         \."number_to_currency number_to_human_size number_to_percentage number_to_phone number_with_delimiter number_with_precision "
         \."observe_field observe_form option_groups_from_collection_for_select options_for_select options_from_collection_for_select "
         \."partial_path password_field password_field_tag path_to_image path_to_javascript path_to_stylesheet periodically_call_remote pluralize "
-        \."radio_button radio_button_tag remote_form_for remote_function reset_cycle "
+        \."radio_button radio_button_tag raw remote_form_for remote_function reset_cycle "
         \."sanitize sanitize_css select select_date select_datetime select_day select_hour select_minute select_month select_second select_tag select_time select_year simple_format sortable_element sortable_element_js strip_links strip_tags stylesheet_link_tag stylesheet_path submit_tag submit_to_remote "
         \."t tag text_area text_area_tag text_field text_field_tag textilize textilize_without_paragraph time_ago_in_words time_select time_zone_options_for_select time_zone_select translate truncate "
         \."update_page update_page_tag url_for "
@@ -4505,7 +4505,8 @@ function! s:SetBasePath()
     return
   endif
   let transformed_path = s:pathsplit(s:pathjoin([self.app().path()]))[0]
-  let old_path = s:pathsplit(s:sub(self.getvar('&path'),'^\.,=',''))
+  let add_dot = self.getvar('&path') =~# '^\.\%(,\|$\)'
+  let old_path = s:pathsplit(s:sub(self.getvar('&path'),'^\.%(,|$)',''))
   call filter(old_path,'!s:startswith(v:val,transformed_path)')
 
   let path = ['app', 'app/models', 'app/controllers', 'app/helpers', 'config', 'lib', 'app/views']
@@ -4520,7 +4521,7 @@ function! s:SetBasePath()
   endif
   let path += ['app/*', 'vendor', 'vendor/plugins/*/lib', 'vendor/plugins/*/test', 'vendor/rails/*/lib', 'vendor/rails/*/test']
   call map(path,'self.app().path(v:val)')
-  call self.setvar('&path',s:pathjoin('.',[self.app().path()],path,old_path))
+  call self.setvar('&path',(add_dot ? '.,' : '').s:pathjoin([self.app().path()],path,old_path))
 endfunction
 
 function! s:BufSettings()
@@ -4572,10 +4573,25 @@ function! s:BufSettings()
   elseif ft == 'eruby'
     call self.setvar('&suffixesadd',".".s:gsub(s:view_types,',',',.').",.rb,.css,.js,.html,.yml,.csv")
     if exists("g:loaded_allml")
-      " allml is available on vim.org.
       call self.setvar('allml_stylesheet_link_tag', "<%= stylesheet_link_tag '\r' %>")
       call self.setvar('allml_javascript_include_tag', "<%= javascript_include_tag '\r' %>")
       call self.setvar('allml_doctype_index', 10)
+    endif
+    if exists("g:loaded_ragtag")
+      call self.setvar('ragtag_stylesheet_link_tag', "<%= stylesheet_link_tag '\r' %>")
+      call self.setvar('ragtag_javascript_include_tag', "<%= javascript_include_tag '\r' %>")
+      call self.setvar('ragtag_doctype_index', 10)
+    endif
+  elseif ft == 'haml'
+    if exists("g:loaded_allml")
+      call self.setvar('allml_stylesheet_link_tag', "= stylesheet_link_tag '\r'")
+      call self.setvar('allml_javascript_include_tag', "= javascript_include_tag '\r'")
+      call self.setvar('allml_doctype_index', 10)
+    endif
+    if exists("g:loaded_ragtag")
+      call self.setvar('ragtag_stylesheet_link_tag', "= stylesheet_link_tag '\r'")
+      call self.setvar('ragtag_javascript_include_tag', "= javascript_include_tag '\r'")
+      call self.setvar('ragtag_doctype_index', 10)
     endif
   endif
   if ft == 'eruby' || ft == 'yaml'
