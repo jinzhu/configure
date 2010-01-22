@@ -1,1 +1,0 @@
-/home/mvp/Lab/merb.vim/syntax/merb_router.vim
