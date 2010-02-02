@@ -1,6 +1,6 @@
 " abolish.vim - Language friendly searches, substitutions, and abbreviations
-" Maintainer:   Tim Pope
-" Last Change:  2008 Sep 10
+" Maintainer:   Tim Pope <vimNOSPAM@tpope.org>
+" Version:      1.0
 
 " Install this file as plugin/abolish.vim.  See doc/abolish.txt for details.
 " To access it from Vim, see :help add-local-help (hint: :helptags ~/.vim/doc)
@@ -142,7 +142,7 @@ function! s:uppercase(word)
 endfunction
 
 function! s:dashcase(word)
-    return substitute(s:snakecase(a:word),'_','-','')
+    return substitute(s:snakecase(a:word),'_','-','g')
 endfunction
 
 call extend(Abolish, {
