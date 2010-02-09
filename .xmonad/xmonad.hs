@@ -76,7 +76,7 @@ main = do
 		, ((mod4Mask, xK_c), kill)
 		, ((mod4Mask, xK_F1), xmonadPrompt defaultXPConfig)
 		, ((mod4Mask, xK_F2), shellPrompt defaultXPConfig)
-		, ((mod4Mask, xK_F3), appendFilePrompt defaultXPConfig "/home/mvp/TODO")
+		, ((mod4Mask, xK_F3), appendFilePrompt defaultXPConfig "/home/jinzhu/TODO")
 		, ((mod4Mask, xK_F4), spawn "xscreensaver-command -lock")
 		, ((mod4Mask .|. shiftMask, xK_f), shiftTo Next EmptyWS)
 		, ((mod4Mask .|. controlMask .|. shiftMask, xK_s), spawn "sudo pm-suspend")
