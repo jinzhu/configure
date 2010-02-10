@@ -23,3 +23,11 @@
     m:0x0 + c:160
 "amixer sset Master unmute"
     m:0x4 + c:160
+"amixer sset Master 2- unmute"
+    XF86AudioLowerVolume
+"amixer sset Master 2+ unmute"
+    XF86AudioRaiseVolume
+"amixer sset Master mute"
+    XF86AudioMute
+"amixer sset Master unmute"
+    XF86WakeUp
