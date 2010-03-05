@@ -16,11 +16,7 @@ export GOBIN=$HOME/go/bin
 export GREP_OPTIONS='--color=auto'
 
 export HAXE_LIBRARY_PATH=/opt/haxe/std:.
-export EC2_HOME=~/.ec2
-export PATH=$PATH:$EC2_HOME/bin
-export EC2_PRIVATE_KEY=pk-theplant.pem
-export EC2_CERT=cert-theplant.pem
-export JAVA_HOME=/opt/java
+source ~/.ec2/rc
 
 export LC_CTYPE=zh_CN.utf8
 export GTK_IM_MODULE=xim
