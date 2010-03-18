@@ -819,6 +819,8 @@ function! s:app_background_script_command(cmd) dict abort
     endif
   elseif exists("$STY") && !has("gui_running") && screen && executable("screen")
     silent exe "!screen -ln -fn -t ".s:sub(s:sub(a:cmd,'\s.*',''),'^%(script|-rcommand)/','rails-').' '.cmd
+  elseif exists("$TMUX") && !has("gui_running") && screen && executable("tmux")
+    silent exe '!tmux new-window -d -n "'.s:sub(s:sub(a:cmd,'\s.*',''),'^%(script|-rcommand)/','rails-').'" "'.cmd.'"'
   else
     exe "!".cmd
   endif
@@ -1089,7 +1091,8 @@ let s:efm_backtrace='%D(in\ %f),'
       \.'%\\s#{RAILS_ROOT}/%f:%l:\ %#%m,'
       \.'%\\s%#[%f:%l:\ %#%m,'
       \.'%\\s%#%f:%l:\ %#%m,'
-      \.'%\\s%#%f:%l:'
+      \.'%\\s%#%f:%l:,'
+      \.'%m\ [%f:%l]:'
 
 function! s:makewithruby(arg,bang,...)
   let old_make = &makeprg
@@ -1500,7 +1503,7 @@ function! s:app_server_command(bang,arg) dict
   else
     let screen = g:rails_gnu_screen
   endif
-  if has("win32") || has("win64") || (exists("$STY") && !has("gui_running") && screen && executable("screen"))
+  if has("win32") || has("win64") || (exists("$STY") && !has("gui_running") && screen && executable("screen")) || (exists("$TMUX") && !has("gui_running") && screen && executable("tmux"))
     call self.background_script_command('server '.a:arg)
   else
     " --daemon would be more descriptive but lighttpd does not support it
@@ -2251,6 +2254,7 @@ function! s:functionaltestList(A,L,P)
   endif
   if rails#app().has('spec')
     let found += rails#app().relglob("spec/controllers/","**/*","_spec.rb")
+    let found += rails#app().relglob("spec/mailers/","**/*","_spec.rb")
   endif
   return s:autocamelize(found,a:A)
 endfunction
@@ -2654,21 +2658,21 @@ function! s:functionaltestEdit(cmd,...)
   else
     let cmd = s:findcmdfor(a:cmd)
   endif
-  let mapping = {'test': ['test/functional/','_test.rb'], 'spec': ['spec/controllers/','_spec.rb']}
+  let mapping = {'test': [['test/functional/'],['_test.rb','_controller_test.rb']], 'spec': [['spec/controllers/','spec/mailers/'],['_spec.rb','_controller_spec.rb']]}
   let tests = map(filter(rails#app().test_suites(),'has_key(mapping,v:val)'),'get(mapping,v:val)')
   if empty(tests)
     let tests = [mapping[tests]]
   endif
-  for [prefix, suffix] in tests
-    if rails#app().has_file(prefix.f.suffix)
-      return s:findedit(cmd,prefix.f.suffix.jump)
-    elseif rails#app().has_file(prefix.f.'_controller'.suffix)
-      return s:findedit(cmd,prefix.f.'_controller'.suffix.jump)
-    elseif rails#app().has_file(prefix.f.'_api'.suffix)
-      return s:findedit(cmd,prefix.f.'_api'.suffix.jump)
-    endif
+  for [prefixes, suffixes] in tests
+    for prefix in prefixes
+      for suffix in suffixes
+        if rails#app().has_file(prefix.f.suffix)
+          return s:findedit(cmd,prefix.f.suffix.jump)
+        endif
+      endfor
+    endfor
   endfor
-  return s:EditSimpleRb(a:cmd,"functionaltest",f.jump,tests[0][0],tests[0][1],1)
+  return s:EditSimpleRb(a:cmd,"functionaltest",f.jump,tests[0][0][0],tests[0][1][0],1)
 endfunction
 
 function! s:integrationtestEdit(cmd,...)
@@ -2752,8 +2756,7 @@ function! s:libEdit(cmd,...)
   if a:0
     call s:EditSimpleRb(a:cmd,"lib",a:0? a:1 : "",extra."lib/",".rb")
   else
-    call s:EditSimpleRb(a:cmd,"lib","routes","config/",".rb")
-    call s:warn('Warning: :Rlib with no argument has been deprecated in favor of :Rinitializer')
+    call s:EditSimpleRb(a:cmd,"lib","seeds","db/",".rb")
   endif
 endfunction
 
@@ -3047,9 +3050,11 @@ function! s:readable_related(...) dict abort
       let file .= '_test.rb'
     endif
     if t =~ '^model\>'
-      return s:sub(file,'app/models/','test/unit/')."\n".s:sub(s:sub(file,'_test\.rb$','_spec.rb'),'app/models/','spec/models/')
+      return s:sub(file,'<app/models/','test/unit/')."\n".s:sub(s:sub(file,'_test\.rb$','_spec.rb'),'<app/models/','spec/models/')
     elseif t =~ '^controller\>'
       return s:sub(file,'<app/controllers/','test/functional/')."\n".s:sub(s:sub(file,'_test\.rb$','_spec.rb'),'app/controllers/','spec/controllers/')
+    elseif t =~ '^mailer\>'
+      return s:sub(file,'<app/m%(ailer|odel)s/','test/unit/')."\n".s:sub(s:sub(file,'_test\.rb$','_spec.rb'),'<app/','spec/')
     elseif t =~ '^test-unit\>'
       return s:sub(file,'test/unit/','app/models/')."\n".s:sub(file,'test/unit/','lib/')
     elseif t =~ '^test-functional\>'
@@ -3521,7 +3526,7 @@ function! s:BufSyntax()
         endif
       elseif t=~ '^spec\>'
         syn keyword rubyRailsTestMethod describe context it its specify it_should_behave_like before after subject fixtures controller_name helper_name
-        syn keyword rubyRailsTestMethod violated pending expect mock mock_model stub_model
+        syn keyword rubyRailsTestMethod violated pending expect double mock mock_model stub_model
         syn match rubyRailsTestMethod '\.\@<!\<stub\>!\@!'
         if t !~ '^spec-model\>'
           syn match   rubyRailsTestControllerMethod  '\.\@<!\<\%(get\|post\|put\|delete\|head\|process\|assigns\)\>'
