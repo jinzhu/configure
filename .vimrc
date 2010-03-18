@@ -256,12 +256,36 @@ let g:vimim_disable_search=1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FuzzyFinder.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <C-p>t :FuzzyFinderTextMate<CR>
-map <C-p>] :FuzzyFinderTag <C-R>=expand("<cword>")<CR><CR>
-map <C-p>f :FuzzyFinderFile <C-R>=expand('%:~:.')[:-1-len(expand('%:~:.:t'))]<CR><CR>
-map <C-p>b :FuzzyFinderBuffer <C-R>=expand("<cword>")<CR><CR>
-let g:fuzzy_ignore = "*.log"
-let g:fuzzy_enumerating_limit = 30
+let g:fuf_modesDisable = []
+let g:fuf_abbrevMap = {
+      \   '^vr:' : map(filter(split(&runtimepath, ','), 'v:val !~ "after$"'), 'v:val . ''/**/'''),
+      \   '^m0:' : [ '/mnt/d/0/', '/mnt/j/0/' ],
+      \ }
+let g:fuf_mrufile_maxItem = 300
+let g:fuf_mrucmd_maxItem = 400
+nnoremap <silent> <C-n>      :FufBuffer<CR>
+nnoremap <silent> <C-p>      :FufFileWithCurrentBufferDir<CR>
+nnoremap <silent> <C-f><C-p> :FufFileWithFullCwd<CR>
+nnoremap <silent> <C-f>p     :FufFile<CR>
+nnoremap <silent> <C-f><C-d> :FufDirWithCurrentBufferDir<CR>
+nnoremap <silent> <C-f>d     :FufDirWithFullCwd<CR>
+nnoremap <silent> <C-f>D     :FufDir<CR>
+nnoremap <silent> <C-j>      :FufMruFile<CR>
+nnoremap <silent> <C-k>      :FufMruCmd<CR>
+nnoremap <silent> <C-b>      :FufBookmark<CR>
+nnoremap <silent> <C-f><C-t> :FufTag<CR>
+nnoremap <silent> <C-f>t     :FufTag!<CR>
+noremap  <silent> g]         :FufTagWithCursorWord!<CR>
+nnoremap <silent> <C-f><C-f> :FufTaggedFile<CR>
+nnoremap <silent> <C-f><C-j> :FufJumpList<CR>
+nnoremap <silent> <C-f><C-g> :FufChangeList<CR>
+nnoremap <silent> <C-f><C-q> :FufQuickfix<CR>
+nnoremap <silent> <C-f><C-l> :FufLine<CR>
+nnoremap <silent> <C-f><C-h> :FufHelp<CR>
+nnoremap <silent> <C-f><C-b> :FufAddBookmark<CR>
+vnoremap <silent> <C-f><C-b> :FufAddBookmarkAsSelectedText<CR>
+nnoremap <silent> <C-f><C-e> :FufEditInfo<CR>
+nnoremap <silent> <C-f><C-r> :FufRenewCache<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LaTex
