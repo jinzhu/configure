@@ -157,3 +157,20 @@ else
   git checkout $*
 fi
 }
+
+function cvsdiff () {
+  if [ "$1" != "" ]; then
+    cvs diff $@ | colordiff | less;
+  else
+    cvs diff | colordiff | less;
+  fi
+}
+
+# color diffs for SVN
+function svndiff () {
+  if [ "$1" != "" ]; then
+    svn diff $@ | colordiff | less;
+  else
+    svn diff | colordiff | less;
+  fi
+}
