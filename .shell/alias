@@ -91,8 +91,37 @@ done
 ############################################################
 alias ri='qri'
 
-alias ss='./script/server'
-alias sg="./script/generate"
+function ss {
+  if [ -f 'script/server' ];then
+    script/server
+  else
+    rails server
+  fi
+}
+
+function sg {
+  if [ -f 'script/generate' ];then
+    script/generate
+  else
+    rails generate
+  fi
+}
+
+function sc {
+  if [ -f 'script/console' ];then
+    script/console
+  else
+    rails console
+  fi
+}
+
+function sd {
+  if [ -f 'script/dbconsole' ];then
+    script/dbconsole
+  else
+    rails dbconsole
+  fi
+}
 
 # Autotest
 function as {
@@ -106,8 +135,6 @@ function as {
 }
 
 
-alias sc='./script/console'
-alias sd='./script/dbconsole'
 alias rdm='rake db:migrate'
 alias rdc='rake db:create'
 
