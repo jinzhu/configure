@@ -39,9 +39,9 @@ testjour:
   path: ~/Lab/Test/testjour
   repo: git://github.com/brynary/testjour.git
 
-parallel_specs: # Rails: 2 CPUs = 2x Testing Speed for RSpec, Test::Unit and Cucumber
-  path: ~/Lab/Test/parallel_specs
-  repo: git://github.com/grosser/parallel_specs.git
+parallel_tests: # Rails: 2 CPUs = 2x Testing Speed for RSpec, Test::Unit and Cucumber
+  path: ~/Lab/Test/parallel_tests
+  repo: git://github.com/grosser/parallel_tests.git
 
 tickle: #Run your tests in parallel processes
   path: ~/Lab/Test/tickle
