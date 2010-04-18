@@ -93,33 +93,33 @@ alias ri='qri'
 
 function ss {
   if [ -f 'script/server' ];then
-    script/server
+    script/server $@
   else
-    rails server
+    rails server $@
   fi
 }
 
 function sg {
   if [ -f 'script/generate' ];then
-    script/generate
+    script/generate $@
   else
-    rails generate
+    rails generate $@
   fi
 }
 
 function sc {
   if [ -f 'script/console' ];then
-    script/console
+    script/console $@
   else
-    rails console
+    rails console $@
   fi
 }
 
 function sd {
   if [ -f 'script/dbconsole' ];then
-    script/dbconsole
+    script/dbconsole $@
   else
-    rails dbconsole
+    rails dbconsole $@
   fi
 }
 

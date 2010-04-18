@@ -426,10 +426,26 @@ function! OpenDoc(lang,keyword)
   exec '!'.g:browser.' '.url.' &'
 endfunction
 noremap <leader>rb :call OpenDoc('ruby',expand('<cword>'))<CR>
-noremap <leader>rr :call OpenDoc('rails',expand('<cword>'))<CR>
+" noremap <leader>rr :call OpenDoc('rails',expand('<cword>'))<CR>
 
 
 nn <Space>e  :edit 
 cmap <C-t> <Esc>:tabedit 
 cmap <C-s> <Esc>:sview 
 cmap <C-v> <Esc>:vnew 
+
+
+let g:user_zen_settings = {
+      \  'indentation' : '  ',
+      \  'perl' : {
+      \    'aliases' : {
+      \      'req' : 'require '
+      \    },
+      \    'snippets' : {
+      \      'use' : "use strict\nuse warnings\n\n",
+      \      'warn' : "warn \"|\";",
+      \    }
+      \  }
+      \}
+let g:user_zen_expandabbr_key = '<c-e>'
+let g:use_zen_complete_tag = 1
