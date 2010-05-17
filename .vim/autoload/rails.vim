@@ -594,7 +594,7 @@ function! s:buffer_name() dict abort
   if sep != ""
     let f = getcwd().sep.f
   endif
-  if s:startswith(f,s:gsub(app.path(),'\\ @!','/')) || f == ""
+  if s:startswith(tolower(f),s:gsub(tolower(app.path()),'\\ @!','/')) || f == ""
     return strpart(f,strlen(app.path())+1)
   else
     if !exists("s:path_warn")
@@ -2949,7 +2949,7 @@ function! s:readable_related(...) dict abort
     elseif f =~ '\<config/\%(application\|environment\)\.rb$'
       return "config/routes.rb"
     elseif self.type_name('view-layout')
-      return s:sub(s:sub(s:sub(f,'/views/','/controllers/'),'/layouts/(\k+)\..*$','/\1_controller.rb'),'<application_controller\.rb$','application.rb')
+      return s:sub(s:sub(f,'/views/','/controllers/'),'/layouts/(\k+)\..*$','/\1_controller.rb')
     elseif self.type_name('view')
       let controller  = s:sub(s:sub(f,'/views/','/controllers/'),'/(\k+%(\.\k+)=)\..*$','_controller.rb#\1')
       let controller2 = s:sub(s:sub(f,'/views/','/controllers/'),'/(\k+%(\.\k+)=)\..*$','.rb#\1')

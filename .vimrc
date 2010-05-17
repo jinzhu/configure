@@ -6,7 +6,7 @@ autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html       set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css        set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml        set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+" autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 
 augroup filetypedetect
   au  BufNewFile,BufRead  *.js     setf javascript.jquery
@@ -20,8 +20,8 @@ augroup filetypedetect
   au! BufNewFile,BufRead  *.feature set filetype=cucumber
 augroup END
 
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+" autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+" autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 " autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
 autocmd BufNewFile,BufRead *_spec.rb source ~/.vim/ftplugin/rails/rspec.vim

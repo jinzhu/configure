@@ -5,6 +5,7 @@
 
 CDPATH=".:~:/Juice:/Juice/Project"
 PATH="$HOME/.flex_sdk/bin/:$PATH:/usr/local/bin/:/usr/local/sbin/:$HOME/go/bin:/usr/share/java/apache-ant/bin/"
+QOR_ROOT="/home/jinzhu/GIT/qor/"
 
 # go lang
 export GOROOT=$HOME/go
@@ -24,3 +25,4 @@ export QT_IM_MODULE=xim
 export XMODIFIERS="@im=fcitx"
 
 export EDITOR="vim"
+export QOR_ROOT="/home/jinzhu/GIT/qor/"
