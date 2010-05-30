@@ -20,6 +20,17 @@ augroup filetypedetect
   au! BufNewFile,BufRead  *.feature set filetype=cucumber
 augroup END
 
+if has("autocmd")
+  " Enable filetype detection
+  filetype plugin indent on
+ 
+  " Restore cursor position
+  autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+endif
+
 " autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 " autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 " autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
