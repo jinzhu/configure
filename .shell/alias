@@ -54,9 +54,17 @@ function t {
   rtranslate -t $@
 }
 
-alias ls='ls --color=auto'
-alias ll='ls -l --color=auto'
-alias la='ls -A --color=auto'
+uname | grep 'Darwin' > /dev/null
+if [[ $? -eq 0 ]] ; then
+  alias ls='ls -G'
+  alias ll='ls -l -G'
+  alias la='ls -A -G'
+else
+  alias ls='ls --color=auto'
+  alias ll='ls -l --color=auto'
+  alias la='ls -A --color=auto'
+fi
+
 alias x='exit'
 
 # GEM

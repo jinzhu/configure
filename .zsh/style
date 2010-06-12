@@ -22,7 +22,6 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*:*:default' force-list always
 
 #彩色补全菜单
-eval $(dircolors -b)
 export ZLSCOLORS="${LS_COLORS}"
 zmodload zsh/complist
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
