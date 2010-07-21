@@ -1,6 +1,7 @@
 " Vim indent file
 " Language:		eRuby
 " Maintainer:		Tim Pope <vimNOSPAM@tpope.org>
+" Last Change:		2010 May 28
 " URL:			http://vim-ruby.rubyforge.org
 " Anon CVS:		See above site
 " Release Coordinator:	Doug Kearns <dougkearns@gmail.com>
@@ -60,7 +61,7 @@ function! GetErubyIndent(...)
   if cline =~# '^\s*<%-\=\s*\%(}\|end\|else\|\%(ensure\|rescue\|elsif\|when\).\{-\}\)\s*\%(-\=%>\|$\)'
     let ind = ind - &sw
   endif
-  if line =~# '\S\s*<%-\=\s*\%(}\|end\).\{-\}\)\s*\%(-\=%>\|$\)'
+  if line =~# '\S\s*<%-\=\s*\%(}\|end\).\{-\}\s*\%(-\=%>\|$\)'
     let ind = ind - &sw
   endif
   if line =~# '\%({\|\<do\)\%(\s*|[^|]*|\)\=\s*-\=%>'

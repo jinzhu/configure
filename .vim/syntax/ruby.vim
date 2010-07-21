@@ -1,6 +1,7 @@
 " Vim syntax file
 " Language:		Ruby
 " Maintainer:		Doug Kearns <dougkearns@gmail.com>
+" Last Change:		2009 Dec 2
 " URL:			http://vim-ruby.rubyforge.org
 " Anon CVS:		See above site
 " Release Coordinator:	Doug Kearns <dougkearns@gmail.com>
@@ -34,6 +35,21 @@ if exists("ruby_operators")
   syn match  rubyOperator	 "\%([~!^&|*/%+-]\|\%(class\s*\)\@<!<<\|<=>\|<=\|\%(<\|\<class\s\+\u\w*\s*\)\@<!<[^<]\@=\|===\|==\|=\~\|>>\|>=\|=\@<!>\|\*\*\|\.\.\.\|\.\.\|::\)"
   syn match  rubyPseudoOperator  "\%(-=\|/=\|\*\*=\|\*=\|&&=\|&=\|&&\|||=\||=\|||\|%=\|+=\|!\~\|!=\)"
   syn region rubyBracketOperator matchgroup=rubyOperator start="\%(\w[?!]\=\|[]})]\)\@<=\[\s*" end="\s*]" contains=ALLBUT,@rubyNotTop
+endif
+
+" Special Methods
+if !exists("ruby_no_special_methods")
+  syn keyword rubyAccess    public protected private module_function
+  " attr is a common variable name
+  syn match   rubyAttribute "\%(\%(^\|;\)\s*\)\@<=attr\>\(\s*[.=]\)\@!"
+  syn keyword rubyAttribute attr_accessor attr_reader attr_writer
+  syn match   rubyControl   "\<\%(exit!\|\%(abort\|at_exit\|exit\|fork\|loop\|trap\)\>[?!]\@!\)"
+  syn keyword rubyEval	    eval class_eval instance_eval module_eval
+  syn keyword rubyException raise fail catch throw
+  " false positive with 'include?'
+  syn match   rubyInclude   "\<include\>[?!]\@!"
+  syn keyword rubyInclude   autoload extend load require
+  syn keyword rubyKeyword   callcc caller lambda proc
 endif
 
 " Expression Substitution and Backslash Notation
@@ -248,21 +264,6 @@ else
   syn match rubyControl "\<module\>[?!]\@!" nextgroup=rubyModuleDeclaration skipwhite skipnl
   syn match rubyControl "\<\%(case\|begin\|do\|for\|if\|unless\|while\|until\|else\|elsif\|ensure\|then\|when\|end\)\>[?!]\@!"
   syn match rubyKeyword "\<\%(alias\|undef\)\>[?!]\@!"
-endif
-
-" Special Methods
-if !exists("ruby_no_special_methods")
-  syn keyword rubyAccess    public protected private module_function
-  " attr is a common variable name
-  syn match   rubyAttribute "\%(\%(^\|;\)\s*\)\@<=attr\>\(\s*[.=]\)\@!"
-  syn keyword rubyAttribute attr_accessor attr_reader attr_writer
-  syn match   rubyControl   "\<\%(exit!\|\%(abort\|at_exit\|exit\|fork\|loop\|trap\)\>[?!]\@!\)"
-  syn keyword rubyEval	    eval class_eval instance_eval module_eval
-  syn keyword rubyException raise fail catch throw
-  " false positive with 'include?'
-  syn match   rubyInclude   "\<include\>[?!]\@!"
-  syn keyword rubyInclude   autoload extend load require
-  syn keyword rubyKeyword   callcc caller lambda proc
 endif
 
 " Comments and Documentation
