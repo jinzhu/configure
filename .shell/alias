@@ -1,4 +1,4 @@
-if [[ -s /home/jinzhu/.rvm/scripts/rvm ]] ; then source /home/jinzhu/.rvm/scripts/rvm ; fi
+# if [[ -s /home/jinzhu/.rvm/scripts/rvm ]] ; then source /home/jinzhu/.rvm/scripts/rvm ; fi
 
 ############################################################
 # Pakage Management

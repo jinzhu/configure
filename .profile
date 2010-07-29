@@ -2,6 +2,8 @@
 # runs your .bashrc and is recommended by the bash info pages.
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
+synergys &
+
 export LESS_TERMCAP_mb=$'\E[01;33m'
 export LESS_TERMCAP_md=$'\E[01;33m'
 export LESS_TERMCAP_me=$'\E[0m'

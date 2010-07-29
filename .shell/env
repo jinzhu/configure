@@ -2,7 +2,7 @@
 # [ -f ~/.dir_colors ]      && eval   $(dircolors -b ~/.dir_colors)
 
 [ -f ~/.amazon_keys ]     && source ~/.amazon_keys
-[ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm
+# [ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm
 
 CDPATH=".:~:/Juice:/Juice/Project"
 PATH="/opt/local/bin:$HOME/.flex_sdk/bin/:$PATH:/usr/local/bin/:/usr/local/sbin/:$HOME/go/bin:/usr/share/java/apache-ant/bin/"
