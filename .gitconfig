@@ -3,6 +3,8 @@
   name  = Jinzhu
 [theplant]
   name = Juice
+[github]
+  user = jinzhu
 [color]
   ui = auto
 [apply]
