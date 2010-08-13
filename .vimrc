@@ -18,7 +18,7 @@ augroup filetypedetect
   au  BufNewFile,BufRead  *.mxml   setf mxml
   au  BufNewFile,BufRead  *.as     setf actionscript
   au! BufNewFile,BufRead  *.feature set filetype=cucumber
-  au! BufNewFile,BufRead  *.table set filetype=testingmachine
+  au! BufNewFile,BufRead  *.table set filetype=ruby.testingmachine
 augroup END
 
 if has("autocmd")
