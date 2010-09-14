@@ -18,7 +18,7 @@ export GOBIN=$HOME/go/bin
 export GREP_OPTIONS='--color=auto'
 
 export HAXE_LIBRARY_PATH=/opt/haxe/std:.
-source ~/.ec2/rc
+[ -f ~/.ec2/rc ] && source ~/.ec2/rc
 
 export LC_CTYPE=zh_CN.utf8
 export GTK_IM_MODULE=xim
