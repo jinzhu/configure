@@ -31,7 +31,8 @@ layoutHook' = avoidStruts (windowNavigation (ResizableTall 1 (3/100) (1/2) []) |
 
 
 myManageHook = composeAll
-    [ className =? "Gimp"      --> doCenterFloat
+    [
+    className =? "Gimp"      --> doF (W.shift "dev")
     -- Browser
     , className =? "Shiretoko" --> doF (W.shift "dev") -- Firefox 3.5 On Arch
     , className =? "Gran Paradiso" --> doF (W.shift "dev") -- Firefox On Arch
@@ -45,6 +46,7 @@ myManageHook = composeAll
     , className =? "MPlayer" --> doF (W.shift "mov")
     -- IM
     , className =? "Pidgin" --> doF (W.shift "im")
+    , className =? "Skype" --> doF (W.shift "im")
     , className =? "Xchat" --> doF (W.shift "im")
     ]
 
