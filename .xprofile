@@ -1,4 +1,5 @@
 #!/bin/sh
 xbindkeys &
 
-fcitx &
+#fcitx &
+ibus-daemon -drx
