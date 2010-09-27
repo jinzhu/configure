@@ -34,9 +34,10 @@ myManageHook = composeAll
     [
     className =? "Gimp"      --> doF (W.shift "dev")
     -- Browser
-    , className =? "Shiretoko" --> doF (W.shift "dev") -- Firefox 3.5 On Arch
-    , className =? "Gran Paradiso" --> doF (W.shift "dev") -- Firefox On Arch
-    , className =? "Firefox" --> doF (W.shift "dev")
+    , className =? "Chromium" --> doF (W.shift "dev") -- Chrome
+    , className =? "Shiretoko" --> doF (W.shift "www") -- Firefox 3.5 On Arch
+    , className =? "Firefox" --> doF (W.shift "www")
+    , className =? "Gran Paradiso" --> doF (W.shift "www") -- Firefox On Arch
     , className =? "Opera" --> doF (W.shift "www")
     -- DOC
     , className =? "Evince" --> doF (W.shift "doc")
