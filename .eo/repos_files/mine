@@ -19,11 +19,6 @@ yac:
   repo: git@github.com:jinzhu/yac.git
   pushable: true
 
-blog:
-  path: ~/GIT/web/
-  repo: git@github.com:jinzhu/blog.git
-  pushable: true
-
 acts_as_tagtree:
   path: ~/GIT/item/vendor/plugins/acts_as_tagtree
   repo: git@github.com:jinzhu/acts_as_tagtree.git
@@ -69,19 +64,9 @@ cacheAjax:
   repo: git@github.com:jinzhu/cacheAjax.git
   pushable: true
 
-js_template:
-  path: ~/GIT/js_template/
-  repo: git@github.com:jinzhu/js_template.git
-  pushable: true
-
-JavascriptAutolink:
-  path: ~/GIT/JavascriptAutolink/
-  repo: git@github.com:jinzhu/JavascriptAutolink.git
-  pushable: true
-
-IRCBot:
-  path: ~/GIT/lingdao/
-  repo: jan@ci.theplant.jp:repos/lingdao.git
+jslib:
+  path: ~/GIT/jslib
+  repo: git@github.com:jinzhu/jslib.git
   pushable: true
 
 Vrome:
@@ -89,32 +74,22 @@ Vrome:
   repo: git@github.com:jinzhu/vrome.git
   pushable: true
 
-autorun:
-  path: ~/GIT/autorun
-  repo: git@github.com:jinzhu/autorun.git
-  pushable: true
-
 newplugin:
   path: ~/GIT/newplugin/
   repo: git@github.com:jinzhu/newplugin.git
   pushable: true
 
-mysite:
-  path: ~/GIT/mysite
-  repo: git@codaset.com:jinzhu/mysite.git
+backupit:
+  path: ~/GIT/backupit/
+  repo: git@github.com:jinzhu/backupit.git
   pushable: true
 
-chrome-ext-gen:
-  path: ~/GIT/chrome-ext-gen
-  repo: git@codaset.com:jinzhu/chrome-ext-gen.git
+acts_as_param:
+  path: ~/GIT/acts_as_param/
+  repo: git@github.com:jinzhu/acts_as_param.git
   pushable: true
 
-Zadmin:
-  path: ~/GIT/zadmin
-  repo: git@codaset.com:jinzhu/zadmin.git
-  pushable: true
-
-webTester:
-  path: ~/GIT/webTester
-  repo: git@codaset.com:jinzhu/webtester.git
+testingmachine:
+  path: ~/GIT/testingmachine/
+  repo: git@github.com:jinzhu/testingmachine.git
   pushable: true
