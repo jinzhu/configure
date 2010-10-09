@@ -39,6 +39,12 @@ endif
 autocmd BufNewFile,BufRead *_spec.rb source ~/.vim/ftplugin/rails/rspec.vim
 autocmd BufNewFile,BufRead *_test.rb source ~/.vim/ftplugin/rails/shoulda.vim
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Calendar.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:calendar_datetime = 'statusline'
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set lz                     " Don't redraw screen during macros
 set tf                     " Improves redrawing for newer computers
