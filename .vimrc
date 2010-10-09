@@ -44,6 +44,8 @@ autocmd BufNewFile,BufRead *_test.rb source ~/.vim/ftplugin/rails/shoulda.vim
 "" Calendar.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:calendar_datetime = 'statusline'
+let g:calendar_diary = '~/diary'
+let g:calendar_list = [{'name': 'Diary', 'path': g:calendar_diary, 'ext': 'mkd'}]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set lz                     " Don't redraw screen during macros
@@ -467,3 +469,30 @@ let g:user_zen_settings = {
       \}
 let g:user_zen_expandabbr_key = '<c-e>'
 let g:use_zen_complete_tag = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Delete current file
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! DeleteFile(...)
+  if(exists('a:1'))
+    let theFile=a:1
+  elseif ( &ft == 'help' )
+    echohl Error
+    echo "Cannot delete a help buffer!"
+    echohl None
+    return -1
+  else
+    let theFile=expand('%:p')
+  endif
+  let delStatus=delete(theFile)
+  if(delStatus == 0)
+    echo "Deleted " . theFile
+  else
+    echohl WarningMsg
+    echo "Failed to delete " . theFile
+    echohl None
+  endif
+  return delStatus
+endfunction
+"delete the current file
+com! RmCurrent call DeleteFile()
