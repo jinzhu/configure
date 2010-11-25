@@ -1,10 +1,10 @@
 #root:
 main:
-  clone-from: git://github.com/wosmvp/cheat.git
+  clone-from: git://github.com/jinzhu/cheat.git
 # push-to:
 private:
-  clone-from: git@github.com:wosmvp/mycheat.git
-  push-to: git@github.com:wosmvp/mycheat.git
+  clone-from: git@github.com:jinzhu/mycheat.git
+  push-to: git@github.com:jinzhu/mycheat.git
 
 
 editor:  vim
