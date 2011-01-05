@@ -1,5 +1,30 @@
 # vi: ft=yaml
 
+lacoste:
+  path: ~/GIT/lacoste/
+  repo: git@github.com:anatole/lacoste.git
+  pushable: true
+
+theplanttools:
+  path: ~/GIT/theplantools/
+  repo: git@github.com:anatole/theplantools.git
+  pushable: true
+
+asics2:
+  path: ~/GIT/asics2
+  repo: git@github.com:anatole/asics2.git
+  pushable: true
+
+myasics:
+  path: ~/GIT/myasics/
+  repo: git@github.com:anatole/myasics.git
+  pushable: true
+
+onitsukatiger:
+  path: ~/GIT/onitsukatiger
+  repo: git@github.com:anatole/onitsukatiger.git
+  pushable: true
+
 piqshare:
   path: ~/GIT/piqshare/
   repo: git@github.com:anatole/piqshare.git
@@ -13,11 +38,6 @@ joblet:
 asics:
   path: ~/GIT/asics/
   repo: git@github.com:anatole/asics.git
-  pushable: true
-
-QorCMS:
-  path: ~/GIT/QorCMS/
-  repo: git@github.com:anatole/QorCMS.git
   pushable: true
 
 tis:
