@@ -1,104 +1,15 @@
 #!/usr/bin/env ruby
 
-# require 'redgreen'
-# require 'redgreen/autotest'
-require 'autotest/restart'
-require 'autotest/timestamp'
-require 'rnotify'
-require 'gtk2'
+require "rubygems"
+require "redgreen"
+require "redgreen/testunit"
+require "autotest/timestamp"
+require "autotest/restart"
+require "test_notifier/runner/autotest"
 
-module Autotest::RNotify
-  class Notification
-    attr_accessor :image_root, :tray_icon, :notification,
-      :image_pass, :image_pending, :image_fail
 
-    def initialize(timeout = 5000)
-      Notify.init('Autotest') || raise('Failed to initialize Notify')
-
-      self.image_root = "#{ENV['HOME']}/.autotest_images"
-      self.tray_icon = Gtk::StatusIcon.new
-      tray_icon.icon_name = 'face-monkey'
-      tray_icon.tooltip = 'Autotest'
-      self.notification = Notify::Notification.new('X', nil, nil, tray_icon)
-      notification.timeout = timeout
-
-      Thread.new { Gtk.main }
-      sleep 1
-      tray_icon.embedded? || raise('Failed to set up tray icon')
-    end
-
-    def notify(icon, tray, title, message)
-      notification.update(title, message, nil)
-      notification.pixbuf_icon = icon
-      tray_icon.tooltip = "Last Result: #{message}"
-      tray_icon.icon_name = tray
-      notification.show
-    end
-
-    def passed(title, message)
-      self.image_pass ||= Gdk::Pixbuf.new("#{image_root}/pass.png", 48,48)
-      `aplay ~/.autotest_images/pass.ogg -af volume=0 &>/dev/null`
-      notify(image_pass, 'face-smile', title, message)
-    end
-
-    def pending(title, message)
-      self.image_pending ||= Gdk::Pixbuf.new("#{image_root}/pending.png",48,48)
-      `aplay ~/.autotest_images/pending.wav -af volume=-20 &>/dev/null`
-      notify(image_pending, 'face-plain', title, message)
-    end
-
-    def failed(title, message)
-      self.image_fail ||= Gdk::Pixbuf.new("#{image_root}/fail.png", 48,48)
-      `aplay ~/.autotest_images/fail.wav -af volume=0 &>/dev/null`
-      notify(image_fail, 'face-sad', title, message)
-    end
-
-    def quit
-      Gtk.main_quit
-    end
-  end
-
-  Autotest.add_hook :initialize do |at|
-    @notify = Notification.new
-    at.unit_diff = 'cat'
-  end
-
-  Autotest.add_hook :ran_command do |at|
-    File.open('/tmp/autotest.txt', 'wb') { |f| f.write(at.results.join) }
-
-    results = at.results.last
-
-    if results
-      if results.include? 'tests'
-        # Test::Unit
-        output = results[/(\d+)\s+tests?,\s*(\d+)\s+assertions?,\s*(\d+)\s+failures?(,\s*(\d+)\s+errors)?/]
-
-        tests,failures = $1.to_i, $3.to_i + $5.to_i if output
-      else
-        # RSpec
-        output = results[/(\d+)\s+examples?,\s*(\d+)\s+failures?(,\s*(\d+)\s+pending)?/]
-        tests,failures,pending = $1.to_i , $2.to_i , $4.to_i if output
-      end
-    end
-
-    if    failures && failures > 0
-      @notify.failed("Tests Failed", output)
-    elsif pending  && pending  > 0
-      @notify.pending("Tests Pending", output)
-    elsif tests
-      @notify.passed( at.tainted ? "All":"" + "Tests Passed", output)
-    else  #Error
-      @notify.failed("Syntax Error", output)
-    end
-  end
-
-  Autotest.add_hook :quit do |at|
-    @notify.quit
-  end
-
-  Autotest.add_hook :run do |autotest|
-    autotest.add_exception(/^\.\/vendor/)
-    autotest.add_exception(/\.svn/)
-    autotest.add_exception(/\.git/)
+Autotest.add_hook :initialize do |autotest|
+  %w{.git .svn .hg .DS_Store ._* vendor tmp log doc}.each do |exception|
+    autotest.add_exception(exception)
   end
 end
