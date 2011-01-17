@@ -7,7 +7,7 @@
 CDPATH=".:~"
 PATH="/home/jinzhu/bin:/opt/local/bin:$HOME/.flex_sdk/bin/:$PATH:/usr/local/bin/:/usr/local/sbin/:$HOME/go/bin:/usr/share/java/apache-ant/bin/:/usr/local/apache/bin/:/home/jinzhu/Dropbox/decompile_apk/bin"
 QOR_ROOT="~/GIT/qor/"
-CLOSURE_HOME="/home/jinzhu/Lab/closure-library/closure"
+CLOSURE_HOME="/home/jinzhu/Lab/closure-library"
 
 # go lang
 export GOROOT=$HOME/go
