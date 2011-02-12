@@ -1,11 +1,12 @@
 #!/usr/bin/env ruby
 
 require "rubygems"
+# test_notifier
+require "test_notifier/runner/autotest"
 require "redgreen"
 require "redgreen/testunit"
 require "autotest/timestamp"
 require "autotest/restart"
-require "test_notifier/runner/autotest"
 
 
 Autotest.add_hook :initialize do |autotest|
