@@ -5,7 +5,7 @@
 [ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm
 
 CDPATH=".:~"
-PATH="/home/jinzhu/bin:/opt/local/bin:$HOME/.flex_sdk/bin/:$PATH:/usr/local/bin/:/usr/local/sbin/:$HOME/go/bin:/usr/share/java/apache-ant/bin/:/usr/local/apache/bin/:/home/jinzhu/Dropbox/decompile_apk/bin"
+PATH="/home/jinzhu/bin:/opt/local/bin:$HOME/.flex_sdk/bin/:$PATH:/usr/local/bin/:/usr/local/sbin/:$HOME/go/bin:/usr/share/java/apache-ant/bin/:/usr/local/apache/bin/:/home/jinzhu/Dropbox/decompile_apk/bin:/opt/java/bin"
 QOR_ROOT="~/GIT/qor/"
 CLOSURE_HOME="/home/jinzhu/Lab/closure-library"
 
@@ -19,6 +19,7 @@ export GOBIN=$HOME/go/bin
 export GREP_OPTIONS='--color=auto'
 
 export HAXE_LIBRARY_PATH=/opt/haxe/std:.
+export JAVA_HOME=/opt/java
 [ -f ~/.ec2/rc ] && source ~/.ec2/rc
 
 export LC_CTYPE=zh_CN.utf8
