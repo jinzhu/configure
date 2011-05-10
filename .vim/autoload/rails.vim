@@ -358,8 +358,10 @@ function! s:readable_controller_name(...) dict abort
     return s:sub(f,'.*<components/(.{-})/\k+\.\k+$','\1')
   elseif f =~ '\<app/models/.*\.rb$' && self.type_name('mailer')
     return s:sub(f,'.*<app/models/(.{-})\.rb$','\1')
-  elseif f =~ '\<public/stylesheets/.*\.css$'
-    return s:sub(f,'.*<public/stylesheets/(.{-})\.css$','\1')
+  elseif f =~ '\<\%(public\|app/assets\)/stylesheets/.*\.css\%(\.\w\+\)\=$'
+    return s:sub(f,'.*<%(public|app/assets)/stylesheets/(.{-})\.css%(\.\w+)=$','\1')
+  elseif f =~ '\<\%(public\|app/assets\)/javascripts/.*\.js\%(\.\w\+\)\=$'
+    return s:sub(f,'.*<%(public|app/assets)/javascripts/(.{-})\.js%(\.\w+)=$','\1')
   elseif a:0 && a:1
     return rails#pluralize(self.model_name())
   endif
@@ -1386,6 +1388,10 @@ function! s:readable_preview_urls(lnum) dict abort
     let urls = urls + [s:sub(s:sub(self.name(),'^public/stylesheets/sass/','/stylesheets/'),'\.s[ac]ss$','.css')]
   elseif self.name() =~ '^public/'
     let urls = urls + [s:sub(self.name(),'^public','')]
+  elseif self.name() =~ '^app/assets/stylesheets/'
+    let urls = urls + ['/assets/application.css']
+  elseif self.name() =~ '^app/assets/javascripts/'
+    let urls = urls + ['/assets/application.js']
   elseif self.name() =~ '^app/stylesheets/'
     let urls = urls + [s:sub(s:sub(self.name(),'^app/stylesheets/','/stylesheets/'),'\.less$','.css')]
   elseif self.name() =~ '^app/scripts/'
@@ -2241,7 +2247,9 @@ function! s:layoutList(A,L,P)
 endfunction
 
 function! s:stylesheetList(A,L,P)
-  let list = rails#app().relglob('public/stylesheets/','**/*','.css')
+  let list = rails#app().relglob('app/assets/stylesheets/','**/*.css*','')
+  call map(list,'s:sub(v:val,"\\.css\%(\\.\\w+\)\=$","")')
+  let list += rails#app().relglob('public/stylesheets/','**/*','.css')
   if rails#app().has('sass')
     call extend(list,rails#app().relglob('public/stylesheets/sass/','**/*','.s?ss'))
     call s:uniq(list)
@@ -2250,7 +2258,10 @@ function! s:stylesheetList(A,L,P)
 endfunction
 
 function! s:javascriptList(A,L,P)
-  return s:completion_filter(rails#app().relglob("public/javascripts/","**/*",".js"),a:A)
+  let list = rails#app().relglob('app/assets/javascripts/','**/*.js*','')
+  call map(list,'s:sub(v:val,"\\.js\%(\\.\\w+\)\=$","")')
+  let list += rails#app().relglob("public/javascripts/","**/*",".js")
+  return s:completion_filter(list,a:A)
 endfunction
 
 function! s:metalList(A,L,P)
@@ -2489,6 +2500,9 @@ function! s:app_migration(file) dict
     let glob = '*'.rails#underscore(arg).'*rb'
   endif
   let files = split(glob(self.path('db/migrate/').glob),"\n")
+  if arg == ''
+    return get(files,-1,'')
+  endif
   call map(files,'strpart(v:val,1+strlen(self.path()))')
   let keep = get(files,0,'')
   if glob =~# '^\*.*\*rb'
@@ -2673,7 +2687,12 @@ function! s:stylesheetEdit(cmd,...)
   elseif rails#app().has('lesscss') && rails#app().has_file('app/stylesheets/'.name.'.less')
     return s:EditSimpleRb(a:cmd,"stylesheet",name,"app/stylesheets/",".less",1)
   else
-    return s:EditSimpleRb(a:cmd,"stylesheet",name,"public/stylesheets/",".css",1)
+    let types = rails#app().relglob('app/assets/stylesheets/'.name,'.css*','')
+    if !empty(types)
+      return s:EditSimpleRb(a:cmd,'stylesheet',name,'app/assets/stylesheets/',types[0],1)
+    else
+      return s:EditSimpleRb(a:cmd,'stylesheet',name,'public/stylesheets/','.css',1)
+    endif
   endif
 endfunction
 
@@ -2684,7 +2703,12 @@ function! s:javascriptEdit(cmd,...)
   elseif rails#app().has('coffee') && rails#app().has_file('app/scripts/'.name.'.js')
     return s:EditSimpleRb(a:cmd,'javascript',name,'app/scripts/','.js',1)
   else
-    return s:EditSimpleRb(a:cmd,'javascript',name,'public/javascripts/','.js',1)
+    let types = rails#app().relglob('app/assets/javascripts/'.name,'.js*','')
+    if !empty(types)
+      return s:EditSimpleRb(a:cmd,'javascript',name,'app/assets/javascripts/',types[0],1)
+    else
+      return s:EditSimpleRb(a:cmd,'javascript',name,'public/javascripts/','.js',1)
+    endif
   endif
 endfunction
 
@@ -3331,8 +3355,8 @@ function! s:invertrange(beg,end)
       let add .= s:mkeep(line)
     elseif line =~ '\<remove_index\>'
       let add = s:sub(s:sub(line,'<remove_index','add_index'),':column\s*=>\s*','')
-    elseif line =~ '\<rename_\%(table\|column\)\>'
-      let add = s:sub(line,'<rename_%(table\s*\(=\s*|column\s*\(=\s*[^,]*,\s*)\zs([^,]*)(,\s*)([^,]*)','\3\2\1')
+    elseif line =~ '\<rename_\%(table\|column\|index\)\>'
+      let add = s:sub(line,'<rename_%(table\s*\(=\s*|%(column|index)\s*\(=\s*[^,]*,\s*)\zs([^,]*)(,\s*)([^,]*)','\3\2\1')
     elseif line =~ '\<change_column\>'
       let add = s:migspc(line).'change_column'.s:mextargs(line,2).s:mkeep(line)
     elseif line =~ '\<change_column_default\>'
@@ -3563,7 +3587,7 @@ function! s:BufSyntax()
         syn keyword rubyRailsFilterMethod verify
       endif
       if buffer.type_name('db-migration','db-schema')
-        syn keyword rubyRailsMigrationMethod create_table change_table drop_table rename_table add_column rename_column change_column change_column_default remove_column add_index remove_index execute
+        syn keyword rubyRailsMigrationMethod create_table change_table drop_table rename_table add_column rename_column change_column change_column_default remove_column add_index remove_index rename_index execute
       endif
       if buffer.type_name('test')
         if !empty(rails#app().user_assertions())
@@ -3631,7 +3655,7 @@ function! s:BufSyntax()
       syn cluster htmlArgCluster add=@rubyStringSpecial
       syn cluster htmlPreProc    add=@rubyStringSpecial
 
-    elseif &syntax == 'eruby' || &syntax == 'haml'
+    elseif &syntax =~# '^eruby\>' || &syntax == 'haml'
       syn case match
       if classes != ''
         exe 'syn keyword '.&syntax.'RailsUserClass '.classes.' contained containedin=@'.&syntax.'RailsRegions'
@@ -4568,7 +4592,7 @@ function! s:BufSettings()
   elseif ft == 'yaml' || fnamemodify(self.name(),':e') == 'yml'
     call self.setvar('&define',self.define_pattern())
     call self.setvar('&suffixesadd',".yml,.csv,.rb,.".s:gsub(s:view_types,',',',.').",.rake,s.rb")
-  elseif ft == 'eruby'
+  elseif ft =~# '^eruby\>'
     call self.setvar('&suffixesadd',".".s:gsub(s:view_types,',',',.').",.rb,.css,.js,.html,.yml,.csv")
     if exists("g:loaded_allml")
       call self.setvar('allml_stylesheet_link_tag', "<%= stylesheet_link_tag '\r' %>")
@@ -4592,7 +4616,7 @@ function! s:BufSettings()
       call self.setvar('ragtag_doctype_index', 10)
     endif
   endif
-  if ft == 'eruby' || ft == 'yaml'
+  if ft =~# '^eruby\>' || ft ==# 'yaml'
     " surround.vim
     if exists("g:loaded_surround")
       " The idea behind the || part here is that one can normally define the
