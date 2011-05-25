@@ -1,5 +1,5 @@
 IGNORES   = %w(.gitignore .git)
-IRREGULAR = {'xmonad.desktop' => '/usr/share/xsessions/xmonad.desktop'}
+IRREGULAR = {'xmonad.desktop' => '/usr/share/xsessions/xmonad.desktop', 'ssh_config' => '~/.ssh/config'}
 
 FILES = Dir.entries('.').select do |x|
   x !~ /^\.*$/ && x =~ /^\./ && !(IGNORES||[]).include?(x)

@@ -1,0 +1,87 @@
+# ControlMaster auto
+# ControlPath ~/.ssh/master-%r@%h:%p
+
+Host amn
+            HostName ec2.joblet.jp
+            User amn
+            Compression yes
+            Protocol 2
+Host atom
+            HostName ec2.joblet.jp
+            User metropolis
+            Compression yes
+            Protocol 2
+Host joblet
+            HostName joblet.jp
+            User joblet.jp
+            Compression yes
+            Protocol 2
+Host piqshare
+            HostName piqshare.com
+            User piqshare
+            Compression yes
+            Protocol 2
+Host ot_ec2
+            HostName ot.ec2.asics.eu
+            User otiger
+            Compression yes
+            Protocol 2
+Host ot_dev3
+            HostName dev3.asics.eu
+            User otiger
+            Compression yes
+            Protocol 2
+Host dev3
+            HostName dev3.asics.eu
+            User asics
+            Compression yes
+            Protocol 2
+Host dev2
+            HostName dev2.asics.eu
+            User asics
+            Compression yes
+            Protocol 2
+Host theplant
+            HostName theplant.jp
+            User theplant
+            Compression yes
+            Protocol 2
+Host smtp
+            HostName 67.23.1.16
+            User smtp
+            Compression yes
+            Protocol 2
+Host delonghi
+            HostName 218.45.229.54
+            User delonghi
+            Compression yes
+            Port 222
+            Protocol 2
+Host delonghi_staging
+            HostName 218.45.229.54
+            User staging
+            Compression yes
+            Port 222
+            Protocol 2
+Host linode
+            HostName 173.230.151.198
+            User jinzhu
+            Compression yes
+            Protocol 2
+Host lacoste-dev
+            HostName 175.41.251.74
+            User app
+            Compression yes
+            Protocol 2
+Host lacoste1
+            HostName 175.41.252.65
+            User app
+            Compression yes
+            Protocol 2
+            Port 222
+Host lacoste2
+            HostName 175.41.242.254
+            User app
+            Compression yes
+            Protocol 2
+            Port 222
