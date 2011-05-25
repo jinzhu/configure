@@ -85,3 +85,15 @@ Host lacoste2
             Compression yes
             Protocol 2
             Port 222
+Host theplant-backup
+            HostName 122.248.240.13
+            User theplant
+            Compression yes
+            Protocol 2
+            Port 222
+Host theplant-ci
+            HostName 10.0.1.29
+            User theplant
+            Compression yes
+            Protocol 2
+            Port 222
