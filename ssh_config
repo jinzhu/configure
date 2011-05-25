@@ -92,7 +92,7 @@ Host theplant-backup
             Protocol 2
             Port 222
 Host theplant-ci
-            HostName 10.0.1.29
+            HostName 10.0.1.229
             User theplant
             Compression yes
             Protocol 2
