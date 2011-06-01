@@ -11,6 +11,7 @@ import XMonad.Util.Dmenu
 -- import XMonad.Util.Loggers
 import XMonad.ManageHook
 import qualified XMonad.StackSet as W
+import XMonad.Layout.NoBorders
 import XMonad.Prompt.AppendFile
 import XMonad.Actions.DwmPromote
 import XMonad.Hooks.FadeInactive
@@ -27,7 +28,7 @@ import XMonad.Layout.WindowNavigation
 modMask'    = mod4Mask	-- Rebind Mod(ALT) to Windows Key
 terminal'   = "gnome-terminal"
 workspaces' = ["dev","www","doc"] ++ map show [4..7] ++ ["mov","im"]
-layoutHook' = avoidStruts (windowNavigation (ResizableTall 1 (3/100) (1/2) []) ||| tabbed shrinkText defaultTheme ||| Full )
+layoutHook' = smartBorders (avoidStruts (windowNavigation (ResizableTall 1 (3/100) (1/2) []) ||| tabbed shrinkText defaultTheme ||| Full ))
 
 
 myManageHook = composeAll
