@@ -2,7 +2,7 @@
 
 lacoste:
   path: ~/GIT/lacoste/
-  repo: git@github.com:anatole/lacoste.git
+  repo: git@github.com:theplant/lacoste.git
   pushable: true
 
 theplanttools:
@@ -12,17 +12,27 @@ theplanttools:
 
 asics2:
   path: ~/GIT/asics2
-  repo: git@github.com:anatole/asics2.git
+  repo: git@github.com:theplant/asics2.git
   pushable: true
 
 myasics:
   path: ~/GIT/myasics/
-  repo: git@github.com:anatole/myasics.git
+  repo: git@github.com:theplant/myasics.git
+  pushable: true
+
+delonghi:
+  path: ~/GIT/delonghi/
+  repo: git@github.com:theplant/delonghi.git
+  pushable: true
+
+qor:
+  path: ~/GIT/qor/
+  repo: git@github.com:theplant/qor.git
   pushable: true
 
 onitsukatiger:
   path: ~/GIT/onitsukatiger
-  repo: git@github.com:anatole/onitsukatiger.git
+  repo: git@github.com:theplant/onitsukatiger.git
   pushable: true
 
 piqshare:
