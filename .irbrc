@@ -1,8 +1,7 @@
 # sudo gem install genki-irb_rocket
 # interactive_editor
 %w(rubygems).map {|x| require x }
-#require "/usr/lib64/ruby/gems/1.8/gems/genki-irb_rocket-0.1.3/lib/irb_rocket.rb"
-require "/usr/lib64/ruby/gems/1.8/gems/interactive_editor-0.0.3/lib/interactive_editor.rb"
+require 'interactive_editor'
 
 IRB.conf[:SAVE_HISTORY] = 100
 IRB.conf[:HISTORY_FILE] = "~/.irb_history"

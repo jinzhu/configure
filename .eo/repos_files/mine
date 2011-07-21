@@ -93,3 +93,8 @@ testingmachine:
   path: ~/GIT/testingmachine/
   repo: git@github.com:jinzhu/testingmachine.git
   pushable: true
+
+superlist:
+  path: ~/GIT/super_list/
+  repo: git@github.com:jinzhu/super_list.git
+  pushable: true
