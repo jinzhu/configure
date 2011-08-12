@@ -10,4 +10,6 @@ export QT_IM_MODULE=xim
 export XMODIFIERS="@im=fcitx"
 
 fcitx &
+[ -f ~/.xsession ] && source ~/.xsession
+
 # ibus-daemon -drx
