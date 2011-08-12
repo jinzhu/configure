@@ -3,12 +3,11 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.EZConfig(additionalKeys)
 import System.IO
+
 import XMonad.Prompt.Shell
 import XMonad.Prompt
 import XMonad.Prompt.XMonad
 import XMonad.Util.Run
-import XMonad.Util.Dmenu
--- import XMonad.Util.Loggers
 import XMonad.ManageHook
 import qualified XMonad.StackSet as W
 import XMonad.Layout.NoBorders
@@ -36,9 +35,7 @@ myManageHook = composeAll
     className =? "Gimp"      --> doF (W.shift "dev")
     -- Browser
     , className =? "Chromium" --> doF (W.shift "dev") -- Chrome
-    , className =? "Shiretoko" --> doF (W.shift "www") -- Firefox 3.5 On Arch
     , className =? "Firefox" --> doF (W.shift "www")
-    , className =? "Gran Paradiso" --> doF (W.shift "www") -- Firefox On Arch
     , className =? "Opera" --> doF (W.shift "www")
     -- DOC
     , className =? "Evince" --> doF (W.shift "doc")
@@ -53,53 +50,53 @@ myManageHook = composeAll
     ]
 
 main = do
-	xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar.conf"
-	unsafeSpawn "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --tint 0x000000 --height 19 &"
-	unsafeSpawn "if [ -x /usr/bin/gnome-terminal ] ; then gnome-terminal & fi"
-	unsafeSpawn "if [ -x /usr/bin/nm-applet ] ; then nm-applet --sm-disable & fi"
-	unsafeSpawn "if [ -x /usr/bin/gnome-power-manager ] ; then gnome-power-manager & fi"
-	unsafeSpawn "if [ -x /usr/bin/xscreensaver ] ; then xscreensaver & fi"
-	xmonad $ defaultConfig
-		{ manageHook = myManageHook <+> manageDocks <+> manageHook defaultConfig
-		, layoutHook = layoutHook'
-		, logHook    = dynamicLogWithPP $ xmobarPP
-				{ ppOutput = hPutStrLn xmproc
-				, ppTitle  = xmobarColor "green" "" . shorten 50
-				}
-		, modMask  = modMask'
-		, terminal = terminal'
-	  , borderWidth = 1
-	  , workspaces = workspaces'
-		} `additionalKeys`
-		[ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
-		, ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
-		, ((mod4Mask .|. shiftMask, xK_Return), spawn terminal')
-		, ((mod4Mask, xK_o), windows W.focusDown >> kill)
-		, ((mod4Mask, xK_Return), dwmpromote >>  windows W.focusDown )	-- Swap the focused window and the master window
-		, ((0, xK_Print), spawn "scrot")
-		, ((mod4Mask, xK_c), kill)
-		, ((mod4Mask, xK_F1), xmonadPrompt defaultXPConfig)
-		, ((mod4Mask, xK_F2), shellPrompt defaultXPConfig)
-		, ((mod4Mask, xK_F3), appendFilePrompt defaultXPConfig "/home/jinzhu/TODO")
-		, ((mod4Mask, xK_F4), spawn "xscreensaver-command -lock")
-		, ((mod4Mask .|. shiftMask, xK_f), shiftTo Next EmptyWS)
-		, ((mod4Mask .|. controlMask .|. shiftMask, xK_s), spawn "sudo pm-suspend")
-		, ((mod4Mask , xK_l), sendMessage $ Go R)
-		, ((mod4Mask , xK_h ), sendMessage $ Go L)
-		, ((mod4Mask , xK_k   ), sendMessage $ Go U)
-		, ((mod4Mask , xK_j ), sendMessage $ Go D)
-		, ((mod4Mask .|. shiftMask, xK_l   ), sendMessage Expand)
-		, ((mod4Mask .|. shiftMask, xK_h   ), sendMessage Shrink)
-		, ((mod4Mask .|. shiftMask, xK_k   ), sendMessage MirrorExpand)
-		, ((mod4Mask .|. shiftMask, xK_j ), sendMessage MirrorShrink)
-		, ((mod4Mask .|. controlMask, xK_l), sendMessage $ Swap R)
-		, ((mod4Mask .|. controlMask, xK_h ), sendMessage $ Swap L)
-		, ((mod4Mask .|. controlMask, xK_k   ), sendMessage $ Swap U)
-		, ((mod4Mask .|. controlMask, xK_j ), sendMessage $ Swap D)
-		, ((mod4Mask, xK_Right), nextWS)
-		, ((mod4Mask, xK_Left), prevWS)
-		, ((mod4Mask, xK_Up), toggleWS)
-		, ((mod4Mask, xK_Down), toggleWS)
-		, ((mod4Mask .|. shiftMask, xK_Right), shiftToNext >> nextWS)
-		, ((mod4Mask .|. shiftMask, xK_Left), shiftToPrev >> prevWS)
-		]
+  xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar.conf"
+  unsafeSpawn "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --tint 0x000000 --height 19 &"
+  unsafeSpawn "if [ -x /usr/bin/gnome-terminal ] ; then gnome-terminal & fi"
+  unsafeSpawn "if [ -x /usr/bin/nm-applet ] ; then nm-applet --sm-disable & fi"
+  unsafeSpawn "if [ -x /usr/bin/gnome-power-manager ] ; then gnome-power-manager & fi"
+  unsafeSpawn "if [ -x /usr/bin/xscreensaver ] ; then xscreensaver & fi"
+  xmonad $ defaultConfig
+    { manageHook = myManageHook <+> manageDocks <+> manageHook defaultConfig
+    , layoutHook = layoutHook'
+    , logHook    = dynamicLogWithPP $ xmobarPP
+        { ppOutput = hPutStrLn xmproc
+        , ppTitle  = xmobarColor "green" "" . shorten 50
+        }
+    , modMask  = modMask'
+    , terminal = terminal'
+    , borderWidth = 1
+    , workspaces = workspaces'
+    } `additionalKeys`
+    [ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
+    , ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
+    , ((mod4Mask .|. shiftMask, xK_Return), spawn terminal')
+    , ((mod4Mask, xK_o), windows W.focusDown >> kill)
+    , ((mod4Mask, xK_Return), dwmpromote >>  windows W.focusDown )	-- Swap the focused window and the master window
+    , ((0, xK_Print), spawn "scrot")
+    , ((mod4Mask, xK_p), shellPrompt defaultXPConfig)
+    , ((mod4Mask, xK_F1), xmonadPrompt defaultXPConfig)
+    , ((mod4Mask, xK_F3), appendFilePrompt defaultXPConfig "/home/jinzhu/TODO")
+    , ((mod4Mask, xK_F4), spawn "xscreensaver-command -lock")
+    , ((mod4Mask .|. shiftMask, xK_f), shiftTo Next EmptyWS)
+    , ((mod4Mask .|. controlMask .|. shiftMask, xK_s), spawn "sudo pm-suspend")
+
+    , ((mod4Mask , xK_l), sendMessage $ Go R)
+    , ((mod4Mask , xK_h), sendMessage $ Go L)
+    , ((mod4Mask , xK_k), sendMessage $ Go U)
+    , ((mod4Mask , xK_j), sendMessage $ Go D)
+    , ((mod4Mask .|. shiftMask, xK_l ), sendMessage Expand)
+    , ((mod4Mask .|. shiftMask, xK_h ), sendMessage Shrink)
+    , ((mod4Mask .|. shiftMask, xK_k ), sendMessage MirrorExpand)
+    , ((mod4Mask .|. shiftMask, xK_j ), sendMessage MirrorShrink)
+    , ((mod4Mask .|. controlMask, xK_l ), sendMessage $ Swap R)
+    , ((mod4Mask .|. controlMask, xK_h ), sendMessage $ Swap L)
+    , ((mod4Mask .|. controlMask, xK_k ), sendMessage $ Swap U)
+    , ((mod4Mask .|. controlMask, xK_j ), sendMessage $ Swap D)
+    , ((mod4Mask, xK_Right), nextWS)
+    , ((mod4Mask, xK_Left), prevWS)
+    , ((mod4Mask, xK_Up), toggleWS)
+    , ((mod4Mask, xK_Down), toggleWS)
+    , ((mod4Mask .|. shiftMask, xK_Right), shiftToNext >> nextWS)
+    , ((mod4Mask .|. shiftMask, xK_Left), shiftToPrev >> prevWS)
+    ]
