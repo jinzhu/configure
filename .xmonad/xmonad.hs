@@ -1,7 +1,7 @@
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
-import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.EZConfig
 import System.IO
 
 import XMonad.Prompt.Shell
@@ -70,36 +70,35 @@ main = do
     , terminal = terminal'
     , borderWidth = 1
     , workspaces = workspaces'
-    } `additionalKeys`
-    [ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
-    , ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
-    , ((mod4Mask .|. shiftMask, xK_Return), spawn terminal')
-    , ((mod4Mask, xK_o), windows W.focusDown >> kill)
-    , ((mod4Mask, xK_Return), dwmpromote >>  windows W.focusDown )	-- Swap the focused window and the master window
-    , ((0, xK_Print), spawn "scrot")
-    , ((mod4Mask, xK_p), shellPrompt defaultXPConfig)
-    , ((mod4Mask, xK_F1), xmonadPrompt defaultXPConfig)
-    , ((mod4Mask, xK_F3), appendFilePrompt defaultXPConfig "/home/jinzhu/TODO")
-    , ((mod4Mask, xK_F4), spawn "xscreensaver-command -lock")
-    , ((mod4Mask .|. shiftMask, xK_f), shiftTo Next EmptyWS)
-    , ((mod4Mask .|. controlMask .|. shiftMask, xK_s), spawn "sudo pm-suspend")
+    }
+    `additionalKeysP`
+    [ ("M-S-z", spawn "xscreensaver-command -lock")
+    , ("C-<Print>", spawn "sleep 0.2; scrot -s")
+    , ("M-o", windows W.focusDown >> kill)
+    , ("M-<Return>", dwmpromote >>  windows W.focusDown )	-- Swap the focused window and the master window
+    , ("M-p", shellPrompt defaultXPConfig)
+    , ("M-<F1>", xmonadPrompt defaultXPConfig)
+    , ("M-<F3>", appendFilePrompt defaultXPConfig "/home/jinzhu/TODO")
+    , ("M-<F4>", spawn "xscreensaver-command -lock")
+    , ("M-S-f", shiftTo Next EmptyWS)
+    , ("M-C-S-s", spawn "sudo pm-suspend")
 
-    , ((mod4Mask , xK_l), sendMessage $ Go R)
-    , ((mod4Mask , xK_h), sendMessage $ Go L)
-    , ((mod4Mask , xK_k), sendMessage $ Go U)
-    , ((mod4Mask , xK_j), sendMessage $ Go D)
-    , ((mod4Mask .|. shiftMask, xK_l ), sendMessage Expand)
-    , ((mod4Mask .|. shiftMask, xK_h ), sendMessage Shrink)
-    , ((mod4Mask .|. shiftMask, xK_k ), sendMessage MirrorExpand)
-    , ((mod4Mask .|. shiftMask, xK_j ), sendMessage MirrorShrink)
-    , ((mod4Mask .|. controlMask, xK_l ), sendMessage $ Swap R)
-    , ((mod4Mask .|. controlMask, xK_h ), sendMessage $ Swap L)
-    , ((mod4Mask .|. controlMask, xK_k ), sendMessage $ Swap U)
-    , ((mod4Mask .|. controlMask, xK_j ), sendMessage $ Swap D)
-    , ((mod4Mask, xK_Right), nextWS)
-    , ((mod4Mask, xK_Left), prevWS)
-    , ((mod4Mask, xK_Up), toggleWS)
-    , ((mod4Mask, xK_Down), toggleWS)
-    , ((mod4Mask .|. shiftMask, xK_Right), shiftToNext >> nextWS)
-    , ((mod4Mask .|. shiftMask, xK_Left), shiftToPrev >> prevWS)
+    , ("M-l", sendMessage $ Go R)
+    , ("M-h", sendMessage $ Go L)
+    , ("M-k", sendMessage $ Go U)
+    , ("M-j", sendMessage $ Go D)
+    , ("M-S-l", sendMessage Expand)
+    , ("M-S-h", sendMessage Shrink)
+    , ("M-S-k", sendMessage MirrorExpand)
+    , ("M-S-j", sendMessage MirrorShrink)
+    , ("M-C-l", sendMessage $ Swap R)
+    , ("M-C-h", sendMessage $ Swap L)
+    , ("M-C-k", sendMessage $ Swap U)
+    , ("M-C-j", sendMessage $ Swap D)
+    , ("M-<Right>", nextWS)
+    , ("M-<Left>", prevWS)
+    , ("M-<Up>", toggleWS)
+    , ("M-<Down>", toggleWS)
+    , ("M-S-<Right>", shiftToNext >> nextWS)
+    , ("M-S-<Left>", shiftToPrev >> prevWS)
     ]
