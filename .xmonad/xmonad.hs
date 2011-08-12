@@ -27,6 +27,11 @@ import Control.Monad (liftM2)
 import XMonad.Actions.GridSelect
 import XMonad.Prompt.RunOrRaise
 import XMonad.Prompt.Window
+import XMonad.Actions.Search
+import qualified XMonad.Actions.Search as S
+import qualified XMonad.Actions.Submap as SM
+import qualified Data.Map as M
+import Data.Ratio
 
 modMask'    = mod4Mask	-- Rebind Mod(ALT) to Windows Key
 terminal'   = "gnome-terminal"
@@ -53,6 +58,17 @@ myManageHook = composeAll
     , className =? "Xchat" --> doF (W.shift "im")
     ]
     where viewShift = doF . liftM2 (.) W.greedyView W.shift
+
+searchEngineMap method = M.fromList $
+  [ ((0, xK_g), method S.google )
+  , ((0, xK_b), method $ S.searchEngine "Baidu" "http://www.baidu.com/s?wd=")
+  , ((0, xK_t), method $ S.searchEngine "GoogleTranslate" "http://translate.google.com/#auto|zh-CN|")
+  , ((0, xK_i), method $ S.searchEngine "iCiba" "http://www.iciba.com/")
+  , ((0, xK_r), method $ S.searchEngine "Rails" "http://apidock.com/rails/search?query=")
+  , ((0, xK_u), method $ S.searchEngine "Ruby" "http://apidock.com/ruby/search?query=")
+  , ((0, xK_w), method S.wikipedia)
+  , ((0, xK_j), method $ S.searchEngine "jQuery" "http://api.jquery.com/?s=")
+  ]
 
 main = do
   xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar.conf"
@@ -103,10 +119,13 @@ main = do
     , ("M-<Down>", toggleWS)
     , ("M-S-<Right>", shiftToNext >> nextWS)
     , ("M-S-<Left>", shiftToPrev >> prevWS)
+
     , ("M-g", goToSelected defaultGSConfig)
     , ("M-S-g", windowPromptGoto defaultXPConfig { autoComplete = Just 500000 } )
     , ("M-S-b", windowPromptBring defaultXPConfig)
     , ("<XF86AudioMute>", spawn "amixer sset Master toggle")
     , ("<XF86AudioRaiseVolume>", spawn "amixer sset Master 5%+ unmute")
     , ("<XF86AudioLowerVolume>", spawn "amixer sset Master 5%- unmute")
+    , ("M-s", SM.submap $ searchEngineMap $ S.promptSearchBrowser defaultXPConfig "chromium")
+    , ("M-S-s", S.promptSearch greenXPConfig S.google)
     ]
