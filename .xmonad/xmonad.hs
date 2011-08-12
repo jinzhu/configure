@@ -24,6 +24,7 @@ import XMonad.Layout.ResizableTile
 import XMonad.Layout.WindowNavigation
 -- Shift & View
 import Control.Monad (liftM2)
+import XMonad.Actions.GridSelect
 
 
 modMask'    = mod4Mask	-- Rebind Mod(ALT) to Windows Key
@@ -101,4 +102,5 @@ main = do
     , ("M-<Down>", toggleWS)
     , ("M-S-<Right>", shiftToNext >> nextWS)
     , ("M-S-<Left>", shiftToPrev >> prevWS)
+    , ("M-g", goToSelected defaultGSConfig)
     ]
