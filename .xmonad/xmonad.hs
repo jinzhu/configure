@@ -22,6 +22,8 @@ import XMonad.Layout
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.WindowNavigation
+-- Shift & View
+import Control.Monad (liftM2)
 
 
 modMask'    = mod4Mask	-- Rebind Mod(ALT) to Windows Key
@@ -38,16 +40,17 @@ myManageHook = composeAll
     , className =? "Firefox" --> doF (W.shift "www")
     , className =? "Opera" --> doF (W.shift "www")
     -- DOC
-    , className =? "Evince" --> doF (W.shift "doc")
+    , className =? "Evince" --> viewShift "doc"
     -- MUSIC
     , className =? "Rhythmbox" --> doF (W.shift "mov")
-    , className =? "Totem" --> doF (W.shift "mov")
-    , className =? "MPlayer" --> doF (W.shift "mov")
+    , className =? "Totem" --> viewShift "mov"
+    , className =? "MPlayer" --> viewShift "mov"
     -- IM
     , className =? "Pidgin" --> doF (W.shift "im")
     , className =? "Skype" --> doF (W.shift "im")
     , className =? "Xchat" --> doF (W.shift "im")
     ]
+    where viewShift = doF . liftM2 (.) W.greedyView W.shift
 
 main = do
   xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar.conf"
