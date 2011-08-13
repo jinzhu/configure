@@ -3,7 +3,7 @@
 %w(rubygems).map {|x| require x }
 require 'interactive_editor'
 
-IRB.conf[:SAVE_HISTORY] = 100
+IRB.conf[:SAVE_HISTORY] = 1000
 IRB.conf[:HISTORY_FILE] = "~/.irb_history"
  
 IRB.conf[:PROMPT_MODE] = :SIMPLE
@@ -33,4 +33,4 @@ class Object
   alias qri ri
 end
  
-load File.dirname(__FILE__) + '/.railsrc' if $0 == 'irb' && ENV['RAILS_ENV']
+load File.dirname(__FILE__) + '/.railsrc' if $0 == 'script/rails'
