@@ -61,6 +61,7 @@ manageHook' = composeAll
 searchEngineMap method = M.fromList $
   [ ((0, xK_g), method S.google )
   , ((0, xK_w), method S.wikipedia)
+  , ((0, xK_d), method S.dictionary)
   , ((0, xK_b), method $ S.searchEngine "Baidu" "http://www.baidu.com/s?wd=")
   , ((0, xK_t), method $ S.searchEngine "GoogleTranslate" "http://translate.google.com/#auto|zh-CN|")
   , ((0, xK_i), method $ S.searchEngine "iCiba" "http://www.iciba.com/")

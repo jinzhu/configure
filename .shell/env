@@ -1,14 +1,18 @@
 # vi:ft=sh
 # [ -f ~/.dir_colors ]      && eval   $(dircolors -b ~/.dir_colors)
 
-[ -f ~/.amazon_keys ]     && source ~/.amazon_keys
+[ -f ~/.amazon_keys ] && source ~/.amazon_keys
+[ -f ~/.ec2/rc ] && source ~/.ec2/rc
 [ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm
 
+export CDPATH=".:~"
+export PATH="/opt/local/bin:$HOME/.flex_sdk/bin/:$PATH:/usr/local/bin/:/usr/local/sbin/:/usr/share/java/apache-ant/bin/:/usr/local/apache/bin/:/home/jinzhu/Dropbox/decompile_apk/bin:/opt/java/bin"
 
-CDPATH=".:~"
-PATH="/home/jinzhu/bin:/opt/local/bin:$HOME/.flex_sdk/bin/:$PATH:/usr/local/bin/:/usr/local/sbin/:$HOME/go/bin:/usr/share/java/apache-ant/bin/:/usr/local/apache/bin/:/home/jinzhu/Dropbox/decompile_apk/bin:/opt/java/bin"
-QOR_ROOT="~/GIT/qor/"
-CLOSURE_HOME="/home/jinzhu/Lab/closure-library"
+export LC_CTYPE=zh_CN.utf8
+export EDITOR="vim"
+
+export QOR_ROOT="~/GIT/qor/"
+export CLOSURE_HOME="/home/jinzhu/Lab/closure-library"
 
 # go lang
 export GOROOT=$HOME/go
@@ -21,9 +25,6 @@ export GREP_OPTIONS='--color=auto'
 
 export HAXE_LIBRARY_PATH=/opt/haxe/std:.
 export JAVA_HOME=/opt/java
-[ -f ~/.ec2/rc ] && source ~/.ec2/rc
-
-export LC_CTYPE=zh_CN.utf8
 
 export GTK_IM_MODULE=xim
 export QT_IM_MODULE=xim
@@ -32,5 +33,3 @@ export XMODIFIERS="@im=fcitx"
 # export XMODIFIERS="@im=ibus"
 # export GTK_IM_MODULE="ibus"
 # export QT_IM_MODULE="xim"
-
-export EDITOR="vim"

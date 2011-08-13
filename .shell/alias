@@ -1,5 +1,3 @@
-# if [[ -s /home/jinzhu/.rvm/scripts/rvm ]] ; then source /home/jinzhu/.rvm/scripts/rvm ; fi
-
 ############################################################
 # Pakage Management
 ############################################################
@@ -8,31 +6,23 @@
 alias em='sudo emerge'
 
 # Arch
-function sp {
-  echo $@ | grep -P "^-S" >/dev/null
-
-  if [[ $? != 0 && -f 'script/plugin' ]];then
-    ./script/plugin $@
-  else
-    sudo pacman $@
-  fi
-}
+alias sp='sudo pacman'
 
 ############################################################
 # System
 ############################################################
 # Basic directory operations
-# function . {
-#  if [ -z "$*" ]; then
-#    pwd
-#  else
-#    source $*
-#  fi
-#}
+function . {
+  if [ -z "$*" ]; then
+    pwd
+  else
+    source $*
+  fi
+}
 
 alias ...='cd ../..'
+alias ....='cd ../../..'
 alias -- -='cd -'
-
 
 function rm {
   echo $@ | grep -P '\W?-rf\b'
@@ -73,7 +63,13 @@ alias sgu='sudo gem uninstall'
 alias sgl='sudo gem list'
 
 # VIM
-alias sv='sudo vim'
+function sv {
+  if [ -n "$*" ]; then
+    sudo vim $*
+  else
+    sudo vim .
+  fi
+}
 function v {
   if [ -n "$*" ]; then
     vim $*
@@ -157,6 +153,7 @@ alias gmt='git mergetool'
 alias gp='git push origin master'
 alias gsb='git show-branch'
 alias gdv='git diff -w "$@" | vim -R -'
+alias gdc='git diff --cached'
 alias gcount='git shortlog -sn'
 
 function gs {
@@ -186,11 +183,32 @@ function gd {
 # gc      => git checkout master
 # gc bugs => git checkout bugs
 function gc {
-if [ -z "$*" ]; then
-  git checkout master
+if [ $(echo "$*" | grep -E "^[0-9]+$") ]; then
+  git checkout @{-$*}
 else
-  git checkout $*
+  if [ -z "$*" ]; then
+    git checkout @{-1}
+  else
+    git checkout $*
+  fi
 fi
+}
+
+# create patch
+function gfp {
+  if [ -z "$*" ]; then
+    git format-patch origin/master
+  else
+    git format-patch $*
+  fi
+}
+# apply patch
+function gam {
+  if [ -z "$*" ]; then
+    git am *patch
+  else
+    git am $*
+  fi
 }
 
 function cvsdiff () {
