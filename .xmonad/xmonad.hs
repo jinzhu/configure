@@ -38,8 +38,7 @@ terminal'   = "gnome-terminal"
 workspaces' = ["dev","www","doc"] ++ map show [4..7] ++ ["mov","im"]
 layoutHook' = smartBorders (avoidStruts (windowNavigation (ResizableTall 1 (3/100) (1/2) []) ||| tabbed shrinkText defaultTheme ||| Full ))
 
-
-myManageHook = composeAll
+manageHook' = composeAll
     [
     className =? "Gimp"      --> doF (W.shift "dev")
     -- Browser
@@ -61,24 +60,19 @@ myManageHook = composeAll
 
 searchEngineMap method = M.fromList $
   [ ((0, xK_g), method S.google )
+  , ((0, xK_w), method S.wikipedia)
   , ((0, xK_b), method $ S.searchEngine "Baidu" "http://www.baidu.com/s?wd=")
   , ((0, xK_t), method $ S.searchEngine "GoogleTranslate" "http://translate.google.com/#auto|zh-CN|")
   , ((0, xK_i), method $ S.searchEngine "iCiba" "http://www.iciba.com/")
   , ((0, xK_r), method $ S.searchEngine "Rails" "http://apidock.com/rails/search?query=")
   , ((0, xK_u), method $ S.searchEngine "Ruby" "http://apidock.com/ruby/search?query=")
-  , ((0, xK_w), method S.wikipedia)
   , ((0, xK_j), method $ S.searchEngine "jQuery" "http://api.jquery.com/?s=")
   ]
 
 main = do
   xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar.conf"
-  unsafeSpawn "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --tint 0x000000 --height 19 &"
-  unsafeSpawn "if [ -x /usr/bin/gnome-terminal ] ; then gnome-terminal & fi"
-  unsafeSpawn "if [ -x /usr/bin/nm-applet ] ; then nm-applet --sm-disable & fi"
-  unsafeSpawn "if [ -x /usr/bin/gnome-power-manager ] ; then gnome-power-manager & fi"
-  unsafeSpawn "if [ -x /usr/bin/xscreensaver ] ; then xscreensaver & fi"
   xmonad $ defaultConfig
-    { manageHook = myManageHook <+> manageDocks <+> manageHook defaultConfig
+    { manageHook = manageHook' <+> manageDocks <+> manageHook defaultConfig
     , layoutHook = layoutHook'
     , logHook    = dynamicLogWithPP $ xmobarPP
         { ppOutput = hPutStrLn xmproc
