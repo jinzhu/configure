@@ -17,7 +17,7 @@ import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.SetWMName
 import XMonad.Actions.DynamicWorkspaces
 import XMonad.Actions.CycleWS
-import XMonad.Hooks.ManageHelpers (doCenterFloat)
+import XMonad.Hooks.ManageHelpers
 import XMonad.Layout
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ResizableTile
@@ -40,7 +40,8 @@ layoutHook' = smartBorders (avoidStruts (windowNavigation (ResizableTall 1 (3/10
 
 manageHook' = composeAll
     [
-    className =? "Gimp"      --> doF (W.shift "dev")
+    isFullscreen --> doFullFloat
+    , className =? "Gimp"      --> doF (W.shift "dev")
     -- Browser
     , className =? "Chromium" --> doF (W.shift "dev") -- Chrome
     , className =? "Firefox" --> doF (W.shift "www")
