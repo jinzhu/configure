@@ -1,0 +1,123 @@
+#!/usr/bin/env ruby
+
+%w(rubygems net/http iconv net/http uri json).map {|x| require x }
+
+def getGtjaStockInfo(stocks)
+  stocks = stocks.to_a.map do |stock|
+    case stock
+    when /^60/ then 'sh' + stock # 上海
+    when /^00/ then 'sz' + stock # 深圳
+    when /^51/ then 'sz' + stock # 上海基金
+    end
+  end
+
+  url = "http://flashhq.gtja.com/cssweb?type=GET_GRID_QUOTE&stockcode=#{stocks.join(',')}&radom=#{rand}"
+  body = Net::HTTP.get URI.parse(url)
+  body = JSON.parse(body)
+
+  stocks = {}
+
+  body["data"].map do |line|
+    stock = stocks[line[-4]] = {}
+    stock[:total_money] = line[0]
+    stock[:current]     = line[1]
+    stock[:buy_1]       = line[2]
+    stock[:sell_1]      = line[3]
+    stock[:total_num]   = line[4]
+    stock[:open]        = line[5]
+    stock[:close]       = line[6]
+    stock[:high]        = line[8]
+    stock[:low]         = line[9]
+    stock[:current_num] = line[10]
+    stock[:huanshou]    = line[12]
+    stock[:zhenfu]      = line[13]
+  end
+
+  stocks
+end
+
+def getStockInfo(stocks) # [600050, 60000]
+  stocks = stocks.to_a.map do |stock|
+    case stock
+    when /^60/ then 'sh' + stock # 上海
+    when /^00/ then 'sz' + stock # 深圳
+    when /^51/ then 'sz' + stock # 上海基金
+    end
+  end
+
+  body = Net::HTTP.get URI.parse("http://hq.sinajs.cn/list=#{stocks.join(',')}")
+  body = Iconv.conv('utf-8','gbk',body)
+
+  stocks = {}
+
+  body.each_line do |line|
+    line =~ /.*?(\d+)="(.*)";$/
+    stock = stocks[$1] = {}
+    stock[:name],stock[:open],stock[:close],stock[:current],stock[:high],stock[:low],stock[:buy_1],stock[:sell_1],stock[:count],stock[:value],stock[:buy_1_count],stock[:buy_1_price],stock[:buy_2_count],stock[:buy_2_price],stock[:buy_3_count],stock[:buy_3_price],stock[:buy_4_count],stock[:buy_4_price],stock[:buy_5_count],stock[:buy_5_price], stock[:sell_1_count],stock[:sell_1_price],stock[:sell_2_count],stock[:sell_2_price],stock[:sell_3_count],stock[:sell_3_price],stock[:sell_4_count],stock[:sell_4_price],stock[:sell_5_count],stock[:sell_5_price],stock[:date],stock[:time] = $2.split(',')
+  end
+
+  stocks
+end
+
+def colorful(name, current, percent)
+  str = " #{name}:#{current}(#{percent})"
+
+  if percent > 0
+    "<fc=#f00>#{str}</fc>"
+  else
+    "<fc=#0f0>#{str}</fc>"
+  end
+end
+
+dp = ""
+loop do
+  begin
+    Thread.new do
+      dp = ""
+      # url = "http://flashhq.gtja.com/cssweb?type=GET_STATUS_QUOTE&stockcode=sh000001,sz399001,sh000300&radom=#{rand}"
+      # body = Net::HTTP.get URI.parse(url)
+      # body = JSON.parse(body)
+      # body["data"].map do |ary|
+      #   dp += colorful(ary[1], ary[2].to_i, ary[5] * 100)
+      # end
+
+      body = Net::HTTP.get URI.parse("http://hq.sinajs.cn?list=sh000001")
+      body = Iconv.conv('utf-8','gbk',body)
+      body.each_line do |line|
+        line =~ /.*?(\d+)="(.*)";$/
+        stock = {}
+        stock[:name],stock[:open],stock[:close],stock[:current],stock[:high],stock[:low] = $2.split(',')
+        dp += colorful(stock[:name], stock[:current], ((stock[:current].to_f / stock[:close].to_f - 1)*10000).to_i.to_f / 100)
+      end
+
+      body = Net::HTTP.get URI.parse("http://hq.sinajs.cn?list=s_sz399106,s_sz399005")
+      body = Iconv.conv('utf-8','gbk',body)
+      body.each_line do |line|
+        line =~ /.*?(\d+)="(.*)";$/
+        stock = {}
+        stock[:name],stock[:current],stock[:change],stock[:percent],stock[:total_num],stock[:total_money] = $2.split(',')
+        dp += colorful(stock[:name], stock[:current], stock[:percent].to_f)
+      end
+    end
+    sleep 1
+
+    # 000783 长江证券
+    # 000901 航天科技
+    # 000063 中兴通讯
+    # 601600 中国铝业
+    # 600872 中矩高新
+    # 002258 利尔化学
+    # 600009 上海机场
+    # 601299 中国北车
+    stocks = getStockInfo(['601299','600872','002258','000783'])
+
+    str = "#{Time.now.strftime('%H:%M:%S')} #{dp}"
+
+    gp = stocks.map do |key,stock|
+      str += colorful(stock[:name], stock[:current], ((stock[:current].to_f / stock[:close].to_f - 1)*10000).to_i.to_f / 100)
+    end
+
+    File.open("#{ENV['HOME']}/.xmonad/STOCK",'w+') {|f| f << str }
+  rescue
+  end
+end

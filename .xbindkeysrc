@@ -8,6 +8,15 @@
     Control + Alt + s
 "pidgin"
     Control + Alt + p
+"~/.scripts/switch_todo_stock"
+    Control + Alt + w
+"~/.scripts/start_proxy"
+    Control + Alt + Shift + p
+"~/.scripts/todo m"
+    Control + Alt + t
+"~/.scripts/todo r"
+    Control + Alt + Shift + t
+
 # Sound
 "amixer sset Master 2- unmute"
     XF86AudioLowerVolume

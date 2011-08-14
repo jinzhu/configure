@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+if File.exist?("#{ENV['HOME']}/.xmonad/STATUSBAR")
+  if File.readlink("#{ENV['HOME']}/.xmonad/STATUSBAR") =~ /TODO/
+    system("ruby #{File.join(File.dirname(__FILE__),'start_stock')} &") if !system("ps aux | grep start_stock | grep -v grep")
+    `ln -nfs ~/.xmonad/STOCK ~/.xmonad/STATUSBAR`
+  else
+    `ln -nfs ~/TODO ~/.xmonad/STATUSBAR`
+  end
+else
+  `ln -nfs ~/TODO ~/.xmonad/STATUSBAR`
+end

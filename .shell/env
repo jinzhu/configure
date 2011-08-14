@@ -6,7 +6,7 @@
 [ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm
 
 export CDPATH=".:~"
-export PATH="/opt/local/bin:$HOME/.flex_sdk/bin/:$PATH:/usr/local/bin/:/usr/local/sbin/:/usr/share/java/apache-ant/bin/:/usr/local/apache/bin/:/home/jinzhu/Dropbox/decompile_apk/bin:/opt/java/bin"
+export PATH="$HOME/.scripts:/opt/local/bin:$HOME/.flex_sdk/bin/:$PATH:/usr/local/bin/:/usr/local/sbin/:/usr/share/java/apache-ant/bin/:/usr/local/apache/bin/:/home/jinzhu/Dropbox/decompile_apk/bin:/opt/java/bin"
 export HAXE_LIBRARY_PATH=/opt/haxe/std:.
 export JAVA_HOME=/opt/java
 

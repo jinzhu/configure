@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+pid = `ps aux |grep -- 'ssh -D9999' | grep -v grep | awk '{print $2}'`
+pid.split("\n").map { |p| system("kill -9 #{p}") } if pid =~ /\d/
+
+if system("which autossh")
+  system("autossh -D9999 -M 2000 -N delonghi &")
+else
+  system("ssh -D9999 -N delonghi &")
+end

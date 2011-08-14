@@ -1,0 +1,56 @@
+#!/usr/bin/env ruby
+
+todos = File.read("#{ENV['HOME']}/TODO").split("\n")
+
+if ARGV.inspect =~ /m/
+  # mark current todo as finished
+  marked_current_todo = false
+
+  new_todos = todos.inject([]) do |s, todo|
+    if !marked_current_todo && todo !~ /^\[FINISHED/
+      marked_current_todo = true
+      s << "[FINISHED #{Time.now.strftime("%Y/%m/%d %H:%M")}] #{todo}"
+    elsif
+      s << todo
+    end
+    s
+  end
+
+  File.open("#{ENV['HOME']}/TODO",'w+') do |f|
+    new_todos.map do |todo|
+      f << todo + "\n"
+    end
+  end
+elsif ARGV.inspect =~ /r/
+  # mark last finished todo as unfinished
+  reverted_last_todo = false
+
+  new_todos = todos.reverse.inject([]) do |s, todo|
+    if !reverted_last_todo && todo =~ /^\[FINISHED/
+      todo =~ /\[FINISHED.*?\] (.*)/
+      reverted_last_todo = true
+      s << $1
+    elsif
+      s << todo
+    end
+    s
+  end.reverse
+
+  File.open("#{ENV['HOME']}/TODO",'w+') do |f|
+    new_todos.map do |todo|
+      f << todo + "\n"
+    end
+  end
+elsif ARGV.inspect =~ /e/
+  system("vim ~/TODO")
+else
+  # return current todo
+  result = ''
+  todos.map do |todo|
+    if todo !~ /^\[FINISHED/
+      result = todo
+      break
+    end
+  end
+  puts result
+end
