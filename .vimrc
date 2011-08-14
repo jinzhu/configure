@@ -1,4 +1,73 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vundle
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'L9'
+
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-rake'
+Bundle 'tpope/vim-ragtag'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-cucumber'
+Bundle 'tpope/vim-abolish'
+Bundle 'tpope/vim-haml'
+Bundle 'tpope/vim-vividchalk'
+Bundle 'tpope/vim-liquid'
+
+Bundle 'motemen/git-vim'
+
+Bundle 'w3cvalidator'
+
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'garbas/vim-snipmate'
+Bundle 'honza/snipmate-snippets'
+
+Bundle 'AutoComplPop'
+Bundle 'Rename2'
+Bundle 'jsbeautify'
+Bundle 'MultipleSearch'
+Bundle 'RecentFiles'
+Bundle 'reorder-tabs'
+Bundle 'sessionman.vim'
+
+
+Bundle 'tComment'
+Bundle 'mileszs/ack.vim'
+
+Bundle 'scrooloose/nerdtree'
+Bundle 'Glob-Edit'
+Bundle 'chrisbra/SudoEdit.vim'
+Bundle 'vcscommand.vim'
+Bundle 'tsaleh/vim-matchit'
+Bundle 'FuzzyFinder'
+Bundle 'pangloss/vim-simplefold'
+Bundle 'taglist.vim'
+Bundle 'sketch.vim'
+Bundle 'hallettj/jslint.vim'
+Bundle 'md5.vim'
+Bundle 'Command-T'
+
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'go.vim'
+Bundle 'oscarh/vimerl'
+Bundle 'kogent/vim-nagios'
+Bundle 'pangloss/vim-javascript'
+Bundle 'cespare/mxml.vim'
+Bundle 'nono/jquery.vim'
+Bundle 'actionscript.vim'
+Bundle 'axold/fuzzyfinder_textmate'
+
+" LaTex
+Bundle 'imaps.vim'
+Bundle 'gerw/vim-latex-suite'
+" save/restore window position
+Bundle 'cecutil'
+" write HTML code faster
+Bundle 'rstacruz/sparkup'
+
+
 " AutoCmd
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType c          set omnifunc=ccomplete#Complete
@@ -36,16 +105,6 @@ endif
 " autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 " autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
-autocmd BufNewFile,BufRead *_spec.rb source ~/.vim/ftplugin/rails/rspec.vim
-autocmd BufNewFile,BufRead *_test.rb source ~/.vim/ftplugin/rails/shoulda.vim
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" Calendar.vim
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:calendar_datetime = 'statusline'
-let g:calendar_diary = '~/diary'
-let g:calendar_list = [{'name': 'Diary', 'path': g:calendar_diary, 'ext': 'mkd'}]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set lz                     " Don't redraw screen during macros
@@ -53,7 +112,7 @@ set tf                     " Improves redrawing for newer computers
 set sc                     " Show incomplete command at bottom right
 set tm=500                 " Lower timeout for mappings
 set cot=menu               " Don't show extra info on completions
-if &diff | syn off | endif " Turn syntax highlighting off for diff
+"if &diff | syn off | endif " Turn syntax highlighting off for diff
 let bufpane_showhelp = 0
 
 compiler rubyunit
@@ -281,8 +340,10 @@ let g:fuf_abbrevMap = {
       \   '^vr:' : map(filter(split(&runtimepath, ','), 'v:val !~ "after$"'), 'v:val . ''/**/'''),
       \   '^m0:' : [ '/mnt/d/0/', '/mnt/j/0/' ],
       \ }
-let g:fuf_mrufile_maxItem = 300
-let g:fuf_mrucmd_maxItem = 400
+let g:fuf_mrufile_maxItem = 100
+let g:fuf_mrucmd_maxItem = 100
+map <leader>t :FuzzyFinderTextMate<CR>
+
 " nnoremap <silent> <C-n>      :FufBuffer<CR>
 " nnoremap <silent> <C-p>      :FufFileWithCurrentBufferDir<CR>
 " nnoremap <silent> <C-f><C-p> :FufFileWithFullCwd<CR>

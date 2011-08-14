@@ -1,1 +1,0 @@
-/home/mvp/Lab/merb.vim/syntax/jquery.vim
