@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-%w(rubygems net/http iconv net/http uri json).map {|x| require x }
+%w(rubygems net/http iconv net/http uri json yaml).map {|x| require x }
 
 def getGtjaStockInfo(stocks)
   stocks = stocks.to_a.map do |stock|
@@ -99,21 +99,17 @@ loop do
         dp += colorful(stock[:name], stock[:current], stock[:percent].to_f)
       end
     end
-    sleep 1
 
-    # 000783 长江证券
-    # 000901 航天科技
-    # 000063 中兴通讯
-    # 601600 中国铝业
-    # 600872 中矩高新
-    # 002258 利尔化学
-    # 600009 上海机场
-    # 601299 中国北车
-    stocks = getStockInfo(['601299','600872','002258','000783'])
+    config_file = ["#{ENV['HOME']}/.config/stocks.yml", "#{ENV['HOME']}/stocks.yml"].select {|f| File.exist?(f) }[0]
+
+    stock_codes = YAML.load_file(config_file).map {|x| x.split("\s")[0]}
+    stocks = getStockInfo(stock_codes)
+    sleep 1
 
     str = "#{Time.now.strftime('%H:%M:%S')} #{dp}"
 
-    gp = stocks.map do |key,stock|
+    gp = stock_codes.map do |code|
+      stock = stocks[code]
       str += colorful(stock[:name], stock[:current], ((stock[:current].to_f / stock[:close].to_f - 1)*10000).to_i.to_f / 100)
     end
 

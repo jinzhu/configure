@@ -18,9 +18,9 @@
     Control + Alt + Shift + t
 
 # Sound
-"amixer sset Master 2- unmute"
+"amixer sset Master 5%- unmute"
     XF86AudioLowerVolume
-"amixer sset Master 2+ unmute"
+"amixer sset Master 5%+ unmute"
     XF86AudioRaiseVolume
 "amixer sset Master toggle"
     XF86AudioMute

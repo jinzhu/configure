@@ -119,9 +119,6 @@ main = do
     , ("M-g", goToSelected defaultGSConfig)
     , ("M-S-g", windowPromptGoto defaultXPConfig { autoComplete = Just 500000 } )
     , ("M-S-b", windowPromptBring defaultXPConfig)
-    , ("<XF86AudioMute>", spawn "amixer sset Master toggle")
-    , ("<XF86AudioRaiseVolume>", spawn "amixer sset Master 5%+ unmute")
-    , ("<XF86AudioLowerVolume>", spawn "amixer sset Master 5%- unmute")
     , ("M-s", SM.submap $ searchEngineMap $ S.promptSearchBrowser defaultXPConfig "chromium")
     , ("M-S-s", S.promptSearch greenXPConfig S.google)
     ]
