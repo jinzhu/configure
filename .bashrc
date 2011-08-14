@@ -12,6 +12,6 @@ shopt -s checkwinsize
 # dircolors --print-database uses its own built-in database
 [ -f /etc/bash_completion ] && source /etc/bash_completion
 
-for file in $HOME/{.bash,.shell}/*; do
+for file in $HOME/{.shell/bash,.shell}/*; do
   source $file
 done

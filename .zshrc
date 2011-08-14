@@ -1,7 +1,7 @@
 EDITOR="vim"
 VISUAL=$EDITOR
 
-for file in $HOME/{.zsh,.shell}/*; do
+for file in $HOME/{.shell/zsh,.shell}/*; do
   source $file
 done
 
