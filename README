@@ -1,49 +1,6 @@
-How to Install:
+My dot files for XMonad, VIM, Bash/Zsh, Git, Ruby/Rails, Xbindkey, AutoTest (ruby-libnotify : http://rubyforge.org/projects/ruby-libnotify), Vimperator, Yac (rubygem), Eo (rubygem easyoperate)
+
+Install:
   $ rake install
-How to Remove:
+Remove:
   $ rake remove
-
-============================================================
-VIM
-============================================================
-.vimrc
-.vim
-
-============================================================
-ZSH/Bash
-============================================================
-.zshrc
-.bashrc
-.zsh/
-.bash/
-.shell/
-
-============================================================
-Yac (Install: gem install yac)
-============================================================
-.yacrc
-
-============================================================
-Eo (Install: gem install easyoperate)
-============================================================
-.eo
-
-============================================================
-GIT
-============================================================
-.gitconfig
-
-============================================================
-Ruby/Rails
-============================================================
-.irb
-.railsrc
-
-.shoulda.conf
-
-.autotest   => ruby-libnotify : http://rubyforge.org/projects/ruby-libnotify/
-.autotest_images
-
-.hoerc
-.gemrc
-.rdebugrc
