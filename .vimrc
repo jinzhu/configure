@@ -5,6 +5,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'L9'
 
+Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-rake'
 Bundle 'tpope/vim-ragtag'
@@ -24,18 +25,15 @@ Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'garbas/vim-snipmate'
 Bundle 'honza/snipmate-snippets'
 
+Bundle 'tComment'
+Bundle 'mileszs/ack.vim'
 Bundle 'AutoComplPop'
 Bundle 'Rename2'
 Bundle 'jsbeautify'
 Bundle 'MultipleSearch'
-Bundle 'RecentFiles'
+Bundle 'jinzhu/RecentFiles'
 Bundle 'reorder-tabs'
 Bundle 'sessionman.vim'
-
-
-Bundle 'tComment'
-Bundle 'mileszs/ack.vim'
-
 Bundle 'scrooloose/nerdtree'
 Bundle 'Glob-Edit'
 Bundle 'chrisbra/SudoEdit.vim'
@@ -47,9 +45,7 @@ Bundle 'taglist.vim'
 Bundle 'sketch.vim'
 Bundle 'hallettj/jslint.vim'
 Bundle 'md5.vim'
-Bundle 'Command-T'
 
-Bundle 'vim-ruby/vim-ruby'
 Bundle 'go.vim'
 Bundle 'oscarh/vimerl'
 Bundle 'kogent/vim-nagios'
@@ -57,7 +53,7 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'cespare/mxml.vim'
 Bundle 'nono/jquery.vim'
 Bundle 'actionscript.vim'
-Bundle 'axold/fuzzyfinder_textmate'
+Bundle 'jinzhu/fuzzyfinder_textmate'
 
 " LaTex
 Bundle 'imaps.vim'
