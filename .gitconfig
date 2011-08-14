@@ -50,3 +50,14 @@
 	cmd = exec /usr/bin/vimdiff $LOCAL $MERGED $REMOTE
 [merge]
 	tool = vimdiff
+[tig]
+  show-author = yes
+  show-date = yes         # Show commit date?
+  author-width = 10       # Set width of the author column
+  line-graphics = no      # Disable graphics characters
+  show-rev-graph = yes
+  show-refs = yes
+  show-line-numbers = yes
+  line-number-interval = 1
+  commit-encoding = "UTF-8"
+  tab-size = 2
