@@ -16,6 +16,8 @@
     Control + Alt + t
 "~/.scripts/todo r"
     Control + Alt + Shift + t
+"javaws ~/Dropbox/stock/jforex.jnlp"
+    Control + Alt + j
 
 # Sound
 "amixer sset Master 5%- unmute"
