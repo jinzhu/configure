@@ -22,5 +22,10 @@ export GOOS="linux"
 echo $(uname -m)| grep -q 86_64  && export GOARCH="amd64" || export GOARCH="386"
 export GOBIN=$HOME/go/bin
 
+# export XMODIFIERS=@im=fcitx
+# export GTK_IM_MODULE=XIM
+# export QT_IM_MODULE=XIM
+# export LC_CTYPE=zh_CN.UTF-8
+
 # grep
 export GREP_OPTIONS='--color=auto'

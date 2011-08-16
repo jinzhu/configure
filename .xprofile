@@ -12,6 +12,8 @@ export GTK_IM_MODULE="ibus"
 export QT_IM_MODULE="xim"
 
 ibus-daemon &
+
+# fcitx &
 [ -f ~/.xsession ] && source ~/.xsession
 
 # ibus-daemon -drx

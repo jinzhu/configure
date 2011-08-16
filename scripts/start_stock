@@ -101,8 +101,10 @@ loop do
     end
 
     config_file = ["#{ENV['HOME']}/.config/stocks.yml", "#{ENV['HOME']}/stocks.yml"].select {|f| File.exist?(f) }[0]
+    puts config_file.inspect
 
-    stock_codes = YAML.load_file(config_file).map {|x| x.split("\s")[0]}
+    stock_codes = YAML.load_file(config_file).map {|x| x.to_s.split("\s")[0]}
+    puts stock_codes.inspect
     stocks = getStockInfo(stock_codes)
     sleep 1
 
@@ -115,5 +117,6 @@ loop do
 
     File.open("#{ENV['HOME']}/.xmonad/STOCK",'w+') {|f| f << str }
   rescue
+    puts $!
   end
 end
