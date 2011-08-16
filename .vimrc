@@ -25,6 +25,7 @@ Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'garbas/vim-snipmate'
 Bundle 'honza/snipmate-snippets'
 
+Bundle 'pix/vim-align'
 Bundle 'tComment'
 Bundle 'mileszs/ack.vim'
 Bundle 'AutoComplPop'
