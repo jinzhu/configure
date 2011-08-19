@@ -75,16 +75,18 @@ autocmd FileType xml        set omnifunc=xmlcomplete#CompleteTags
 " autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 
 augroup filetypedetect
-  au  BufNewFile,BufRead  *.js     setf javascript.jquery
-  au! BufNewFile,BufRead  *.ch     setf cheat
-  au! BufNewFile,BufRead  *.yac    setf cheat
-  au  BufNewFile,BufRead  *.liquid setf liquid
-  au! BufNewFile,BufRead  *.haml   setf haml
-  au  BufNewFile,BufRead  *.yml    setf eruby
-  au  BufNewFile,BufRead  *.mxml   setf mxml
-  au  BufNewFile,BufRead  *.as     setf actionscript
-  au! BufNewFile,BufRead  *.feature set filetype=cucumber
-  au! BufNewFile,BufRead  *.table set filetype=ruby.testingmachine
+  au! BufNewFile,BufRead  *.js      setf javascript.jquery
+  au! BufNewFile,BufRead  *.ch      setf cheat
+  au! BufNewFile,BufRead  *.yac     setf cheat
+  au! BufNewFile,BufRead  *.liquid  setf liquid
+  au! BufNewFile,BufRead  *.haml    setf haml
+  au! BufNewFile,BufRead  *.yml     setf eruby
+  au! BufNewFile,BufRead  *.mxml    setf mxml
+  au! BufNewFile,BufRead  *.as      setf actionscript
+  au! BufNewFile,BufRead  *.feature setf cucumber
+  au! BufNewFile,BufRead  *.table   setf ruby.testingmachine
+  au! BufNewFile,BufRead .autotest  setf ruby
+  au! BufNewFile,BufRead *.erb      setf eruby
 augroup END
 
 if has("autocmd")
