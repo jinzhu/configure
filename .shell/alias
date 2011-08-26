@@ -182,6 +182,7 @@ function gd {
 
 # gc      => git checkout master
 # gc bugs => git checkout bugs
+alias gC='git checkout master'
 function gc {
 if [ $(echo "$*" | grep -E "^[0-9]+$") ]; then
   git checkout @{-$*}
