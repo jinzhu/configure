@@ -189,6 +189,7 @@ set hlsearch    "hilight searches by default
 "set linebreak   "wrap lines at convenient points
 set noerrorbells
 set novisualbell
+set vb t_vb=
 
 "folding settings
 set foldmethod=indent   "fold based on indent

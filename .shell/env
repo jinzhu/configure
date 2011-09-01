@@ -29,3 +29,5 @@ export GOBIN=$HOME/go/bin
 
 # grep
 export GREP_OPTIONS='--color=auto'
+xset b off
+xset s off
