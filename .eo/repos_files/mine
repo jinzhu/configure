@@ -4,6 +4,11 @@
 ## mine :)
 ############################################################
 
+msmk:
+  path: ~/GIT/msmk
+  repo: git@bitbucket.org:jinzhu/msmk.git
+  pushable: true
+
 eo:
   path: ~/GIT/easyoperate/
   repo: git@github.com:jinzhu/eo.git
