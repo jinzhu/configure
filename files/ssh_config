@@ -21,16 +21,6 @@ Host piqshare
             User piqshare
             Compression yes
             Protocol 2
-Host ot_ec2
-            HostName ot.ec2.asics.eu
-            User otiger
-            Compression yes
-            Protocol 2
-Host ot_dev3
-            HostName dev3.asics.eu
-            User otiger
-            Compression yes
-            Protocol 2
 Host dev3
             HostName dev3.asics.eu
             User asics
@@ -57,17 +47,18 @@ Host delonghi
             Compression yes
             Port 222
             Protocol 2
-Host delonghi_staging
-            HostName 218.45.229.54
-            User staging
+Host theplant-backup
+            HostName 122.248.240.13
+            User theplant
             Compression yes
+            Protocol 2
             Port 222
-            Protocol 2
-Host linode
-            HostName 173.230.151.198
-            User jinzhu
+Host theplant-ci
+            HostName 10.0.1.229
+            User theplant
             Compression yes
             Protocol 2
+            Port 222
 Host lacoste-dev
             HostName 175.41.251.74
             User app
@@ -85,15 +76,18 @@ Host lacoste2
             Compression yes
             Protocol 2
             Port 222
-Host theplant-backup
-            HostName 122.248.240.13
-            User theplant
+Host asics-dev
+            HostName 79.125.17.184
+            User app
             Compression yes
             Protocol 2
-            Port 222
-Host theplant-ci
-            HostName 10.0.1.229
-            User theplant
+Host asics1
+            HostName 46.137.66.152
+            User app
             Compression yes
             Protocol 2
-            Port 222
+Host asics2
+            HostName 46.137.46.173
+            User app
+            Compression yes
+            Protocol 2
