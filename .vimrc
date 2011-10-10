@@ -20,6 +20,7 @@ Bundle 'tpope/vim-liquid'
 Bundle 'motemen/git-vim'
 
 Bundle 'w3cvalidator'
+Bundle 'sunaku/vim-ruby-minitest'
 
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'garbas/vim-snipmate'
@@ -67,6 +68,7 @@ Bundle 'rstacruz/sparkup'
 
 " AutoCmd
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set completefunc=syntaxcomplete#Complete
 autocmd FileType c          set omnifunc=ccomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html       set omnifunc=htmlcomplete#CompleteTags
