@@ -5,13 +5,18 @@ lacoste:
   repo: git@github.com:theplant/lacoste.git
   pushable: true
 
+danone:
+  path: ~/GIT/danone
+  repo: git@github.com:theplant/danone.git
+  pushable: true
+
 theplanttools:
   path: ~/GIT/theplantools/
   repo: git@github.com:anatole/theplantools.git
   pushable: true
 
 asics2:
-  path: ~/GIT/asics2
+  path: ~/GIT/asics
   repo: git@github.com:theplant/asics2.git
   pushable: true
 
@@ -43,11 +48,6 @@ piqshare:
 joblet:
   path: ~/GIT/joblet/
   repo: git@github.com:anatole/joblet.git
-  pushable: true
-
-asics:
-  path: ~/GIT/asics/
-  repo: git@github.com:anatole/asics.git
   pushable: true
 
 tis:
