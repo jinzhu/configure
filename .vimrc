@@ -88,7 +88,7 @@ augroup filetypedetect
   au! BufNewFile,BufRead  *.feature setf cucumber
   au! BufNewFile,BufRead  *.table   setf ruby.testingmachine
   au! BufNewFile,BufRead .autotest  setf ruby
-  au! BufNewFile,BufRead *.erb      setf eruby
+  au! BufNewFile,BufRead *.mobile.erb setf eruby.html
 augroup END
 
 if has("autocmd")
