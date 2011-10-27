@@ -91,3 +91,8 @@ Host asics2
             User app
             Compression yes
             Protocol 2
+Host danone-dev
+            HostName 175.41.216.78
+            User app
+            Compression yes
+            Protocol 2
