@@ -48,6 +48,7 @@ Bundle 'sketch.vim'
 Bundle 'hallettj/jslint.vim'
 Bundle 'md5.vim'
 
+Bundle 'vim-coffee-script'
 Bundle 'go.vim'
 Bundle 'oscarh/vimerl'
 Bundle 'kogent/vim-nagios'
