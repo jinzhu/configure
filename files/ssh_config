@@ -1,5 +1,5 @@
-# ControlMaster auto
-# ControlPath ~/.ssh/master-%r@%h:%p
+ControlMaster auto
+ControlPath ~/.ssh/master-%r@%h:%p
 
 Host amn
             HostName ec2.joblet.jp

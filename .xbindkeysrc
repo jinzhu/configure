@@ -8,6 +8,8 @@
     Control + Alt + s
 "pidgin"
     Control + Alt + p
+"dropboxd"
+    Control + Alt + d
 "~/.scripts/switch_todo_stock"
     Control + Alt + w
 "~/.scripts/start_proxy"
