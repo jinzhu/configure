@@ -50,7 +50,6 @@ cloog
 clutter
 clutter-gst
 clutter-gtk
-codecs
 cogl
 colord
 compositeproto
@@ -83,7 +82,6 @@ dnsutils
 docbook-xml
 docbook-xsl
 dri2proto
-dropbox
 dvd+rw-tools
 e2fsprogs
 eject
@@ -241,7 +239,6 @@ inputproto
 intel-dri
 intltool
 iotop
-ipad_charge
 iproute2
 iptables
 iputils
@@ -484,12 +481,9 @@ libxxf86dga
 libxxf86vm
 libyaml
 licenses
-lightdm
 links
 linux
 linux-api-headers
-linux-ck-corex
-linux-ck-corex-headers
 linux-firmware
 linux-headers
 lirc-utils
@@ -553,7 +547,6 @@ openssl
 orbit2
 orc
 p11-kit
-package-query
 pacman
 pacman-mirrorlist
 pam
@@ -664,7 +657,6 @@ telepathy-glib
 telepathy-logger
 telepathy-mission-control
 texinfo
-thinkfan
 tk
 totem
 totem-plparser
@@ -683,8 +675,6 @@ v4l-utils
 vi
 videoproto
 vim-runtime
-virtualbox-bin
-virtualbox-ext-oracle
 virtuoso
 vte3
 vte-common
@@ -764,7 +754,6 @@ xproto
 xvidcore
 xz
 yajl
-yaourt
 yelp
 yelp-xsl
 zenity

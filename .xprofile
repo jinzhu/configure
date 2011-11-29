@@ -15,4 +15,6 @@ fcitx &
 
 [ -f ~/.xsession ] && source ~/.xsession
 
+xsetroot -cursor_name left_ptr
+
 # ibus-daemon -drx
