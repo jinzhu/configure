@@ -2,7 +2,7 @@
 
 if [ -f ~/.screenlayout/layout.sh ] ; then bash ~/.screenlayout/layout.sh & fi
 
-trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --tint 0x000000 --height 19 &
+trayer --expand true --transparent true --alpha 255 --edge top --align right --SetDockType true --widthtype request --margin 0 --height 19 --tint 0x000000 &
 if [ -x /usr/bin/gnome-terminal ] ; then gnome-terminal & fi
 if [ -x /usr/bin/nm-applet ] ; then nm-applet --sm-disable & fi
 if [ -x /usr/bin/gnome-power-manager ] ; then gnome-power-manager & fi

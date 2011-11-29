@@ -114,6 +114,7 @@ set tf                     " Improves redrawing for newer computers
 set sc                     " Show incomplete command at bottom right
 set tm=500                 " Lower timeout for mappings
 set cot=menu               " Don't show extra info on completions
+set autochdir
 "if &diff | syn off | endif " Turn syntax highlighting off for diff
 let bufpane_showhelp = 0
 
