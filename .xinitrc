@@ -21,11 +21,6 @@ xmodmap -e 'remove Lock = Caps_Lock'
 xmodmap -e 'keysym Caps_Lock = Control_L'
 xmodmap -e 'add Control = Control_L'
 
-# Add the 3 lines below to use the Right-Control as Caps-Lock
-xmodmap -e 'remove Control = Control_R'
-xmodmap -e 'keysym Control_R = Caps_Lock'
-xmodmap -e 'add Lock = Caps_Lock'
-
 DEFAULT_SESSION=xmonad
 case $1 in
 xmonad)
