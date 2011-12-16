@@ -76,6 +76,12 @@ Host lacoste2
             Compression yes
             Protocol 2
             Port 222
+Host lacoste3
+            HostName 175.41.220.146
+            User app
+            Compression yes
+            Protocol 2
+            Port 22
 Host asics-dev
             HostName 79.125.17.184
             User app
@@ -96,3 +102,13 @@ Host danone-dev
             User app
             Compression yes
             Protocol 2
+Host danone
+            User app
+            HostName localhost
+            Port 7777
+            ProxyCommand ssh middleman exec nc %h %p
+
+Host middleman
+            User ubuntu
+            HostName middleman.theplant-dev.com
+            Port 443
