@@ -1,6 +1,10 @@
-My dot files for XMonad, VIM, Bash/Zsh, Git, Ruby/Rails, Xbindkey, AutoTest (ruby-libnotify : http://rubyforge.org/projects/ruby-libnotify), Vimperator, Yac (rubygem), Eo (rubygem easyoperate)
+My dot files for XMonad, VIM, Zsh/Bash, ArchLinux, Git, Ruby/Rails, Xbindkey, Vrome, Vimperator, Yac , Eo, Chrome
 
-Install:
+Install the dot files:
   $ rake install
+
 Remove:
   $ rake remove
+
+Install SwitchySharp config:
+  Option > Restore from Online: https://raw.github.com/jinzhu/configure/master/files/SwitchyOptions.bak
