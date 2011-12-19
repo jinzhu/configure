@@ -22,9 +22,10 @@ Bundle 'motemen/git-vim'
 Bundle 'w3cvalidator'
 Bundle 'sunaku/vim-ruby-minitest'
 
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'garbas/vim-snipmate'
-Bundle 'honza/snipmate-snippets'
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "honza/snipmate-snippets"
+Bundle "garbas/vim-snipmate"
 
 Bundle 'pix/vim-align'
 Bundle 'tComment'
@@ -56,7 +57,7 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'cespare/mxml.vim'
 Bundle 'nono/jquery.vim'
 Bundle 'actionscript.vim'
-Bundle 'jinzhu/fuzzyfinder_textmate'
+Bundle 'sethbc/fuzzyfinder_textmate'
 
 " LaTex
 Bundle 'imaps.vim'
@@ -347,6 +348,8 @@ let g:fuf_abbrevMap = {
 let g:fuf_mrufile_maxItem = 100
 let g:fuf_mrucmd_maxItem = 100
 map <leader>t :FuzzyFinderTextMate<CR>
+map <leader>b :FuzzyFinderBuffer<CR>
+
 
 " nnoremap <silent> <C-n>      :FufBuffer<CR>
 " nnoremap <silent> <C-p>      :FufFileWithCurrentBufferDir<CR>
