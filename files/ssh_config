@@ -1,3 +1,4 @@
+ServerAliveInterval 10
 ControlMaster auto
 ControlPath ~/.ssh/master-%r@%h:%p
 
