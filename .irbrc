@@ -1,6 +1,7 @@
 # sudo gem install genki-irb_rocket
 # interactive_editor
 %w(rubygems).map {|x| require x }
+require 'pry-editline'
 require 'interactive_editor'
 
 IRB.conf[:SAVE_HISTORY] = 1000

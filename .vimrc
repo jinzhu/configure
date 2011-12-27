@@ -16,6 +16,8 @@ Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-vividchalk'
 Bundle 'tpope/vim-liquid'
+Bundle 'tpope/vim-eunuch'
+Bundle 'tpope/vim-unimpaired'
 
 Bundle 'motemen/git-vim'
 
