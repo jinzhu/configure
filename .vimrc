@@ -19,6 +19,8 @@ Bundle 'tpope/vim-liquid'
 Bundle 'tpope/vim-eunuch'
 Bundle 'tpope/vim-unimpaired'
 
+Bundle 'juvenn/mustache.vim'
+
 Bundle 'motemen/git-vim'
 
 Bundle 'w3cvalidator'
