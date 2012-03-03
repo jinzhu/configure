@@ -1,0 +1,78 @@
+[
+// Vim Like
+{ "keys": ["ctrl+u"], "command": "scroll_lines", "args": {"amount": 30.0 } },
+{ "keys": ["ctrl+d"], "command": "scroll_lines", "args": {"amount": -30.0 } },
+
+{ "keys": ["ctrl+shift+t"], "command": "reopen_last_file" },
+
+{ "keys": ["ctrl+w"], "command": "move", "args": {"by": "words", "forward": false} },
+{ "keys": ["ctrl+w"], "command": "delete_word", "args": { "forward": false } , "context" : [{ "key": "setting.command_mode", "operand": false } ]},
+{ "keys": ["ctrl+m"], "command": "show_overlay", "args": {"overlay": "goto", "text": "@"} },
+{ "keys": ["ctrl+g"], "command": "show_overlay", "args": {"overlay": "command_palette"} },
+
+// Inc-Dec-Value
+{ "keys": ["ctrl+a"], "command": "inc_dec_value", "args": { "action": "inc_min" } },
+{ "keys": ["ctrl+x"], "command": "inc_dec_value", "args": { "action": "dec_min" } },
+
+// Open Current file
+{ "keys": ["g", "f"], "command": "open_include", "context": [{"key": "setting.command_mode"}]},
+
+// OpenSearchResult
+{"keys": ["g", "o"], "command": "open_search_result", "context": [{"key": "setting.command_mode"}] },
+
+// My Favorite Hotkeys
+{ "keys": ["g", "t"], "command": "next_view", "context": [{"key": "setting.command_mode"}] },
+{ "keys": ["g", "T"], "command": "prev_view", "context": [{"key": "setting.command_mode"}] },
+{ "keys": [";", "c"], "command": "close", "context": [{"key": "setting.command_mode"}] },
+
+{ "keys": [";", "w"], "command": "gs_fmt_save", "context": [{ "key": "selector", "operator": "equal", "operand": "source.go" }]},
+{ "keys": [";", "w"], "command": "exit_insert_mode", "context": [{ "key": "setting.command_mode", "operand": false }]},
+
+// Select Project
+{ "keys": [";", "p"], "command": "prompt_select_project" },
+
+// Comment
+{ "keys": ["g", "c", "c"], "command": "toggle_comment", "args": { "block": false } },
+{ "keys": ["g", "c", "C"], "command": "toggle_comment", "args": { "block": true } },
+
+// Terminal
+{ "keys": ["super+shift+t"], "command": "open_terminal_project_folder" },
+{ "keys": ["ctrl+super+t"], "command": "open_terminal" },
+
+// Create files and directories
+{ "keys": [" ", "n"], "command": "quick_create_file", "context": [{"key": "setting.command_mode"}] },
+{ "keys": [" ", "d"], "command": "quick_create_directory", "context": [{"key": "setting.command_mode"}] },
+
+// Rails Navigation
+{ "keys": [" ", "m"], "command": "list_rails_models", "context": [{"key": "setting.command_mode"}] },
+{ "keys": [" ", "c"], "command": "list_rails_controllers", "context": [{"key": "setting.command_mode"}] },
+{ "keys": [" ", "v"], "command": "list_rails_views", "context": [{"key": "setting.command_mode"}] },
+{ "keys": [" ", "j"], "command": "list_rails_javascripts", "context": [{"key": "setting.command_mode"}] },
+{ "keys": [" ", "s"], "command": "list_rails_stylesheets", "context": [{"key": "setting.command_mode"}] },
+
+// Rails Related Files
+{ "keys": [" ", "r"], "command": "rails_related_files", "args": {"index": -1 }, "context": [{"key": "setting.command_mode"}]},
+
+// Goto-CSS-Declaration
+{ "keys": [" ", "browser_forward"], "command": "goto_css_declaration", "args": {"goto": "next"}, "context": [{"key": "setting.command_mode"}] },
+{ "keys": [" ", "browser_back"],  "command": "goto_css_declaration", "args": {"goto": "prev"}, "context": [{"key": "setting.command_mode"}] },
+
+// Alignment
+{ "keys": [" ", "="], "command": "alignment", "context": [{"key": "setting.command_mode"}] },
+
+// Clipboard Manager
+{ "keys": ["ctrl+x"], "command": "clipboard_manager_cut" },
+{ "keys": ["ctrl+c"], "command": "clipboard_manager_copy" },
+{ "keys": ["ctrl+v"], "command": "clipboard_manager_paste", "args": { "indent": true } },
+{ "keys": ["ctrl+ctrl+v"], "command": "clipboard_manager_paste", "args": { "indent": false } },
+{ "keys": ["ctrl+shift+v"], "command": "clipboard_manager_choose_and_paste" },
+
+// Goto Last edit position
+{"keys": ["'", "'"], "command": "goto_last_edit", "context": [{"key": "setting.command_mode"}]},
+
+// Color Picker
+{ "keys": ["super+shift+p"], "command": "color_pick", "context": [{"key": "setting.command_mode"}] },
+
+// Still can't leave VIM! (https://github.com/itiut/sublime-text-2-open-with-vim)
+{ "keys": ["ctrl+alt+v"], "command": "open_with_vim", "context": [{"key": "setting.command_mode"}]}
+]

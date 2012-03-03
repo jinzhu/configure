@@ -1,5 +1,5 @@
 IGNORES   = %w(.gitignore .git)
-IRREGULAR = {'files/xmonad.desktop' => '/usr/share/xsessions/xmonad.desktop', 'files/ssh_config' => '~/.ssh/config', 'files/20-thinkpad.conf' => '/etc/X11/xorg.conf.d/20-thinkpad.conf', 'scripts' => '~/.scripts'}
+IRREGULAR = {"files/sublime/*" => "~/.config/sublime-text-2/Packages/User/", "files/xmonad.desktop" => '/usr/share/xsessions/xmonad.desktop', 'files/ssh_config' => '~/.ssh/config', 'files/20-thinkpad.conf' => '/etc/X11/xorg.conf.d/20-thinkpad.conf', 'scripts' => '~/.scripts'}
 
 FILES = Dir.entries('.').select do |x|
   x !~ /^\.*$/ && x =~ /^\./ && !(IGNORES||[]).include?(x)
@@ -8,11 +8,11 @@ end.inject({}) do |s,x|
 end.merge(IRREGULAR)
 
 task :make_dwm do
-  system('cd dwm && make && sudo make install') 
+  system('cd dwm && make && sudo make install')
 end
 
 task :make_xmonad do
-  system('xmonad --recompile') 
+  system('xmonad --recompile')
 end
 
 def exec(str)

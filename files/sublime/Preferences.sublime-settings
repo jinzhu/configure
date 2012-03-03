@@ -1,0 +1,22 @@
+{
+	"color_scheme": "Packages/Color Scheme - Default/Vibrant Ink.tmTheme",
+	"font_face": "Ubuntu Mono",
+	"font_size": 16,
+	"ignored_packages":
+	[
+	],
+	"open_files_in_new_window": false,
+	"scroll_speed": 0,
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": false,
+	"side_bar_visible": false,
+	"side_bar_width": 131.0,
+	"spell_check": true,
+	"status_bar_visible": true,
+	"tab_size": 2,
+	"theme": "Soda Dark.sublime-theme",
+	"trim_trailing_white_space_on_save": true,
+	"vintage_ctrl_keys": true,
+	"vintage_start_in_command_mode": true
+}

@@ -1,0 +1,19 @@
+{
+	// If you get lots of results for javascript files, you may want
+  // to set this to look in the app directory only (or in app and lib)
+	"javascript_locations": [
+    ["app", "assets", "javascripts"],
+    ["lib", "assets", "javascripts"],
+    ["vendor", "assets", "javascripts"],
+    ["public", "javascripts"]
+  ],
+
+  // If you get lots of results for stylesheets, you may want
+  // to set this to look in the app directory only (or in app and lib)
+  "stylesheet_locations": [
+    ["app", "assets", "stylesheets"],
+    ["lib", "assets", "stylesheets"],
+    ["vendor", "assets", "stylesheets"],
+    ["public", "stylesheets"]
+  ]
+}
