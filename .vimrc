@@ -8,12 +8,14 @@ Bundle 'L9'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-rake'
+Bundle 'tpope/vim-cucumber'
+Bundle 'tpope/vim-haml'
+
 Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-markdown'
+
 Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-cucumber'
 Bundle 'tpope/vim-abolish'
-Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-vividchalk'
 Bundle 'tpope/vim-liquid'
 Bundle 'tpope/vim-eunuch'
@@ -70,6 +72,7 @@ Bundle 'cecutil'
 " write HTML code faster
 Bundle 'rstacruz/sparkup'
 
+Bundle 'AutoClose'
 
 " AutoCmd
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -192,6 +195,10 @@ set t_Co=128
 set incsearch   "find the next match as we type the search
 set hlsearch    "hilight searches by default
 
+" FuzzyFinderTextMate
+let g:fuzzy_ignore = "*.log"
+let g:fuzzy_matching_limit = 70
+let g:fuzzy_ceiling = 100000
 
 " set wrap      "dont wrap lines
 " set linebreak   "wrap lines at convenient points
