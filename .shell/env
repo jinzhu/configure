@@ -16,15 +16,6 @@ export EDITOR="vim"
 export QOR_ROOT="~/GIT/qor/"
 export CLOSURE_HOME="/home/jinzhu/Lab/closure-library"
 
-export GOROOT="/opt/go"
-export GOPATH="/jinzhu/Projects/Lab/go"
-
-# go lang
-# export GOROOT=$HOME/go
-# export GOOS="linux"
-# echo $(uname -m)| grep -q 86_64  && export GOARCH="amd64" || export GOARCH="386"
-# export GOBIN=$HOME/go/bin
-
 # export XMODIFIERS=@im=fcitx
 # export GTK_IM_MODULE=XIM
 # export QT_IM_MODULE=XIM

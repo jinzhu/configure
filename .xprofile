@@ -8,6 +8,11 @@ export QT_IM_MODULE=xim
 export XMODIFIERS="@im=fcitx"
 fcitx &
 
+# Go autocomplete
+export GOROOT="/opt/go"
+export GOPATH="/jinzhu/Projects/Lab/go"
+gocode &
+
 #export XMODIFIERS="@im=ibus"
 #export GTK_IM_MODULE="ibus"
 #export QT_IM_MODULE="xim"
