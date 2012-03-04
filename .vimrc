@@ -9,23 +9,34 @@ Bundle 'L9'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-rake'
-Bundle 'sunaku/vim-ruby-minitest'
+" ~/.vim/macros/rails.vim
 
 Bundle 'tpope/vim-ragtag'
+" <C-X>= <C-X>+ <C-X>- <C-X>_ <C-X>' <C-X>" <C-X><Space> <C-X><CR> <C-X>/ <C-X>! <C-X>@ <C-X># <C-X>$
 Bundle 'tpope/vim-eunuch'
+" :Unlink :Remove :Rename :SudoWrite :W
 Bundle 'tpope/vim-unimpaired'
+" ]o, [o, ]n, [n
+" ]e, [e               Exchange the current line with lines above/below it
+" ]<Space>, [<Spance>  Add [count] blank lines above/below the cursor.
+" `[x` XML encode, `]x` XML decode, `[u` URL encode, `]u` URL decode, `[y` C String encode, `]y` C String decode
 
 Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-abolish'
+" cs'<q>, cst", dst, ys2w), yss), v<move>S)
 
-" ColorScheme
-Bundle 'tpope/vim-vividchalk'
+Bundle 'tpope/vim-abolish'
+" :Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}
+" :%Subvert/facilit{y,ies}/building{,s}/g
 
 " GIT
 Bundle 'tpope/vim-fugitive'
-Bundle 'Gist.vim'
+" ~/.vim/bundle/vim-fugitive/doc/fugitive.txt
 
 Bundle 'Command-T'
+" :CommandT, :CommandTBuffer
+
+Bundle 'Gist.vim'
+
 Bundle 'w3cvalidator'
 
 " Snipmate
@@ -37,15 +48,19 @@ Bundle "garbas/vim-snipmate"
 Bundle 'pix/vim-align'
 Bundle 'tComment'
 Bundle 'mileszs/ack.vim'
+" :Ack
+" o (open) go (preview open) t (tab) T (new tab silently) v (vertical) gv q (close)
+
 Bundle 'AutoComplPop'
-Bundle 'Rename2'
 Bundle 'jsbeautify'
 Bundle 'MultipleSearch'
 Bundle 'reorder-tabs'
+" <M-PgUp> / <M-PgDn>
 Bundle 'sessionman.vim'
+" :SessionClose :SessionList :SessionOpen :SessionOpenLast :SessionSave :SessionSaveAs :SessionShowLast
 Bundle 'scrooloose/nerdtree'
 Bundle 'Glob-Edit'
-Bundle 'chrisbra/SudoEdit.vim'
+" edit plugin/*vim
 Bundle 'tsaleh/vim-matchit'
 Bundle 'pangloss/vim-simplefold'
 Bundle 'taglist.vim'
@@ -56,7 +71,6 @@ Bundle 'mru.vim'
 
 " Maintains a history of yanks
 Bundle 'YankRing.vim'
-
 
 " LaTex
 Bundle 'imaps.vim'
@@ -70,6 +84,9 @@ Bundle 'rstacruz/sparkup'
 
 Bundle 'AutoClose'
 
+" ColorScheme
+Bundle 'tpope/vim-vividchalk'
+
 " Syntax Support
 Bundle 'juvenn/mustache.vim'
 Bundle 'tpope/vim-haml'
@@ -81,6 +98,7 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'cespare/mxml.vim'
 Bundle 'nono/jquery.vim'
 Bundle 'actionscript.vim'
+Bundle 'sunaku/vim-ruby-minitest'
 " erlang
 Bundle 'oscarh/vimerl'
 
@@ -400,39 +418,16 @@ let g:user_zen_settings = {
 let g:user_zen_expandabbr_key = '<c-e>'
 let g:use_zen_complete_tag = 1
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Delete current file
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! DeleteFile(...)
-  if(exists('a:1'))
-    let theFile=a:1
-  elseif ( &ft == 'help' )
-    echohl Error
-    echo "Cannot delete a help buffer!"
-    echohl None
-    return -1
-  else
-    let theFile=expand('%:p')
-  endif
-  let delStatus=delete(theFile)
-  if(delStatus == 0)
-    echo "Deleted " . theFile
-  else
-    echohl WarningMsg
-    echo "Failed to delete " . theFile
-    echohl None
-  endif
-  return delStatus
-endfunction
-"delete the current file
-com! RmCurrent call DeleteFile()
-
-
-
 """ My Leader HotKeys
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <Leader>t :CommandT<CR>
 map <Leader>b :CommandTBuffer<CR>
+map <leader>c :%s/\s\+$//<CR>
+map <leader>a :Ack 
 
+map <leader>s :SessionList<CR>
 map <leader>e :tabedit ~/.vimrc<CR>
 
 map <Leader>r :MRU<CR>
@@ -482,6 +477,9 @@ cnoremap <C-A>    <Home>
 cnoremap <C-E>    <End>
 
 """ Tab
+map <silent> <M-PageUp> :call MoveCurrentTab(-1)<Esc>
+map <silent> <M-PageDown> :call MoveCurrentTab(1)<Esc>
+
 nn ;1 1gt
 nn ;2 2gt
 nn ;3 3gt
