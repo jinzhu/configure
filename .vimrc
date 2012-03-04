@@ -422,13 +422,24 @@ let g:use_zen_complete_tag = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ My Leader HotKeys
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nn <F2> :tabedit <CR>
+nn <F3> :shell <CR>
+nn <F4> :set nu! <CR>
+autocmd BufRead,BufNewFile *.rb map <F5>      :% w !ruby<CR>
+nn <F8> :TlistToggle<CR>
+nnoremap <silent> <F11> :YRShow<CR>
+nmap <F12> <Plug>ToggleAutoCloseMappings
+
+
+let mapleader = ";"
 map <Leader>t :CommandT<CR>
 map <Leader>b :CommandTBuffer<CR>
-map <leader>c :%s/\s\+$//<CR>
-map <leader>a :Ack 
+map <Leader>l :%s/\s\+$//<CR>
+map <Leader>a :Ack 
+map <Leader>p :YRShow<CR>
 
-map <leader>s :SessionList<CR>
-map <leader>e :tabedit ~/.vimrc<CR>
+map <Leader>s :SessionList<CR>
+map <Leader>e :tabedit ~/.vimrc<CR>
 
 map <Leader>r :MRU<CR>
 map <Leader>gs :Gstatus<CR>
@@ -440,9 +451,9 @@ map <leader>cd :cd %:p:h<CR>
 
 """ My `;` HotKeys
 " Windows (;c, ;o)
-nnoremap ; <C-w>
-imap ;w <ESC>:w<CR>
-nn   ;w <ESC>:w<CR>
+nnoremap <Leader> <C-w>
+imap <Leader>w <ESC>:w<CR>
+nn   <Leader>w <ESC>:w<CR>
 
 
 """" Copy & Paste
@@ -501,10 +512,3 @@ ino ;7 <C-o>7gt
 ino ;8 <C-o>8gt
 ino ;9 <C-o>9gt
 ino ;0 <C-o>:tablast<CR>
-
-""" Others
-nn <F2> :tabedit <CR>
-nn <F3> :shell <CR>
-nn <F4> :set nu! <CR>
-autocmd BufRead,BufNewFile *.rb map <F5>      :% w !ruby<CR>
-nn <F8> :TlistToggle<CR>
