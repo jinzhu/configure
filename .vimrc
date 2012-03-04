@@ -5,29 +5,28 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'L9'
 
+" Ruby & Rails
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-rake'
-Bundle 'tpope/vim-cucumber'
-Bundle 'tpope/vim-haml'
+Bundle 'sunaku/vim-ruby-minitest'
 
 Bundle 'tpope/vim-ragtag'
-Bundle 'tpope/vim-markdown'
-
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-abolish'
-Bundle 'tpope/vim-vividchalk'
-Bundle 'tpope/vim-liquid'
 Bundle 'tpope/vim-eunuch'
 Bundle 'tpope/vim-unimpaired'
 
-Bundle 'juvenn/mustache.vim'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-abolish'
 
-Bundle 'motemen/git-vim'
+" ColorScheme
+Bundle 'tpope/vim-vividchalk'
+
+" GIT
+Bundle 'tpope/vim-fugitive'
 
 Bundle 'w3cvalidator'
-Bundle 'sunaku/vim-ruby-minitest'
 
+" Snipmate
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
 Bundle "honza/snipmate-snippets"
@@ -46,7 +45,6 @@ Bundle 'sessionman.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'Glob-Edit'
 Bundle 'chrisbra/SudoEdit.vim'
-Bundle 'vcscommand.vim'
 Bundle 'tsaleh/vim-matchit'
 Bundle 'pangloss/vim-simplefold'
 Bundle 'taglist.vim'
@@ -54,25 +52,37 @@ Bundle 'sketch.vim'
 Bundle 'hallettj/jslint.vim'
 Bundle 'md5.vim'
 
-Bundle 'vim-coffee-script'
-Bundle 'go.vim'
+" Maintains a history of yanks
+Bundle 'YankRing.vim'
+
 Bundle 'oscarh/vimerl'
-Bundle 'kogent/vim-nagios'
-Bundle 'pangloss/vim-javascript'
-Bundle 'cespare/mxml.vim'
-Bundle 'nono/jquery.vim'
-Bundle 'actionscript.vim'
 Bundle 'sethbc/fuzzyfinder_textmate'
 
 " LaTex
 Bundle 'imaps.vim'
 Bundle 'gerw/vim-latex-suite'
+
 " save/restore window position
 Bundle 'cecutil'
+
 " write HTML code faster
 Bundle 'rstacruz/sparkup'
 
 Bundle 'AutoClose'
+
+Bundle 'mru.vim'
+
+" Syntax Support
+Bundle 'juvenn/mustache.vim'
+Bundle 'tpope/vim-haml'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-liquid'
+Bundle 'vim-coffee-script'
+Bundle 'kogent/vim-nagios'
+Bundle 'pangloss/vim-javascript'
+Bundle 'cespare/mxml.vim'
+Bundle 'nono/jquery.vim'
+Bundle 'actionscript.vim'
 
 " AutoCmd
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -102,7 +112,7 @@ augroup END
 if has("autocmd")
   " Enable filetype detection
   filetype plugin indent on
- 
+
   " Restore cursor position
   autocmd BufReadPost *
     \ if line("'\"") > 1 && line("'\"") <= line("$") |
@@ -126,11 +136,6 @@ set cot=menu               " Don't show extra info on completions
 let bufpane_showhelp = 0
 
 compiler rubyunit
-
-augroup VCSCommand
-  au User VCSBufferCreated silent! nmap <unique> <buffer> q :bwipeout<cr>
-  au User VCSBufferCreated setf vcscommit
-augroup END
 
 " Load matchit (% to bounce from do to end, etc.)
 runtime! macros/matchit.vim
@@ -332,11 +337,6 @@ function! StatuslineTabWarning()
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Git.vim
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:git_command_edit = 'vnew'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIMIM
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:vimim_enable_wildcard_search=1
@@ -346,44 +346,6 @@ let g:vimim_enable_menu_ctrl_jk=1
 let g:vimim_disable_chinese_punctuation=1
 let g:vimim_enable_english_to_chinese=1
 let g:vimim_disable_search=1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" FuzzyFinder.vim
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:fuf_modesDisable = []
-let g:fuf_abbrevMap = {
-      \   '^vr:' : map(filter(split(&runtimepath, ','), 'v:val !~ "after$"'), 'v:val . ''/**/'''),
-      \   '^m0:' : [ '/mnt/d/0/', '/mnt/j/0/' ],
-      \ }
-let g:fuf_mrufile_maxItem = 100
-let g:fuf_mrucmd_maxItem = 100
-map <leader>t :FuzzyFinderTextMate<CR>
-map <leader>b :FuzzyFinderBuffer<CR>
-
-
-" nnoremap <silent> <C-n>      :FufBuffer<CR>
-" nnoremap <silent> <C-p>      :FufFileWithCurrentBufferDir<CR>
-" nnoremap <silent> <C-f><C-p> :FufFileWithFullCwd<CR>
-" nnoremap <silent> <C-f>p     :FufFile<CR>
-" nnoremap <silent> <C-f><C-d> :FufDirWithCurrentBufferDir<CR>
-" nnoremap <silent> <C-f>d     :FufDirWithFullCwd<CR>
-" nnoremap <silent> <C-f>D     :FufDir<CR>
-" nnoremap <silent> <C-j>      :FufMruFile<CR>
-" nnoremap <silent> <C-k>      :FufMruCmd<CR>
-" nnoremap <silent> <C-b>      :FufBookmark<CR>
-" nnoremap <silent> <C-f><C-t> :FufTag<CR>
-" nnoremap <silent> <C-f>t     :FufTag!<CR>
-" noremap  <silent> g]         :FufTagWithCursorWord!<CR>
-" nnoremap <silent> <C-f><C-f> :FufTaggedFile<CR>
-" nnoremap <silent> <C-f><C-j> :FufJumpList<CR>
-" nnoremap <silent> <C-f><C-g> :FufChangeList<CR>
-" nnoremap <silent> <C-f><C-q> :FufQuickfix<CR>
-" nnoremap <silent> <C-f><C-l> :FufLine<CR>
-" nnoremap <silent> <C-f><C-h> :FufHelp<CR>
-" nnoremap <silent> <C-f><C-b> :FufAddBookmark<CR>
-" vnoremap <silent> <C-f><C-b> :FufAddBookmarkAsSelectedText<CR>
-" nnoremap <silent> <C-f><C-e> :FufEditInfo<CR>
-" nnoremap <silent> <C-f><C-r> :FufRenewCache<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LaTex
@@ -413,126 +375,8 @@ let g:force_html_menu   = 'yes'
 let g:html_tag_case     = 'lowercase'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MiniBufexpl.vim
+" ZenCoding
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MAP
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Paste Yanked Text
-nmap gp "0p
-nmap gP "+p
-vmap gP "+p
-vmap gy "+y
-
-" .vimrc
-map <leader>s :source ~/.vimrc<CR>
-map <leader>e :tabedit ~/.vimrc<CR>
-autocmd! bufwritepost .vimrc source ~/.vimrc
-map <leader>c :%s/\s\+$//<CR>
-
-nmap <Leader>fd :cf /tmp/autotest.txt<cr> :compiler rubyunit<cr>
-
-" STARDICT  <install sdcv>
-nmap <C-\> :!sdcv -u 朗道英汉字典5.0 -u 牛津简明英汉袖珍辞 -u 五笔86 -n <C-R>=expand("<cword>")<CR><CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nn ;1 1gt
-nn ;2 2gt
-nn ;3 3gt
-nn ;4 4gt
-nn ;5 5gt
-nn ;6 6gt
-nn ;7 7gt
-nn ;8 8gt
-nn ;9 9gt
-nn ;0 :tablast<CR>
-
-ino ;1 <C-o>1gt
-ino ;2 <C-o>2gt
-ino ;3 <C-o>3gt
-ino ;4 <C-o>4gt
-ino ;5 <C-o>5gt
-ino ;6 <C-o>6gt
-ino ;7 <C-o>7gt
-ino ;8 <C-o>8gt
-ino ;9 <C-o>9gt
-ino ;0 <C-o>:tablast<CR>
-
-nn <F2> :tabnew<CR>
-nn <F3> :%s/\s*$//g<cr>:nohlsearch<cr>''
-nn <F4> :set nu! <CR>
-autocmd BufRead,BufNewFile *.rb map <F5>      :% w !ruby<CR>
-nn <F6> <Esc>:set suffixesadd=.html.erb<CR>gf
-nn <F7> <Esc>:set suffixesadd=.rb<CR>gf
-nn <F8> :TlistToggle<CR>
-nn <F9> :shell <CR>
-nn <F10> :AutoComplPopEnable<CR>
-nn <F12> :silent !lss &<CR><C-l>
-imap <F12> <ESC>:silent !lss &<CR><C-l>
-":nn <F10> :call ToggleSketch()<CR>  "没事，鼠标画线玩的
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-autocmd BufRead,BufNewFile *.rb map <leader>r :!shoes %:p<CR><C-l>
-" <leader n>
-map <leader>1 :set ft=ruby<cr>
-map <leader>2 :set ft=xhtml<cr>
-map <leader>3 :set ft=javascript<cr>
-map <leader>4 :set ft=css<cr>
-map <leader>5 :set ft=vim<cr>
-map <leader>6 :set ft=sh<cr>
-
-" <M-hjkl>
-ino <M-j> <DOWN>
-ino <M-k> <UP>
-ino <M-h> <LEFT>
-ino <M-l> <RIGHT>
-
-nnoremap k gk
-nnoremap j gj
-nnoremap gk k
-nnoremap gj j
-
-vnoremap k gk
-vnoremap j gj
-vnoremap gk k
-vnoremap gj j
-" make <c-l> clear the highlight as well as redraw
-nnoremap <C-L> :nohls<CR><C-L>
-inoremap <C-L> <C-O>:nohls<CR>
-
-" Windows
-nnoremap ; <C-w>
-" Save
-imap ;w <ESC>:w<CR>
-nn   ;w <ESC>:w<CR>
-
-noreabbrev te tabedit
-map <leader>cd :cd %:p:h<CR>
-cnoremap <C-A>    <Home>
-cnoremap <C-E>    <End>
-
-let g:browser = 'firefox -new-tab '
-" Open the Ruby ApiDock page for the word under cursor, in a new Firefox tab
-function! OpenDoc(lang,keyword)
-  let url = 'http://apidock.com/'.a:lang.'/'.a:keyword
-  exec '!'.g:browser.' '.url.' &'
-endfunction
-noremap <leader>rb :call OpenDoc('ruby',expand('<cword>'))<CR>
-" noremap <leader>rr :call OpenDoc('rails',expand('<cword>'))<CR>
-
-
-nn <Space>e  :edit 
-cmap <C-t> <Esc>:tabedit 
-cmap <C-s> <Esc>:sview 
-cmap <C-v> <Esc>:vnew 
-
-
 let g:user_zen_settings = {
       \  'indentation' : '  ',
       \  'perl' : {
@@ -574,3 +418,85 @@ function! DeleteFile(...)
 endfunction
 "delete the current file
 com! RmCurrent call DeleteFile()
+
+
+
+""" My Leader HotKeys
+map <Leader>t :FuzzyFinderTextMate<CR>
+map <Leader>b :FuzzyFinderBuffer<CR>
+
+map <Leader>r :MRU<CR>
+map <Leader>gs :Gstatus<CR>
+map <Leader>gd :Git! diff<CR>
+map <Leader>gc :Gcommit<CR>
+
+map <leader>cd :cd %:p:h<CR>
+
+
+""" My `;` HotKeys
+" Windows (;c, ;o)
+nnoremap ; <C-w>
+imap ;w <ESC>:w<CR>
+nn   ;w <ESC>:w<CR>
+
+
+"""" Copy & Paste
+nmap gp "0p
+nmap gP "+p
+vmap gP "+p
+vmap gy "+y
+
+
+""" Navigation <M-hjkl>
+ino <M-j> <DOWN>
+ino <M-k> <UP>
+ino <M-h> <LEFT>
+ino <M-l> <RIGHT>
+
+nnoremap k gk
+nnoremap j gj
+nnoremap gk k
+nnoremap gj j
+
+vnoremap k gk
+vnoremap j gj
+vnoremap gk k
+vnoremap gj j
+
+" make <c-l> clear the highlight as well as redraw
+nnoremap <C-L> :nohls<CR><C-L>
+inoremap <C-L> <C-O>:nohls<CR>
+
+noreabbrev te tabedit
+cnoremap <C-A>    <Home>
+cnoremap <C-E>    <End>
+
+""" Tab
+nn ;1 1gt
+nn ;2 2gt
+nn ;3 3gt
+nn ;4 4gt
+nn ;5 5gt
+nn ;6 6gt
+nn ;7 7gt
+nn ;8 8gt
+nn ;9 9gt
+nn ;0 :tablast<CR>
+
+ino ;1 <C-o>1gt
+ino ;2 <C-o>2gt
+ino ;3 <C-o>3gt
+ino ;4 <C-o>4gt
+ino ;5 <C-o>5gt
+ino ;6 <C-o>6gt
+ino ;7 <C-o>7gt
+ino ;8 <C-o>8gt
+ino ;9 <C-o>9gt
+ino ;0 <C-o>:tablast<CR>
+
+""" Others
+nn <F2> :tabedit <CR>
+nn <F3> :shell <CR>
+nn <F4> :set nu! <CR>
+autocmd BufRead,BufNewFile *.rb map <F5>      :% w !ruby<CR>
+nn <F8> :TlistToggle<CR>
