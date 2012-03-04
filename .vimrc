@@ -1,5 +1,6 @@
 " Vundle
 set rtp+=~/.vim/bundle/vundle/
+set rtp+=/opt/go/misc/vim
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
@@ -125,8 +126,9 @@ augroup filetypedetect
   au! BufNewFile,BufRead  *.as      setf actionscript
   au! BufNewFile,BufRead  *.feature setf cucumber
   au! BufNewFile,BufRead  *.table   setf ruby.testingmachine
-  au! BufNewFile,BufRead .autotest  setf ruby
-  au! BufNewFile,BufRead *.mobile.erb setf eruby.html
+  au! BufNewFile,BufRead  .autotest setf ruby
+  au! BufNewFile,BufRead  *.mobile.erb setf eruby.html
+  au! BufRead,BufNewFile  *.go      setf go
 augroup END
 
 if has("autocmd")
