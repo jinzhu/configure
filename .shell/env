@@ -16,6 +16,9 @@ export EDITOR="vim"
 export QOR_ROOT="~/GIT/qor/"
 export CLOSURE_HOME="/home/jinzhu/Lab/closure-library"
 
+export GOROOT="/opt/go"
+export GOPATH="/jinzhu/Projects/Lab/go"
+
 # go lang
 # export GOROOT=$HOME/go
 # export GOOS="linux"

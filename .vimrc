@@ -1,6 +1,6 @@
 " Vundle
 set rtp+=~/.vim/bundle/vundle/
-set rtp+=/opt/go/misc/vim
+set rtp+=$GOROOT/misc/vim
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
@@ -69,6 +69,7 @@ Bundle 'sketch.vim'
 Bundle 'hallettj/jslint.vim'
 Bundle 'md5.vim'
 Bundle 'mru.vim'
+Bundle 'qiushibaike'
 
 " Maintains a history of yanks
 Bundle 'YankRing.vim'

@@ -106,7 +106,7 @@ Host danone-dev
 Host danone
             User app
             HostName localhost
-            Port 8888
+            Port 9999
             ProxyCommand ssh middleman exec nc %h %p
 
 Host middleman

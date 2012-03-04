@@ -1,25 +1,23 @@
 # vi ft=shell
 
 "firefox"
-    Control + Alt + f
+    Control+Mod4 + f
 "chromium"
-    Control + Alt + c
+    Control+Mod4 + c
+"subl"
+    Control+Mod4 + e
 "skype"
-    Control + Alt + s
+    Control+Mod4 + s
 "pidgin"
-    Control + Alt + p
+    Control+Mod4 + p
 "dropboxd"
-    Control + Alt + d
+    Control+Mod4 + d
 "~/.scripts/switch_todo_stock"
-    Control + Alt + w
+    Control+Mod4 + w
 "~/.scripts/start_proxy"
-    Control + Alt + Shift + p
-"~/.scripts/todo m"
-    Control + Alt + t
-"~/.scripts/todo r"
-    Control + Alt + Shift + t
+    Control+Shift+Mod4 + p
 "javaws ~/Dropbox/stock/jforex.jnlp"
-    Control + Alt + j
+    Control+Mod4 + j
 
 # Sound
 "amixer sset Master 5%- unmute"
