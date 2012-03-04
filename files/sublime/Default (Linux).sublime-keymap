@@ -27,6 +27,7 @@
 
 { "keys": [";", "w"], "command": "gs_fmt_save", "context": [{ "key": "selector", "operator": "equal", "operand": "source.go" }]},
 { "keys": [";", "w"], "command": "exit_insert_mode", "context": [{ "key": "setting.command_mode", "operand": false }]},
+{ "keys": [";", "w"], "command": "save", "context": [{"key": "setting.command_mode"}] },
 
 // Select Project
 { "keys": [";", "p"], "command": "prompt_select_project" },

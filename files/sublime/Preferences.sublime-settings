@@ -15,7 +15,6 @@
 	"spell_check": true,
 	"status_bar_visible": true,
 	"tab_size": 2,
-	"theme": "Soda Dark.sublime-theme",
 	"trim_trailing_white_space_on_save": true,
 	"vintage_ctrl_keys": true,
 	"vintage_start_in_command_mode": true
