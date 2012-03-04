@@ -23,6 +23,7 @@ Bundle 'tpope/vim-vividchalk'
 
 " GIT
 Bundle 'tpope/vim-fugitive'
+Bundle 'Gist.vim'
 
 Bundle 'Command-T'
 Bundle 'w3cvalidator'
@@ -83,6 +84,7 @@ Bundle 'actionscript.vim'
 " erlang
 Bundle 'oscarh/vimerl'
 
+Bundle 'LargeFile'
 
 " AutoCmd
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
