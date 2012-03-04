@@ -24,6 +24,7 @@ Bundle 'tpope/vim-vividchalk'
 " GIT
 Bundle 'tpope/vim-fugitive'
 
+Bundle 'Command-T'
 Bundle 'w3cvalidator'
 
 " Snipmate
@@ -39,7 +40,6 @@ Bundle 'AutoComplPop'
 Bundle 'Rename2'
 Bundle 'jsbeautify'
 Bundle 'MultipleSearch'
-Bundle 'jinzhu/RecentFiles'
 Bundle 'reorder-tabs'
 Bundle 'sessionman.vim'
 Bundle 'scrooloose/nerdtree'
@@ -51,12 +51,11 @@ Bundle 'taglist.vim'
 Bundle 'sketch.vim'
 Bundle 'hallettj/jslint.vim'
 Bundle 'md5.vim'
+Bundle 'mru.vim'
 
 " Maintains a history of yanks
 Bundle 'YankRing.vim'
 
-Bundle 'oscarh/vimerl'
-Bundle 'sethbc/fuzzyfinder_textmate'
 
 " LaTex
 Bundle 'imaps.vim'
@@ -70,8 +69,6 @@ Bundle 'rstacruz/sparkup'
 
 Bundle 'AutoClose'
 
-Bundle 'mru.vim'
-
 " Syntax Support
 Bundle 'juvenn/mustache.vim'
 Bundle 'tpope/vim-haml'
@@ -83,6 +80,9 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'cespare/mxml.vim'
 Bundle 'nono/jquery.vim'
 Bundle 'actionscript.vim'
+" erlang
+Bundle 'oscarh/vimerl'
+
 
 " AutoCmd
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -375,6 +375,12 @@ let g:force_html_menu   = 'yes'
 let g:html_tag_case     = 'lowercase'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CommandT
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:CommandTScanDotDirectories = 1
+set wildignore+=*.o,*.obj,*.a,*.lib,*.so,.git,.svn,.hg,CVS
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ZenCoding
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:user_zen_settings = {
@@ -422,8 +428,10 @@ com! RmCurrent call DeleteFile()
 
 
 """ My Leader HotKeys
-map <Leader>t :FuzzyFinderTextMate<CR>
-map <Leader>b :FuzzyFinderBuffer<CR>
+map <Leader>t :CommandT<CR>
+map <Leader>b :CommandTBuffer<CR>
+
+map <leader>e :tabedit ~/.vimrc<CR>
 
 map <Leader>r :MRU<CR>
 map <Leader>gs :Gstatus<CR>
