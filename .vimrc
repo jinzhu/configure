@@ -401,7 +401,7 @@ let g:html_tag_case     = 'lowercase'
 " CommandT
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:CommandTScanDotDirectories = 1
-set wildignore+=*.o,*.obj,*.a,*.lib,*.so,.git,.svn,.hg,CVS
+set wildignore+=*.o,*.obj,*.a,*.lib,*.so,.git,.svn,.hg,CVS,*png,*gif,*jpg,vendor/qor,public/system
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ZenCoding
@@ -437,7 +437,7 @@ nmap <F12> <Plug>ToggleAutoCloseMappings
 let mapleader = ";"
 map <Leader>t :CommandT<CR>
 map <Leader>b :CommandTBuffer<CR>
-map <Leader>l :%s/\s\+$//<CR>
+map \c :%s/\s\+$//<CR>
 map <Leader>a :Ack 
 map <Leader>p :YRShow<CR>
 
