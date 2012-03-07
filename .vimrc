@@ -106,6 +106,9 @@ Bundle 'oscarh/vimerl'
 
 Bundle 'LargeFile'
 
+Bundle 'VIM-Color-Picker'
+" :ColorPicker
+
 " AutoCmd
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set completefunc=syntaxcomplete#Complete
@@ -429,6 +432,8 @@ nn <F2> :tabedit <CR>
 nn <F3> :shell <CR>
 nn <F4> :set nu! <CR>
 autocmd BufRead,BufNewFile *.rb map <F5>      :% w !ruby<CR>
+imap <F6> <Esc>:ColorPicker<Cr>a
+vmap <F6> <Del><Esc>h:ColorPicker<Cr>a
 nn <F8> :TlistToggle<CR>
 nnoremap <silent> <F11> :YRShow<CR>
 nmap <F12> <Plug>ToggleAutoCloseMappings
@@ -443,6 +448,7 @@ map <Leader>p :YRShow<CR>
 
 map <Leader>s :SessionList<CR>
 map <Leader>e :tabedit ~/.vimrc<CR>
+autocmd! bufwritepost .vimrc source ~/.vimrc
 
 map <Leader>r :MRU<CR>
 map <Leader>gs :Gstatus<CR>
