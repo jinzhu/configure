@@ -84,7 +84,7 @@ Bundle 'cecutil'
 " write HTML code faster
 Bundle 'rstacruz/sparkup'
 
-Bundle 'AutoClose'
+Bundle 'Raimondi/delimitMate'
 
 " ColorScheme
 Bundle 'tpope/vim-vividchalk'
@@ -108,6 +108,18 @@ Bundle 'LargeFile'
 
 Bundle 'VIM-Color-Picker'
 " :ColorPicker
+
+Bundle 'Lokaltog/vim-easymotion'
+" Vim motions on speed
+Bundle 'spiiph/vim-space'
+
+Bundle 'nathanaelkane/vim-indent-guides'
+let g:indent_guides_start_level=2
+let g:indent_guides_guide_size=1
+
+Bundle 'Lokaltog/vim-powerlin0ie'
+Bundle 'Shougo/neocomplcache'
+let g:neocomplcache_enable_at_startup = 1
 
 " AutoCmd
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -295,6 +307,15 @@ set statusline+=%y      "filetype
 set statusline+=%r      "read only flag
 set statusline+=%m      "modified flag
 
+function! SlSpace()
+  if exists("*GetSpaceMovement")
+    return "[" . GetSpaceMovement() . "]"
+  else
+    return ""
+  endif
+endfunc
+set statusline+=%{SlSpace()}
+
 "display a warning if &et is wrong, or we have mixed-indenting
 set statusline+=%#error#
 set statusline+=%{StatuslineTabWarning()}
@@ -434,10 +455,10 @@ nn <F4> :set nu! <CR>
 autocmd BufRead,BufNewFile *.rb map <F5>      :% w !ruby<CR>
 imap <F6> <Esc>:ColorPicker<Cr>a
 vmap <F6> <Del><Esc>h:ColorPicker<Cr>a
+nn <F7> :IndentGuidesToggle <CR>
 nn <F8> :TlistToggle<CR>
 nnoremap <silent> <F11> :YRShow<CR>
 nmap <F12> <Plug>ToggleAutoCloseMappings
-
 
 let mapleader = ";"
 map <Leader>t :CommandT<CR>
