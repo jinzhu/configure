@@ -121,6 +121,18 @@ Bundle 'Lokaltog/vim-powerlin0ie'
 Bundle 'Shougo/neocomplcache'
 let g:neocomplcache_enable_at_startup = 1
 
+Bundle 'kien/ctrlp.vim'
+let g:ctrlp_user_command = 'find %s -type f'
+let g:ctrlp_match_window_reversed = 0
+let g:ctrlp_working_path_mode = 2
+let g:ctrlp_prompt_mappings = {
+      \ 'PrtSelectMove("j")':   ['<c-n>'],
+      \ 'PrtSelectMove("k")':   ['<c-p>'],
+      \ 'PrtHistory(-1)':       ['<c-j>'],
+      \ 'PrtHistory(1)':        ['<c-k>']
+      \}
+
+
 " AutoCmd
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set completefunc=syntaxcomplete#Complete
@@ -461,8 +473,10 @@ nnoremap <silent> <F11> :YRShow<CR>
 nmap <F12> <Plug>ToggleAutoCloseMappings
 
 let mapleader = ";"
-map <Leader>t :CommandT<CR>
-map <Leader>b :CommandTBuffer<CR>
+map <Leader>t :CtrlP<CR>
+" map <Leader>f :CtrlPCurFile<CR>
+" map <Leader>t :CommandT<CR>
+" map <Leader>b :CommandTBuffer<CR>
 map \c :%s/\s\+$//<CR>
 map <Leader>a :Ack 
 map <Leader>p :YRShow<CR>
@@ -482,6 +496,8 @@ map <leader>cd :cd %:p:h<CR>
 """ My `;` HotKeys
 " Windows (;c, ;o)
 nnoremap <Leader> <C-w>
+nnoremap <Leader>o <C-w>o
+nnoremap <Leader>c <C-w>c
 imap <Leader>w <ESC>:w<CR>
 nn   <Leader>w <ESC>:w<CR>
 
