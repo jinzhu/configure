@@ -10,6 +10,7 @@ Bundle 'L9'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-rake'
+Bundle 'tpope/vim-bundler'
 " ~/.vim/macros/rails.vim
 
 Bundle 'tpope/vim-ragtag'
@@ -30,7 +31,10 @@ Bundle 'tpope/vim-abolish'
 " :%Subvert/facilit{y,ies}/building{,s}/g
 
 " GIT
+Bundle "tpope/vim-git"
 Bundle 'tpope/vim-fugitive'
+Bundle 'int3/vim-extradite'
+Bundle 'tpope/vim-rhubarb'
 " ~/.vim/bundle/vim-fugitive/doc/fugitive.txt
 
 Bundle 'Command-T'
@@ -64,12 +68,13 @@ Bundle 'Glob-Edit'
 " edit plugin/*vim
 Bundle 'tsaleh/vim-matchit'
 Bundle 'pangloss/vim-simplefold'
-Bundle 'taglist.vim'
 Bundle 'sketch.vim'
 Bundle 'hallettj/jslint.vim'
 Bundle 'md5.vim'
 Bundle 'mru.vim'
 Bundle 'qiushibaike'
+Bundle 'tyru/current-func-info.vim'
+Bundle 'tpope/vim-rvm'
 
 " Maintains a history of yanks
 Bundle 'YankRing.vim'
@@ -113,11 +118,21 @@ Bundle 'Lokaltog/vim-easymotion'
 " Vim motions on speed
 Bundle 'spiiph/vim-space'
 
+Bundle 'sjl/gundo.vim'
+let g:gundo_width = 80
+let g:gundo_preview_height = 30
+
 Bundle 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 
-Bundle 'Lokaltog/vim-powerlin0ie'
+Bundle 'Lokaltog/vim-powerline'
+
+Bundle 'gregsexton/MatchTag'
+Bundle 'bronson/vim-visual-star-search'
+Bundle 'majutsushi/tagbar'
+nmap <F8> :TagbarToggle<CR>
+
 Bundle 'Shougo/neocomplcache'
 let g:neocomplcache_enable_at_startup = 1
 
@@ -209,7 +224,7 @@ endif
 set fileencoding=utf-8
 set fileencodings=utf-8,gb18030,ucs-bom,gbk,gb2312,cp936
 set encoding=utf8
-set guifont=simhei\ 20
+set guifont=Monospace\ 13
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " set helplang=cn
@@ -273,127 +288,14 @@ set history=1000
 " set list
 " set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CMD status
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set wildmode=list:longest   "make cmdline tab completion similar to bash
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
+set wildignore+=*.o,*.obj,*.a,*.lib,*.so,.git,.svn,.hg,CVS,*png,*gif,*jpg,vendor/qor,public/system
 
 set showcmd     "show incomplete cmds down the bottom
 set showmode    "show current mode down the bottom
-
-"Add the variable with the name a:varName to the statusline. Highlight it as
-"'error' unless its value is in a:goodValues (a comma separated string)
-function! AddStatuslineFlag(varName, goodValues)
-  set statusline+=%#error#
-  exec "set statusline+=%{RenderStlFlag(".a:varName.",'".a:goodValues."',1)}"
-  set statusline+=%*
-  exec "set statusline+=%{RenderStlFlag(".a:varName.",'".a:goodValues."',0)}"
-endfunction
-
-"returns a:value or ''
-"
-"a:goodValues is a comma separated string of values that shouldn't be
-"highlighted with the error group
-"
-"a:error indicates whether the string that is returned will be highlighted as
-"'error'
-"
-function! RenderStlFlag(value, goodValues, error)
-  let goodValues = split(a:goodValues, ',', 1)
-  let good = index(goodValues, a:value) != -1
-  if (a:error && !good) || (!a:error && good)
-    return '[' . a:value . ']'
-  else
-    return ''
-  endif
-endfunction
-
-"statusline setup
-set statusline=%t       "tail of the filename
-call AddStatuslineFlag('&ff', 'unix,')    "fileformat
-call AddStatuslineFlag('&fenc', 'utf-8,') "file encoding
-set statusline+=%h      "help file flag
-set statusline+=%y      "filetype
-set statusline+=%r      "read only flag
-set statusline+=%m      "modified flag
-
-function! SlSpace()
-  if exists("*GetSpaceMovement")
-    return "[" . GetSpaceMovement() . "]"
-  else
-    return ""
-  endif
-endfunc
-set statusline+=%{SlSpace()}
-
-"display a warning if &et is wrong, or we have mixed-indenting
-set statusline+=%#error#
-set statusline+=%{StatuslineTabWarning()}
-set statusline+=%*
-
-set statusline+=%{StatuslineTrailingSpaceWarning()}
-
-"display a warning if &paste is set
-set statusline+=%#error#
-set statusline+=%{&paste?'[paste]':''}
-set statusline+=%*
-
-set statusline+=%=      "left/right separator
-set statusline+=%{StatuslineCurrentHighlight()}\ \ "current highlight
-set statusline+=%c,     "cursor column
-set statusline+=%l/%L   "cursor line/total lines
-set statusline+=\ %P    "percent through file
-set laststatus=2
-
-"recalculate the trailing whitespace warning when idle, and after saving
-autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
-
-"return '[\s]' if trailing white space is detected
-"return '' otherwise
-function! StatuslineTrailingSpaceWarning()
-    if !exists("b:statusline_trailing_space_warning")
-        if search('\s\+$', 'nw') != 0
-            let b:statusline_trailing_space_warning = '[\s]'
-        else
-            let b:statusline_trailing_space_warning = ''
-        endif
-    endif
-    return b:statusline_trailing_space_warning
-endfunction
-
-"return the syntax highlight group under the cursor ''
-function! StatuslineCurrentHighlight()
-    let name = synIDattr(synID(line('.'),col('.'),1),'name')
-    if name == ''
-        return ''
-    else
-        return '[' . name . ']'
-    endif
-endfunction
-
-"recalculate the tab warning flag when idle and after writing
-autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
-
-"return '[&et]' if &et is set wrong
-"return '[mixed-indenting]' if spaces and tabs are used to indent
-"return an empty string if everything is fine
-function! StatuslineTabWarning()
-    if !exists("b:statusline_tab_warning")
-        let tabs = search('^\t', 'nw') != 0
-        let spaces = search('^ ', 'nw') != 0
-
-        if tabs && spaces
-            let b:statusline_tab_warning =  '[mixed-indenting]'
-        elseif (spaces && !&et) || (tabs && &et)
-            let b:statusline_tab_warning = '[&et]'
-        else
-            let b:statusline_tab_warning = ''
-        endif
-    endif
-    return b:statusline_tab_warning
-endfunction
+set laststatus=2   " Always show the statusline
+set encoding=utf-8 " Necessary to show unicode glyphs
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIMIM
@@ -437,7 +339,6 @@ let g:html_tag_case     = 'lowercase'
 " CommandT
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:CommandTScanDotDirectories = 1
-set wildignore+=*.o,*.obj,*.a,*.lib,*.so,.git,.svn,.hg,CVS,*png,*gif,*jpg,vendor/qor,public/system
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ZenCoding
@@ -461,14 +362,15 @@ let g:use_zen_complete_tag = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ My Leader HotKeys
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nn <F2> :tabedit <CR>
-nn <F3> :shell <CR>
-nn <F4> :set nu! <CR>
+map <F2> :tabedit <CR>
+map <F3> :shell <CR>
+map <F4> :set nu! <CR>
 autocmd BufRead,BufNewFile *.rb map <F5>      :% w !ruby<CR>
 imap <F6> <Esc>:ColorPicker<Cr>a
 vmap <F6> <Del><Esc>h:ColorPicker<Cr>a
-nn <F7> :IndentGuidesToggle <CR>
-nn <F8> :TlistToggle<CR>
+map <F7> :IndentGuidesToggle <CR>
+" nn <F8> :TlistToggle<CR>
+map <F9> :GundoToggle<CR>
 nnoremap <silent> <F11> :YRShow<CR>
 nmap <F12> <Plug>ToggleAutoCloseMappings
 
@@ -489,6 +391,7 @@ map <Leader>r :MRU<CR>
 map <Leader>gs :Gstatus<CR>
 map <Leader>gd :Git! diff<CR>
 map <Leader>gc :Gcommit<CR>
+map <Leader>gl :Extradite<CR>
 
 map <leader>cd :cd %:p:h<CR>
 
@@ -499,7 +402,7 @@ nnoremap <Leader> <C-w>
 nnoremap <Leader>o <C-w>o
 nnoremap <Leader>c <C-w>c
 imap <Leader>w <ESC>:w<CR>
-nn   <Leader>w <ESC>:w<CR>
+map   <Leader>w <ESC>:w<CR>
 
 
 """" Copy & Paste

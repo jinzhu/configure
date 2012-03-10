@@ -67,14 +67,14 @@ function sv {
   if [ -n "$*" ]; then
     sudo vim $*
   else
-    sudo vim .
+    sudo vim
   fi
 }
 function v {
   if [ -n "$*" ]; then
     vim $*
   else
-    vim .
+    vim
   fi
 }
 
