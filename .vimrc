@@ -133,6 +133,9 @@ Bundle 'bronson/vim-visual-star-search'
 Bundle 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 
+Bundle 'tmallen/proj-vim'
+map \p :ProjOpen<CR>
+
 Bundle 'Shougo/neocomplcache'
 let g:neocomplcache_enable_at_startup = 1
 
