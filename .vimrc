@@ -141,7 +141,10 @@ Bundle 'Shougo/neocomplcache'
 let g:neocomplcache_enable_at_startup = 1
 
 Bundle 'kien/ctrlp.vim'
-let g:ctrlp_user_command = 'find %s -type f'
+let g:ctrlp_extensions = ['changes', 'line', 'buffertag']
+let g:ctrlp_mruf_last_entered = 1
+let g:ctrlp_follow_symlinks = 1
+let g:ctrlp_max_height = 40
 let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_working_path_mode = 2
 let g:ctrlp_prompt_mappings = {
@@ -294,7 +297,8 @@ set history=1000
 
 set wildmode=list:longest   "make cmdline tab completion similar to bash
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore+=*.o,*.obj,*.a,*.lib,*.so,.git,.svn,.hg,CVS,*png,*gif,*jpg,vendor/qor,public/system
+set wildignore+=*.o,*.obj,*.a,*.lib,*.so,CVS,*png,*gif,*jpg,vendor/qor,public/system
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*  " Linux/MacOSX
 
 set showcmd     "show incomplete cmds down the bottom
 set showmode    "show current mode down the bottom
@@ -380,6 +384,7 @@ nmap <F12> <Plug>ToggleAutoCloseMappings
 
 let mapleader = ";"
 map <Leader>t :CtrlP<CR>
+map <Leader>b :CtrlPBuffer<CR>
 " map <Leader>f :CtrlPCurFile<CR>
 " map <Leader>t :CommandT<CR>
 " map <Leader>b :CommandTBuffer<CR>
