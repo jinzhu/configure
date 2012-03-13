@@ -42,15 +42,13 @@ Bundle 'Command-T'
 
 Bundle 'Gist.vim'
 
-Bundle 'w3cvalidator'
-
 " Snipmate
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
 Bundle "honza/snipmate-snippets"
 Bundle "garbas/vim-snipmate"
 
-Bundle 'pix/vim-align'
+Bundle 'Align'
 Bundle 'tComment'
 Bundle 'mileszs/ack.vim'
 " :Ack
@@ -65,16 +63,13 @@ Bundle 'sessionman.vim'
 " :SessionClose :SessionList :SessionOpen :SessionOpenLast :SessionSave :SessionSaveAs :SessionShowLast
 Bundle 'scrooloose/nerdtree'
 Bundle 'Glob-Edit'
-" edit plugin/*vim
+" :edit plugin/*vim
+
 Bundle 'tsaleh/vim-matchit'
-Bundle 'pangloss/vim-simplefold'
 Bundle 'sketch.vim'
 Bundle 'hallettj/jslint.vim'
-Bundle 'md5.vim'
-Bundle 'mru.vim'
 Bundle 'qiushibaike'
 Bundle 'tyru/current-func-info.vim'
-Bundle 'tpope/vim-rvm'
 
 " Maintains a history of yanks
 Bundle 'YankRing.vim'
@@ -137,9 +132,6 @@ Bundle 'tmallen/proj-vim'
 map \p :ProjOpen<CR>
 let g:ProjFileBrowser = 'off'
 
-Bundle 'Shougo/neocomplcache'
-let g:neocomplcache_enable_at_startup = 1
-
 Bundle 'kien/ctrlp.vim'
 let g:ctrlp_extensions = ['changes', 'line', 'buffertag']
 let g:ctrlp_mruf_last_entered = 1
@@ -153,6 +145,8 @@ let g:ctrlp_prompt_mappings = {
       \ 'PrtHistory(-1)':       ['<c-j>'],
       \ 'PrtHistory(1)':        ['<c-k>']
       \}
+
+Bundle 'gmarik/github-search.vim'
 
 
 " AutoCmd
