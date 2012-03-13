@@ -48,6 +48,7 @@ Bundle "tomtom/tlib_vim"
 Bundle "honza/snipmate-snippets"
 Bundle "garbas/vim-snipmate"
 
+Bundle 'VisIncr'
 Bundle 'Align'
 Bundle 'tComment'
 Bundle 'mileszs/ack.vim'
