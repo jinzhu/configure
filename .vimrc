@@ -187,9 +187,9 @@ if has("autocmd")
     \ endif
 endif
 
-" autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-" autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-" autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -198,8 +198,8 @@ set tf                     " Improves redrawing for newer computers
 set sc                     " Show incomplete command at bottom right
 set tm=500                 " Lower timeout for mappings
 set cot=menu               " Don't show extra info on completions
-"set autochdir
-"if &diff | syn off | endif " Turn syntax highlighting off for diff
+set autochdir
+if &diff | syn off | endif " Turn syntax highlighting off for diff
 let bufpane_showhelp = 0
 
 compiler rubyunit
@@ -267,11 +267,6 @@ set t_Co=128
 set incsearch   "find the next match as we type the search
 set hlsearch    "hilight searches by default
 
-" FuzzyFinderTextMate
-let g:fuzzy_ignore = "*.log"
-let g:fuzzy_matching_limit = 70
-let g:fuzzy_ceiling = 100000
-
 " set wrap      "dont wrap lines
 " set linebreak   "wrap lines at convenient points
 set noerrorbells
@@ -337,11 +332,6 @@ let Tlist_Show_Menu            = 1
 let g:do_xhtml_mappings = 'yes'
 let g:force_html_menu   = 'yes'
 let g:html_tag_case     = 'lowercase'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CommandT
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:CommandTScanDotDirectories = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ZenCoding
