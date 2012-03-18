@@ -1,5 +1,6 @@
 " Vundle
 set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/gdbmgr/
 set rtp+=$GOROOT/misc/vim
 call vundle#rc()
 
@@ -123,6 +124,7 @@ let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 
 Bundle 'Lokaltog/vim-powerline'
+let g:Powerline_stl_path_style='full'
 
 Bundle 'gregsexton/MatchTag'
 Bundle 'bronson/vim-visual-star-search'

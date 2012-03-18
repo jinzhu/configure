@@ -16,3 +16,5 @@ dwm/dwm.o
 .vim/sessions
 .xmonad/STATUSBAR
 .xmonad/STOCK
+
+.vim/gdbmgr
