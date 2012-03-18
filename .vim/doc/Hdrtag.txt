@@ -1,0 +1,100 @@
+*Hdrtag.txt*	Hdrtag					Feb 22, 2011
+
+Author:  Charles E. Campbell, Jr.  <NdrOchip@ScampbellPfamilyA.bizM>
+	(elide NOSPAM from my email before using)
+Copyright: (c) 2004-2011 by Charles E. Campbell, Jr.	*Hdrtag-copyright*
+           The VIM LICENSE applies to Hdrtag.vim and Hdrtag.txt
+           (see |copyright|) except use "Hdrtag" instead of "Vim"
+	   No warranty, express or implied.  Use At-Your-Own-Risk.
+
+==============================================================================
+1. Contents					*hdrtag* *Hdrtag-contents*
+
+   1. Contents.....................................: |Hdrtag-contents|
+   2. Manual.......................................: |Hdrtag-manual|
+   3. Options......................................: |Hdrtag-options|
+   4. History......................................: |Hdrtag-history|
+
+
+==============================================================================
+2. Manual						*Hdrtag-manual*
+>
+	:Hdrtag
+
+The header command brings up a window on the left hand side of the display
+containing a list of tags under tag types  (see |g:hdrtag_taglist|).  Moving
+the cursor up and down will display the target of the tag.  Pressing the <cr>
+while atop a tag will select it; the cursor will move to the right side window
+and the display will tag to the selected tag.
+
+Hdrtag will use any existing <tags> file.  If the <tags> file doesn't
+exist, then if a script <mktags> exists, it will execute it in the hopes that
+it will generate a <tags> file.  If a <tags> file still doesn't exist, then
+the :Hdrtag command will invoke the hdrtag program on the current file.
+
+The :Hdrtag command toggles between on and off.  One may also specify >
+	:Hdrtag 1
+	:Hdrtag 0
+The first will turn hdrtag on, and the second will turn it off.
+
+The "hdrtag list" window supports several special commands: >
+
+	<s-left>	display the previous tag of the same kind via :echo
+	<s-right>	display the next tag of the same kind via :echo
+	<s-left>	move to previous tag kind label
+	<s-right>	move to next tag kind label
+	<cr>		open to tag in editing window
+	v		vertically split editing window, open current tag in it
+	o		open to tag in editing window, leave cursor in
+			"hdrtag" window
+	h		open to previous tag in editing window, leave cursor in
+			"hdrtag" window
+	l		open to next tag in editing window, leave cursor in
+			"hdrtag" window
+	t		split in a new tab
+
+==============================================================================
+3. Options						*Hdrtag-options*
+        *g:hdrtag_cygwin*
+	  If your o/s is windows and your shell is bash, then hdrtag
+	  will guess that you're using cygwin under windows.  Affects
+	  the default value of g:hdrtag_shq.
+
+	*g:hdrtag_chgwin*
+	  Specifies the "change" (editing) window.
+
+	 *g:hdrtag_exclude*
+	   Any |g:hdrtag_taglist| or |'tags'| entries which match
+	   the pattern in g:hdrtag_exclude are ignored.
+
+	*g:Hdrtag_funcref*
+	  Specifies a function to be called when after the file is
+	  opened for editing.
+
+	*g:hdrtagwinwidth*
+	  specifies default hdrtag window width
+
+	*g:hdrtag_mktags*
+	  by default: "mktags" -- the script to use to generate tags
+
+	*g:hdrtag_pgm*
+	  by default: "hdrtag" -- the program to use to generate tags
+
+	*g:hdrtag_taglist*
+	  If empty : Hdrtag will attempt to use a <tags> file from the current directory
+	  If 1     : Hdrtag will read all tags from files on the |'tags'| list
+	  If string: Hdrtag will read all tags from readable files, treating
+	             the string like |'tags'|
+	  However, taglist entries which match |g:hdrtag_exclude| are ignored.
+
+
+==============================================================================
+4. History						*Hdrtag-history*
+
+v1	Oct 30, 2006 * initial release
+	Jan 02, 2009 * added |g:Hdrtag_funcref|
+	Feb 22, 2011 * for menus, &go =~# used to insure correct case
+
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:cole=0

@@ -151,6 +151,7 @@ let g:ctrlp_prompt_mappings = {
 
 Bundle 'gmarik/github-search.vim'
 
+Bundle 'markabe/bufexplorer'
 
 " AutoCmd
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
