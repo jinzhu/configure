@@ -367,8 +367,8 @@ vmap <F6> <Del><Esc>h:ColorPicker<Cr>a
 map <F7> :IndentGuidesToggle <CR>
 " nn <F8> :TlistToggle<CR>
 map <F9> :GundoToggle<CR>
-nnoremap <silent> <F11> :YRShow<CR>
-nmap <F12> <Plug>ToggleAutoCloseMappings
+nmap <F11> <Plug>ToggleAutoCloseMappings
+noremap <silent> <F12> :let @+=expand("%:p:l").":".line(".")<CR>
 
 let mapleader = ";"
 map <Leader>t :CtrlP<CR>
