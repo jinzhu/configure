@@ -1,4 +1,4 @@
-*gdbmgr.txt*	Gnu Debugger Manager for Vim			Nov 18, 2010
+*gdbmgr.txt*	Gnu Debugger Manager for Vim			Nov 23, 2010
 
 Author:    Charles E. Campbell, Jr.  <NdrOchip@ScampbellPfamily.AbizM>
            (remove NOSPAM from Campbell's email first)
@@ -524,11 +524,11 @@ WINDOW CONTROL						*gdbmgr-winctrl* {{{2
         Stack) atop another row containing one window(the Source Window).
 	The Message+Function Stack windows are 5 rows high; the Source
 	window will take the rest of the rows available (and be a full-width
-	window due to the wildcard columns "-" specifier).
+	window due to the wildcard column's "-" specifier).
 
   *gdbmgr-RL*
   (RL) A Row List is composed of one or more CLs; it is a list of lists.
-       Each CL in a RL must begin with a "c#cols" specification.  There can
+       Each CL in a RL must begin with a "c#cols" specification.  There may
        only be one RL in a window control specification.
 
   Consider the default window control list: >
@@ -544,7 +544,7 @@ WINDOW CONTROL						*gdbmgr-winctrl* {{{2
 	    .   |          |            |                 | RS#2  (5 rows)
 	    .   | ( a      +------------+-----------------+
 	    .   |  netrw   | Source Window                | .
-	   RS#1 |  listing |  (prog1.c listing)           | RS#3  (wild rows)
+	   RL   |  listing |  (prog1.c listing)           | RS#3  (wild rows)
 	    .   | )        |                              | .
 	    .   |          +-------+---------+------------+
 	    .   |          | Expr  | Breakpt | Watchpoint | .
@@ -580,6 +580,7 @@ BREAKPT WINDOW:	non-writable		*gdbmgr-breakpt* {{{2
   Active Keys: >
 	<F1>                       help for breakpt window
 	<F6>                       enters a breakpoint at the current line
+	                           removes a breakpoint if one is already there
 	<c-F6>                     switch to overlaid window (if any)
 	<s-F6>                     enters a temporary breakpoint at the current
 	                           line
@@ -593,7 +594,7 @@ BREAKPT WINDOW:	non-writable		*gdbmgr-breakpt* {{{2
 
 COMMAND WINDOW:	writable		*gdbmgr-cmdwin*	*gdbmgr-command* {{{2
 
-  By default, the Commands window is overlaid with the Source window.  One may
+  By default, the Commands window is overlaid under the Source window.  One may
   switch to the Commands window using the default window setup by typing >
 	<c-F6>
 < when the Source window is active.  Press <c-F6> again to return to the
@@ -612,7 +613,8 @@ COMMAND WINDOW:	writable		*gdbmgr-cmdwin*	*gdbmgr-command* {{{2
   allow access to both vim and gdb, one normally would multiplex -- but
   that would require patching vim.  So, there are two alternatives:
 
-    1. (default) gdbmgr will poll for updates at a .5 second interval.
+    1. (default) gdbmgr will poll for updates at a 10Hz rate
+                 (ie. every 0.1 seconds)
 
     2. Manual Polling: press <s-F6> with the Commands window active
        whenever you feel that the program's output may have been updated but
@@ -726,7 +728,7 @@ SOURCE WINDOW: varies			*gdbmgr-source* {{{2
   variable that variable's value will be displayed in a "balloon".
 
 
-THREADS WINDOW: non-writable				*gdbmgr-threads*
+THREADS WINDOW: non-writable				*gdbmgr-threads* {{{2
 
   The threads window shows the results of gdb's "info threads" command.
 

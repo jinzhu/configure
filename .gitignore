@@ -17,4 +17,6 @@ dwm/dwm.o
 .xmonad/STATUSBAR
 .xmonad/STOCK
 
-.vim/gdbmgr
+.vim/gdbmgr/src/gdbmgr.o
+.vim/gdbmgr/src/gdbmgr.so
+.vim/gdbmgr/progs

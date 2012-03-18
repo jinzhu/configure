@@ -1471,19 +1471,24 @@ endfun
 " ---------------------------------------------------------------------
 " gdbmgr#GdbSourceBalloon: supports beval/l:bexpr handling {{{2
 fun! gdbmgr#GdbSourceBalloon()
+"  call Dfunc("gdbmgr#GdbSourceBalloon()")
+"  call Decho("(gdbmgr#GdbSourceBalloon) s:gdbmgr".(exists("t:gdbmgrtab")? t:gdbmgrtab : "<n/a>")."_running<".(exists("s:gdbmgr{t:gdbmgrtab}_running")? s:gdbmgr{t:gdbmgrtab}_running : "n/a").">")
   if exists("t:gdbmgrtab") && s:gdbmgr{t:gdbmgrtab}_running == "S"
    let srcbuf = s:gdbmgr_registry_{t:gdbmgrtab}["S"].bufnum
+"   call Decho("(gdbmgr#GdbSourceBalloon) srcbuf#".srcbuf)
+"   call Decho("(gdbmgr#GdbSourceBalloon) v:beval_text<".v:beval_text.">")
    if v:beval_text =~ '^\h'
     if srcbuf != -1
      let srcwin = bufwinnr(srcbuf)
+"     call Decho("(gdbmgr#GdbSourceBalloon) srcwin#".srcwin)
      if srcwin != -1
       if v:beval_winnr+1 == srcwin
-"       echomsg "Decho BALLOON EVALUATION<".v:beval_text.">"
        let mesg= s:GdbMgrSend(18,"gmGdb",s:server.s:output.v:beval_text)
-"       echomsg "Decho BALLOON EVALUATION<".mesg.">"
+"       call Decho("(gdbmgr#GdbSourceBalloon) mesg<".mesg.">")
        if mesg =~ "=" && mesg !~ 'No symbol "\S\+" in current context'
         let mesg = substitute(mesg,'^.\{-} = ',v:beval_text.' = ','')
         let mesg = substitute(mesg,'\n','','')
+"        call Dret("gdbmgr#GdbSourceBalloon <".mesg.">")
         return mesg
        endif
       endif
@@ -1491,6 +1496,7 @@ fun! gdbmgr#GdbSourceBalloon()
     endif
    endif
   endif
+"  call Dret("gdbmgr#GdbSourceBalloon <>")
   return ""
 endfun
 
@@ -3316,9 +3322,9 @@ fun! gdbmgr#GdbMgrInit(...)
   " save user's options and maps
   call s:GdbMgrOptionSave()
   if a:0 > 0
-   let curfile= getcwd()."/".expand(a:1)
+   let curfile= expand(a:1)
   else
-   let curfile= expand("%:p")
+   let curfile= expand("%")
   endif
 
   " examine the command line arguments, if any
@@ -3327,10 +3333,10 @@ fun! gdbmgr#GdbMgrInit(...)
   "                          :DI pgmname core...  :DI winctrl pgmname core...
   if curfile != '--attaching--'
 "   call Decho("initialization: is curfile<".curfile."> executable? ------------------")
-   if executable(substitute(curfile,'\.[^./]\+$','','')) && !isdirectory(curfile)
+   if executable(substitute(curfile,'\.[^.]\+$','','')) && !isdirectory(curfile)
     " if current file, less its suffix, is executable, assume that the "curfile" is the program to be debugged
 "    call Decho("case: curfile<".curfile."> is executable")
-    let gdbcmd= substitute(curfile,'\.[^./]\+$','','')
+    let gdbcmd= substitute(curfile,'\.[^.]\+$','','')
 "    call Decho("curfile<".curfile."> is executable, assuming its the pgm to be debugged")
    else
 "    call Decho("case: curfile<".curfile."> is not executable")
