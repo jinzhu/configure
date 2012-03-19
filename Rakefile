@@ -24,6 +24,7 @@ def exec(str)
 end
 
 task :install do
+  exec("mkdir ~/.vim-tmp")
   exec("ln -nfs KEY VALUE")
   puts "\e[33mInstall Complete\e[0m"
 end

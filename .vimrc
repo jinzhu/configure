@@ -1,214 +1,132 @@
-" Vundle
-set rtp+=~/.vim/bundle/vundle/
-set rtp+=~/.vim/gdbmgr/
-set rtp+=$GOROOT/misc/vim
-call vundle#rc()
+set nocompatible
 
-Bundle 'gmarik/vundle'
-Bundle 'L9'
-
-" Ruby & Rails
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-rake'
-Bundle 'tpope/vim-bundler'
-" ~/.vim/macros/rails.vim
-
-Bundle 'tpope/vim-ragtag'
-" <C-X>= <C-X>+ <C-X>- <C-X>_ <C-X>' <C-X>" <C-X><Space> <C-X><CR> <C-X>/ <C-X>! <C-X>@ <C-X># <C-X>$
-Bundle 'tpope/vim-eunuch'
-" :Unlink :Remove :Rename :SudoWrite :W
-Bundle 'tpope/vim-unimpaired'
-" ]o, [o, ]n, [n
-" ]e, [e               Exchange the current line with lines above/below it
-" ]<Space>, [<Spance>  Add [count] blank lines above/below the cursor.
-" `[x` XML encode, `]x` XML decode, `[u` URL encode, `]u` URL decode, `[y` C String encode, `]y` C String decode
-
-Bundle 'tpope/vim-surround'
-" cs'<q>, cst", dst, ys2w), yss), v<move>S)
-
-Bundle 'tpope/vim-abolish'
-" :Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}
-" :%Subvert/facilit{y,ies}/building{,s}/g
-
-" GIT
-Bundle "tpope/vim-git"
-Bundle 'tpope/vim-fugitive'
-Bundle 'int3/vim-extradite'
-Bundle 'tpope/vim-rhubarb'
-" ~/.vim/bundle/vim-fugitive/doc/fugitive.txt
-
-Bundle 'Command-T'
-" :CommandT, :CommandTBuffer
-
-Bundle 'Gist.vim'
-
-" Snippet
-Bundle 'SirVer/ultisnips'
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-Bundle 'VisIncr'
-Bundle 'Align'
-Bundle 'tComment'
-Bundle 'mileszs/ack.vim'
-" :Ack
-" o (open) go (preview open) t (tab) T (new tab silently) v (vertical) gv q (close)
-
-Bundle 'AutoComplPop'
-Bundle 'jsbeautify'
-Bundle 'MultipleSearch'
-Bundle 'reorder-tabs'
-" <M-PgUp> / <M-PgDn>
-Bundle 'sessionman.vim'
-" :SessionClose :SessionList :SessionOpen :SessionOpenLast :SessionSave :SessionSaveAs :SessionShowLast
-Bundle 'scrooloose/nerdtree'
-Bundle 'Glob-Edit'
-" :edit plugin/*vim
-
-Bundle 'tsaleh/vim-matchit'
-Bundle 'sketch.vim'
-Bundle 'hallettj/jslint.vim'
-Bundle 'qiushibaike'
-Bundle 'tyru/current-func-info.vim'
-
-" Maintains a history of yanks
-Bundle 'YankRing.vim'
-
-" LaTex
-Bundle 'imaps.vim'
-Bundle 'gerw/vim-latex-suite'
-
-" save/restore window position
-Bundle 'cecutil'
-
-" write HTML code faster
-Bundle 'rstacruz/sparkup'
-
-Bundle 'Raimondi/delimitMate'
-
-" ColorScheme
-Bundle 'tpope/vim-vividchalk'
-
-" Syntax Support
-Bundle 'juvenn/mustache.vim'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-liquid'
-Bundle 'vim-coffee-script'
-Bundle 'kogent/vim-nagios'
-Bundle 'pangloss/vim-javascript'
-Bundle 'cespare/mxml.vim'
-Bundle 'nono/jquery.vim'
-Bundle 'actionscript.vim'
-Bundle 'sunaku/vim-ruby-minitest'
-" erlang
-Bundle 'oscarh/vimerl'
-
-Bundle 'LargeFile'
-
-Bundle 'VIM-Color-Picker'
-" :ColorPicker
-
-Bundle 'Lokaltog/vim-easymotion'
-" Vim motions on speed
-Bundle 'spiiph/vim-space'
-
-Bundle 'sjl/gundo.vim'
-let g:gundo_width = 80
-let g:gundo_preview_height = 30
-
-Bundle 'nathanaelkane/vim-indent-guides'
-let g:indent_guides_start_level=2
-let g:indent_guides_guide_size=1
-
-Bundle 'Lokaltog/vim-powerline'
-let g:Powerline_stl_path_style='full'
-
-Bundle 'gregsexton/MatchTag'
-Bundle 'bronson/vim-visual-star-search'
-Bundle 'majutsushi/tagbar'
-nmap <F8> :TagbarToggle<CR>
-
-Bundle 'tmallen/proj-vim'
-map \p :ProjOpen<CR>
-let g:ProjFileBrowser = 'off'
-
-Bundle 'kien/ctrlp.vim'
-let g:ctrlp_extensions = ['changes', 'line', 'buffertag']
-let g:ctrlp_mruf_last_entered = 1
-let g:ctrlp_follow_symlinks = 1
-let g:ctrlp_max_height = 40
-let g:ctrlp_match_window_reversed = 0
-let g:ctrlp_working_path_mode = 2
-let g:ctrlp_prompt_mappings = {
-      \ 'PrtSelectMove("j")':   ['<c-n>'],
-      \ 'PrtSelectMove("k")':   ['<c-p>'],
-      \ 'PrtHistory(-1)':       ['<c-j>'],
-      \ 'PrtHistory(1)':        ['<c-k>']
-      \}
-
-Bundle 'gmarik/github-search.vim'
-
-Bundle 'markabe/bufexplorer'
-
-" AutoCmd
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set completefunc=syntaxcomplete#Complete
-autocmd FileType c          set omnifunc=ccomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html       set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css        set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml        set omnifunc=xmlcomplete#CompleteTags
-" autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-
-augroup filetypedetect
-  au! BufNewFile,BufRead  *.js      setf javascript.jquery
-  au! BufNewFile,BufRead  *.ch      setf cheat
-  au! BufNewFile,BufRead  *.yac     setf cheat
-  au! BufNewFile,BufRead  *.liquid  setf liquid
-  au! BufNewFile,BufRead  *.haml    setf haml
-  au! BufNewFile,BufRead  *.yml     setf eruby
-  au! BufNewFile,BufRead  *.mxml    setf mxml
-  au! BufNewFile,BufRead  *.as      setf actionscript
-  au! BufNewFile,BufRead  *.feature setf cucumber
-  au! BufNewFile,BufRead  *.table   setf ruby.testingmachine
-  au! BufNewFile,BufRead  .autotest setf ruby
-  au! BufNewFile,BufRead  *.mobile.erb setf eruby.html
-  au! BufRead,BufNewFile  *.go      setf go
-augroup END
-
-if has("autocmd")
-  " Enable filetype detection
-  filetype plugin indent on
-
-  " Restore cursor position
-  autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
+if filereadable(expand("~/.vim/vundlerc"))
+  source ~/.vim/vundlerc
 endif
 
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+" ================ General Config ====================
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set lz                     " Don't redraw screen during macros
+set lazyredraw             " Don't redraw screen during macros
 set tf                     " Improves redrawing for newer computers
 set sc                     " Show incomplete command at bottom right
 set tm=500                 " Lower timeout for mappings
 set cot=menu               " Don't show extra info on completions
+
 set autochdir
-if &diff | syn off | endif " Turn syntax highlighting off for diff
 let bufpane_showhelp = 0
+set number                      "Line numbers are good
+set backspace=indent,eol,start  "Allow backspace in insert mode
+set history=1000                "Store lots of :cmdline history
+set showcmd                     "Show incomplete cmds down the bottom
+set showmode                    "Show current mode down the bottom
+set gcr=a:blinkon0              "Disable cursor blink
+set noerrorbells
+set novisualbell
+set visualbell t_vb=
+set shortmess=atI
 
-compiler rubyunit
+set laststatus=2   " Always show the statusline
 
-" Load matchit (% to bounce from do to end, etc.)
-runtime! macros/matchit.vim
+set autoread                    "Reload files changed outside vim
+set gdefault                    " search/replace "globally" (on a line) by default
+
+"some stuff to get the mouse going in term
+set selectmode+=mouse
+set mouse=a
+set ttymouse=xterm2
+
+set noshowmatch         " show matching bracets
+set formatoptions=tcrqn " 自动格式化
+set magic               " Set magic on
+set smartcase
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+" This makes vim act like all other editors, buffers can
+" exist in the background without being in a window.
+" http://items.sjbach.com/319/configuring-vim-right
+set hidden
+set title
+
+"turn on syntax highlighting
+syntax on
+
+" ================ Search Settings  =================
+
+" set incsearch        "Find the next match as we type the search
+set hlsearch         "Hilight searches by default
+set viminfo='100,f1  "Save up to 100 marks, enable capital marks
+
+" ================ Turn Off Swap Files ==============
+
+set backup              " make backup file
+set backupdir==~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp  " where to put backup file
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp   " directory is the directory for temp file
+set noswapfile
+set nowb
+
+" ================ Persistent Undo ==================
+" Keep undo history across sessions, by storing in file.
+" Only works all the time.
+
+set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set undofile
+
+" ================ Indentation ======================
+
+set autoindent
+set smartindent
+set smarttab
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+set expandtab
+
+filetype plugin on
+filetype indent on
+
+" Display tabs and trailing spaces visually
+set list listchars=tab:▷⋅,trail:⋅
+
+
+set nowrap       "Don't wrap lines
+set linebreak    "Wrap lines at convenient points
+
+" ================ Folds ============================
+
+set foldmethod=indent   "fold based on indent
+set foldnestmax=3       "deepest fold is 3 levels
+set nofoldenable        "dont fold by default
+
+" ================ Completion =======================
+
+set wildmode=list:longest
+set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
+set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
+set wildignore+=*vim/backups*
+set wildignore+=*sass-cache*
+set wildignore+=*DS_Store*
+set wildignore+=*vendor/rails/**
+set wildignore+=*vendor/cache/**
+set wildignore+=*.gem
+set wildignore+=*log/**
+set wildignore+=*tmp/**
+set wildignore+=*.png,*.jpg,*.gif
+set wildignore+=*.a,*.lib,*.so,CVS,vendor/qor,public/system
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*  " Linux/MacOSX
+
+" ================ Scrolling ========================
+
+set scrolloff=0         "Start scrolling when we're 8 lines away from margins
+set sidescrolloff=15
+set sidescroll=1
+
+for f in split(glob('~/.vim/plugin/settings/*.vim'), '\n')
+  exe 'source' f
+endfor
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Color
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -220,115 +138,17 @@ else
   colorscheme vibrantink
 endif
 
-" GUI - color：guifg, guibg, gui
-" Terminal：ctermfg, ctermbg
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Encoding
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set fileencoding=utf-8
 set fileencodings=utf-8,gb18030,ucs-bom,gbk,gb2312,cp936
 set encoding=utf8
 set guifont=Monospace\ 13
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" set helplang=cn
-
-"some stuff to get the mouse going in term
-set selectmode+=mouse
-set mouse=a
-set ttymouse=xterm2
-
-"turn on syntax highlighting
-syntax on
-
-"load ftplugins and indent files
-filetype plugin on
-filetype indent on
-
-set backup              " make backup file
-set backupdir=/tmp      " where to put backup file
-set directory=/tmp      " directory is the directory for temp file
-set autoread            " auto read when a file is changed from the outside
-set noshowmatch         " show matching bracets
-set formatoptions=tcrqn " 自动格式化
-set magic               " Set magic on
-set smartcase
-set nocompatible
-
-"indent settings
-set ai ts=2 sw=2  "autoindent shiftwidth softtabstop
-set smarttab
-set expandtab
-set smartindent
-
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
+" GUI - color：guifg, guibg, gui
+" Terminal：ctermfg, ctermbg
 
 "tell the term has 128 colors
 set t_Co=128
 
-set incsearch   "find the next match as we type the search
-set hlsearch    "hilight searches by default
-
-" set wrap      "dont wrap lines
-" set linebreak   "wrap lines at convenient points
-set noerrorbells
-set novisualbell
-set vb t_vb=
-
-"folding settings
-set foldmethod=indent   "fold based on indent
-set foldnestmax=3       "deepest fold is 3 levels
-set nofoldenable        "dont fold by default
-
-" store lots of :cmdline history
-set history=1000
-
-" display tabs and trailing spaces
-" set list
-" set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
-
-set wildmode=list:longest   "make cmdline tab completion similar to bash
-set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore+=*.o,*.obj,*.a,*.lib,*.so,CVS,*png,*gif,*jpg,vendor/qor,public/system
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*  " Linux/MacOSX
-
-set showcmd     "show incomplete cmds down the bottom
-set showmode    "show current mode down the bottom
-set laststatus=2   " Always show the statusline
-set encoding=utf-8 " Necessary to show unicode glyphs
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VIMIM
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:vimim_enable_wildcard_search=1
-let g:vimim_menu_color=1
-let g:vimim_enable_menu_extra_text=1
-let g:vimim_enable_menu_ctrl_jk=1
-let g:vimim_disable_chinese_punctuation=1
-let g:vimim_enable_english_to_chinese=1
-let g:vimim_disable_search=1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" LaTex
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set winaltkeys=no         "shielded ALT
-set grepprg=grep\ -nH\ $*
-let g:tex_flavor = "latex"
-set iskeyword+=:
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Ctags
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let Tlist_Sort_Type            = "name"
-let Tlist_Use_Right_Window     = 1
-let Tlist_Compart_Format       = 1
-let Tlist_Exist_OnlyWindow     = 1
-let Tlist_File_Fold_Auto_Close = 0
-let Tlist_Enable_Fold_Column   = 0
-let Tlist_Close_On_Select      = 1
-let Tlist_Show_Menu            = 1
+runtime macros/matchit.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " HTML
@@ -336,24 +156,6 @@ let Tlist_Show_Menu            = 1
 let g:do_xhtml_mappings = 'yes'
 let g:force_html_menu   = 'yes'
 let g:html_tag_case     = 'lowercase'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ZenCoding
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:user_zen_settings = {
-      \  'indentation' : '  ',
-      \  'perl' : {
-      \    'aliases' : {
-      \      'req' : 'require '
-      \    },
-      \    'snippets' : {
-      \      'use' : "use strict\nuse warnings\n\n",
-      \      'warn' : "warn \"|\";",
-      \    }
-      \  }
-      \}
-let g:user_zen_expandabbr_key = '<c-e>'
-let g:use_zen_complete_tag = 1
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -433,6 +235,9 @@ inoremap <C-L> <C-O>:nohls<CR>
 noreabbrev te tabedit
 cnoremap <C-A>    <Home>
 cnoremap <C-E>    <End>
+
+nnoremap <C-e> 3<C-e>
+nnoremap <C-y> 3<C-y>
 
 """ Tab
 map <silent> <M-PageUp> :call MoveCurrentTab(-1)<Esc>
