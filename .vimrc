@@ -43,11 +43,11 @@ Bundle 'Command-T'
 
 Bundle 'Gist.vim'
 
-" Snipmate
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "honza/snipmate-snippets"
-Bundle "garbas/vim-snipmate"
+" Snippet
+Bundle 'SirVer/ultisnips'
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 Bundle 'VisIncr'
 Bundle 'Align'
@@ -235,6 +235,7 @@ set guifont=Monospace\ 13
 " set helplang=cn
 
 "some stuff to get the mouse going in term
+set selectmode+=mouse
 set mouse=a
 set ttymouse=xterm2
 
