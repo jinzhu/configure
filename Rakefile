@@ -24,7 +24,7 @@ def exec(str)
 end
 
 task :install do
-  exec("mkdir ~/.vim-tmp")
+  exec("mkdir ~/.vim-tmp -p") unless File.exist?("#{ENV['HOME']}/.vim-tmp")
   exec("ln -nfs KEY VALUE")
   puts "\e[33mInstall Complete\e[0m"
 end
