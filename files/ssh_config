@@ -113,3 +113,7 @@ Host middleman
             User ubuntu
             HostName middleman.theplant-dev.com
             Port 443
+
+Host qtb
+            User qintaobao
+            HostName qintaobao.com
