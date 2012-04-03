@@ -86,7 +86,7 @@ set expandtab
 filetype plugin on
 filetype indent on
 
-set nowrap       "Don't wrap lines
+set wrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
 
 " ================ Folds ============================
@@ -182,6 +182,7 @@ map <Leader>p :YRShow<CR>
 map <Leader>s :SessionList<CR>
 map <Leader>e :tabedit ~/.vimrc<CR>
 autocmd! bufwritepost .vimrc source ~/.vimrc
+autocmd! BufWritePost *.go execute ':Fmt'
 
 map <Leader>r :MRU<CR>
 map <Leader>gs :Gstatus<CR>

@@ -74,7 +74,7 @@ Bundle 'Glob-Edit'
 
 Bundle 'tsaleh/vim-matchit'
 Bundle 'sketch.vim'
-Bundle 'hallettj/jslint.vim'
+" Bundle 'hallettj/jslint.vim'
 Bundle 'qiushibaike'
 Bundle 'tyru/current-func-info.vim'
 
