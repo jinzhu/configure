@@ -156,7 +156,5 @@ let g:ctrlp_prompt_mappings = {
       \}
 
 Bundle 'gmarik/github-search.vim'
-
-Bundle 'markabe/bufexplorer'
-
+Bundle 'scrooloose/syntastic'
 " vim:tw=78:sw=4:ts=8:et:fdm=marker:ft=vim:norl:

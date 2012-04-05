@@ -12,7 +12,7 @@ set sc                     " Show incomplete command at bottom right
 set tm=500                 " Lower timeout for mappings
 set cot=menu               " Don't show extra info on completions
 
-set autochdir
+" set autochdir
 let bufpane_showhelp = 0
 set number                      "Line numbers are good
 set backspace=indent,eol,start  "Allow backspace in insert mode
@@ -176,11 +176,18 @@ map <Leader>b :CtrlPBuffer<CR>
 " map <Leader>t :CommandT<CR>
 " map <Leader>b :CommandTBuffer<CR>
 map \c :%s/\s\+$//<CR>
+
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
+map <leader>ew :e %%
+map <leader>es :sp %%
+map <leader>ev :vsp %%
+map <leader>et :tabe %%
+map <Leader>ec :tabedit ~/.vimrc<CR>
+
 map <Leader>a :Ack 
 map <Leader>p :YRShow<CR>
 
 map <Leader>s :SessionList<CR>
-map <Leader>e :tabedit ~/.vimrc<CR>
 autocmd! bufwritepost .vimrc source ~/.vimrc
 autocmd! BufWritePost *.go execute ':Fmt'
 
