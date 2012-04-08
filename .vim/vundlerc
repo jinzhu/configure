@@ -156,5 +156,34 @@ let g:ctrlp_prompt_mappings = {
       \}
 
 Bundle 'gmarik/github-search.vim'
-Bundle 'scrooloose/syntastic'
+
+Bundle 'markabe/bufexplorer'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Delete current file
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! DeleteFile(...)
+  if(exists('a:1'))
+    let theFile=a:1
+  elseif ( &ft == 'help' )
+    echohl Error
+    echo "Cannot delete a help buffer!"
+    echohl None
+    return -1
+  else
+    let theFile=expand('%:p')
+  endif
+  let delStatus=delete(theFile)
+  if(delStatus == 0)
+    echo "Deleted " . theFile
+  else
+    echohl WarningMsg
+    echo "Failed to delete " . theFile
+    echohl None
+  endif
+  return delStatus
+endfunction
+"delete the current file
+com! RmCurrent call DeleteFile()
+
 " vim:tw=78:sw=4:ts=8:et:fdm=marker:ft=vim:norl:

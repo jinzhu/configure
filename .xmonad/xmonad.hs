@@ -41,7 +41,6 @@ layoutHook' = smartBorders (avoidStruts (windowNavigation (ResizableTall 1 (3/10
 manageHook' = composeAll
     [
     isFullscreen --> doFullFloat
-    , className =? "Gimp"      --> doF (W.shift "dev")
     -- Browser
     , className =? "Chromium" --> doF (W.shift "dev") -- Chrome
     , className =? "Firefox" --> doF (W.shift "www")
