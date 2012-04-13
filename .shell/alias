@@ -11,6 +11,9 @@ alias sp='sudo pacman'
 ############################################################
 # System
 ############################################################
+alias s='screen'
+alias t='tmux'
+
 # Basic directory operations
 function . {
   if [ -z "$*" ]; then
