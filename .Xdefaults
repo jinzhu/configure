@@ -5,7 +5,7 @@ Xft.hintstyle: hintmedium
 Xft.antialias: true
 Xft.rgba: rgb
 
-XTerm.vt100.saveLines:8192
+XTerm.vt100.saveLines:20000
 XTerm.vt100.scrollBar:false
 XTerm.vt100.loginShell:false
 XTerm.vt100.faceName:Monaco:pixelsize=17
@@ -16,48 +16,35 @@ XTerm.vt100.inputMethod:ibus
 XTerm.vt100.locale:true
 XTerm.vt100.visualBell:false
 
-*background: #000000
-*foreground: #DEDEDE
-! Black
-*color0:    rgb:00/00/00
-! Red
-*color1:    rgb:ff/5d/28
-! Green
-*color2:    rgb:b1/d6/31
-! Yellow
-*color3:    rgb:e6/ea/50
-! Blue
-*color4:    rgb:7e/8a/a2
-! Magenta
-*color5:    rgb:af/5f/5f
-! Cyan
-*color6:    rgb:ac/f0/f2
-! White
-*color7:    rgb:e2/e2/e5
-! Black
-*color8:    rgb:b1/d6/31
-! Red
-*color9:    rgb:ff/5d/28
-! Green
-*color10:    rgb:b1/d6/31
-! Yellow
-*color11:    rgb:e6/ea/50
-! Blue
-*color12:    rgb:7e/8a/a2
-! Magenta
-*color13:    rgb:af/5f/5f
-! Cyan
-*color14:    rgb:ac/f0/f2
-! White
-*color15:    rgb:ff/ff/ff
+XTerm*background:  #000000
+XTerm*foreground:  #DEDEDE
+XTerm*cursorColor: yellow
 
+XTerm*color0:    Black
+XTerm*color1:    OrangeRed3
+XTerm*color2:    Green4
+XTerm*color3:    Yellow3
+XTerm*color4:    RoyalBlue3
+XTerm*color5:    Magenta3
+XTerm*color6:    Cyan3
+XTerm*color7:    AntiqueWhite
+XTerm*color8:    Grey15
+XTerm*color9:    OrangeRed
+XTerm*color10:   Green
+XTerm*color11:   Yellow
+XTerm*color12:   NavyBlue
+XTerm*color13:   Magenta
+XTerm*color14:   turquoise
+XTerm*color15:   White
+# http://critical.ch/xterm
 
 
 !URxvt
+! URxvt*background: rgba:0E00/0E00/0E00/dddd
 URxvt*background: #000000
 URxvt*foreground: #DEDEDE
-URxvt*saveLines:  200000
-URxvt.depth:       24
+URxvt*saveLines:  20000
+URxvt.depth:      32
 URxvt.buffered:    true
 URxvt.transparent: false
 URxvt.shading:     100
@@ -71,15 +58,24 @@ URxvt.saveLines: 50000
 
 urxvt*buffered:false
 urxvt*transparent:true
-urxvt*fading:20
+urxvt*fading:50
 urxvt*tintColor:000000
 urxvt*shading:30
+!this makes urxvt to start faster?!
 urxvt*preeditType:Root
 
-urxvt*inputMethod:fcitx
+URxvt.preeditType: OffTheSpot
+URxvt.inputMethod:fcitx
+URxvt.imFont: -microsoft-microsoft yahei-medium-r-normal–0-0-0-0-p-0-iso10646-1
 urxvt*imLocale:zh_CN.utf8
-URxvt.font:xft:Bitstream Vera Sans Mono,xft:WenQuanYi Bitmap Song
-URxvt.boldFont:xft:Bitstream Vera Sans Mono:Bold,xft:WenQuanYi Bitmap Song:Bold
+
+URxvt.font: xft:Monaco:medium:antialias=false:pixelsize=16, \
+xft:DejaVu Sans Mono:book:antialias=false:pixelsize=16, \
+xft:wenquanyi bitmap song:medium:pixelsize=16:antialias=True
+URxvt.boldFont: xft:Monaco:bold:antialias=false:pixelsize=16, \
+xft:DejaVu Sans Mono:bold:antialias=false:pixelsize=16, \
+xft:wenquanyi bitmap song:bold:pixelsize=16:antialias=false
+
 urxvt*urgentOnBell:true
 urxvt*meta8:false
 urxvt*borderless:true
@@ -89,15 +85,20 @@ urxvt*cursorUnderline:false
 urxvt*metaSendsEscape: true
 urxvt*eightBitInput: false
 
-# for url yanking
-URxvt.perl-ext-common:  default,selection,url-select,clipboard
-URxvt.keysym.M-u:       perl:url-select:select_next
-URxvt.urlLauncher:      /usr/bin/chromium
-URxvt.underlineURLs:    true
-URxvt*underlineURLs: true
-URxvt.keysym.M-p:      perl:clipboard:paste
-URxvt*matcher.button:   1
+urxvt*keysym.sym: string
 
+# for url yanking
+URxvt.perl-lib: /home/jinzhu/.scripts/urxvt/
+URxvt.perl-ext-common: default,clipboard,url-select,vim-scrollback
+URxvt.keysym.M-u:      perl:url-select:select_next
+URxvt.urlLauncher:     chromium
+URxvt.underlineURLs:   true
+URvxt.urlButton:       1
+URxvt.keysym.M-C-c:   perl:clipboard:copy
+URxvt.keysym.M-C-v:   perl:clipboard:paste
+
+URxvt.perl-ext-common: vim-scrollback
+URxvt.vim-scrollback-paste: none
 
 Xft*dpi: 96
 Xft*hinting: true

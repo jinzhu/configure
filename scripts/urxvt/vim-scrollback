@@ -1,0 +1,1134 @@
+#! perl
+
+# This extension implements vim like scrollback buffer navigation, search, and
+# paste.  Initially based on the searchable-scrollback extension and some gf
+# related code borrowed from the matcher extension.
+#
+# Copyright (C) 2007 - 2011  Eric Van Dewoestine
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+# TODO:
+#   - really learn perl and clean this nasty script up.
+#   - search history: support filtering by user's typed results.
+#   - motion based yank: y<motion>
+#
+# Known Issues:
+#   - Some weirdness may occur if terminal is resized while in vim mode.
+#   - Multi line pasting in vim mode attempts to write the current
+#     term/interpreter's line continuation prompt, but this may not work
+#     in all cases.
+#     Tested with bash, irb, mysql, psql, and python
+#
+# Api: http://cvs.schmorp.de/rxvt-unicode/doc/rxvtperl.3.html
+
+################################################################################
+# Usage
+#
+# While not in vim scrollback mode
+# ctrl-v - enter vim-scrollback mode
+# ctrl-r * - pastes the primary clipboard onto the command line
+# ctrl-r + - pastes the secondary clipboard onto the command line
+#
+# Note: both ctrl-v and ctrl-r can be configured to different values
+# (configuration examples further down).
+#
+# While in the vim scrollback mode the following key bindings work:
+# motions:
+# h j k l
+# w e b
+# 0 _ $
+# ctrl-u ctrl-d
+# gg G
+#
+# f<char> - jump to next occurrence of <char> on the current line
+# F<char> - jump to prev occurrence of <char> on the current line
+#
+# visual mode:
+# V v ctrl-v
+# gv - reselect last selection
+#
+# yank:
+# y - yank to primary clipboard (*)
+# Y - yank to secondary clipboard (+)
+#
+# paste:
+# p - pastes onto the end of the command line
+#
+# undo / redo:
+# u / ctrl-R - undo / redo pastes to command line
+#
+# marks:
+# m[a-z] '[a-z] ''
+#
+# search:
+# / - searches up
+# ? - searches down
+# n - next in current direction
+# N - next in opposite direction
+# * - search for word under the cursor
+#
+# misc:
+# gf - behave like the shipped matcher plugin for urxvt.  allows you to open a
+#      url or other configured pattern and launcher.  See matcher docs for info
+#      on configuring:
+#      http://cvs.schmorp.de/rxvt-unicode/doc/rxvtperl.3.html#PREPACKAGED_EXTENSIONS
+#
+# Note: counts can be supplied to most commands like in vim
+#
+################################################################################
+# Configuration
+#
+# Vim scrollback supports various configuration settings which can be supplied
+# in your ~/.Xdefaults file.
+#
+# ; configure alt-s as the keybinding to enter vim scrollback mode.
+# urxvt.vim-scrollback: M-s
+#
+# ; configure alt-p as the keybinding to paste mode.
+# urxvt.vim-scrollback-paste: M-p
+#
+# ; configure the background and foreground colors used for the status bar while
+# ; in scrollback mode.
+# urxvt.vim-scrollback-bg: 16
+# urxvt.vim-scrollback-fg: 10
+#
+# ; configure vim-scrollback specific matchers
+# urxvt.vim-scrollback.pattern.1: \\B(/\\S+?):(\\d+)(?=:|$)
+# urxvt.vim-scrollback.launcher.1: gvim +$2 $1
+#
+# ; configure the command used when opening urls. Note, uses the same
+# ; configuration as the url launcher script shipped with urxvt.
+# urxvt*urlLauncher: firefox
+#
+################################################################################
+
+my $DEBUG = 1;
+my $DEBUG_FILE = '/tmp/urxvt_vim_scrollback.log';
+my $DEBUG_FH;
+
+# copied from matcher
+my $url = qr{^((((ht|f)tp(s?))\://)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|m
++il|net|org|biz|info|name|museum|us|ca|uk|\w\w|\w\w\w)(\:[0-9]+)*(/($|[a-zA-Z0-9\.
++\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*)$}x;
+
+sub on_init {
+   my ($self) = @_;
+
+   my $hotkey = $self->x_resource("vim-scrollback") || "M-v";
+   $self->parse_keysym($hotkey, "perl:vim-scrollback:start")
+      or warn "unable to register '$hotkey' as vim scrollback start hotkey\n";
+
+   $hotkey = $self->x_resource("vim-scrollback-paste") || "M-r";
+   $self->parse_keysym($hotkey, "perl:vim-scrollback:paste")
+      or warn "unable to register '$hotkey' as vim paste hotkey\n";
+
+   ()
+}
+
+sub on_user_command {
+   my ($self, $cmd) = @_;
+   $cmd eq "vim-scrollback:start" and $self->enter;
+   $cmd eq "vim-scrollback:paste" and $self->paste;
+   ()
+}
+
+# entry point for vim mode
+sub enter {
+   my ($self) = @_;
+
+   return if $self->{overlay};
+
+   if ($DEBUG){
+      open($DEBUG_FH, ">$DEBUG_FILE");
+      select((select($DEBUG_FH), $| = 1)[0]);
+   }
+
+   ($self->{name} = __PACKAGE__) =~ s/.*:://;
+   $self->{name} =~ tr/_/-/;
+
+   $self->{view_start} = $self->view_start;
+   $self->{pty_ev_events} = $self->pty_ev_events(urxvt::EV_NONE);
+   $self->enable(
+      key_press => \&key_press,
+      resize_all_windows => \&resize_window
+   );
+
+   my ($lnum, $cnum) = $self->screen_cur();
+   $self->{orig_nrow} = $self->nrow;
+   $self->{orig_lnum} = $lnum;
+   $self->{orig_cnum} = $cnum;
+   $self->{out_lnum} = $lnum;
+   $self->{out_cnum} = $cnum;
+   $self->{visual_mode};
+   $self->{visual_clnum};
+   $self->{visual_ccnum};
+   $self->{visual_slnum};
+   $self->{visual_scnum};
+   $self->{visual_elnum};
+   $self->{visual_ecnum};
+   $self->{visual_rectangle};
+
+   my $end = $self->line($lnum)->end;
+   if ($end == $self->nrow - 1){
+     $self->screen_cur($end, 0);
+     $self->scr_add_lines("\n");
+     $self->{orig_lnum} = $lnum - 1;
+     $self->{out_lnum} = $lnum - 1;
+     $self->screen_cur($self->{orig_lnum}, $cnum);
+   }
+
+   $self->{term_buffer} = [];
+   $self->{term_undo} = [];
+   $self->{term_redo} = [];
+   $self->{mode} = "normal";
+   $self->{mode_info} = "";
+   $self->{registers} = {};
+   $self->{marks} = {};
+   $self->{search_history} = [];
+   $self->{key_buffer} = "";
+
+   my $fg_color = $self->x_resource("vim-scrollback-fg");
+   my $bg_color = $self->x_resource("vim-scrollback-bg");
+   my $style = urxvt::OVERLAY_RSTYLE | urxvt::RS_Bold;
+   $style = urxvt::SET_FGCOLOR($style, $fg_color) if $fg_color;
+   $style = urxvt::SET_BGCOLOR($style, $bg_color) if $bg_color;
+   $self->{msg_style} = $style;
+
+   # modified from matcher
+   my $urlLauncher = $self->my_resource("launcher") ||
+                       $self->x_resource("urlLauncher") ||
+                       "sensible-browser";
+   # handle shell variable
+   if ($urlLauncher =~ /^\$/) {
+      $urlLauncher =~ s/\$//;
+      $urlLauncher = $ENV{$urlLauncher};
+   }
+   $self->{launcher} = $urlLauncher;
+
+   # copied from matcher
+   my @defaults = ($url);
+   my @matchers;
+   for (my $idx = 0; defined (my $res = $self->my_resource("pattern.$idx") || $defaults[$idx]); $idx++) {
+      $res = $self->locale_decode($res);
+      utf8::encode $res;
+      my $launcher = $self->my_resource("launcher.$idx");
+      $launcher =~ s/\$&|\$\{&\}/\${0}/g if ($launcher);
+      # handle shell variable
+      if ($launcher =~ /^\$/) {
+         $launcher =~ s/\$//;
+         $launcher = $ENV{$launcher};
+      }
+      push @matchers, [qr($res)x, $launcher];
+   }
+   $self->{matchers} = \@matchers;
+
+   $self->msg("");
+}
+
+sub leave {
+   my ($self, $event) = @_;
+
+   $self->term_write_flush();
+   $self->disable("key_press", "resize_all_windows");
+   $self->pty_ev_events($self->{pty_ev_events});
+   $self->clear_selection($event);
+   $self->screen_cur($self->{orig_lnum}, $self->{orig_cnum});
+   $self->view_start($self->{view_start});
+   $self->want_refresh;
+
+   delete $self->{overlay};
+   delete $self->{search};
+   delete $self->{search_history};
+   delete $self->{mode};
+   delete $self->{mode_info};
+   delete $self->{orig_lnum};
+   delete $self->{orig_cnum};
+   delete $self->{out_lnum};
+   delete $self->{out_cnum};
+   delete $self->{term_buffer};
+   delete $self->{term_undo};
+   delete $self->{term_redo};
+   delete $self->{visual_mode};
+   delete $self->{launcher};
+   delete $self->{matchers};
+
+   if ($DEBUG){
+      close($DEBUG_FH);
+   }
+}
+
+sub resize_window {
+   my ($self, $t_width, $t_height) = @_;
+
+   # prompt at bottom of term
+   if($self->{orig_lnum} == $self->{orig_nrow} - 2){
+      # adjust location of the prompt
+      my $adj = $self->nrow - $self->{orig_nrow};
+      $self->{orig_lnum} += $adj;
+
+      # adjust location of last visual mode if necessary.
+      if ($self->{visual_mode}){
+        $self->{visual_slnum} += $adj;
+        $self->{visual_elnum} += $adj;
+        $self->{visual_clnum} += $adj;
+      }
+
+      # adjust all marks
+      for my $key (keys %{$self->{marks}}){
+         $self->{marks}{$key}[0] += $adj;
+      }
+
+      # failed attempt to reposition the cursor.
+      #my ($lnum, $cnum) = $self->screen_cur();
+      #$self->screen_cur($lnum + $adj, $cnum);
+      #$self->debug("adj = $adj lnum = $lnum cnum = $cnum");
+      #$self->view_start(List::Util::min 0, $lnum - ($self->nrow >> 1));
+      #$self->want_refresh;
+   }
+
+   $self->{orig_nrow} = $self->nrow;
+}
+
+sub key_press {
+   my ($self, $event, $keysym, $string) =  @_;
+
+   #delete $self->{manpage_overlay};
+
+   if ($self->{mode} eq "search"){
+      return $self->key_press_search($event, $keysym, $string);
+   }elsif ($self->{mode} =~ /visual/){
+      return $self->key_press_visual($event, $keysym, $string);
+   }
+
+   return $self->key_press_normal($event, $keysym, $string);
+}
+
+sub key_press_normal {
+   my ($self, $event, $keysym, $string) =  @_;
+
+   $self->msg("");
+   if ($keysym == 0xff1b ||
+      $string =~ /^\cC$/ ||
+      ($self->{key_buffer} =~ /^:qa?$/ && $keysym == 0xff0d))
+   { # esc, ctrl-c, :q<enter>, :qa<enter>
+      if($self->{key_buffer} and $self->{key_buffer} !~ /^:qa?$/){
+         $self->{key_buffer} = "";
+         $self->msg("");
+      }else{
+         $self->leave($event);
+      }
+      return 1;
+   }
+
+   # arbitrary limit on the number of keys we'll allow the user to press
+   # without matching a command before we just stop recording them.
+   if (length($self->{key_buffer}) < 5){
+      $self->{key_buffer} .= $string;
+   }
+   $string = $self->{key_buffer};
+
+   # parse out count if necessary
+   $self->{repeat} = 1;
+   if ($string =~ /^\d+\D/){
+      (my $repeat = $string) =~ s/^(\d+)\D.*$/\1/;
+      $self->{repeat} = $repeat;
+      $string =~ s/^\d+(.*)/\1/;
+   }
+
+   # searching
+   if ($string =~ /^[\/?]$/) { # start search mode with / or ?
+      ($self->{search_lnum}, $self->{search_cnum}) = $self->screen_cur();
+      ($self->{search_slnum}, $self->{search_scnum}) = $self->screen_cur();
+      my $line = $self->line($self->{search_lnum});
+      $self->{search_cnum} = $line->offset_of($self->{search_lnum}, $self->{search_cnum});
+      $self->{search_scnum} = $self->{search_cnum};
+      ($self->{search_olnum}, $self->{search_ocnum}) = $self->screen_cur();
+      $self->{mode} = "search";
+      $self->{search} = "(?i)";
+      $self->{search_save} = $self->{search};
+      $self->{search_history_index} = -1;
+      $self->{search_dir} = $string eq '/' ? -1 : 1;
+      $self->{search_wrap} = 0;
+      $self->search_prompt;
+   } elsif ($string eq "*") { # find word under the cursor
+      my ($lnum, $cnum) = $self->screen_cur();
+      my $line = $self->line($lnum);
+      my $index = $cnum + ($self->ncol * ($lnum - $line->beg));
+
+      my $prefix = substr($line->t, 0, $index + 1);
+      $prefix =~ s/.*\W(\w.*?)/\1/;
+      my $suffix = substr($line->t, $index + 1);
+      $suffix =~ s/(\w.*?)\W.*/\1/;
+      if ($suffix =~ /^\s/){
+        $suffix = '';
+      }
+      my $word = $prefix . $suffix;
+      $self->{search} = "\\b$word\\b";
+      unshift(@{$self->{search_history}}, $self->{search});
+      $self->{search_dir} = -1;
+      $self->{search_wrap} = 0;
+      ($self->{search_lnum}, $self->{search_cnum}) = $self->screen_cur();
+      ($self->{search_slnum}, $self->{search_scnum}) = $self->screen_cur();
+      my $line = $self->line($self->{search_lnum});
+      $self->{search_cnum} = $line->offset_of($self->{search_lnum}, $self->{search_cnum});
+      $self->{search_scnum} = $self->{search_cnum};
+      $self->search($event, $self->{search_dir}, 1);
+      $self->{search_wrap} = 0;
+
+   } elsif ($string eq "n") { # next search result (up)
+      ($self->{search_lnum}, $self->{search_cnum}) = $self->screen_cur();
+      ($self->{search_slnum}, $self->{search_scnum}) = $self->screen_cur();
+      my $line = $self->line($self->{search_lnum});
+      $self->{search_cnum} = $line->offset_of($self->{search_lnum}, $self->{search_cnum});
+      $self->{search_scnum} = $self->{search_cnum};
+      $self->search($event, $self->{search_dir}, 1);
+      $self->{search_wrap} = 0;
+   } elsif ($string eq "N") { # previous search result (down)
+      ($self->{search_lnum}, $self->{search_cnum}) = $self->screen_cur();
+      ($self->{search_slnum}, $self->{search_scnum}) = $self->screen_cur();
+      my $line = $self->line($self->{search_lnum});
+      $self->{search_cnum} = $line->offset_of($self->{search_lnum}, $self->{search_cnum});
+      $self->{search_scnum} = $self->{search_cnum};
+      $self->search($event, 0 - $self->{search_dir}, 1);
+      $self->{search_wrap} = 0;
+
+   # visual mode
+   } elsif ($string eq "v") { # start char based visual selection mode
+      $self->{mode} = "visual";
+      $self->{mode_info} = "-- VISUAL -- ";
+      ($self->{visual_lnum}, $self->{visual_cnum}) = $self->screen_cur();
+      my ($lnum, $cnum) = $self->screen_cur();
+      $self->move_cursor($event, $lnum, $cnum);
+      $self->msg("");
+   } elsif ($string eq "V") { # start line based visual selection mode
+      $self->{mode} = "visual_line";
+      $self->{mode_info} = "-- VISUAL LINE -- ";
+      ($self->{visual_lnum}, $self->{visual_cnum}) = $self->screen_cur();
+      my ($lnum, $cnum) = $self->screen_cur();
+      $self->move_cursor($event, $lnum, $cnum);
+      $self->msg("");
+   } elsif ($string =~ /^\cV$/) { # start block based visual selection mode
+      $self->{mode} = "visual_block";
+      $self->{mode_info} = "-- VISUAL BLOCK -- ";
+      ($self->{visual_lnum}, $self->{visual_cnum}) = $self->screen_cur();
+      my ($lnum, $cnum) = $self->screen_cur();
+      $self->move_cursor($event, $lnum, $cnum);
+      $self->msg("");
+
+   # paste
+   } elsif ($string eq "p") {
+      $self->set_mark("'");
+      $self->term_write($event, $self->{registers}{'"'});
+
+   # motions
+   } elsif ($string eq "j") {
+      my ($lnum, $cnum) = $self->screen_cur();
+      for(my $ii = 0; $ii < $self->{repeat}; $ii++){
+         if ($lnum < $self->nrow - 2){
+            $self->move_cursor($event, ++$lnum, $cnum);
+         }
+      }
+   } elsif ($string eq "k") {
+      my ($lnum, $cnum) = $self->screen_cur();
+      for(my $ii = 0; $ii < $self->{repeat}; $ii++){
+         if ($lnum > $self->top_row){
+            $self->move_cursor($event, --$lnum, $cnum);
+         }
+      }
+   } elsif ($string eq "h") {
+      my ($lnum, $cnum) = $self->screen_cur();
+      for(my $ii = 0; $ii < $self->{repeat}; $ii++){
+         if ($cnum > 0){
+            $self->move_cursor($event, $lnum, --$cnum);
+         }
+      }
+   } elsif ($string eq "l") {
+      my ($lnum, $cnum) = $self->screen_cur();
+      for(my $ii = 0; $ii < $self->{repeat}; $ii++){
+         if ($cnum < $self->ncol - 1){
+            $self->move_cursor($event, $lnum, ++$cnum);
+         }
+      }
+   } elsif ($string eq "0") {
+      my ($lnum, $cnum) = $self->screen_cur();
+      my $line = $self->line($lnum);
+      $self->move_cursor($event, $line->coord_of(0));
+   } elsif ($string eq "_") {
+      my ($lnum, $cnum) = $self->screen_cur();
+      my $line = $self->line($lnum);
+      my $ltrimmed = $line->t;
+      $ltrimmed =~ s/^\s+//;
+      my $offset = (length($line->t) - length($ltrimmed));
+      $self->move_cursor($event, $line->coord_of(0 + $offset));
+   } elsif ($string eq '$') {
+      my ($lnum, $cnum) = $self->screen_cur();
+      my $line = $self->line($lnum);
+      $self->move_cursor($event, $line->coord_of($line->l - 1));
+   } elsif ($string eq "gg") {
+      $self->set_mark("'");
+      $self->move_cursor($event, $self->top_row, 0);
+   } elsif ($string eq "G") {
+      $self->set_mark("'");
+      $self->move_cursor($event, $self->{orig_lnum}, $self->{orig_cnum});
+   } elsif ($string =~ /^\cD$/) {
+      my ($lnum, $cnum) = $self->screen_cur();
+      my $row = $lnum + 20;
+      $row = $row < $self->{orig_lnum} ? $row : $self->{orig_lnum};
+      $self->move_cursor($event, $row, $cnum);
+   } elsif ($string =~ /^\cU$/) {
+      my ($lnum, $cnum) = $self->screen_cur();
+      my $row = $lnum - 20;
+      $row = $row > $self->top_row ? $row : $self->top_row;
+      $self->move_cursor($event, $row, $cnum);
+   } elsif ($string =~ /^\cF$/) {
+      my ($lnum, $cnum) = $self->screen_cur();
+      my $row = $lnum + 39;
+      $row = $row < $self->{orig_lnum} ? $row : $self->{orig_lnum};
+      $self->move_cursor($event, $row, $cnum);
+   } elsif ($string =~ /^\cB$/) {
+      my ($lnum, $cnum) = $self->screen_cur();
+      my $row = $lnum - 39;
+      $row = $row > $self->top_row ? $row : $self->top_row;
+      $self->move_cursor($event, $row, $cnum);
+   } elsif ($string eq "w" or $string eq "e") {
+      my $pattern = $string eq "w" ? '\W\w' : '\w\W';
+      my $adj = $string eq "w" ? 0 : -1;
+      for(my $ii = 0; $ii < $self->{repeat}; $ii++){
+         my ($lnum, $cnum) = $self->screen_cur();
+         my $line = $self->line($lnum);
+         my $index = $cnum + ($self->ncol * ($lnum - $line->beg));
+         my $suffix = substr($line->t, $index + 1);
+         if($suffix =~ /$pattern/g){
+            my $offset = $index + pos($suffix) + $adj;
+            $self->move_cursor($event, $line->coord_of($offset));
+         }elsif ($lnum < $self->nrow - 2){
+            $self->move_cursor($event, $line->end + 1, 0);
+         }
+      }
+   } elsif ($string eq "b") {
+      for(my $ii = 0; $ii < $self->{repeat}; $ii++){
+         my ($lnum, $cnum) = $self->screen_cur();
+         my $line = $self->line($lnum);
+         my $index = $cnum - 1 + ($self->ncol * ($lnum - $line->beg));
+         if($index > 0){
+            my $prefix = substr($line->t, 0, $index);
+            if($prefix =~ /.*\W\w/g){
+               my $offset = pos($prefix) - 1;
+               $self->move_cursor($event, $line->coord_of($offset));
+            }elsif($cnum != 0){
+               $self->move_cursor($event, $lnum, 0);
+            }
+         }else{
+            $self->screen_cur($lnum - 1, $self->ncol);
+            $self->key_press_normal($event, $keysym, $string);
+         }
+      }
+   } elsif ($string =~ /^f./) {
+      for(my $ii = 0; $ii < $self->{repeat}; $ii++){
+         my ($lnum, $cnum) = $self->screen_cur();
+         (my $char = $string) =~ s/^f(.)/\1/;
+         $char = quotemeta($char);
+         my $line = $self->line($lnum);
+         my $index = $cnum + ($self->ncol * ($lnum - $line->beg));
+         my $suffix = substr($line->t, $index + 1);
+         if($suffix =~ /$char/g){
+            my $offset = $index + pos($suffix);
+            $self->move_cursor($event, $line->coord_of($offset));
+         }
+      }
+   } elsif ($string =~ /^F./) {
+      for(my $ii = 0; $ii < $self->{repeat}; $ii++){
+         my ($lnum, $cnum) = $self->screen_cur();
+         (my $char = $string) =~ s/^F(.)/\1/;
+         $char = quotemeta($char);
+         my $line = $self->line($lnum);
+         my $index = $cnum - 1 + ($self->ncol * ($lnum - $line->beg));
+         if($index > 0){
+            my $prefix = substr($line->t, 0, $index);
+            if($prefix =~ /.*$char/g){
+               my $offset = pos($prefix) - 1;
+               $self->move_cursor($event, $line->coord_of($offset));
+            }
+         }
+      }
+
+   # undo / redo
+   } elsif ($string eq "u") {
+      $self->set_mark("'");
+      push(@{$self->{term_redo}}, pop(@{$self->{term_buffer}}));
+      my ($slnum, $scnum, $elnum, $ecnum) = @{pop(@{$self->{term_undo}})};
+      $self->screen_cur($slnum, $scnum);
+
+      my ($beg, $end) = (0, 0);
+      for(my $ii = $slnum; $ii <= $elnum; $ii++){
+         $beg = ($ii == $slnum) ? $scnum : 0;
+         $end = ($ii == $elnum) ? $ecnum : $self->ncol;
+         for(my $jj = $beg; $jj <= $end; $jj++){
+            $self->scr_add_lines(" ");
+         }
+      }
+
+      $self->{out_lnum} = $slnum;
+      $self->{out_cnum} = $scnum;
+      $self->move_cursor($event, $slnum, $scnum);
+   } elsif ($string =~ /^\cR$/) {
+      $self->set_mark("'");
+      $self->term_write($event, pop(@{$self->{term_redo}}));
+
+   } elsif ($string =~ /^\cG$/) {
+      if ($DEBUG){
+         my ($lnum, $cnum) = $self->screen_cur();
+      }
+
+   # marks
+   } elsif ($string =~ /^m[a-z']$/) {
+      (my $mark = $string) =~ s/^m(.)/\1/;
+      $self->set_mark($mark);
+   } elsif ($string =~ /^'[a-z']$/) {
+      (my $mark = $string) =~ s/^'(.)/\1/;
+      my $lnum = $self->{marks}{$mark}[0];
+      my $cnum = $self->{marks}{$mark}[1];
+      $self->set_mark("'");
+      $self->move_cursor($event, $lnum, $cnum);
+
+   # g mappings
+   } elsif ($string eq "gv") {
+      if ($self->{visual_mode}){
+         my ($sl, $sc) = ($self->{visual_slnum}, $self->{visual_scnum});
+         my ($el, $ec) = ($self->{visual_elnum}, $self->{visual_ecnum});
+         $self->move_cursor($event, $self->{visual_clnum}, $self->{visual_ccnum});
+         $self->make_selection($event, $sl, $sc, $el, $ec, $self->{visual_rectangle});
+         $self->{mode} = $self->{visual_mode};
+      }
+   } elsif ($string eq "gf") {
+      my ($lnum, $cnum) = $self->screen_cur();
+      my @exec = $self->command_for($lnum, $cnum);
+
+      # handle ticket numbers
+      # TODO: convert to generic url variable substitution support.
+      if (@exec[1] =~ /^#\d+$/){
+         (my $ticket = @exec[1]) =~ s/^#//;
+         (my $url = @exec[0]) =~ s/<id>/$ticket/;
+         @exec = ($self->{launcher}, $url);
+      }
+
+      if (@exec){
+        $self->exec_async(@exec);
+      }
+
+   }elsif ($string =~ /^([0-9]+|[gm'])$/) {
+      $self->msg($self->{msg});
+      return 1;
+   }
+
+   $self->{key_buffer} = "";
+   $self->msg($self->{msg});
+   return 1;
+}
+
+sub key_press_search {
+   my ($self, $event, $keysym, $string) =  @_;
+
+   if ($keysym == 0xff0d || $keysym == 0xff8d) { # enter
+      $self->normal_mode($event);
+      unshift(@{$self->{search_history}}, $self->{search});
+      if ($self->{search_found}){
+         $self->set_mark("'");
+         my ($lnum, $cnum) = ($self->{search_found}[0], $self->{search_found}[1]);
+         if ($lnum){
+            my $line = $self->line($lnum);
+            ($lnum, $cnum) = $line->coord_of($cnum);
+            $self->move_cursor($event, $lnum, $cnum);
+         }
+      }
+   } elsif ($keysym == 0xff1b || $string =~ /^\cC$/) { # escape or ctrl-c
+      $self->normal_mode($event, 1);
+      $self->move_cursor($event, $self->{search_olnum}, $self->{search_ocnum});
+   } elsif ($keysym == 0xff08) { # backspace
+      substr $self->{search}, -1, 1, "";
+      $self->{search_save} = $self->{search};
+      $self->incremental_search($event);
+   } elsif ($string !~ /[\x00-\x1f\x80-\xaf]/) {
+      $self->{search} .= $self->locale_decode($string);
+      $self->{search_save} = $self->{search};
+      $self->incremental_search($event);
+   } elsif ($keysym == 0xff52) { # up
+      my $length = length(@{$self->{search_history}});
+      if ($self->{search_history_index} < $length and $length > 0) {
+         $self->{search_history_index}++;
+         $self->{search} = @{$self->{search_history}}[$self->{search_history_index}];
+         $self->incremental_search($event);
+      }
+   } elsif ($keysym == 0xff54) { # down
+      if ($self->{search_history_index} > 0){
+         $self->{search_history_index}--;
+         $self->{search} = @{$self->{search_history}}[$self->{search_history_index}];
+         $self->incremental_search($event);
+      } elsif ($self->{search_history_index} == 0){
+         $self->{search_history_index}--;
+         $self->{search} = $self->{search_save};
+         $self->incremental_search($event);
+      }
+   }
+
+   1
+}
+
+sub key_press_visual {
+   my ($self, $event, $keysym, $string) =  @_;
+
+   if ($keysym == 0xff1b || $string =~ /^\cC$/) { # escape or ctrl-c
+      $self->normal_mode($event, 1);
+   } elsif ($string eq "v") {
+      if ($self->{mode} eq "visual") {
+         $self->normal_mode($event, 1);
+      }else{
+         $self->{mode} = "visual";
+         $self->{mode_info} = "-- VISUAL -- ";
+         my ($lnum, $cnum) = $self->screen_cur();
+         $self->move_cursor($event, $lnum, $cnum);
+         $self->msg("");
+      }
+   } elsif ($string eq "V") {
+      if ($self->{mode} eq "visual_line") {
+         $self->normal_mode($event, 1);
+      }else{
+         $self->{mode} = "visual_line";
+         $self->{mode_info} = "-- VISUAL LINE -- ";
+         my ($lnum, $cnum) = $self->screen_cur();
+         $self->move_cursor($event, $lnum, $cnum);
+         $self->msg("");
+      }
+   } elsif ($string =~ /^\cV$/) {
+      if ($self->{mode} eq "visual_block") {
+         $self->normal_mode($event, 1);
+      }else{
+         $self->{mode} = "visual_block";
+         $self->{mode_info} = "-- VISUAL BLOCK -- ";
+         my ($lnum, $cnum) = $self->screen_cur();
+         $self->move_cursor($event, $lnum, $cnum);
+         $self->msg("");
+      }
+   } elsif ($string eq "y") {
+      $self->{registers}{'"'} = $self->selection();
+      $self->normal_mode($event, 1);
+   } elsif ($string eq "Y") {
+      # the act of selecting puts the text on the primary, so just need to copy
+      # to secondary.
+      if (open(my $process, "| xclip -i -selection clipboard")){
+         print $process $self->selection();
+      }
+      $self->normal_mode($event, 1);
+   #} elsif ($string !~ /[\x00-\x1f\x80-\xaf]/) {
+   }else{
+      # pass to key_press_normal
+      return $self->key_press_normal($event, $keysym, $string);
+   }
+
+   1
+}
+
+sub normal_mode {
+   my ($self, $event, $clear_selection) =  @_;
+   if ($self->{mode} =~ /^visual/){
+      ($self->{visual_clnum}, $self->{visual_ccnum}) = $self->screen_cur;
+      ($self->{visual_slnum}, $self->{visual_scnum}) = $self->selection_beg;
+      ($self->{visual_elnum}, $self->{visual_ecnum}) = $self->selection_end;
+      $self->{visual_mode} = $self->{mode};
+      $self->{visual_rectangle} = $self->{mode} eq 'visual_block';
+   }
+   $self->{mode} = "normal";
+   $self->{mode_info} = "";
+   $self->msg("");
+   if ($clear_selection){
+      $self->clear_selection($event);
+   }
+}
+
+sub search {
+   my ($self, $event, $dir, $move_cursor) = @_;
+
+   my ($search_row, $search_col) = ($self->{search_lnum}, $self->{search_cnum});
+   my ($search_srow, $search_scol) = ($self->{search_slnum}, $self->{search_scnum});
+   my ($top_row, $bot_row) = ($self->top_row, $self->nrow);
+   my $search = $self->special_encode($self->{search});
+   $self->{search_found} = [];
+
+   no re 'eval'; # just to be sure
+   if (my $re = eval { qr/$search/ }) {
+      while (($dir < 0 and ((not $self->{search_wrap} and $search_row >= $top_row) or
+                            $search_row > $search_srow)) or
+             ($dir > 0 and ((not $self->{search_wrap} and $search_row <= $bot_row) or
+                            $search_row < $search_srow)))
+      {
+         my $line = $self->line($search_row)
+            or last;
+
+         my $text = $line->t;
+         if ($text =~ /$re/g) {
+            my ($slnum, $selscnum) = $line->coord_of($-[0]);
+            my ($elnum, $selecnum) = $line->coord_of($+[0]);
+            my $scnum = $-[0];
+            my $ecnum = $+[0];
+
+            while ($text =~ /$re/g and
+               ($dir < 0 or ($dir > 0 and $scnum <= $search_col)))
+            {
+              my ($nlnum, $ncnum) = $line->coord_of($-[0]);
+              my $ncnum = $-[0];
+              if (($dir < 0 and $ncnum < $search_col) or
+                  ($dir > 0 and $ncnum > $search_col))
+              {
+                 ($slnum, $selscnum) = $line->coord_of($-[0]);
+                 ($elnum, $selecnum) = $line->coord_of($+[0]);
+                 $scnum = $-[0];
+                 $ecnum = $+[0];
+              }
+            }
+
+            if (($dir < 0 and ($scnum < $search_col or $slnum < $search_row)) or
+                ($dir > 0 and ($scnum > $search_col or $slnum > $search_row)))
+            {
+               $self->make_selection($event, $slnum, $selscnum, $elnum, $selecnum);
+               $self->{search_found} = [$slnum, $scnum];
+               $self->view_start(List::Util::min 0, $slnum - ($self->nrow >> 1));
+               if ($move_cursor){
+                  $self->set_mark("'");
+                  $self->{search_lnum} = $slnum;
+                  $self->{search_cnum} = $scnum;
+                  $self->move_cursor($event, $slnum, $selscnum);
+
+                  if ($dir < 0 and $search_row > $search_srow
+                        and not $self->{search_wrap_notify}){
+                     $self->msg("search hit TOP, continuing at BOTTOM");
+                     $self->{search_wrap_notify} = 1;
+                  }elsif ($dir > 0 and $search_row < $search_srow
+                        and not $self->{search_wrap_notify}){
+                     $self->msg("search hit BOTTOM, continuing at TOP");
+                     $self->{search_wrap_notify} = 1;
+                  }
+               }
+               return $self->{search_found};
+            }
+         }
+         if ($dir < 0 and $search_row == $top_row){
+            $search_row = $bot_row;
+            $search_col = $self->line($search_row)->l;
+            $self->{search_wrap} = 1;
+            $self->{search_wrap_notify} = 0;
+         }elsif ($dir > 0 and $search_row == $bot_row){
+            ($search_row, $search_col) = ($top_row, 0);
+            $self->{search_wrap} = 1;
+            $self->{search_wrap_notify} = 0;
+         }else{
+            $search_row = $dir < 0 ? $line->beg - 1 : $line->end + 1;
+            $search_col = $dir < 0 ? $self->line($search_row)->l : -1;
+         }
+      }
+   }
+
+   return 0;
+}
+
+sub incremental_search {
+   my ($self, $event) =  @_;
+
+   $self->{search} =~ s/^\(\?i\)//
+      if $self->{search} =~ /^\(.*[[:upper:]]/;
+
+   if(not $self->search($event, $self->{search_dir})){
+      $self->clear_selection($event);
+      my $line = $self->line($self->{search_slnum});
+      my ($lnum, $cnum) = $line->coord_of($self->{search_scnum});
+      $self->move_cursor($event, $lnum, $cnum);
+   }
+   $self->{search_lnum} = $self->{search_slnum};
+   $self->{search_cnum} = $self->{search_scnum};
+   $self->{search_wrap} = 0;
+   $self->search_prompt;
+
+   1
+}
+
+sub search_prompt {
+   my ($self) = @_;
+   my $key = $self->{search_dir} == -1 ? '/' : '?';
+   $self->msg("$key$self->{search}█");
+}
+
+sub move_cursor {
+   my ($self, $event, $lnum, $cnum) = @_;
+   $self->screen_cur($lnum, $cnum);
+
+   if ($self->{mode} eq "visual"){
+      my $vlnum = $self->{visual_lnum};
+      my $vcnum = $self->{visual_cnum};
+      if ($lnum > $vlnum or ($vlnum == $lnum and $cnum >= $vcnum)){
+         $self->make_selection($event, $vlnum, $vcnum, $lnum, $cnum + 1);
+      }else{
+         $self->make_selection($event, $lnum, $cnum, $vlnum, $vcnum + 1);
+      }
+   }elsif ($self->{mode} eq "visual_line"){
+      my $vlnum  = $self->{visual_lnum};
+      if ($vlnum > $lnum){
+         $self->make_selection($event, $lnum, 0, $vlnum, $self->ncol);
+      }else{
+         $self->make_selection($event, $vlnum, 0, $lnum, $self->ncol);
+      }
+   }elsif ($self->{mode} eq "visual_block"){
+      my $vlnum = $self->{visual_lnum};
+      my $vcnum = $self->{visual_cnum};
+
+      my ($sl, $el) = $lnum < $vlnum ? ($lnum, $vlnum) : ($vlnum, $lnum);
+      my ($sc, $ec) = $cnum < $vcnum ? ($cnum, $vcnum + 1) : ($vcnum, $cnum + 1);
+
+      $self->make_selection($event, $sl, $sc, $el, $ec, 1);
+   }
+   $self->view_start(List::Util::min 0, $lnum - ($self->nrow >> 1));
+   $self->want_refresh;
+}
+
+sub make_selection {
+   my ($self, $event, $br, $bc, $er, $ec, $block) = @_;
+   $self->selection_beg($br, $bc);
+   $self->selection_end($er, $ec);
+   $self->selection_make($event->{time}, $block);
+}
+
+sub clear_selection {
+   my ($self, $event) = @_;
+   $self->make_selection($event, -1, -1, -1, -1);
+}
+
+sub set_mark {
+   my ($self, $mark) = @_;
+   my ($lnum, $cnum) = $self->screen_cur();
+   my @loc = ($lnum, $cnum);
+   $self->{marks}{$mark} = \@loc;
+}
+
+sub term_write {
+   my ($self, $event, $string) =  @_;
+
+   # detect shell (mysql, postgres, python, etc) and use proper line
+   # continuation
+   my $shell = $self->line($self->{orig_lnum})->t;
+   my $shell_continuation_start = "> ";
+   my $shell_continuation_end = " \\";
+   if ($shell =~ /^(>>>|...) /){ # python
+      $shell_continuation_start = ">>> ";
+      $shell_continuation_end = "";
+   }elsif ($shell =~ /^(mysql>|\s*->) /){ # mysql
+      $shell_continuation_start = "    -> ";
+      $shell_continuation_end = "";
+   }elsif ($shell =~ /^\w+(=|-)(#|\>) /){ # postgres
+      ($shell_continuation_start = $shell) =~ s/^(\w+)(=|-)(#|\>).*/$1-$3 /;
+      $shell_continuation_end = "";
+   }elsif ($shell =~ /^irb.*?(>|\*) /){ # irb
+      (my $prefix = $shell) =~ s/^(irb.*?:).*/$1/;
+      (my $suffix = $shell) =~ s/^irb.*?:[0-9]+(:.*?)(>|\*).*/$1/;
+      (my $irbnum = $shell) =~ s/^irb.*?:([0-9]+):.*/$1/;
+      $irbnum = sprintf('%03d', int($irbnum) + 1);
+      $shell_continuation_start = "$prefix$irbnum$suffix> ";
+      $shell_continuation_end = "";
+   }elsif ($shell =~ /^(\?|>)> /){ # irb --simple-prompt
+      $shell_continuation_start = ">> ";
+      $shell_continuation_end = "";
+   }
+
+   $string =~ s/([^\\])\n/$1 $shell_continuation_end\n/g;
+   push(@{$self->{term_buffer}}, $string);
+
+   my ($undo_slnum, $undo_scnum) = ($self->{out_lnum}, $self->{out_cnum});
+   if ($string =~ /\n/g) {
+      my @lines = split(/\n/, $string);
+      foreach(@lines){
+         $self->term_write_line($event, $_);
+         $self->scr_add_lines("\n");
+         $self->move_cursor($event, $self->{out_lnum} + 1, 0);
+         $self->scr_add_lines($shell_continuation_start);
+         $self->{out_lnum} += 1;
+         $self->{out_cnum} = length($shell_continuation_start);
+      }
+   }else{
+      $self->term_write_line($event, $string);
+   }
+   push(@{$self->{term_undo}},
+      [$undo_slnum, $undo_scnum, $self->{out_lnum}, $self->{out_cnum}]);
+}
+
+# should only be called by term_write.
+sub term_write_line {
+   my ($self, $event, $string) =  @_;
+
+   my $data = $self->locale_encode($string);
+   my $newline = "";
+   $self->move_cursor($event, $self->{out_lnum}, $self->{out_cnum});
+   $self->{out_cnum} += length($data);
+
+   # account for edge case where scr_add_lines screws up on the next write if
+   # the current data is up to the last column.
+   if ($self->{out_cnum} == $self->ncol){
+      $newline = "\n";
+   }
+
+   # adjust line and column where next write will start.
+   while ($self->{out_cnum} >= $self->ncol){
+      $self->{out_lnum} += 1;
+      $self->{out_cnum} -= $self->ncol;
+   }
+
+   $self->scr_add_lines($string);
+
+   # continuation of scr_add_lines edge case.
+   if ($newline){
+      $self->scr_add_lines($newline);
+      $self->move_cursor($event, $self->{out_lnum}, $self->{out_cnum});
+   }
+
+   # hack to keep last line and cursor visible.
+   if ($self->{out_lnum} == $self->nrow - 1){
+     $self->scr_add_lines("\n\n");
+     $self->{orig_lnum} -= 2;
+     $self->{out_lnum} -= 2;
+     $self->screen_cur($self->{out_lnum}, $self->{out_cnum});
+     $self->view_start(List::Util::min 0, $self->{out_lnum} - ($self->nrow >> 1));
+   }
+
+   $self->want_refresh;
+}
+
+# should only be called by leave.
+sub term_write_flush () {
+   my ($self) = @_;
+   my $data = $self->locale_encode(join('', @{$self->{term_buffer}}));
+   my @lines = split(/\n/, $data);
+   my $length = scalar(@lines);
+   foreach(@lines){
+      $self->tt_write($_);
+      if ($length > 1){
+         $self->tt_write("\n");
+      }
+   }
+}
+
+sub msg {
+   my ($self, $msg) = @_;
+   my $mode_info = $self->{mode_info};
+
+   $self->{msg} = $msg;
+   $msg = $self->special_encode("$mode_info" . $msg);
+
+   my $start = $self->view_start();
+   my $end = $start - $self->nrow;
+   my $label = '';
+   if ($start == $self->top_row){
+      $label = 'Top';
+   }elsif ($start == 0){
+      $label = 'Bot';
+   }else{
+      $label = sprintf("%i%%", (abs($start) / abs($self->top_row)) * 100);
+   }
+   my $percentage = sprintf(" %3s", $label);
+
+   my $pad = $self->ncol - length($msg) - 3;
+   $msg = sprintf("%s %${pad}s", $msg, $self->{key_buffer} . $percentage);
+
+   $self->{overlay} = $self->overlay(0, -1, $self->ncol, 1, $self->{msg_style}, 0);
+   $self->{overlay}->set(0, 0, $msg);
+}
+
+# copied from matcher
+sub command_for {
+   my ($self, $row, $col) = @_;
+   my $line = $self->line ($row);
+   my $text = $line->t;
+
+   for my $matcher (@{$self->{matchers}}) {
+      my $launcher = $matcher->[1] || $self->{launcher};
+      while (($text =~ /$matcher->[0]/g)) {
+         my $match = $&;
+         my @begin = @-;
+         my @end = @+;
+         if (!defined($col) || ($-[0] <= $col && $+[0] >= $col)) {
+            if ($launcher !~ /\$/) {
+               return ($launcher, $match);
+            } else {
+               # It'd be nice to just access a list like ($&,$1,$2...),
+               # but alas, m//g behaves differently in list context.
+               my @exec = map { s/\$(\d+)|\$\{(\d+)\}/
+                  substr($text,$begin[$1||$2],$end[$1||$2]-$begin[$1||$2])
+                  /egx; $_ } split(/\s+/, $launcher);
+               return @exec;
+            }
+         }
+      }
+   }
+
+   ()
+}
+
+# copied from matcher
+sub my_resource {
+   my $self = shift;
+   $self->x_resource ("$self->{name}.$_[0]");
+}
+
+sub debug {
+   my ($self, $msg) = @_;
+   print $DEBUG_FH "$msg\n";
+}
+
+####################################
+# Vim like pasting to terminal.
+####################################
+
+# entry point for paste mode
+sub paste {
+   my ($self, $selection) = @_;
+   $self->enable(key_press => \&key_press_paste);
+}
+
+sub key_press_paste {
+   my ($self, $event, $keysym, $string) =  @_;
+
+   if ($string){
+      my $selection = '';
+      if ($string eq "*"){
+         $selection = 'primary';
+      }elsif ($string eq "+"){
+         $selection = 'clipboard';
+      }
+
+      if ($selection){
+         # avoid xclip hang when using primary with an active selection in the
+         # current terminal.
+         my $text = $self->selection();
+         if($selection eq "primary" && $text){
+            $self->tt_write($text);
+         }else{
+            if(open(my $process, "xclip -o -selection $selection |")){
+               $text = join('', <$process>);
+               $self->tt_write($text);
+            }
+         }
+      }
+      $self->disable("key_press");
+      1
+   }
+}
+
+# vim:shiftwidth=3:tabstop=3
