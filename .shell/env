@@ -1,6 +1,8 @@
 # vi:ft=sh
 # [ -f ~/.dir_colors ]      && eval   $(dircolors -b ~/.dir_colors)
 
+[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
+
 [ -f ~/.amazon_keys ] && source ~/.amazon_keys
 [ -f ~/.ec2/rc ] && source ~/.ec2/rc
 [ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm
