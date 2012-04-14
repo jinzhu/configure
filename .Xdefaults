@@ -1,0 +1,106 @@
+!XTerm
+Xft.dpi: 96
+Xft.hinting: true
+Xft.hintstyle: hintmedium
+Xft.antialias: true
+Xft.rgba: rgb
+
+XTerm.vt100.saveLines:8192
+XTerm.vt100.scrollBar:false
+XTerm.vt100.loginShell:false
+XTerm.vt100.faceName:Monaco:pixelsize=17
+XTerm.vt100.faceNameDoublesize:WenQuanYi Bitmap Song:pixelsize=17
+XTerm.vt100.cjkWidth:false
+XTerm.vt100.preeditType:Root
+XTerm.vt100.inputMethod:ibus
+XTerm.vt100.locale:true
+XTerm.vt100.visualBell:false
+
+*background: #000000
+*foreground: #DEDEDE
+! Black
+*color0:    rgb:00/00/00
+! Red
+*color1:    rgb:ff/5d/28
+! Green
+*color2:    rgb:b1/d6/31
+! Yellow
+*color3:    rgb:e6/ea/50
+! Blue
+*color4:    rgb:7e/8a/a2
+! Magenta
+*color5:    rgb:af/5f/5f
+! Cyan
+*color6:    rgb:ac/f0/f2
+! White
+*color7:    rgb:e2/e2/e5
+! Black
+*color8:    rgb:b1/d6/31
+! Red
+*color9:    rgb:ff/5d/28
+! Green
+*color10:    rgb:b1/d6/31
+! Yellow
+*color11:    rgb:e6/ea/50
+! Blue
+*color12:    rgb:7e/8a/a2
+! Magenta
+*color13:    rgb:af/5f/5f
+! Cyan
+*color14:    rgb:ac/f0/f2
+! White
+*color15:    rgb:ff/ff/ff
+
+
+
+!URxvt
+URxvt*background: #000000
+URxvt*foreground: #DEDEDE
+URxvt*saveLines:  200000
+URxvt.depth:       24
+URxvt.buffered:    true
+URxvt.transparent: false
+URxvt.shading:     100
+
+!Scroll
+URxvt.scrollBar: true
+URxvt.scrollBar_right: true
+URxvt.scrollBar_floating: true
+URxvt.scrollstyle: plain
+URxvt.saveLines: 50000
+
+urxvt*buffered:false
+urxvt*transparent:true
+urxvt*fading:20
+urxvt*tintColor:000000
+urxvt*shading:30
+urxvt*preeditType:Root
+
+urxvt*inputMethod:fcitx
+urxvt*imLocale:zh_CN.utf8
+URxvt.font:xft:Bitstream Vera Sans Mono,xft:WenQuanYi Bitmap Song
+URxvt.boldFont:xft:Bitstream Vera Sans Mono:Bold,xft:WenQuanYi Bitmap Song:Bold
+urxvt*urgentOnBell:true
+urxvt*meta8:false
+urxvt*borderless:true
+urxvt*multichar_encoding:utf8
+urxvt*cursorBlink:false
+urxvt*cursorUnderline:false
+urxvt*metaSendsEscape: true
+urxvt*eightBitInput: false
+
+# for url yanking
+URxvt.perl-ext-common:  default,selection,url-select,clipboard
+URxvt.keysym.M-u:       perl:url-select:select_next
+URxvt.urlLauncher:      /usr/bin/chromium
+URxvt.underlineURLs:    true
+URxvt*underlineURLs: true
+URxvt.keysym.M-p:      perl:clipboard:paste
+URxvt*matcher.button:   1
+
+
+Xft*dpi: 96
+Xft*hinting: true
+Xft*hintstyle: hintmedium
+Xft*antialias: true
+Xft*rgba: rgb

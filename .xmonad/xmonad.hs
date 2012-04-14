@@ -34,7 +34,7 @@ import qualified Data.Map as M
 import Data.Ratio
 
 modMask'    = mod4Mask	-- Rebind Mod(ALT) to Windows Key
-terminal'   = "gnome-terminal"
+terminal'   = "urxvt"
 workspaces' = ["dev","www","doc"] ++ map show [4..7] ++ ["mov","im"]
 layoutHook' = smartBorders (avoidStruts (windowNavigation (ResizableTall 1 (3/100) (1/2) []) ||| tabbed shrinkText defaultTheme ||| Full ))
 
