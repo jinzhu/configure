@@ -136,10 +136,6 @@ Bundle 'bronson/vim-visual-star-search'
 Bundle 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 
-Bundle 'tmallen/proj-vim'
-map \p :ProjOpen<CR>
-let g:ProjFileBrowser = 'off'
-
 Bundle 'kien/ctrlp.vim'
 let g:ctrlp_extensions = ['changes', 'line', 'buffertag']
 let g:ctrlp_mruf_last_entered = 1
@@ -155,8 +151,6 @@ let g:ctrlp_prompt_mappings = {
       \}
 
 Bundle 'gmarik/github-search.vim'
-
-Bundle 'markabe/bufexplorer'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Delete current file
