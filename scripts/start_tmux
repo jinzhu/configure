@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+tmuxinator_path = File.join(ENV["HOME"], ".tmuxinator/*")
+sessions = Dir.glob(tmuxinator_path)
+sessions.map do |session|
+  session_name = File.basename(session).sub(/#{File.extname(session)}$/,'')
+  system "tmuxinator #{session_name} &"
+end

@@ -1,0 +1,5 @@
+project_name: qor
+project_root: ~/GIT/qor/
+tabs:
+  - vim: vim
+  - shell:

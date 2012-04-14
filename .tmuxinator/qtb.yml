@@ -1,0 +1,6 @@
+project_name: qtb
+project_root: ~/GIT/qintaobao_web/
+tabs:
+  - vim: vim
+  - shell: ./run.sh
+  - production: ssh qtb

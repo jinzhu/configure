@@ -1,0 +1,15 @@
+project_name: lacoste
+project_root: ~/GIT/lacoste/
+tabs:
+  - vim: vim
+  - shell:
+  - console: bundle exec rails c
+  - server: bundle exec rails s
+  - logs: tail -f log/development.log
+  - production:
+       layout: main-vertical
+       panes:
+         - ssh lacoste1
+         - ssh lacoste2
+         - ssh lacoste3
+  - dev: ssh lacoste-dev

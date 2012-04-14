@@ -4,7 +4,6 @@ set rtp+=~/.vim/gdbmgr/
 set rtp+=$GOROOT/misc/vim
 call vundle#rc()
 
-
 Bundle 'gmarik/vundle'
 Bundle 'L9'
 

@@ -1,0 +1,5 @@
+project_name: qtb_plugin
+project_root: ~/GIT/qintaobao_plugin/
+tabs:
+  - vim: vim
+  - shell:

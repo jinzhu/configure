@@ -1,0 +1,5 @@
+project_name: openvpn
+project_root: ~/GIT/configure/secret_files/
+tabs:
+  - shell: sudo openvpn --config juice.ovpn start
+  - shell:

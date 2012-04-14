@@ -13,6 +13,7 @@ alias sp='sudo pacman'
 ############################################################
 alias s='screen'
 alias t='tmux'
+alias tt='tmuxinator'
 
 # Basic directory operations
 function . {

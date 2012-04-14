@@ -1,0 +1,5 @@
+project_name: configure
+project_root: ~/GIT/configure
+tabs:
+  - vim: vim
+  - shell:
