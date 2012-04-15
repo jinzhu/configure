@@ -433,6 +433,11 @@ sub key_press_normal {
       $self->set_mark("'");
       $self->term_write($event, $self->{registers}{'"'});
 
+   } elsif ($string eq "P") {
+      my $str = `xsel -ob`;
+      $str = $self->locale_decode($str);
+      $self->term_write($event, $str);
+
    # motions
    } elsif ($string eq "j") {
       my ($lnum, $cnum) = $self->screen_cur();
@@ -722,8 +727,17 @@ sub key_press_visual {
          $self->move_cursor($event, $lnum, $cnum);
          $self->msg("");
       }
+   } elsif ($string eq "c") {
+		my $sel = $self->selection();
+      if (open(CLIPBOARD, "| xsel -ib")) {
+         utf8::encode($sel);
+         print CLIPBOARD $sel;
+         close(CLIPBOARD);
+      }
+      $self->normal_mode($event, 1);
    } elsif ($string eq "y") {
-      $self->{registers}{'"'} = $self->selection();
+		my $sel = $self->selection();
+      $self->{registers}{'"'} = $sel;
       $self->normal_mode($event, 1);
    } elsif ($string eq "Y") {
       # the act of selecting puts the text on the primary, so just need to copy

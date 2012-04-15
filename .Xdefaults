@@ -59,7 +59,7 @@ URxvt.saveLines: 50000
 urxvt*buffered:false
 urxvt*transparent:true
 urxvt*fading:50
-urxvt*tintColor:000000
+urxvt*tintColor:#000000
 urxvt*shading:30
 !this makes urxvt to start faster?!
 urxvt*preeditType:Root
@@ -89,16 +89,14 @@ urxvt*keysym.sym: string
 
 !for url yanking
 URxvt.perl-lib: /home/jinzhu/.scripts/urxvt/
-URxvt.perl-ext-common: default,clipboard,url-select,translate-selection
+URxvt.perl-ext-common: default,url-select,translate-selection
 URxvt.keysym.M-u:      perl:url-select:select_next
 URxvt.urlLauncher:     chromium
 URxvt.underlineURLs:   true
 URvxt.urlButton:       1
-URxvt.keysym.M-c:   perl:clipboard:copy
-URxvt.keysym.M-v:   perl:clipboard:paste
 
 urxvt*perl-ext-common: vim-scrollback
-urxvt*vim-scrollback: Mod1-s
+urxvt*vim-scrollback: Mod1-v
 
 Xft*dpi: 96
 Xft*hinting: true
