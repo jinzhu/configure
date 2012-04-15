@@ -20,22 +20,22 @@ XTerm*background:  #000000
 XTerm*foreground:  #DEDEDE
 XTerm*cursorColor: yellow
 
-XTerm*color0:    Black
-XTerm*color1:    OrangeRed3
-XTerm*color2:    Green4
-XTerm*color3:    Yellow3
-XTerm*color4:    RoyalBlue3
-XTerm*color5:    Magenta3
-XTerm*color6:    Cyan3
-XTerm*color7:    AntiqueWhite
-XTerm*color8:    Grey15
-XTerm*color9:    OrangeRed
-XTerm*color10:   Green
-XTerm*color11:   Yellow
-XTerm*color12:   NavyBlue
-XTerm*color13:   Magenta
-XTerm*color14:   turquoise
-XTerm*color15:   White
+*color0:    Black
+*color1:    OrangeRed3
+*color2:    Green4
+*color3:    Yellow3
+*color4:    RoyalBlue3
+*color5:    Magenta3
+*color6:    Cyan3
+*color7:    AntiqueWhite
+*color8:    Grey15
+*color9:    OrangeRed
+*color10:   Green
+*color11:   Yellow
+*color12:   NavyBlue
+*color13:   Magenta
+*color14:   turquoise
+*color15:   White
 !http://critical.ch/xterm
 
 
@@ -69,12 +69,9 @@ URxvt.inputMethod:fcitx
 URxvt.imFont: -microsoft-microsoft yahei-medium-r-normal–0-0-0-0-p-0-iso10646-1
 urxvt*imLocale:zh_CN.utf8
 
-URxvt.font: xft:Monaco:medium:antialias=false:pixelsize=16, \
-xft:DejaVu Sans Mono:book:antialias=false:pixelsize=16, \
-xft:wenquanyi bitmap song:medium:pixelsize=16:antialias=True
-URxvt.boldFont: xft:Monaco:bold:antialias=false:pixelsize=16, \
-xft:DejaVu Sans Mono:bold:antialias=false:pixelsize=16, \
-xft:wenquanyi bitmap song:bold:pixelsize=16:antialias=false
+URxvt.font:xft:DejaVu Sans Mono:size=14:antialias=true,xft:Microsoft YaHei:size=14:antialias=true,xft:WenQuanYi Bitmap Song:size=14:antialias=true:charwidth=14
+URxvt.boldfont:xft:DejaVu Sans Mono:size=14:antialias=true,xft:Microsoft YaHei:size=14:antialias=true,xft:WenQuanYi Bitmap Song:size=14:antialias=true:charwidth=14
+
 
 urxvt*urgentOnBell:true
 urxvt*meta8:false
