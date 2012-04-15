@@ -31,8 +31,8 @@ use strict;
 sub on_start {
 	my ($self) = @_;
 
-	$self->{copy_cmd} = $self->x_resource('copyCommand') || 'xsel -ib';
-	$self->{paste_cmd} = $self->x_resource('pasteCommand') || 'xsel -ob';
+	$self->{copy_cmd} = $self->x_resource('copyCommand') || 'xsel -i -b';
+	$self->{paste_cmd} = $self->x_resource('pasteCommand') || 'xsel -o -b';
 
 	()
 }

@@ -1,0 +1,35 @@
+#! perl
+
+
+sub onstart {
+    my ($self) = @;
+    $self->grab_button (3, urxvt::ControlMask);
+    ()
+}
+
+
+sub onbuttonpress {
+    my ($self, $event) = @_;
+
+
+
+if ($event-&gt;{button} == 3) {
+    my $popup = $self-&gt;popup ($event)
+        or return 1;
+
+    my ($word) = $self-&gt;selection =~ m/([a-zA-Z]+)/;
+
+    open PIPE, "export LANG=zh_CN.UTF-8; /usr/bin/sdcv -n --utf8-output -u 'XDICT英汉辞典' -u '朗道英汉字典5.0' -u '五笔86' '$word' | tail -n +5 | head -15 | head -n -1 |"
+
+    for my $eachline (&lt;PIPE&gt;) {
+        chomp $eachline;
+        $eachline = $self-&gt;locale_decode($eachline);
+        $popup-&gt;add_title ($eachline);
+    }
+    close PIPE;
+
+    $popup-&gt;show;
+}
+
+()
+}

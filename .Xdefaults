@@ -36,7 +36,7 @@ XTerm*color12:   NavyBlue
 XTerm*color13:   Magenta
 XTerm*color14:   turquoise
 XTerm*color15:   White
-# http://critical.ch/xterm
+!http://critical.ch/xterm
 
 
 !URxvt
@@ -87,17 +87,16 @@ urxvt*eightBitInput: false
 
 urxvt*keysym.sym: string
 
-# for url yanking
+!for url yanking
 URxvt.perl-lib: /home/jinzhu/.scripts/urxvt/
-URxvt.perl-ext-common: default,clipboard,url-select,vim-scrollback
+URxvt.perl-ext-common: default,clipboard,url-select,translate-selection,vim-scrollback
 URxvt.keysym.M-u:      perl:url-select:select_next
 URxvt.urlLauncher:     chromium
 URxvt.underlineURLs:   true
 URvxt.urlButton:       1
 URxvt.keysym.M-C-c:   perl:clipboard:copy
 URxvt.keysym.M-C-v:   perl:clipboard:paste
-
-URxvt.perl-ext-common: vim-scrollback
+urxvt.vim-scrollback: M-s
 URxvt.vim-scrollback-paste: none
 
 Xft*dpi: 96
