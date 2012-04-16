@@ -1,10 +1,4 @@
 !XTerm
-Xft.dpi: 96
-Xft.hinting: true
-Xft.hintstyle: hintmedium
-Xft.antialias: true
-Xft.rgba: rgb
-
 XTerm.vt100.saveLines:20000
 XTerm.vt100.scrollBar:false
 XTerm.vt100.loginShell:false
@@ -32,16 +26,15 @@ XTerm*cursorColor: yellow
 *color9:    OrangeRed
 *color10:   Green
 *color11:   Yellow
-*color12:   NavyBlue
+*color12:   CornflowerBlue
 *color13:   Magenta
 *color14:   turquoise
 *color15:   White
-!http://critical.ch/xterm
+! http://critical.ch/xterm
 
 
 !URxvt
-! URxvt*background: rgba:0E00/0E00/0E00/dddd
-URxvt*background: #000000
+URxvt*background: rgba:0E00/0E00/0E00/dddd
 URxvt*foreground: #DEDEDE
 URxvt*saveLines:  20000
 URxvt.depth:      32
@@ -66,11 +59,11 @@ urxvt*preeditType:Root
 
 URxvt.preeditType: OffTheSpot
 URxvt.inputMethod:fcitx
-URxvt.imFont: -microsoft-microsoft yahei-medium-r-normal–0-0-0-0-p-0-iso10646-1
+URxvt.imFont: -Monaco-medium-r-normal–0-0-0-0-p-0-iso10646-1
 urxvt*imLocale:zh_CN.utf8
 
-URxvt.font:xft:DejaVu Sans Mono:size=14:antialias=true,xft:Microsoft YaHei:size=14:antialias=true,xft:WenQuanYi Bitmap Song:size=14:antialias=true:charwidth=14
-URxvt.boldfont:xft:DejaVu Sans Mono:size=14:antialias=true,xft:Microsoft YaHei:size=14:antialias=true,xft:WenQuanYi Bitmap Song:size=14:antialias=true:charwidth=14
+URxvt.font:xft:Monaco:size=14:antialias=true,xft:DejaVu Sans Mono:size=14:antialias=true,xft:Microsoft YaHei:size=14:antialias=true,xft:WenQuanYi Bitmap Song:size=14:antialias=true:charwidth=14
+URxvt.boldfont:xft:Monaco:size=14:antialias=true,xft:DejaVu Sans Mono:size=14:antialias=true,xft:Microsoft YaHei:size=14:antialias=true,xft:WenQuanYi Bitmap Song:size=14:antialias=true:charwidth=14
 
 
 urxvt*urgentOnBell:true
@@ -94,9 +87,3 @@ URvxt.urlButton:       1
 
 urxvt*perl-ext-common: vim-scrollback
 urxvt*vim-scrollback: Mod1-v
-
-Xft*dpi: 96
-Xft*hinting: true
-Xft*hintstyle: hintmedium
-Xft*antialias: true
-Xft*rgba: rgb
