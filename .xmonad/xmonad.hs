@@ -46,8 +46,6 @@ manageHook' = composeAll
     , className =? "Chromium" --> doF (W.shift "dev") -- Chrome
     , className =? "Firefox" --> doF (W.shift "www")
     , className =? "Opera" --> doF (W.shift "www")
-    -- DOC
-    , className =? "Evince" --> viewShift "doc"
     -- MUSIC
     , className =? "Rhythmbox" --> doF (W.shift "mov")
     , className =? "Totem" --> viewShift "mov"

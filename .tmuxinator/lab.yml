@@ -1,0 +1,7 @@
+project_name: lab
+project_root: ~/
+tabs:
+  - Home:
+  - GIT: cd ~/GIT
+  - Lab: cd ~/Lab
+  - filemanager: ranger

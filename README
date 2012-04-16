@@ -13,7 +13,7 @@ Install Tools:
   pacman -S xorg-server xmonad xmonad-contrib xmobar sudo readline
   pacman -S base-devel arandr whois wireless_tools unzip unzip tar p7zip gzip bzip2 pm-utils openssh
   pacman -S wqy-bitmapfont monaco-linux-font
-  pacman -S zsh gvim rxvt-unicode tmux git gdb sdcv xsel openvpn htop ack ctags mutt irssi lsof iptables links go ruby nginx bash-completion
+  pacman -S zsh gvim rxvt-unicode tmux git gdb ranger sdcv xsel openvpn htop ack ctags mutt irssi lsof iptables links go ruby nginx bash-completion
   pacman -S fakeroot rsync ifconfig network-manager-applet
   pacman -S gimp inkscape gcolor2 dia scrot nautilus-open-terminal memcached mongodb mysql python-beautifulsoup fcitx evince eog smplayer
   yaourt -S gocode cgdb trayer-srg-git
