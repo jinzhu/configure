@@ -1,7 +1,7 @@
 " =============== Vundle Initialization ===============
 set rtp+=~/.vim/bundle/vundle/
-set rtp+=~/.vim/gdbmgr/
 set rtp+=$GOROOT/misc/vim
+set rtp+=/usr/share/go/misc/vim/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
