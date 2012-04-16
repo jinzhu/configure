@@ -4,4 +4,4 @@ tabs:
   - Home:
   - GIT: cd ~/GIT
   - Lab: cd ~/Lab
-  - filemanager: ranger
+  - FileManager: ranger
