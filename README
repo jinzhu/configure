@@ -17,7 +17,7 @@ Install Tools:
   pacman -S fakeroot rsync ifconfig network-manager-applet synergy
   pacman -S gimp inkscape gcolor2 dia scrot nautilus-open-terminal memcached mongodb mysql python-beautifulsoup fcitx evince eog smplayer
   yaourt -S gocode cgdb trayer-srg-git
-  yaourt -S shutter trimage-git fontypython nkf
+  yaourt -S shutter trimage-git fontypython nkf agave kdewebdev-klinkstatus evolus-pencil-svn
   yaourt -S virtualbox-bin virtualbox-ext-oracle
 
 gem i tmuxinator vrome
