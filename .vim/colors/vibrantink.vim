@@ -1,8 +1,8 @@
 " Vim color scheme
 "
 " Name:         vibrantink.vim
-" Maintainer:   Jo Vermeulen <jo.vermeulen@gmail.com> 
-" Last Change:  30 Jul 2007 
+" Maintainer:   Jo Vermeulen <jo.vermeulen@gmail.com>
+" Last Change:  30 Jul 2007
 " License:      public domain
 " Version:      1.2
 "
@@ -27,7 +27,7 @@ endif
 let g:colors_name = "vibrantink"
 
 if has("gui_running")
-    highlight Normal guifg=White   guibg=Black
+    highlight Normal guifg=#8a8a8a   guibg=Black
     highlight Cursor guifg=Black   guibg=Yellow
     highlight Keyword guifg=#FF6600
     highlight Define guifg=#FF6600
@@ -48,23 +48,24 @@ if has("gui_running")
     highlight Pmenu  guifg=White guibg=DarkBlue
 else
     set t_Co=256
-    highlight Normal ctermfg=White ctermbg=NONE
-    highlight Cursor ctermfg=Black ctermbg=Yellow 
-    highlight Keyword ctermfg=202 
-    highlight Define ctermfg=202 
-    highlight Comment ctermfg=98
-    highlight Type ctermfg=White 
-    highlight rubySymbol ctermfg=66 
-    highlight Identifier ctermfg=White 
-    highlight rubyStringDelimiter ctermfg=82 
-    highlight rubyInterpolation ctermfg=White 
-    highlight rubyPseudoVariable ctermfg=66 
-    highlight Constant ctermfg=228 
-    highlight Function ctermfg=220 
-    highlight Include ctermfg=220 
-    highlight Statement ctermfg=202
-    highlight String ctermfg=82 
-    highlight Search ctermbg=White 
+    highlight Normal ctermfg=245 ctermbg=NONE
+    highlight Cursor ctermfg=Black ctermbg=Yellow
+    highlight Keyword ctermfg=202
+    highlight Define ctermfg=202
+    highlight Comment ctermfg=99
+    highlight Type ctermfg=188
+    highlight rubySymbol ctermfg=66
+    highlight Identifier ctermfg=188
+    highlight Constant ctermfg=221
+    highlight Function ctermfg=214
+    highlight Include ctermfg=214
+    highlight Statement ctermfg=172
+    highlight String ctermfg=70
+    highlight Search ctermbg=188
     highlight CursorLine cterm=NONE ctermbg=235
-    highlight Pmenu  ctermfg=White ctermbg=DarkBlue
+    highlight Pmenu  ctermfg=245 ctermbg=DarkBlue
+
+    highlight rubyStringDelimiter ctermfg=70
+    highlight rubyInterpolation ctermfg=188
+    highlight rubyPseudoVariable ctermfg=66
 endif
