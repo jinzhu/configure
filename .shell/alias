@@ -50,13 +50,21 @@ function t {
 uname | grep 'Darwin' > /dev/null
 if [[ $? -eq 0 ]] ; then
   alias ls='ls -G'
-  alias ll='ls -l -G'
-  alias la='ls -A -G'
 else
   alias ls='ls --color=auto'
-  alias ll='ls -l --color=auto'
-  alias la='ls -A --color=auto'
 fi
+
+alias lsl='ls -l'
+alias lsa='ls -A'
+# lists files in reverse time order
+alias lsr='ls -rtl'
+# lists files in size order with the biggest at the end
+alias lss='ls -rlS'
+alias lsnew=" ls -al --time-style=+%D | grep `date +%D` "
+
+# find the directory with the biggest file in it
+alias dud='du -scm *|sort -n'
+alias df='df -Tm'
 
 alias x='exit'
 
@@ -102,7 +110,7 @@ function ss {
   if [ -f 'script/server' ];then
     script/server $@
   else
-    rails server $@
+    bundle exec rails server $@
   fi
 }
 
@@ -110,7 +118,7 @@ function sg {
   if [ -f 'script/generate' ];then
     script/generate $@
   else
-    rails generate $@
+    bundle exec rails generate $@
   fi
 }
 
@@ -118,7 +126,7 @@ function sc {
   if [ -f 'script/console' ];then
     script/console $@
   else
-    rails console $@
+    bundle exec rails console $@
   fi
 }
 
@@ -126,7 +134,7 @@ function sd {
   if [ -f 'script/dbconsole' ];then
     script/dbconsole $@
   else
-    rails dbconsole $@
+    bundle exec rails dbconsole $@
   fi
 }
 
@@ -140,7 +148,6 @@ function as {
     # AUTOFEATURE=true autotest $@
   fi
 }
-
 
 alias rdm='rake db:migrate'
 alias rdc='rake db:create'

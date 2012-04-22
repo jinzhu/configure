@@ -5,6 +5,7 @@ if [ -x /usr/bin/urxvt ] ; then urxvt & fi
 if [ -x /usr/bin/nm-applet ] ; then nm-applet --sm-disable & fi
 if [ -x /usr/bin/gnome-power-manager ] ; then gnome-power-manager & fi
 if [ -x /usr/bin/xscreensaver ] ; then xscreensaver & fi
+if [ -x /usr/bin/dropboxd ] ; then dropboxd & fi
 
 [[ -f ~/.screenlayout/layout.sh ]] && ~/.screenlayout/layout.sh
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
