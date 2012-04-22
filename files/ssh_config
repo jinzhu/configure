@@ -117,3 +117,10 @@ Host middleman
 Host qtb
             User qintaobao
             HostName qintaobao.com
+
+Host fast
+            HostName 175.41.252.65
+            User app
+            Compression yes
+            Protocol 2
+            Port 222

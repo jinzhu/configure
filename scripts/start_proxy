@@ -3,10 +3,10 @@
 pid = `ps aux | grep -E ' -D(9999|8888)' | grep -v grep | awk '{print $2}'`
 pid.split("\n").map { |p| system("kill -9 #{p}") } if pid =~ /\d/
 
-system("ssh -CNn -D9999 lacoste1 &")
-system("ssh -CNn -D8888 piqshare &")
+system("ssh -CNn -D9999 fast &")
+system("ssh -CNn -D8888 usa &")
 
 # if system("which autossh")
-  # system("autossh -D9999 -M 2000 -N lacoste1 &")
-  # system("autossh -D8888 -M 2000 -N piqshare &")
+  # system("autossh -D9999 -M 2000 -N fast &")
+  # system("autossh -D8888 -M 2000 -N usa &")
 # end
