@@ -22,8 +22,8 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*:*:default' force-list always
 
 #彩色补全菜单
-export ZLSCOLORS="${LS_COLORS}"
-zmodload zsh/complist
+zmodload -i zsh/complist
+eval $(dircolors ~/.dir_colors)
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # pretty kill completion. colored, cpu load & process tree
