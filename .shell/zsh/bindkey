@@ -5,6 +5,7 @@
 bindkey -e
 setopt EMACS
 
+# use `cat` to get the proper sequences for certain key combinations
 bindkey "^[[1;5D" beginning-of-line # CTRL + <
 bindkey "^[OH"    beginning-of-line # HOME
 bindkey "^[[1;5C" end-of-line       # CTRL + >
@@ -15,6 +16,15 @@ bindkey "^[[3~"   delete-char       # DELETE
 bindkey "^[[A"    history-search-backward # up   arrow
 bindkey "^[[B"    history-search-forward  # down arrow
 bindkey "^[[2~"   overwrite-mode          # Insert
+
+bindkey '^[h'     backward-word        # Alt + h
+bindkey '^[l'     forward-word         # Alt + l
+bindkey '^[^H'    backward-delete-word # Ctrl + h
+bindkey '^[^L'    delete-word          # Ctrl + l
+bindkey '^[y'     redo                 # Alt + y
+bindkey '^[z'     undo                 # Alt + z
+bindkey '^L'      clear-screen         # Ctrl + l
+
 
 ## insert sudo {{{
 sudo-command-line() {

@@ -1,5 +1,12 @@
 IGNORES   = %w(.gitignore .git)
-IRREGULAR = {"files/sublime/*" => "~/.config/sublime-text-2/Packages/User/", "files/xmonad.desktop" => '/usr/share/xsessions/xmonad.desktop', 'files/ssh_config' => '~/.ssh/config', 'files/20-thinkpad.conf' => '/etc/X11/xorg.conf.d/20-thinkpad.conf', 'scripts' => '~/.scripts'}
+IRREGULAR = {
+  "files/sublime/*" => "~/.config/sublime-text-2/Packages/User/",
+  "files/xmonad.desktop" => '/usr/share/xsessions/xmonad.desktop',
+  "files/ssh_config" => "~/.ssh/config",
+  "files/20-thinkpad.conf" => "/etc/X11/xorg.conf.d/20-thinkpad.conf",
+  "files/rc.conf" => "/etc/rc.conf",
+  'scripts' => '~/.scripts'
+}
 
 FILES = Dir.entries('.').select do |x|
   x !~ /^\.*$/ && x =~ /^\./ && !(IGNORES||[]).include?(x)
@@ -24,6 +31,8 @@ def exec(str)
 end
 
 task :install do
+  system("git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle") unless File.exist?(File.expand_path("~/.vim/bundle/vundle"))
+
   exec("mkdir ~/.vim-tmp -p") unless File.exist?("#{ENV['HOME']}/.vim-tmp")
   exec("ln -nfs KEY VALUE")
   puts "\e[33mInstall Complete\e[0m"

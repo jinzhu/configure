@@ -189,7 +189,7 @@ map <Leader>p :YRShow<CR>
 
 map <Leader>s :SessionList<CR>
 autocmd! bufwritepost .vimrc source ~/.vimrc
-autocmd! BufWritePost *.go execute ':Fmt'
+" autocmd! BufWritePost *.go execute ':Fmt'
 
 map <Leader>r :MRU<CR>
 map <Leader>gs :Gstatus<CR>
