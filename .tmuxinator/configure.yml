@@ -2,4 +2,4 @@ project_name: configure
 project_root: ~/GIT/configure
 tabs:
   - shell:
-  - openvpn: "[ -f ~/GIT/configure/secret_files/juice.ovpn ] && sudo openvpn --config ~/GIT/configure/secret_files/juice.ovpn start"
+  - openvpn:

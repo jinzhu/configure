@@ -1,0 +1,5 @@
+project_name: vrome
+project_root: ~/GIT/vrome
+tabs:
+  - shell:
+  - shell: cd ~/GIT/vrome/

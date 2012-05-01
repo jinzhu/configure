@@ -51,7 +51,7 @@ URxvt.saveLines: 50000
 
 urxvt*buffered:false
 urxvt*transparent:true
-urxvt*fading:50
+urxvt*fading:20
 urxvt*tintColor:#000000
 urxvt*shading:30
 !this makes urxvt to start faster?!
