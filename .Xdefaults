@@ -10,6 +10,9 @@ XTerm.vt100.inputMethod:ibus
 XTerm.vt100.locale:true
 XTerm.vt100.visualBell:false
 
+URxvt.inputMethod: ibus
+URxvt.preeditType: OverTheSpot
+
 XTerm*background:  #000000
 XTerm*foreground:  #DEDEDE
 XTerm*cursorColor: yellow
