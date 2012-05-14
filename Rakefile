@@ -3,6 +3,7 @@ IRREGULAR = {
   "files/sublime/*" => "~/.config/sublime-text-2/Packages/User/",
   "files/xmonad.desktop" => '/usr/share/xsessions/xmonad.desktop',
   "files/ssh_config" => "~/.ssh/config",
+  "files/environment" => "/etc/environment",
   "files/20-thinkpad.conf" => "/etc/X11/xorg.conf.d/20-thinkpad.conf",
   "files/rc.conf" => "/etc/rc.conf",
   'scripts' => '~/.scripts'

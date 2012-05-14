@@ -6,24 +6,14 @@ xbindkeys &
 export GOROOT="/opt/go"
 export GOPATH="/jinzhu/Projects/Lab/go"
 gocode &
+fcitx &
 
-# export XMODIFIERS=@im=fcitx
-# export XIM=fcitx
-# export XIM_PROGRAM=fcitx
-# export GTK_IM_MODULE=fcitx
-# export QT_IM_MODULE=fcitx
-# killall fcitx
-# fcitx -d
-
-
-export GTK_IM_MODULE=ibus
-export XMODIFIERS=@im=ibus
-export QT_IM_MODULE=ibus
-killall ibus-daemon
-ibus-daemon --xim -d
+# export GTK_IM_MODULE=ibus
+# export XMODIFIERS=@im=ibus
+# export QT_IM_MODULE=ibus
+# killall ibus-daemon
+# ibus-daemon --xim -d
 
 [ -f ~/.xsession ] && source ~/.xsession
 
 xsetroot -cursor_name left_ptr
-
-# ibus-daemon -drx

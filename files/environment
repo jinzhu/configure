@@ -1,0 +1,8 @@
+#
+# This file is parsed by pam_env module
+#
+# Syntax: simple "KEY=VAL" pairs on separate lines
+
+GTK_IM_MODULE=xim
+QT_IM_MODULE=xim
+XMODIFIERS=@im=fcitx
