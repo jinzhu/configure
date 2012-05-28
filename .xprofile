@@ -3,7 +3,7 @@
 xbindkeys &
 
 # Go autocomplete
-export GOROOT="/opt/go"
+export GOROOT="/usr/lib/go/"
 export GOPATH="/jinzhu/Projects/Lab/go"
 gocode &
 fcitx &
