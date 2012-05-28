@@ -18,3 +18,5 @@ WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
 #   fi
 # fi
 # zstyle ':completion:*' hosts $_myhosts
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

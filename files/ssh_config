@@ -78,6 +78,12 @@ Host lacoste2
             Protocol 2
             Port 222
 Host lacoste3
+            HostName 54.248.13.222
+            User app
+            Compression yes
+            Protocol 2
+            Port 222
+Host lacoste4
             HostName 175.41.220.146
             User app
             Compression yes
@@ -116,7 +122,7 @@ Host middleman
 
 Host qtb
             User qintaobao
-            HostName qintaobao.com
+            HostName qint8.com
 
 Host fast
             HostName 175.41.252.65
@@ -124,3 +130,17 @@ Host fast
             Compression yes
             Protocol 2
             Port 222
+
+Host yyets
+            HostName 60.190.171.239
+            User app
+            Compression yes
+            Protocol 2
+            Port 22
+
+Host yyets-dev
+            HostName 175.41.252.65
+            User app
+            Compression yes
+            Protocol 2
+            Port 22
