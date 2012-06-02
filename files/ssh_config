@@ -122,7 +122,11 @@ Host middleman
 
 Host qtb
             User qintaobao
-            HostName qint8.com
+            HostName 58.215.173.182
+
+Host qtb-dev
+            User qintaobao
+            HostName 54.248.102.248
 
 Host fast
             HostName 175.41.252.65
