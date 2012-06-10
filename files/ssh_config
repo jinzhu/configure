@@ -148,3 +148,6 @@ Host yyets-dev
             Compression yes
             Protocol 2
             Port 22
+Host theplantvpn
+            HostName theplant-vpn.theplant-dev.com
+            User theplantvpn

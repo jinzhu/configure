@@ -1,12 +1,15 @@
 IGNORES   = %w(.gitignore .git)
 IRREGULAR = {
   "files/sublime/*" => "~/.config/sublime-text-2/Packages/User/",
-  "files/xmonad.desktop" => '/usr/share/xsessions/xmonad.desktop',
   "files/ssh_config" => "~/.ssh/config",
+  'scripts' => '~/.scripts'
+}
+
+COPYFILES = {
+  "files/xmonad.desktop" => '/usr/share/xsessions/xmonad.desktop',
   "files/environment" => "/etc/environment",
   "files/20-thinkpad.conf" => "/etc/X11/xorg.conf.d/20-thinkpad.conf",
   "files/rc.conf" => "/etc/rc.conf",
-  'scripts' => '~/.scripts'
 }
 
 FILES = Dir.entries('.').select do |x|
@@ -24,10 +27,16 @@ task :make_xmonad do
 end
 
 def exec(str)
-  FILES.each do |k,v|
+  FILES.map do |k,v|
     command = str.gsub('KEY',File.join(Dir.pwd,k)).gsub('VALUE',v)
     puts("\e[32m#{command}\e[0m")
     system(command)
+  end
+
+  COPYFILES.map do |k,v|
+    command = "sudo cp --remove-destination #{k} #{v}"
+    puts command
+    system command
   end
 end
 
