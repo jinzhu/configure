@@ -172,6 +172,7 @@ noremap <silent> <F12> :let @+=expand("%:p:l").":".line(".")<CR>
 let mapleader = ";"
 map <Leader>t :CtrlP<CR>
 map <Leader>b :CtrlPBuffer<CR>
+map <Leader>r :CtrlPMRUFiles<CR>
 " map <Leader>f :CtrlPCurFile<CR>
 " map <Leader>t :CommandT<CR>
 " map <Leader>b :CommandTBuffer<CR>
@@ -191,7 +192,6 @@ map <Leader>s :SessionList<CR>
 autocmd! bufwritepost .vimrc source ~/.vimrc
 autocmd! BufWritePost *.go execute ':Fmt'
 
-map <Leader>r :MRU<CR>
 map <Leader>gs :Gstatus<CR>
 map <Leader>gd :Git! diff<CR>
 map <Leader>gc :Gcommit<CR>

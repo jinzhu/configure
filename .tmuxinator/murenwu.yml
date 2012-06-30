@@ -1,0 +1,8 @@
+project_name: murenwu
+project_root: ~/GIT/murenwu/
+tabs:
+  - vim: vim
+  - shell:
+  - console: bundle exec rails c
+  - server: bundle exec rails s
+  - logs: tail -f log/development.log
