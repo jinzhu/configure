@@ -41,11 +41,10 @@ def exec(str)
 end
 
 task :install do
-  system("git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle") unless File.exist?(File.expand_path("~/.vim/bundle/vundle"))
-
   exec("mkdir ~/.vim-tmp -p") unless File.exist?("#{ENV['HOME']}/.vim-tmp")
   exec("ln -nfs KEY VALUE")
   puts "\e[33mInstall Complete\e[0m"
+  system("git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle") unless File.exist?(File.expand_path("~/.vim/bundle/vundle"))
 end
 
 task :remove do
