@@ -129,7 +129,7 @@ Host qtb-dev
             HostName 54.248.102.248
 
 Host fast
-            HostName 175.41.252.65
+            HostName 175.41.242.254
             User app
             Compression yes
             Protocol 2
@@ -151,3 +151,7 @@ Host yyets-dev
 Host theplantvpn
             HostName theplant-vpn.theplant-dev.com
             User theplantvpn
+
+Host murenwu
+            HostName 42.121.18.245
+            User murenwu

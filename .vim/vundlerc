@@ -88,7 +88,7 @@ Bundle 'gerw/vim-latex-suite'
 Bundle 'cecutil'
 
 " write HTML code faster
-Bundle 'rstacruz/sparkup'
+Bundle 'mattn/zencoding-vim'
 
 Bundle 'Raimondi/delimitMate'
 
