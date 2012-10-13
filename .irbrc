@@ -1,37 +1,40 @@
-# sudo gem install genki-irb_rocket
-# interactive_editor
-%w(rubygems).map {|x| require x }
-require 'pry-editline'
-require 'interactive_editor'
+#!/usr/bin/env ruby
 
-IRB.conf[:SAVE_HISTORY] = 1000
-IRB.conf[:HISTORY_FILE] = "~/.irb_history"
- 
-IRB.conf[:PROMPT_MODE] = :SIMPLE
- 
-IRB.conf[:AUTO_INDENT] = true
-
-class Object
-  # list methods which aren't in superclass
-  def local_methods(obj = self)
-    (obj.methods - obj.class.superclass.instance_methods).sort
-  end
-  
-  # print documentation
-  #
-  # ri 'Array#pop'
-  # Array.ri
-  # Array.ri :pop
-  # arr.ri :pop
-  def ri(method = nil)
-    unless method && method =~ /^[A-Z]/ # if class isn't specified
-      klass = self.kind_of?(Class) ? name : self.class.name
-      method = [klass, method].compact.join('#')
-    end
-    puts `qri '#{method}'`
-  end
-
-  alias qri ri
+if defined? Bundler
+  Gem.post_reset_hooks.reject! { |hook| hook.source_location.first =~ %r{/bundler/} }
+  Gem::Specification.reset
+  load 'rubygems/custom_require.rb'
 end
- 
-load File.dirname(__FILE__) + '/.railsrc' if $0 == 'script/rails'
+
+require 'irbtools/configure'
+Irbtools.start
+
+# require 'irb/completion'
+# require 'irb/ext/save-history'
+#
+# IRB.conf[:PROMPT_MODE] = :SIMPLE
+# IRB.conf[:SAVE_HISTORY] = 1000
+# IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb_history"
+#
+#
+# ## Rails
+# ActiveRecord::Base.logger.level = 1 if defined? ActiveRecord::Base
+#
+# def enable_sql
+#   ActiveRecord::Base.logger.level = 0 if defined? ActiveRecord::Base
+# end
+#
+# def disable_sql
+#   ActiveRecord::Base.logger.level = 0 if defined? ActiveRecord::Base
+# end
+#
+# # Break out of the Bundler jail
+# # from https://github.com/ConradIrwin/pry-debundle/blob/master/lib/pry-debundle.rb
+#
+# if defined? Rails
+#   begin
+#     require 'hirb'
+#     Hirb.enable
+#   rescue LoadError
+#   end
+# end

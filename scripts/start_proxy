@@ -5,6 +5,7 @@ pid.split("\n").map { |p| system("kill -9 #{p}") } if pid =~ /\d/
 
 system("ssh -CNn -D9999 fast &")
 system("ssh -CNn -D8888 usa &")
+system("ssh -CNn -D7777 murenwu &")
 
 # if system("which autossh")
   # system("autossh -D9999 -M 2000 -N fast &")

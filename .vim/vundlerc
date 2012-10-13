@@ -1,17 +1,16 @@
 " =============== Vundle Initialization ===============
-set rtp+=~/.vim/bundle/vundle/
-set rtp+=$GOROOT/misc/vim
-set rtp+=/usr/share/go/misc/vim/
+if has('vim_starting')
+  set runtimepath+=~/.vim/bundle/vundle/
+endif
 call vundle#rc()
-
 Bundle 'gmarik/vundle'
 Bundle 'L9'
 
+set runtimepath+=$GOROOT/misc/vim
+set runtimepath+=/usr/share/go/misc/vim/
+
 " Ruby & Rails
 Bundle 'vim-ruby/vim-ruby'
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 0
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 0
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 0
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-rake'
 Bundle 'tpope/vim-bundler'
@@ -36,14 +35,11 @@ Bundle 'tpope/vim-abolish'
 " :%Subvert/facilit{y,ies}/building{,s}/g
 
 " GIT
-Bundle "tpope/vim-git"
+Bundle 'tpope/vim-git'
 Bundle 'tpope/vim-fugitive'
 Bundle 'int3/vim-extradite'
 Bundle 'tpope/vim-rhubarb'
 " ~/.vim/bundle/vim-fugitive/doc/fugitive.txt
-
-Bundle 'Command-T'
-" :CommandT, :CommandTBuffer
 
 Bundle 'Gist.vim'
 
@@ -56,11 +52,50 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 Bundle 'VisIncr'
 Bundle 'Align'
 Bundle 'tComment'
+" ~/.vim/bundle/tComment/doc/tcomment.txt
 Bundle 'mileszs/ack.vim'
 " :Ack
 " o (open) go (preview open) t (tab) T (new tab silently) v (vertical) gv q (close)
 
-Bundle 'AutoComplPop'
+" Bundle 'AutoComplPop'
+Bundle 'Shougo/neocomplcache'
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_auto_completion_start_length = 1
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplcache_max_list = 50
+let g:neocomplcache_enable_auto_select = 1
+let g:neocomplcache_enable_fuzzy_completion = 1
+let g:neocomplcache_fuzzy_completion_start_length = 2
+let g:neocomplcache_enable_cursor_hold_i = 0
+let g:neocomplcache_cursor_hold_i_time = 300
+let g:neocomplcache_enable_insert_char_pre = 0
+let g:neocomplcache_enable_prefetch = 0
+
+if !exists('g:neocomplcache_wildcard_characters')
+  let g:neocomplcache_wildcard_characters = {}
+endif
+let g:neocomplcache_wildcard_characters._ = '-'
+let g:neocomplcache_enable_auto_delimiter = 1
+
+inoremap <expr><C-y>  neocomplcache#cancel_popup()
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+
+let g:neocomplcache_omni_functions = {
+      \ 'ruby' : 'rubycomplete#Complete',
+      \ }
+
+
 Bundle 'jsbeautify'
 Bundle 'MultipleSearch'
 Bundle 'reorder-tabs'
@@ -72,23 +107,18 @@ Bundle 'Glob-Edit'
 " :edit plugin/*vim
 
 Bundle 'tsaleh/vim-matchit'
-Bundle 'sketch.vim'
+" Bundle 'sketch.vim'
 " Bundle 'hallettj/jslint.vim'
-Bundle 'qiushibaike'
 Bundle 'tyru/current-func-info.vim'
 
 " Maintains a history of yanks
 Bundle 'YankRing.vim'
+" s search, also have value in clipboard
+map <Leader>p :YRShow<CR>
 
 " LaTex
-Bundle 'imaps.vim'
-Bundle 'gerw/vim-latex-suite'
-
-" save/restore window position
-Bundle 'cecutil'
-
-" write HTML code faster
-Bundle 'mattn/zencoding-vim'
+" Bundle 'imaps.vim'
+" Bundle 'gerw/vim-latex-suite'
 
 Bundle 'Raimondi/delimitMate'
 
@@ -107,26 +137,27 @@ Bundle 'cespare/mxml.vim'
 Bundle 'nono/jquery.vim'
 Bundle 'actionscript.vim'
 Bundle 'sunaku/vim-ruby-minitest'
-" erlang
-Bundle 'oscarh/vimerl'
 
 Bundle 'LargeFile'
 
 Bundle 'VIM-Color-Picker'
-" :ColorPicker
-
+" <F6> :ColorPicker
 Bundle 'thinca/vim-quickrun'
+" :QuickRun ruby / :QuickRun
 Bundle 'Lokaltog/vim-easymotion'
-" Vim motions on speed
+" <Leader><Leader> f/F/w/e/b/ge/j/k
 Bundle 'spiiph/vim-space'
+" smart <Space>
 
 Bundle 'sjl/gundo.vim'
-let g:gundo_width = 80
-let g:gundo_preview_height = 30
+let g:gundo_width = 60
+let g:gundo_preview_height = 22
+" map <F9> :GundoToggle<CR>
 
 Bundle 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
+" map <F7> :IndentGuidesToggle <CR>
 
 Bundle 'Lokaltog/vim-powerline'
 let g:Powerline_stl_path_style='full'
@@ -134,15 +165,17 @@ let g:Powerline_stl_path_style='full'
 Bundle 'gregsexton/MatchTag'
 Bundle 'bronson/vim-visual-star-search'
 Bundle 'majutsushi/tagbar'
-nmap <F8> :TagbarToggle<CR>
+" nmap <F8> :TagbarToggle<CR>
 
 Bundle 'kien/ctrlp.vim'
 let g:ctrlp_extensions = ['changes', 'line', 'buffertag']
 let g:ctrlp_mruf_last_entered = 1
 let g:ctrlp_follow_symlinks = 1
-let g:ctrlp_max_height = 40
+let g:ctrlp_max_height = 35
 let g:ctrlp_match_window_reversed = 0
-let g:ctrlp_working_path_mode = 2
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+" let g:ctrlp_user_command = 'find %s -type f'
 let g:ctrlp_prompt_mappings = {
       \ 'PrtSelectMove("j")':   ['<c-n>'],
       \ 'PrtSelectMove("k")':   ['<c-p>'],
@@ -151,6 +184,7 @@ let g:ctrlp_prompt_mappings = {
       \}
 
 Bundle 'gmarik/github-search.vim'
+" :GHSearchRepo something
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Delete current file
