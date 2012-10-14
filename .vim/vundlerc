@@ -114,7 +114,6 @@ Bundle 'tyru/current-func-info.vim'
 " Maintains a history of yanks
 Bundle 'YankRing.vim'
 " s search, also have value in clipboard
-map <Leader>p :YRShow<CR>
 
 " LaTex
 " Bundle 'imaps.vim'

@@ -244,12 +244,13 @@ map <Leader>s :SessionList<CR>
 autocmd! bufwritepost .vimrc source ~/.vimrc
 autocmd! BufWritePost *.go execute ':Fmt'
 
+map <Leader>p :YRShow<CR>
 map <Leader>gs :Gstatus<CR>
 map <Leader>gd :Git! diff<CR>
 map <Leader>gc :Gcommit<CR>
 map <Leader>gl :Extradite<CR>
 
-map <leader>cd :cd %:p:h<CR>
+map <leader>cd :lcd %:p:h<CR>:pwd<CR>
 
 """ My `;` HotKeys
 " Windows (;c, ;o)
