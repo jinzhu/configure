@@ -174,6 +174,8 @@ endfor
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Color
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set t_Co=256
+
 if has("gui_running")
   set guioptions-=T
   colorscheme vibrantink
@@ -188,9 +190,6 @@ set encoding=utf8
 set guifont=Monaco\ 14
 " GUI - color：guifg, guibg, gui
 " Terminal：ctermfg, ctermbg
-
-"tell the term has 128 colors
-set t_Co=128
 
 runtime macros/matchit.vim
 
@@ -242,6 +241,9 @@ map <Leader>a :Ack
 
 map <Leader>s :SessionList<CR>
 autocmd! bufwritepost .vimrc source ~/.vimrc
+autocmd! bufwritepost .vimrc call Pl#Load()
+autocmd! BufREAD * call Pl#Load()
+autocmd! BufDelete * call Pl#Load()
 autocmd! BufWritePost *.go execute ':Fmt'
 
 map <Leader>p :YRShow<CR>
