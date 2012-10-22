@@ -1,5 +1,6 @@
 project_name: qor
 project_root: ~/GIT/qor_core/
 tabs:
-  - vim: vim
-  - shell:
+  - qor_test: cd ~/GIT/qor_test; vim
+  - qor_dsl: cd ~/GIT/qor_dsl; vim
+  - qor_cache: cd ~/GIT/qor_cache; vim

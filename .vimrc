@@ -14,6 +14,9 @@ set timeoutlen=500              " Lower timeout for mappings
 set cot=menu                    " Don't show extra info on completions
 set spelllang=en_us
 
+" set dictionary+=/usr/share/dict/words
+" set isk+=-
+
 " Search home directory path on cd. But can't complete.
 set cdpath+=~
 set cdpath+=~/GIT

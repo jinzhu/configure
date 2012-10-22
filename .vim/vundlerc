@@ -75,6 +75,10 @@ let g:neocomplcache_cursor_hold_i_time = 300
 let g:neocomplcache_enable_insert_char_pre = 0
 let g:neocomplcache_enable_prefetch = 0
 
+let g:neocomplcache_dictionary_filetype_lists = {
+            \ 'default' : ''
+            \ }
+
 if !exists('g:neocomplcache_wildcard_characters')
   let g:neocomplcache_wildcard_characters = {}
 endif

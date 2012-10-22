@@ -148,4 +148,4 @@ __go_tool_complete() {
   esac
 }
 
-compdef __go_tool_complete go
+# compdef __go_tool_complete go
