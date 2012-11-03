@@ -6,4 +6,4 @@
 - http://ruby.taobao.org/
 :update_sources: true
 :verbose: true
-gem: --no-ri --no-rdoc
+#gem: --no-ri --no-rdoc
