@@ -1,7 +1,23 @@
-if [[ $(acpi 2&>/dev/null | grep -c '^Battery.*Discharging') -gt 0 ]] ; then
-  function battery_pct_remaining() { echo "$(acpi | cut -f2 -d ',' | tr -cd '[:digit:]')" }
-  function battery_time_remaining() { echo $(acpi | cut -f3 -d ',') }
-  function battery_pct_prompt() {
+error_msg='no battery'
+
+function battery_pct_remaining() {
+  if [[ $(acpi 2&>/dev/null | grep -c '^Battery.*Discharging') -gt 0 ]] ; then
+    echo "$(acpi | cut -f2 -d ',' | tr -cd '[:digit:]')"
+  else
+    echo $error_msg
+  fi
+}
+
+function battery_time_remaining() {
+  if [[ $(acpi 2&>/dev/null | grep -c '^Battery.*Discharging') -gt 0 ]] ; then
+    echo $(acpi | cut -f3 -d ',')
+  else
+    echo $error_msg
+  fi
+}
+
+function battery_pct_prompt() {
+  if [[ $(acpi 2&>/dev/null | grep -c '^Battery.*Discharging') -gt 0 ]] ; then
     b=$(battery_pct_remaining)
     if [ $b -gt 50 ] ; then
       color='green'
@@ -11,10 +27,7 @@ if [[ $(acpi 2&>/dev/null | grep -c '^Battery.*Discharging') -gt 0 ]] ; then
       color='red'
     fi
     echo "%{$fg[$color]%}[$(battery_pct_remaining)%%]%{$reset_color%}"
-  }
-else
-  error_msg='no battery'
-  function battery_pct_remaining() { echo $error_msg }
-  function battery_time_remaining() { echo $error_msg }
-  function battery_pct_prompt() { echo '' }
-fi
+  else
+    echo ''
+  fi
+}

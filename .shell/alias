@@ -169,6 +169,8 @@ alias gcount='git shortlog -sn'
 function gs {
   if [ -d '.svn' ];then
     svn status $*
+  elif [ -d '.hg' ]; then
+    hg status $*
   else
     git status $*
   fi
@@ -177,6 +179,8 @@ function gs {
 function gl {
   if [ -d '.svn' ];then
     svn log $*
+  elif [ -d '.hg' ]; then
+    hg log $* | less
   else
     git log $*
   fi
@@ -185,6 +189,8 @@ function gl {
 function gd {
   if [ -d '.svn' ];then
     svn diff $*
+  elif [ -d '.hg' ]; then
+    hg diff $*
   else
     git diff $*
   fi
