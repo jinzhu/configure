@@ -1,0 +1,9 @@
+project_name: msmk
+project_root: ~/GIT/msmk/
+tabs:
+  - vim: vim
+  - shell:
+  - console: bundle exec rails c
+  - server: bundle exec rails s
+  - compass: bundle exec compass watch
+  - logs: tail -f log/development.log
