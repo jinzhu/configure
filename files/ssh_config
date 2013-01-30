@@ -89,6 +89,18 @@ Host lacoste4
             Compression yes
             Protocol 2
             Port 22
+Host lacoste5
+            HostName 54.248.204.153
+            User app
+            Compression yes
+            Protocol 2
+            Port 222
+Host lacostedb
+            HostName ec2-54-248-33-174.ap-northeast-1.compute.amazonaws.com
+            User app
+            Compression yes
+            Protocol 2
+            Port 222
 Host asics-dev
             HostName 79.125.17.184
             User app

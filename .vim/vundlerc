@@ -17,6 +17,7 @@ Bundle 'tpope/vim-bundler'
 " ~/.vim/macros/rails.vim
 
 
+Bundle 'jade.vim'
 Bundle 'tpope/vim-ragtag'
 " <C-X>= <C-X>+ <C-X>- <C-X>_ <C-X>' <C-X>" <C-X><Space> <C-X><CR> <C-X>/ <C-X>! <C-X>@ <C-X># <C-X>$
 Bundle 'tpope/vim-eunuch'
