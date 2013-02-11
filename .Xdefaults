@@ -82,11 +82,29 @@ urxvt*keysym.sym: string
 
 !for url yanking
 URxvt.perl-lib: /home/jinzhu/.scripts/urxvt/
-URxvt.perl-ext-common: default,url-select,translate-selection,vim-scrollback
-URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.perl-ext-common: default,url-select,translate-selection,vim-scrollback,clipboard
+! keyboard-select,
+! URxvt.keysym.M-l: perl:keyboard-select:activate
+! URxvt.keysym.M-s: perl:keyboard-select:search
+!
+! URxvt.clipboard.autocopy: true
+! URxvt.keysym.M-c:   perl:clipboard:copy
+! URxvt.keysym.M-v:   perl:clipboard:paste
 
-urxvt*vim-scrollback: Mod1-v
-URxvt.clipboard.autocopy: true
+URxvt.keysym.M-u: perl:url-select:select_next
 URxvt.url-select.autocopy: true
 URxvt.url-select.launcher: chromium
 URxvt.url-select.underline: false
+
+urxvt.vim-scrollback: M-v
+! M-r * -> paste from buffer; M-r + -> paste from clipboard
+urxvt.vim-scrollback-paste: M-r
+urxvt.vim-scrollback-bg: 16
+urxvt.vim-scrollback-fg: 10
+! file name with line number
+urxvt.vim-scrollback.pattern.1: (/\\S+?):(\\d+)(\\n?)
+urxvt.vim-scrollback.launcher.1: gvim +$2 $1
+! filename
+urxvt.vim-scrollback.pattern.2: (/\\S+)(\\n?)
+urxvt.vim-scrollback.launcher.2: gvim $1
+urxvt*urlLauncher: chromium

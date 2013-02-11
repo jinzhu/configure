@@ -4,7 +4,7 @@
 # paste.  Initially based on the searchable-scrollback extension and some gf
 # related code borrowed from the matcher extension.
 #
-# Copyright (C) 2007 - 2011  Eric Van Dewoestine
+# Copyright (C) 2007 - 2012  Eric Van Dewoestine
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -120,9 +120,15 @@ my $DEBUG_FILE = '/tmp/urxvt_vim_scrollback.log';
 my $DEBUG_FH;
 
 # copied from matcher
-my $url = qr{^((((ht|f)tp(s?))\://)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|m
-+il|net|org|biz|info|name|museum|us|ca|uk|\w\w|\w\w\w)(\:[0-9]+)*(/($|[a-zA-Z0-9\.
-+\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*)$}x;
+my $url =
+   qr{
+      (?:https?://|ftp://|news://|mailto:|file://|\bwww\.)
+      [a-zA-Z0-9\-\@;\/?:&=%\$_.+!*\x27,~#]*
+      (
+         \([a-zA-Z0-9\-\@;\/?:&=%\$_.+!*\x27,~#]*\)| # Allow a pair of matched parentheses
+         [a-zA-Z0-9\-\@;\/?:&=%\$_+*~]  # exclude some trailing characters (heuristic)
+      )+
+   }x;
 
 sub on_init {
    my ($self) = @_;
@@ -322,9 +328,9 @@ sub key_press_normal {
    $self->msg("");
    if ($keysym == 0xff1b ||
       $string =~ /^\cC$/ ||
-      ($self->{key_buffer} =~ /^:qa?$/ && $keysym == 0xff0d))
-   { # esc, ctrl-c, :q<enter>, :qa<enter>
-      if($self->{key_buffer} and $self->{key_buffer} !~ /^:qa?$/){
+      ($self->{key_buffer} =~ /^$/ && $keysym == 0xff0d))
+   { # esc, ctrl-c, <enter>
+      if($self->{key_buffer}){
          $self->{key_buffer} = "";
          $self->msg("");
       }else{
@@ -433,11 +439,6 @@ sub key_press_normal {
       $self->set_mark("'");
       $self->term_write($event, $self->{registers}{'"'});
 
-   } elsif ($string eq "P") {
-      my $str = `xsel -ob`;
-      $str = $self->locale_decode($str);
-      $self->term_write($event, $str);
-
    # motions
    } elsif ($string eq "j") {
       my ($lnum, $cnum) = $self->screen_cur();
@@ -496,16 +497,6 @@ sub key_press_normal {
    } elsif ($string =~ /^\cU$/) {
       my ($lnum, $cnum) = $self->screen_cur();
       my $row = $lnum - 20;
-      $row = $row > $self->top_row ? $row : $self->top_row;
-      $self->move_cursor($event, $row, $cnum);
-   } elsif ($string =~ /^\cF$/) {
-      my ($lnum, $cnum) = $self->screen_cur();
-      my $row = $lnum + 39;
-      $row = $row < $self->{orig_lnum} ? $row : $self->{orig_lnum};
-      $self->move_cursor($event, $row, $cnum);
-   } elsif ($string =~ /^\cB$/) {
-      my ($lnum, $cnum) = $self->screen_cur();
-      my $row = $lnum - 39;
       $row = $row > $self->top_row ? $row : $self->top_row;
       $self->move_cursor($event, $row, $cnum);
    } elsif ($string eq "w" or $string eq "e") {
@@ -727,17 +718,8 @@ sub key_press_visual {
          $self->move_cursor($event, $lnum, $cnum);
          $self->msg("");
       }
-   } elsif ($string eq "c") {
-		my $sel = $self->selection();
-      if (open(CLIPBOARD, "| xsel -ib")) {
-         utf8::encode($sel);
-         print CLIPBOARD $sel;
-         close(CLIPBOARD);
-      }
-      $self->normal_mode($event, 1);
    } elsif ($string eq "y") {
-		my $sel = $self->selection();
-      $self->{registers}{'"'} = $sel;
+      $self->{registers}{'"'} = $self->selection();
       $self->normal_mode($event, 1);
    } elsif ($string eq "Y") {
       # the act of selecting puts the text on the primary, so just need to copy
@@ -1135,8 +1117,21 @@ sub key_press_paste {
             $self->tt_write($text);
          }else{
             if(open(my $process, "xclip -o -selection $selection |")){
-               $text = join('', <$process>);
-               $self->tt_write($text);
+               while ($text = <$process>){
+                  # between rxvt-unicode 9.14 and 9.15 (or some other factor)
+                  # writing out new lines doesn't work (they seem to be
+                  # stripped), but using carriage returns does, so replace \n
+                  # with \r so pasting works with both versions (removing of \n
+                  # mostly to accommodate paste into vim since the term won't
+                  # issue both \n and \r, but vim will, resulting in extra lines
+                  # between pasted text... may affect other terminal apps as
+                  # well).
+                  $text =~ s/\n$/\r/;
+                  $self->tt_write($text);
+               }
+               #$text = join("\r", <$process>);
+               #$self->tt_write($text);
+               close $process;
             }
          }
       }
