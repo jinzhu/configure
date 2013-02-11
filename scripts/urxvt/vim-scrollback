@@ -627,6 +627,7 @@ sub key_press_normal {
    } elsif ($string eq "gf") {
       my ($lnum, $cnum) = $self->screen_cur();
       my @exec = $self->command_for($lnum, $cnum);
+      my $selection = $self->selection();
 
       # handle ticket numbers
       # TODO: convert to generic url variable substitution support.
@@ -634,6 +635,10 @@ sub key_press_normal {
          (my $ticket = @exec[1]) =~ s/^#//;
          (my $url = @exec[0]) =~ s/<id>/$ticket/;
          @exec = ($self->{launcher}, $url);
+      }
+
+      if (@exec[0] =~ /open_or_search$/){
+         @exec = (@exec[0], "@exec[1]===:::===$lnum==::==$cnum==::==$selection");
       }
 
       if (@exec){

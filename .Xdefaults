@@ -94,7 +94,7 @@ URxvt.perl-ext-common: default,url-select,translate-selection,vim-scrollback,cli
 URxvt.keysym.M-slash:  perl:aAtt:complete
 
 ! keyboard-select,
-! URxvt.keysym.M-l: perl:keyboard-select:activate
+! URxvt.keysym.M-v: perl:keyboard-select:activate
 ! URxvt.keysym.M-s: perl:keyboard-select:search
 !
 ! URxvt.clipboard.autocopy: true
@@ -112,9 +112,13 @@ urxvt.vim-scrollback-paste: M-r
 urxvt.vim-scrollback-bg: 16
 urxvt.vim-scrollback-fg: 10
 ! file name with line number
-urxvt.vim-scrollback.pattern.1: (/\\S+?):(\\d+)(\\n?)
-urxvt.vim-scrollback.launcher.1: gvim +$2 $1
-! filename
-urxvt.vim-scrollback.pattern.2: (/\\S+)(\\n?)
-urxvt.vim-scrollback.launcher.2: gvim $1
+urxvt.vim-scrollback.pattern.1: (.*)
+urxvt.vim-scrollback.launcher.1: /home/jinzhu/.scripts/open_or_search $1
 urxvt*urlLauncher: chromium
+
+! urxvt.vim-scrollback.pattern.1: (/\\S+?):(\\d+)(\\n?)
+! urxvt.vim-scrollback.launcher.1: gvim +$2 $1
+! ! filename
+! urxvt.vim-scrollback.pattern.2: (/\\S+)(\\n?)
+! urxvt.vim-scrollback.launcher.2: gvim $1
+! urxvt*urlLauncher: chromium
