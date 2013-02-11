@@ -1,0 +1,3 @@
+rm clipboard; wget https://raw.github.com/muennich/urxvt-perls/master/clipboard
+rm url-select; wget https://raw.github.com/muennich/urxvt-perls/master/url-select
+rm keyboard-select; wget https://raw.github.com/muennich/urxvt-perls/master/keyboard-select

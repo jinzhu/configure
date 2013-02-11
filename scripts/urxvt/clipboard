@@ -1,7 +1,7 @@
 #! perl -w
-# Author:  Bert Muennich
-# Website: http://www.github.com/muennich/urxvt-perls
-# License: GPLv2
+# Author:   Bert Muennich
+# Website:  http://www.github.com/muennich/urxvt-perls
+# License:  GPLv2
 
 # Use keyboard shortcuts to copy the selection to the clipboard and to paste
 # the clipboard contents (optionally escaping all special characters).
@@ -13,16 +13,19 @@
 #   URxvt.keysym.M-v:   perl:clipboard:paste
 #   URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
 
+# Options:
+#   URxvt.clipboard.autocopy: If true, PRIMARY overwrites clipboard
+
 # You can also overwrite the system commands to use for copying/pasting.
 # The default ones are:
-#   URxvt.copyCommand:  xsel -ib
-#   URxvt.pasteCommand: xsel -ob
+#   URxvt.clipboard.copycmd:  xsel -ib
+#   URxvt.clipboard.pastecmd: xsel -ob
 # If you prefer xclip, then put these lines in your .Xdefaults/.Xresources:
-#   URxvt.copyCommand:  xclip -i -selection clipboard
-#   URxvt.pasteCommand: xclip -o -selection clipboard
+#   URxvt.clipboard.copycmd:  xclip -i -selection clipboard
+#   URxvt.clipboard.pastecmd: xclip -o -selection clipboard
 # On Mac OS X, put these lines in your .Xdefaults/.Xresources:
-#   URxvt.copyCommand:  pbcopy
-#   URxvt.pasteCommand: pbpaste
+#   URxvt.clipboard.copycmd:  pbcopy
+#   URxvt.clipboard.pastecmd: pbpaste
 
 # The use of the functions should be self-explanatory!
 
@@ -31,8 +34,12 @@ use strict;
 sub on_start {
 	my ($self) = @_;
 
-	$self->{copy_cmd} = $self->x_resource('copyCommand') || 'xsel -ib';
-	$self->{paste_cmd} = $self->x_resource('pasteCommand') || 'xsel -ob';
+	$self->{copy_cmd} = $self->x_resource('clipboard.copycmd') || 'xsel -ib';
+	$self->{paste_cmd} = $self->x_resource('clipboard.pastecmd') || 'xsel -ob';
+
+	if ($self->x_resource('clipboard.autocopy') eq 'true') {
+		$self->enable(sel_grab => \&sel_grab);
+	}
 
 	()
 }
@@ -89,6 +96,14 @@ sub on_user_command {
 	} elsif ($cmd eq "clipboard:paste_escaped") {
 	   $self->paste_escaped;
 	}
+
+	()
+}
+
+sub sel_grab {
+	my ($self) = @_;
+
+	$self->copy;
 
 	()
 }
