@@ -1,0 +1,34 @@
+--smart-case
+--follow
+--color
+--group
+--with-filename
+
+
+# type settings
+--type-add=python=.cpy,.vpy
+--type-set=plaintext=.md,.mdown,.markdown,.mkdn,.textile,.rst,.txt
+--type-set=csv=.txt,.csv,.tsv
+--type-set=slim=.slim
+--type-set=erb=.erb
+--type-set=rb=.rb
+--type-set=go=.go
+--type-set=js=.coffee,.js
+--type-add=html=.haml
+--type-add=css=.sass,.scss,.css
+
+
+# ignore some file types
+--type-set=DUMB=.sql,.bin
+--noDUMB
+
+
+# ignore some directories
+--ignore-dir=vendor
+--ignore-dir=log
+--ignore-dir=tmp
+--ignore-dir=doc
+--ignore-dir=coverage
+--ignore-dir=fixtures
+--ignore-dir=public
+--ignore-dir=bin

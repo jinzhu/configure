@@ -240,7 +240,7 @@ noremap <silent> <leader>fn :let @+=expand('%:p')<CR>
 " copy file directory
 noremap <silent> <leader>fd :let @+=expand('%:p:h')<CR>
 
-map <Leader>a :Ack
+map <Leader>a :Ack 
 
 map <Leader>s :SessionList<CR>
 autocmd! bufwritepost .vimrc source ~/.vimrc
