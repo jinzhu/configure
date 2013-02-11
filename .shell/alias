@@ -6,7 +6,13 @@
 alias em='sudo emerge'
 
 # Arch
-alias sp='sudo pacman'
+function sp {
+  if [ -f '/usr/bin/yaourt' ];then
+    sudo yaourt $@
+  else
+    sudo pacman $@
+  fi
+}
 
 ############################################################
 # System
