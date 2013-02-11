@@ -89,7 +89,10 @@ urxvt*keysym.sym: string
 
 !for url yanking
 URxvt.perl-lib: /home/jinzhu/.scripts/urxvt/
-URxvt.perl-ext-common: default,url-select,translate-selection,vim-scrollback,clipboard
+URxvt.perl-ext-common: default,url-select,translate-selection,vim-scrollback,clipboard,autocomplete-ALL-the-things
+
+URxvt.keysym.M-slash:  perl:aAtt:complete
+
 ! keyboard-select,
 ! URxvt.keysym.M-l: perl:keyboard-select:activate
 ! URxvt.keysym.M-s: perl:keyboard-select:search
@@ -101,7 +104,7 @@ URxvt.perl-ext-common: default,url-select,translate-selection,vim-scrollback,cli
 URxvt.keysym.M-u: perl:url-select:select_next
 URxvt.url-select.autocopy: true
 URxvt.url-select.launcher: chromium
-URxvt.url-select.underline: false
+URxvt.url-select.underline: true
 
 urxvt.vim-scrollback: M-v
 ! M-r * -> paste from buffer; M-r + -> paste from clipboard

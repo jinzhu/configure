@@ -1,0 +1,80 @@
+#!/usr/bin/perl
+#########################################################################
+# Copyright (C) 2012  Wojciech Siewierski                               #
+#                                                                       #
+# This program is free software: you can redistribute it and/or modify  #
+# it under the terms of the GNU General Public License as published by  #
+# the Free Software Foundation, either version 3 of the License, or     #
+# (at your option) any later version.                                   #
+#                                                                       #
+# This program is distributed in the hope that it will be useful,       #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of        #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         #
+# GNU General Public License for more details.                          #
+#                                                                       #
+# You should have received a copy of the GNU General Public License     #
+# along with this program.  If not, see <http://www.gnu.org/licenses/>. #
+#########################################################################
+
+
+sub on_user_command {
+    my ($self, $cmd) = @_;
+
+    if ($cmd eq 'aAtt:complete') {
+        my ($row, $col) = $self->screen_cur;
+        my $toMatch = getCurrentWord($self, $row, $col);
+        if ($toMatch) {
+            my $comp = findMatchingWord($self, $toMatch, $row);
+            $self->tt_write($self->locale_encode($comp)) if $comp;
+        }
+        return 1;
+    } else {
+        delete $self->{aTtt_lastToMatch};
+    }
+
+    ()
+}
+
+sub on_key_press {
+    my ($self, $event, $keysym) = @_;
+
+    if ($keysym <= 127 && $keysym != 0x20) { # if ASCII and not space
+        delete $self->{aTtt_lastToMatch};    # reset the memory
+    }
+
+    ()
+}
+
+sub getCurrentWord {
+    my ($self, $row, $col) = @_;
+
+    if (defined $self->{aTtt_lastToMatch}) {
+        $_ = substr($self->ROW_t($row),
+                    $self->{aTtt_lastToMatch},
+                    $col - $self->{aTtt_lastToMatch});
+        {
+            local $/ = ' ';                                        # remove the trailing space
+            chomp and $self->tt_write($self->locale_encode("")); # "press" backspace; not portable TODO
+        }
+    } else {
+        $_ = substr($self->ROW_t($row), 0, $col);
+        s/.*?(\w*)$/$1/;
+        $self->{aTtt_lastToMatch} = $col - length($_);
+    }
+    return $_;
+}
+
+sub findMatchingWord {
+    my ($self, $toMatch, $row) = @_;
+
+    for (my $n = 0; $n <= 2; ++$n) {
+        for (my $i = $row-1; $i >= 0; --$i) {
+            $_ = $self->ROW_t($i);
+            if (/\b${toMatch}\W{$n}\w/i) {
+                s/^.*?\b$toMatch(\W{$n}\w+).*$/$1/i;
+                return $_;
+            }
+        }
+    }
+    return undef;
+}
