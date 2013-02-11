@@ -4,6 +4,8 @@ require 'uri'
 separator_1 = "===:::==="
 separator_2 = "==::=="
 
+last_dir = "/tmp/.last_dir"
+
 str = ARGV.join(" ")
 
 puts str.split(separator_1).inspect
@@ -18,20 +20,22 @@ before_word = before_cur.split(" ")[-1]
 after_sentence = before_word + after_cur
 
 current_word = after_sentence.split(" ")[0]
-filename, linenum = current_word.split(":")
+filename, linenum = (selected || current_word).split(":")
 
 f = File.open("#{ENV["HOME"]}/debug.log", "a+")
 puts "filename:#{filename}, linenum:#{linenum}, current_word:#{current_word}, selected:#{selected}, line:\n#{line}\n\n"
-f << "filename:#{filename}, linenum:#{linenum}, current_word:#{current_word}, selected:#{selected}, line:\n#{line}\n\n"
+f << "#{`pwd`}; filename:#{filename}, linenum:#{linenum}, current_word:#{current_word}, selected:#{selected}, line:\n#{line}\n\n"
 f.flush
 
-if File.exist? filename
-  if linenum.nil?
-    `gvim #{filename}`
+if Dir.chdir((File.exist?(last_dir) ? File.read(last_dir) : ENV["HOME"]).strip)
+  if File.exist? filename
+    if linenum.nil?
+      `gvim #{filename}`
+    else
+      `gvim +#{linenum} #{filename}`
+    end
   else
-    `gvim +#{linenum} #{filename}`
+    keyword = selected.to_s.length > 0 ? selected : current_word
+    `chromium https://www.google.com/search?q=#{URI.escape(keyword)}`
   end
-else
-  keyword = selected.to_s.length > 0 ? selected : current_word
-  `chromium https://www.google.com/search?q=#{URI.escape(keyword)}`
 end

@@ -48,4 +48,4 @@ function parse_scm {
 }
 
 export PS1='\[\e[01;30m\] [\u@\h]     \[\e[01;36m\][\t]     \[\e[01;34m\][\W]$(parse_scm)\[\e[0m
-\[\e[01;32m\]\$\[\e[0m\] '
+\[\e[01;32m\]\$\[\e[0m\]$(pwd > /tmp/.last_dir) '

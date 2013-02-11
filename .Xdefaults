@@ -115,10 +115,3 @@ urxvt.vim-scrollback-fg: 10
 urxvt.vim-scrollback.pattern.1: (.*)
 urxvt.vim-scrollback.launcher.1: /home/jinzhu/.scripts/open_or_search $1
 urxvt*urlLauncher: chromium
-
-! urxvt.vim-scrollback.pattern.1: (/\\S+?):(\\d+)(\\n?)
-! urxvt.vim-scrollback.launcher.1: gvim +$2 $1
-! ! filename
-! urxvt.vim-scrollback.pattern.2: (/\\S+)(\\n?)
-! urxvt.vim-scrollback.launcher.2: gvim $1
-! urxvt*urlLauncher: chromium
