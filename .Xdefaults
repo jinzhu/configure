@@ -1,5 +1,5 @@
 !XTerm
-XTerm.vt100.saveLines:20000
+XTerm.vt100.saveLines:1000000
 XTerm.vt100.scrollBar:false
 XTerm.vt100.loginShell:false
 XTerm.vt100.faceName:Monaco:pixelsize=17
@@ -39,7 +39,7 @@ XTerm*cursorColor: yellow
 !URxvt
 URxvt*background: rgba:0E00/0E00/0E00/dddd
 URxvt*foreground: #DEDEDE
-URxvt*saveLines:  20000
+URxvt*saveLines:  1000000
 URxvt.depth:      32
 URxvt.buffered:    true
 URxvt.transparent: false
@@ -50,7 +50,6 @@ URxvt.scrollBar: false
 URxvt.scrollBar_right: true
 URxvt.scrollBar_floating: true
 URxvt.scrollstyle: plain
-URxvt.saveLines: 1000000
 
 URxvt*scrollTtyOutput   : false
 URxvt*scrollWithBuffer  : true
@@ -89,7 +88,10 @@ urxvt*keysym.sym: string
 
 !for url yanking
 URxvt.perl-lib: /home/jinzhu/.scripts/urxvt/
-URxvt.perl-ext-common: default,url-select,translate-selection,vim-scrollback,clipboard,autocomplete-ALL-the-things
+URxvt.perl-ext-common: default,url-select,vim-scrollback,clipboard,autocomplete-ALL-the-things
+
+! URxvt.matcher.button:   1
+URxvt.colorUL: #4682B4
 
 URxvt.keysym.M-slash:  perl:aAtt:complete
 

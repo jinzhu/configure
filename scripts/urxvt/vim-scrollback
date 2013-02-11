@@ -494,24 +494,42 @@ sub key_press_normal {
    } elsif ($string eq "G") {
       $self->set_mark("'");
       $self->move_cursor($event, $self->{orig_lnum}, $self->{orig_cnum});
+   } elsif ($string =~ /^H$/) {
+      my ($lnum, $cnum) = $self->screen_cur();
+		$lnum = $self->view_start();
+      my $line = $self->line($lnum);
+      ($lnum, $cnum) = $line->coord_of($cnum);
+      $self->move_cursor($event, $lnum, $cnum);
+   } elsif ($string =~ /^M$/) {
+      my ($lnum, $cnum) = $self->screen_cur();
+		$lnum = $self->view_start() + $self->nrow / 2;;
+      my $line = $self->line($lnum);
+      ($lnum, $cnum) = $line->coord_of($cnum);
+      $self->move_cursor($event, $lnum, $cnum);
+   } elsif ($string =~ /^L$/) {
+      my ($lnum, $cnum) = $self->screen_cur();
+		$lnum = $self->view_start() + $self->nrow - 1;
+      my $line = $self->line($lnum);
+      ($lnum, $cnum) = $line->coord_of($cnum);
+      $self->move_cursor($event, $lnum, $cnum);
    } elsif ($string =~ /^\cD$/) {
       my ($lnum, $cnum) = $self->screen_cur();
-      my $row = $lnum + 20;
+      my $row = $lnum + $self->nrow / 2;
       $row = $row < $self->{orig_lnum} ? $row : $self->{orig_lnum};
       $self->move_cursor($event, $row, $cnum);
    } elsif ($string =~ /^\cU$/) {
       my ($lnum, $cnum) = $self->screen_cur();
-      my $row = $lnum - 20;
+      my $row = $lnum - $self->nrow / 2;
       $row = $row > $self->top_row ? $row : $self->top_row;
       $self->move_cursor($event, $row, $cnum);
    } elsif ($string =~ /^\cF$/) {
       my ($lnum, $cnum) = $self->screen_cur();
-      my $row = $lnum + 39;
+      my $row = $lnum + $self->nrow - 1;
       $row = $row < $self->{orig_lnum} ? $row : $self->{orig_lnum};
       $self->move_cursor($event, $row, $cnum);
    } elsif ($string =~ /^\cB$/) {
       my ($lnum, $cnum) = $self->screen_cur();
-      my $row = $lnum - 39;
+      my $row = $lnum - $self->nrow + 1;
       $row = $row > $self->top_row ? $row : $self->top_row;
       $self->move_cursor($event, $row, $cnum);
    } elsif ($string eq "w" or $string eq "e") {
