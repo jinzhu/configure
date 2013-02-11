@@ -643,6 +643,7 @@ sub key_press_normal {
 
       if (@exec){
         $self->exec_async(@exec);
+        $self->selection('');
       }
 
    }elsif ($string =~ /^([0-9]+|[gm'])$/) {
