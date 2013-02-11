@@ -46,11 +46,18 @@ URxvt.transparent: false
 URxvt.shading:     100
 
 !Scroll
-URxvt.scrollBar: true
+URxvt.scrollBar: false
 URxvt.scrollBar_right: true
 URxvt.scrollBar_floating: true
 URxvt.scrollstyle: plain
-URxvt.saveLines: 50000
+URxvt.saveLines: 1000000
+
+URxvt*scrollTtyOutput   : false
+URxvt*scrollWithBuffer  : true
+URxvt*scrollTtyKeypress : true
+
+URxvt*secondaryWheel  : true
+URxvt*secondaryScreen : true
 
 urxvt*buffered:false
 urxvt*transparent:true
