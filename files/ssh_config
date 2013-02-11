@@ -78,17 +78,17 @@ Host lacoste2
             Protocol 2
             Port 222
 Host lacoste3
-            HostName 54.248.13.222
+            HostName 54.249.237.25
             User app
             Compression yes
             Protocol 2
             Port 222
 Host lacoste4
-            HostName 175.41.220.146
+            HostName 54.249.237.24
             User app
             Compression yes
             Protocol 2
-            Port 22
+            Port 222
 Host lacoste5
             HostName 54.248.204.153
             User app
@@ -141,7 +141,7 @@ Host qtb-dev
             HostName 54.248.102.248
 
 Host fast
-            HostName 175.41.242.254
+            HostName 175.41.252.65
             User app
             Compression yes
             Protocol 2
