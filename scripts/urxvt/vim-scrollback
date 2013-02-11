@@ -439,6 +439,11 @@ sub key_press_normal {
       $self->set_mark("'");
       $self->term_write($event, $self->{registers}{'"'});
 
+   } elsif ($string eq "P") {
+      my $str = `xsel -ob`;
+      $str = $self->locale_decode($str);
+      $self->term_write($event, $str);
+
    # motions
    } elsif ($string eq "j") {
       my ($lnum, $cnum) = $self->screen_cur();
@@ -497,6 +502,16 @@ sub key_press_normal {
    } elsif ($string =~ /^\cU$/) {
       my ($lnum, $cnum) = $self->screen_cur();
       my $row = $lnum - 20;
+      $row = $row > $self->top_row ? $row : $self->top_row;
+      $self->move_cursor($event, $row, $cnum);
+   } elsif ($string =~ /^\cF$/) {
+      my ($lnum, $cnum) = $self->screen_cur();
+      my $row = $lnum + 39;
+      $row = $row < $self->{orig_lnum} ? $row : $self->{orig_lnum};
+      $self->move_cursor($event, $row, $cnum);
+   } elsif ($string =~ /^\cB$/) {
+      my ($lnum, $cnum) = $self->screen_cur();
+      my $row = $lnum - 39;
       $row = $row > $self->top_row ? $row : $self->top_row;
       $self->move_cursor($event, $row, $cnum);
    } elsif ($string eq "w" or $string eq "e") {
