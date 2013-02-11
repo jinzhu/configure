@@ -1,6 +1,5 @@
 IGNORES   = %w(.gitignore .git)
 IRREGULAR = {
-  "files/sublime/*" => "~/.config/sublime-text-2/Packages/User/",
   "files/ssh_config" => "~/.ssh/config",
   'scripts' => '~/.scripts'
 }
@@ -17,10 +16,6 @@ FILES = Dir.entries('.').select do |x|
 end.inject({}) do |s,x|
   s.merge({x.to_s => File.join(ENV['HOME'],x.to_s)})
 end.merge(IRREGULAR)
-
-task :make_dwm do
-  system('cd dwm && make && sudo make install')
-end
 
 task :make_xmonad do
   system('xmonad --recompile')
