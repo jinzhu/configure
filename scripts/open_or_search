@@ -17,15 +17,15 @@ before_cur = line[0..cnum]
 after_cur = line[cnum+1..-1]
 
 before_word = before_cur.split(" ")[-1]
-after_sentence = before_word + after_cur
+after_sentence = "#{before_word}#{after_cur}"
 
 current_word = after_sentence.split(" ")[0]
 filename, linenum = (selected || current_word).split(":")
 
-# f = File.open("#{ENV["HOME"]}/debug.log", "a+")
-# puts "filename:#{filename}, linenum:#{linenum}, current_word:#{current_word}, selected:#{selected}, line:\n#{line}\n\n"
-# f << "filename:#{filename}, linenum:#{linenum}, current_word:#{current_word}, selected:#{selected}, line:\n#{line}\n\n"
-# f.flush
+f = File.open("/tmp/.open_or_search.debug.log", "a+")
+puts "filename:#{filename}, linenum:#{linenum}, current_word:#{current_word}, selected:#{selected}, line:\n#{line}\n\n"
+f << "filename:#{filename}, linenum:#{linenum}, current_word:#{current_word}, selected:#{selected}, line:\n#{line}\n\n"
+f.flush
 
 if Dir.chdir((File.exist?(last_dir) ? File.read(last_dir) : ENV["HOME"]).strip)
   if File.exist? filename

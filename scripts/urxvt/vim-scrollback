@@ -121,14 +121,14 @@ my $DEBUG_FH;
 
 # copied from matcher
 my $url =
-   qr{
-      (?:https?://|ftp://|news://|mailto:|file://|\bwww\.)
-      [a-zA-Z0-9\-\@;\/?:&=%\$_.+!*\x27,~#]*
-      (
-         \([a-zA-Z0-9\-\@;\/?:&=%\$_.+!*\x27,~#]*\)| # Allow a pair of matched parentheses
-         [a-zA-Z0-9\-\@;\/?:&=%\$_+*~]  # exclude some trailing characters (heuristic)
-      )+
-   }x;
+qr{
+(?:https?://|ftp://|news://|mailto:|file://|\bwww\.)
+[a-zA-Z0-9\-\@;\/?:&=%\$_.+!*\x27,~#]*
+(
+\([a-zA-Z0-9\-\@;\/?:&=%\$_.+!*\x27,~#]*\)| # Allow a pair of matched parentheses
+[a-zA-Z0-9\-\@;\/?:&=%\$_+*~]  # exclude some trailing characters (heuristic)
+)+
+}x;
 
 sub on_init {
    my ($self) = @_;
@@ -169,7 +169,7 @@ sub enter {
    $self->{pty_ev_events} = $self->pty_ev_events(urxvt::EV_NONE);
    $self->enable(
       key_press => \&key_press,
-      resize_all_windows => \&resize_window
+   resize_all_windows => \&resize_window
    );
 
    my ($lnum, $cnum) = $self->screen_cur();
@@ -189,11 +189,11 @@ sub enter {
 
    my $end = $self->line($lnum)->end;
    if ($end == $self->nrow - 1){
-     $self->screen_cur($end, 0);
-     $self->scr_add_lines("\n");
-     $self->{orig_lnum} = $lnum - 1;
-     $self->{out_lnum} = $lnum - 1;
-     $self->screen_cur($self->{orig_lnum}, $cnum);
+      $self->screen_cur($end, 0);
+      $self->scr_add_lines("\n");
+      $self->{orig_lnum} = $lnum - 1;
+      $self->{out_lnum} = $lnum - 1;
+      $self->screen_cur($self->{orig_lnum}, $cnum);
    }
 
    $self->{term_buffer} = [];
@@ -215,8 +215,8 @@ sub enter {
 
    # modified from matcher
    my $urlLauncher = $self->my_resource("launcher") ||
-                       $self->x_resource("urlLauncher") ||
-                       "sensible-browser";
+   $self->x_resource("urlLauncher") ||
+   "sensible-browser";
    # handle shell variable
    if ($urlLauncher =~ /^\$/) {
       $urlLauncher =~ s/\$//;
@@ -241,7 +241,7 @@ sub enter {
    }
    $self->{matchers} = \@matchers;
 
-   $self->msg("");
+$self->msg("");
 }
 
 sub leave {
@@ -287,9 +287,9 @@ sub resize_window {
 
       # adjust location of last visual mode if necessary.
       if ($self->{visual_mode}){
-        $self->{visual_slnum} += $adj;
-        $self->{visual_elnum} += $adj;
-        $self->{visual_clnum} += $adj;
+         $self->{visual_slnum} += $adj;
+         $self->{visual_elnum} += $adj;
+         $self->{visual_clnum} += $adj;
       }
 
       # adjust all marks
@@ -379,7 +379,7 @@ sub key_press_normal {
       my $suffix = substr($line->t, $index + 1);
       $suffix =~ s/(\w.*?)\W.*/\1/;
       if ($suffix =~ /^\s/){
-        $suffix = '';
+         $suffix = '';
       }
       my $word = $prefix . $suffix;
       $self->{search} = "\\b$word\\b";
@@ -411,7 +411,7 @@ sub key_press_normal {
       $self->search($event, 0 - $self->{search_dir}, 1);
       $self->{search_wrap} = 0;
 
-   # visual mode
+      # visual mode
    } elsif ($string eq "v") { # start char based visual selection mode
       $self->{mode} = "visual";
       $self->{mode_info} = "-- VISUAL -- ";
@@ -434,7 +434,7 @@ sub key_press_normal {
       $self->move_cursor($event, $lnum, $cnum);
       $self->msg("");
 
-   # paste
+      # paste
    } elsif ($string eq "p") {
       $self->set_mark("'");
       $self->term_write($event, $self->{registers}{'"'});
@@ -444,7 +444,7 @@ sub key_press_normal {
       $str = $self->locale_decode($str);
       $self->term_write($event, $str);
 
-   # motions
+      # motions
    } elsif ($string eq "j") {
       my ($lnum, $cnum) = $self->screen_cur();
       for(my $ii = 0; $ii < $self->{repeat}; $ii++){
@@ -494,21 +494,21 @@ sub key_press_normal {
    } elsif ($string eq "G") {
       $self->set_mark("'");
       $self->move_cursor($event, $self->{orig_lnum}, $self->{orig_cnum});
-   } elsif ($string =~ /^H$/) {
+   } elsif ($string eq "H") {
       my ($lnum, $cnum) = $self->screen_cur();
-		$lnum = $self->view_start();
+      $lnum = $self->view_start();
       my $line = $self->line($lnum);
       ($lnum, $cnum) = $line->coord_of($cnum);
       $self->move_cursor($event, $lnum, $cnum);
-   } elsif ($string =~ /^M$/) {
+   } elsif ($string eq "M") {
       my ($lnum, $cnum) = $self->screen_cur();
-		$lnum = $self->view_start() + $self->nrow / 2;;
+      $lnum = $self->view_start() + $self->nrow / 2 - 1;
       my $line = $self->line($lnum);
       ($lnum, $cnum) = $line->coord_of($cnum);
       $self->move_cursor($event, $lnum, $cnum);
-   } elsif ($string =~ /^L$/) {
+   } elsif ($string eq "L") {
       my ($lnum, $cnum) = $self->screen_cur();
-		$lnum = $self->view_start() + $self->nrow - 1;
+      $lnum = $self->view_start() + $self->nrow - 2;
       my $line = $self->line($lnum);
       ($lnum, $cnum) = $line->coord_of($cnum);
       $self->move_cursor($event, $lnum, $cnum);
@@ -594,7 +594,7 @@ sub key_press_normal {
          }
       }
 
-   # undo / redo
+      # undo / redo
    } elsif ($string eq "u") {
       $self->set_mark("'");
       push(@{$self->{term_redo}}, pop(@{$self->{term_buffer}}));
@@ -622,7 +622,7 @@ sub key_press_normal {
          my ($lnum, $cnum) = $self->screen_cur();
       }
 
-   # marks
+      # marks
    } elsif ($string =~ /^m[a-z']$/) {
       (my $mark = $string) =~ s/^m(.)/\1/;
       $self->set_mark($mark);
@@ -633,7 +633,7 @@ sub key_press_normal {
       $self->set_mark("'");
       $self->move_cursor($event, $lnum, $cnum);
 
-   # g mappings
+      # g mappings
    } elsif ($string eq "gv") {
       if ($self->{visual_mode}){
          my ($sl, $sc) = ($self->{visual_slnum}, $self->{visual_scnum});
@@ -659,9 +659,10 @@ sub key_press_normal {
          @exec = (@exec[0], "@exec[1]===:::===$lnum==::==$cnum==::==$selection");
       }
 
+      $self.debug("@exec");
       if (@exec){
-        $self->exec_async(@exec);
-        $self->selection('');
+         $self->exec_async(@exec);
+         $self->selection('');
       }
 
    }elsif ($string =~ /^([0-9]+|[gm'])$/) {
@@ -767,7 +768,7 @@ sub key_press_visual {
          print $process $self->selection();
       }
       $self->normal_mode($event, 1);
-   #} elsif ($string !~ /[\x00-\x1f\x80-\xaf]/) {
+      #} elsif ($string !~ /[\x00-\x1f\x80-\xaf]/) {
    }else{
       # pass to key_press_normal
       return $self->key_press_normal($event, $keysym, $string);
@@ -805,9 +806,9 @@ sub search {
    no re 'eval'; # just to be sure
    if (my $re = eval { qr/$search/ }) {
       while (($dir < 0 and ((not $self->{search_wrap} and $search_row >= $top_row) or
-                            $search_row > $search_srow)) or
-             ($dir > 0 and ((not $self->{search_wrap} and $search_row <= $bot_row) or
-                            $search_row < $search_srow)))
+               $search_row > $search_srow)) or
+         ($dir > 0 and ((not $self->{search_wrap} and $search_row <= $bot_row) or
+               $search_row < $search_srow)))
       {
          my $line = $self->line($search_row)
             or last;
@@ -822,20 +823,20 @@ sub search {
             while ($text =~ /$re/g and
                ($dir < 0 or ($dir > 0 and $scnum <= $search_col)))
             {
-              my ($nlnum, $ncnum) = $line->coord_of($-[0]);
-              my $ncnum = $-[0];
-              if (($dir < 0 and $ncnum < $search_col) or
+               my ($nlnum, $ncnum) = $line->coord_of($-[0]);
+               my $ncnum = $-[0];
+               if (($dir < 0 and $ncnum < $search_col) or
                   ($dir > 0 and $ncnum > $search_col))
-              {
-                 ($slnum, $selscnum) = $line->coord_of($-[0]);
-                 ($elnum, $selecnum) = $line->coord_of($+[0]);
-                 $scnum = $-[0];
-                 $ecnum = $+[0];
-              }
+               {
+                  ($slnum, $selscnum) = $line->coord_of($-[0]);
+                  ($elnum, $selecnum) = $line->coord_of($+[0]);
+                  $scnum = $-[0];
+                  $ecnum = $+[0];
+               }
             }
 
             if (($dir < 0 and ($scnum < $search_col or $slnum < $search_row)) or
-                ($dir > 0 and ($scnum > $search_col or $slnum > $search_row)))
+               ($dir > 0 and ($scnum > $search_col or $slnum > $search_row)))
             {
                $self->make_selection($event, $slnum, $selscnum, $elnum, $selecnum);
                $self->{search_found} = [$slnum, $scnum];
@@ -882,7 +883,7 @@ sub incremental_search {
    my ($self, $event) =  @_;
 
    $self->{search} =~ s/^\(\?i\)//
-      if $self->{search} =~ /^\(.*[[:upper:]]/;
+   if $self->{search} =~ /^\(.*[[:upper:]]/;
 
    if(not $self->search($event, $self->{search_dir})){
       $self->clear_selection($event);
@@ -932,7 +933,14 @@ sub move_cursor {
 
       $self->make_selection($event, $sl, $sc, $el, $ec, 1);
    }
-   $self->view_start(List::Util::min 0, $lnum - ($self->nrow >> 1));
+   # $self->view_start(List::Util::min 0, $lnum - ($self->nrow >> 1));
+
+   if ($lnum < $self->view_start()) {
+      $self->view_start($lnum);
+   } elsif ($lnum >= $self->view_start() + $self->nrow) {
+      $self->view_start($lnum - $self->nrow + 2);
+   }
+
    $self->want_refresh;
 }
 
@@ -1036,11 +1044,11 @@ sub term_write_line {
 
    # hack to keep last line and cursor visible.
    if ($self->{out_lnum} == $self->nrow - 1){
-     $self->scr_add_lines("\n\n");
-     $self->{orig_lnum} -= 2;
-     $self->{out_lnum} -= 2;
-     $self->screen_cur($self->{out_lnum}, $self->{out_cnum});
-     $self->view_start(List::Util::min 0, $self->{out_lnum} - ($self->nrow >> 1));
+      $self->scr_add_lines("\n\n");
+      $self->{orig_lnum} -= 2;
+      $self->{out_lnum} -= 2;
+      $self->screen_cur($self->{out_lnum}, $self->{out_cnum});
+      $self->view_start(List::Util::min 0, $self->{out_lnum} - ($self->nrow >> 1));
    }
 
    $self->want_refresh;
@@ -1105,8 +1113,8 @@ sub command_for {
                # It'd be nice to just access a list like ($&,$1,$2...),
                # but alas, m//g behaves differently in list context.
                my @exec = map { s/\$(\d+)|\$\{(\d+)\}/
-                  substr($text,$begin[$1||$2],$end[$1||$2]-$begin[$1||$2])
-                  /egx; $_ } split(/\s+/, $launcher);
+               substr($text,$begin[$1||$2],$end[$1||$2]-$begin[$1||$2])
+               /egx; $_ } split(/\s+/, $launcher);
                return @exec;
             }
          }
