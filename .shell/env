@@ -1,7 +1,7 @@
 # vi:ft=sh
 # [ -f ~/.dir_colors ]      && eval   $(dircolors -b ~/.dir_colors)
 
-[[ $TERM != "screen-256color" ]] && exec tmux new-session && exit
+[[ $TERM != "screen-256color" ]] && (tmux has-session -t terminal && exec tmux attach-session -t terminal || exec tmux new-session -s terminal) && exit
 
 export PATH="$HOME/.scripts:/opt/local/bin:$PATH:/usr/local/bin/:/usr/local/sbin/:/usr/share/java/apache-ant/bin/:/usr/local/apache/bin/:/home/jinzhu/Dropbox/decompile_apk/bin:/opt/java/bin:/opt/go/bin"
 [ -f ~/.amazon_keys ] && source ~/.amazon_keys

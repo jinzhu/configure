@@ -29,4 +29,4 @@
 
 ## Install Ruby Gems
 
-    gem i tmuxinator vrome
+    gem i tmuxinator vrome zeus

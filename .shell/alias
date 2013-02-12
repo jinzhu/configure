@@ -19,6 +19,7 @@ function sp {
 ############################################################
 alias t='tmux'
 alias tt='tmuxinator'
+alias z='zeus'
 
 # Basic directory operations
 function . {
