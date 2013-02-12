@@ -6,28 +6,45 @@ if [ -z $sessionname ]; then
   sessionname='terminal'
 fi
 
+# tmux_goto close (session_name)
 if [[ $1 =~ "^(c|close)$" ]] then
   sessionname=$2
   if [[ $sessionname =~ "^\s*$" ]] then
     sessionname=$(tmux display-message -p '#S')
   fi
 
-  gotosession=$(tmux list-sessions -F '#{session_name}' | grep $sessionname -A1 -B1 |grep -v $sessionname | head -n1)
+  gotosession=$(tmux list-sessions -F '#{session_name}' | grep ^$sessionname -A1 -B1 |grep -v $sessionname | head -n1)
 
   tmux -u switch-client -t $gotosession
   tmux kill-session -t $sessionname
-  exit
-fi
 
-if ! $(tmux has-session -t $sessionname); then
-  env TMUX= tmux new-session -d -s $sessionname
-  tmux select-window -t $sessionname:1
-fi
+# tmux_goto rename new_session_name
+elif [[ $1 =~ "rename" ]]; then
 
-if [ -z $TMUX ]; then
-  tmux -u attach-session -t $sessionname
+  if [ -z $2 ]; then
+    echo "new name hasn't been provided!"
+    exit
+  fi
+  tmux rename-session $2
+
+# tmux_goto session_name
 else
-  tmux -u switch-client -t $sessionname
-fi
 
-tmux list-sessions -F '#{session_name}'
+  if ! $(tmux has-session -t $sessionname); then
+    new_sessionname=$(tmux list-sessions -F '#{session_name}' | grep ^$sessionname | head -n1)
+
+    if [[ $new_sessionname =~ "^\s*$" ]]; then
+      env TMUX= tmux new-session -d -s $sessionname
+      tmux select-window -t $sessionname:1
+    else
+      sessionname=$new_sessionname
+    fi
+  fi
+
+  if [ -z $TMUX ]; then
+    tmux -u attach-session -t $sessionname
+  else
+    tmux -u switch-client -t $sessionname
+  fi
+
+fi
