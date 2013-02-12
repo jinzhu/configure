@@ -1,0 +1,33 @@
+#!/bin/zsh
+tmux start-server
+sessionname=$1
+
+if [ -z $sessionname ]; then
+  sessionname='terminal'
+fi
+
+if [[ $1 =~ "^(c|close)$" ]] then
+  sessionname=$2
+  if [[ $sessionname =~ "^\s*$" ]] then
+    sessionname=$(tmux display-message -p '#S')
+  fi
+
+  gotosession=$(tmux list-sessions -F '#{session_name}' | grep $sessionname -A1 -B1 |grep -v $sessionname | head -n1)
+
+  tmux -u switch-client -t $gotosession
+  tmux kill-session -t $sessionname
+  exit
+fi
+
+if ! $(tmux has-session -t $sessionname); then
+  env TMUX= tmux new-session -d -s $sessionname
+  tmux select-window -t $sessionname:1
+fi
+
+if [ -z $TMUX ]; then
+  tmux -u attach-session -t $sessionname
+else
+  tmux -u switch-client -t $sessionname
+fi
+
+tmux list-sessions -F '#{session_name}'

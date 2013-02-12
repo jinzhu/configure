@@ -17,7 +17,14 @@ function sp {
 ############################################################
 # System
 ############################################################
-alias t='tmux'
+function t {
+  if [ -f '~/.scripts/tmux_goto' ];then
+    ~/.scripts/tmux_goto $@
+  else
+    tmux_goto $*
+  fi
+}
+
 alias tt='tmuxinator'
 alias z='zeus'
 
@@ -48,10 +55,6 @@ function pdf {
   if [ -f '/usr/bin/evince' ];then
     evince $@
   fi
-}
-
-function t {
-  rtranslate -t $@
 }
 
 uname | grep 'Darwin' > /dev/null
