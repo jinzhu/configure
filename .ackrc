@@ -14,8 +14,10 @@
 --type-set=rb=.rb
 --type-set=go=.go
 --type-set=js=.coffee,.js
+--type-set=coffee=.coffee
 --type-add=html=.haml
 --type-add=css=.sass,.scss,.css
+--type-set=sass=.sass,.scss
 
 
 # ignore some file types

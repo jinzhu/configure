@@ -1,7 +1,7 @@
 error_msg='no battery'
 
 function battery_pct_remaining() {
-  if [[ $(acpi 2&>/dev/null | grep -c '^Battery.*Discharging') -gt 0 ]] ; then
+  if [[ $(acpi 3&>/dev/null | grep -c '^Battery.*Discharging') -gt 0 ]] ; then
     echo "$(acpi | cut -f2 -d ',' | tr -cd '[:digit:]')"
   else
     echo $error_msg
