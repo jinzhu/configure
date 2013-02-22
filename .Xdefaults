@@ -98,13 +98,13 @@ URxvt.keysym.M-slash:  perl:aAtt:complete
 ! keyboard-select,
 ! URxvt.keysym.M-v: perl:keyboard-select:activate
 ! URxvt.keysym.M-s: perl:keyboard-select:search
-!
+
 ! URxvt.clipboard.autocopy: true
 ! URxvt.keysym.M-c:   perl:clipboard:copy
 ! URxvt.keysym.M-v:   perl:clipboard:paste
 
 URxvt.keysym.M-u: perl:url-select:select_next
-URxvt.url-select.autocopy: true
+! URxvt.url-select.autocopy: true
 URxvt.url-select.launcher: chromium
 URxvt.url-select.underline: true
 
