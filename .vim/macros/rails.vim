@@ -6,7 +6,7 @@ nn <Space>h  :Rhelp
 nn <Space>s  :Rstylesheet 
 nn <Space>j  :Rjavascript 
 
-nn <Space>e  :Redit 
+nn <Space>e  :R
 nn <Space>E  :Renvironment 
 nn <Space>f  :RTfind 
 

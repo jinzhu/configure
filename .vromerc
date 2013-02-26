@@ -1,5 +1,6 @@
 map j 3j
 map k 3k
+" imap <C-e> <C-i>
 
 set useletters=1
 set searchengines+={"baidu":"http://www.baidu.com/s?wd={{keyword}}", "dict":"http://dict.youdao.com/search?q={{keyword}}"}
