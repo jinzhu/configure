@@ -190,6 +190,7 @@ set fileencoding=utf-8
 set fileencodings=utf-8,gb18030,ucs-bom,gbk,gb2312,cp936
 set encoding=utf8
 set guifont=Monaco\ 14
+highlight clear SignColumn
 " GUI - color：guifg, guibg, gui
 " Terminal：ctermfg, ctermbg
 
@@ -206,8 +207,6 @@ let g:html_tag_case     = 'lowercase'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ My Leader HotKeys
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-highlight clear SignColumn
-map <F1> :call ToggleGitGutter()<CR>
 map <F2> :tabedit<CR>
 map <F3> :lcd %:p:h<CR>:shell<CR>
 map <F4> :set nu!<CR>

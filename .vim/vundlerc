@@ -19,7 +19,9 @@ Bundle 'tpope/vim-bundler'
 " Send command from vim to a running tmux session
 " Bundle 'tslime.vim'
 " Bundle 'yesmeck/tips.vim'
-Bundle 'airblade/vim-gitgutter'
+let g:quickfixsigns_classes = ['marks', 'vcsdiff']
+let g:quickfixsigns_events = ['BufEnter', 'CursorMoved', 'CursorMovedI']
+Bundle 'tomtom/quickfixsigns_vim'
 
 Bundle 'jade.vim'
 Bundle 'tpope/vim-ragtag'
