@@ -86,7 +86,7 @@ urxvt*eightBitInput: false
 
 urxvt*keysym.sym: string
 
-URxvt.perl-ext-common: default,url-select
+!URxvt.perl-ext-common: default,url-select
 !vim-scrollback
 
 !for url yanking

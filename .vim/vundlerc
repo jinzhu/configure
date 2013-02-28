@@ -17,8 +17,9 @@ Bundle 'tpope/vim-bundler'
 " ~/.vim/macros/rails.vim
 
 " Send command from vim to a running tmux session
-Bundle 'tslime.vim'
-Bundle 'yesmeck/tips.vim'
+" Bundle 'tslime.vim'
+" Bundle 'yesmeck/tips.vim'
+Bundle 'airblade/vim-gitgutter'
 
 Bundle 'jade.vim'
 Bundle 'tpope/vim-ragtag'

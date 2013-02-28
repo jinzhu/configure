@@ -21,7 +21,6 @@ set spelllang=en_us
 set cdpath+=~
 set cdpath+=~/GIT
 
-set pastetoggle=<F10>          " toggle between paste and normal: for 'safer' pasting from keyboard
 set shiftround                 " round indent to multiple of 'shiftwidth'
 set tags=./tags;$HOME          " walk directory tree upto $HOME looking for tags
 
@@ -207,15 +206,18 @@ let g:html_tag_case     = 'lowercase'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ My Leader HotKeys
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <F2> :tabedit <CR>
-map <F3> :shell <CR>
-map <F4> :set nu! <CR>
+highlight clear SignColumn
+map <F1> :call ToggleGitGutter()<CR>
+map <F2> :tabedit<CR>
+map <F3> :lcd %:p:h<CR>:shell<CR>
+map <F4> :set nu!<CR>
 autocmd BufRead,BufNewFile *.rb map <F5>      :% w !ruby<CR>
 imap <F6> <Esc>:ColorPicker<Cr>a
 vmap <F6> <Del><Esc>h:ColorPicker<Cr>a
 map <F7> :IndentGuidesToggle <CR>
 nmap <F8> :TagbarToggle<CR>
 map <F9> :GundoToggle<CR>
+set pastetoggle=<F10>          " toggle between paste and normal: for 'safer' pasting from keyboard
 nmap <F11> <Plug>ToggleAutoCloseMappings
 
 let mapleader = ";"
