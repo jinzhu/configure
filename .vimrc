@@ -213,7 +213,7 @@ map <F4> :set nu!<CR>
 autocmd BufRead,BufNewFile *.rb map <F5>      :% w !ruby<CR>
 imap <F6> <Esc>:ColorPicker<Cr>a
 vmap <F6> <Del><Esc>h:ColorPicker<Cr>a
-map <F7> :IndentGuidesToggle <CR>
+map <F7> :IndentLinesToggle <CR>
 nmap <F8> :TagbarToggle<CR>
 map <F9> :GundoToggle<CR>
 set pastetoggle=<F10>          " toggle between paste and normal: for 'safer' pasting from keyboard

@@ -27,6 +27,7 @@
   color = true
 [status]
   color = auto
+  ignore-submodules = dirty
 [color]
   branch = auto
   diff = auto

@@ -164,9 +164,8 @@ let g:gundo_width = 60
 let g:gundo_preview_height = 22
 " map <F9> :GundoToggle<CR>
 
-Bundle 'nathanaelkane/vim-indent-guides'
-let g:indent_guides_start_level=2
-let g:indent_guides_guide_size=1
+Bundle 'Yggdroot/indentLine'
+let g:indentLine_enabled=0
 " map <F7> :IndentGuidesToggle <CR>
 
 Bundle 'Lokaltog/vim-powerline'
