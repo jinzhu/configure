@@ -124,10 +124,10 @@ Host qtb-dev
             HostName 54.248.102.248
 
 Host fast
-            HostName 175.41.252.65
+            HostName 175.41.251.74
+            Port 22
             User app
             Protocol 2
-            Port 222
 
 Host yyets
             HostName 60.190.171.239

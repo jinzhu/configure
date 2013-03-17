@@ -7,11 +7,14 @@ export HISTCONTROL=ignoreboth
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+# shopt -s checkwinsize
 
 # dircolors --print-database uses its own built-in database
-[ -f /etc/bash_completion ] && source /etc/bash_completion
+[ $BASH ] && [ -f /etc/bash_completion ] && source /etc/bash_completion
+
 
 for file in $HOME/{.shell/bash,.shell}/*; do
-  source $file
+  [ $BASH ] && source $file
 done
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

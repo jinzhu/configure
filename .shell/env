@@ -6,8 +6,8 @@
 export PATH="$HOME/.scripts:/opt/local/bin:$PATH:/usr/local/bin/:/usr/local/sbin/:/usr/share/java/apache-ant/bin/:/usr/local/apache/bin/:/home/jinzhu/Dropbox/decompile_apk/bin:/opt/java/bin:/opt/go/bin"
 [ -f ~/.amazon_keys ] && source ~/.amazon_keys
 [ -f ~/.ec2/rc ] && source ~/.ec2/rc
-# [ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm && PATH=$PATH:$HOME/.rvm/bin
-[ -f ~/.rbenv/bin/rbenv ] && PATH=$HOME/.rbenv/bin:$PATH && eval "$(rbenv init -)"
+[ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm && PATH=$PATH:$HOME/.rvm/bin
+# [ -f ~/.rbenv/bin/rbenv ] && PATH=$HOME/.rbenv/bin:$PATH && eval "$(rbenv init -)"
 
 export CDPATH=".:~"
 export HAXE_LIBRARY_PATH=/opt/haxe/std:.
