@@ -128,6 +128,11 @@ Host fast
             Port 22
             User app
             Protocol 2
+Host usa
+            HostName 175.41.251.74
+            Port 22
+            User app
+            Protocol 2
 
 Host yyets
             HostName 60.190.171.239
