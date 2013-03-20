@@ -41,6 +41,7 @@ layoutHook' = smartBorders (avoidStruts (windowNavigation (ResizableTall 1 (3/10
 manageHook' = composeAll
     [
     isFullscreen --> doFullFloat
+    , title =? "Do" --> doFloat
     , className =? "Gimp"      --> doF (W.shift "dev")
     -- Browser
     , className =? "Chromium" --> doF (W.shift "dev") -- Chrome
@@ -80,15 +81,18 @@ main = do
         }
     , modMask  = modMask'
     , terminal = terminal'
-    , borderWidth = 1
+    , borderWidth = 0
     , workspaces = workspaces'
+    , startupHook = do
+      spawn "/usr/lib/gnome-settings-daemon/gnome-settings-daemon"
     }
     `additionalKeysP`
     [ ("M-S-z", spawn "xscreensaver-command -lock")
     , ("C-<Print>", spawn "sleep 0.2; scrot -s")
     , ("M-o", windows W.focusDown >> kill)
     , ("M-<Return>", dwmpromote >>  windows W.focusDown )	-- Swap the focused window and the master window
-    , ("M-p", shellPrompt defaultXPConfig)
+    , ("M-S-p", spawn "dmenu_run -b -l 30")
+    , ("M-p", spawn "gnome-do")
     , ("M-<F1>", xmonadPrompt defaultXPConfig)
     , ("M-<F3>", appendFilePrompt defaultXPConfig "/home/jinzhu/TODO")
     , ("M-<F4>", spawn "xscreensaver-command -lock")
