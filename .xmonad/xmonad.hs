@@ -92,7 +92,7 @@ main = do
     , ("M-o", windows W.focusDown >> kill)
     , ("M-<Return>", dwmpromote >>  windows W.focusDown )	-- Swap the focused window and the master window
     , ("M-S-p", spawn "dmenu_run -b -l 30")
-    , ("M-p", spawn "gnome-do")
+    , ("M-p", spawn "kupfer")
     , ("M-<F1>", xmonadPrompt defaultXPConfig)
     , ("M-<F3>", appendFilePrompt defaultXPConfig "/home/jinzhu/TODO")
     , ("M-<F4>", spawn "xscreensaver-command -lock")
