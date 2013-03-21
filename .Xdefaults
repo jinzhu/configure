@@ -86,37 +86,35 @@ urxvt*eightBitInput: false
 
 urxvt*keysym.sym: string
 
-!URxvt.perl-ext-common: default,url-select
-!vim-scrollback
 
 !for url yanking
-! URxvt.perl-lib: /home/jinzhu/.scripts/urxvt/
-! URxvt.perl-ext-common: default,url-select,vim-scrollback,clipboard,autocomplete-ALL-the-things
-! 
-! ! URxvt.matcher.button:   1
-! URxvt.colorUL: #4682B4
-! 
-! URxvt.keysym.M-slash:  perl:aAtt:complete
-! 
-! ! keyboard-select,
-! ! URxvt.keysym.M-v: perl:keyboard-select:activate
-! ! URxvt.keysym.M-s: perl:keyboard-select:search
-! 
-! ! URxvt.clipboard.autocopy: true
-! ! URxvt.keysym.M-c:   perl:clipboard:copy
-! ! URxvt.keysym.M-v:   perl:clipboard:paste
-! 
-! URxvt.keysym.M-u: perl:url-select:select_next
-! ! URxvt.url-select.autocopy: true
-! URxvt.url-select.launcher: chromium
-! URxvt.url-select.underline: true
-! 
-! urxvt.vim-scrollback: M-v
-! ! M-r * -> paste from buffer; M-r + -> paste from clipboard
-! urxvt.vim-scrollback-paste: M-r
-! urxvt.vim-scrollback-bg: 16
-! urxvt.vim-scrollback-fg: 10
-! ! file name with line number
-! urxvt.vim-scrollback.pattern.1: (.*)
-! urxvt.vim-scrollback.launcher.1: /home/jinzhu/.scripts/open_or_search $1
-! urxvt*urlLauncher: chromium
+URxvt.perl-lib: /home/jinzhu/.scripts/urxvt/
+URxvt.perl-ext-common: default,url-select,vim-scrollback,clipboard,autocomplete-ALL-the-things
+
+! URxvt.matcher.button:   1
+URxvt.colorUL: #4682B4
+
+URxvt.keysym.M-slash:  perl:aAtt:complete
+
+! keyboard-select,
+! URxvt.keysym.M-v: perl:keyboard-select:activate
+! URxvt.keysym.M-s: perl:keyboard-select:search
+
+! URxvt.clipboard.autocopy: true
+! URxvt.keysym.M-c:   perl:clipboard:copy
+! URxvt.keysym.M-v:   perl:clipboard:paste
+
+URxvt.keysym.M-u: perl:url-select:select_next
+! URxvt.url-select.autocopy: true
+URxvt.url-select.launcher: chromium
+URxvt.url-select.underline: true
+
+urxvt.vim-scrollback: M-v
+! M-r * -> paste from buffer; M-r + -> paste from clipboard
+urxvt.vim-scrollback-paste: M-r
+urxvt.vim-scrollback-bg: 16
+urxvt.vim-scrollback-fg: 10
+! file name with line number
+urxvt.vim-scrollback.pattern.1: (.*)
+urxvt.vim-scrollback.launcher.1: /home/jinzhu/.scripts/open_or_search $1
+urxvt*urlLauncher: chromium

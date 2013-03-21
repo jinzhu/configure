@@ -1,6 +1,7 @@
 IGNORES   = %w(.gitignore .git)
 IRREGULAR = {
   "files/ssh_config" => "~/.ssh/config",
+  "files/kupfer.cfg" => "~/.config/kupfer/kupfer.cfg",
   'scripts' => '~/.scripts'
 }
 
