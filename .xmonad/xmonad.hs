@@ -81,7 +81,7 @@ main = do
         }
     , modMask  = modMask'
     , terminal = terminal'
-    , borderWidth = 0
+    , borderWidth = 1
     , workspaces = workspaces'
     , startupHook = do
       spawn "/usr/lib/gnome-settings-daemon/gnome-settings-daemon"
