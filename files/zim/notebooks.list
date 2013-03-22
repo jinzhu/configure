@@ -1,9 +1,16 @@
 [NotebookList]
 Default=file:///jinzhu/Dropbox/Notebooks/Notes
 file:///jinzhu/Dropbox/Notebooks/Notes
+file:///jinzhu/Dropbox/Notebooks/Financial
 
 [Notebook]
 uri=file:///jinzhu/Dropbox/Notebooks/Notes
 name=Notes
+interwiki=None
+icon=None
+
+[Notebook]
+uri=file:///jinzhu/Dropbox/Notebooks/Financial
+name=Financial
 interwiki=None
 icon=None

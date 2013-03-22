@@ -136,6 +136,7 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'tpope/vim-vividchalk'
 
 " Syntax Support
+Bundle 'zim-syntax'
 Bundle 'juvenn/mustache.vim'
 Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-markdown'
