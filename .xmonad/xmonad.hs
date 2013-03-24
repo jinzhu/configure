@@ -85,6 +85,7 @@ main = do
     , workspaces = workspaces'
     , startupHook = do
       spawn "/usr/lib/gnome-settings-daemon/gnome-settings-daemon"
+      spawn "/home/jinzhu/.scripts/start_proxy"
     }
     `additionalKeysP`
     [ ("M-S-z", spawn "xscreensaver-command -lock")

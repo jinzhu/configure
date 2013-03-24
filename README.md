@@ -29,10 +29,10 @@
     ## /etc/passwd
     change default login shell to zsh
 
-    pacman -S yaourt
+    pacman -S yaourt downgrade
     yaourt -S wqy-bitmapfont ttf-monaco wqy-zenhei --noconfirm
     yaourt -S gocode cgdb trayer-srg-git dropbox nodejs pv kupfer --noconfirm
-    yaourt -S shutter trimage-git fontypython nkf agave kdewebdev-klinkstatus evolus-pencil-svn sshuttle --noconfirm
+    yaourt -S shutter trimage-git fontypython nkf agave kdewebdev-klinkstatus pencil sshuttle --noconfirm
     yaourt -S virtualbox virtualbox-guest-modules vboxhost-hook virtualbox-ext-oracle --noconfirm
     yaourt -S filezilla hd2u skype --noconfirm
 
