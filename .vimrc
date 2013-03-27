@@ -1,5 +1,7 @@
 set nocompatible
 
+let mapleader = ";"
+
 if filereadable(expand("~/.vim/vundlerc"))
   source ~/.vim/vundlerc
 endif
@@ -219,9 +221,8 @@ map <F9> :GundoToggle<CR>
 set pastetoggle=<F10>          " toggle between paste and normal: for 'safer' pasting from keyboard
 nmap <F11> <Plug>ToggleAutoCloseMappings
 
-let mapleader = ";"
 let g:ctrlp_cmd = 'CtrlPMixed'
-map <Leader>t :CtrlP<CR>
+" map <Leader>t :CtrlP<CR>
 map <Leader>b :CtrlPBuffer<CR>
 map <Leader>r :CtrlPMRUFiles<CR>
 map \c :%s/\s\+$//<CR>
@@ -244,6 +245,8 @@ noremap <silent> <leader>fd :let @+=expand('%:p:h')<CR>
 map <Leader>a :Ack 
 
 map <Leader>s :SessionList<CR>
+autocmd! bufwritepost vundlerc source ~/.vimrc
+autocmd! bufwritepost vundlerc source Pl#Load()
 autocmd! bufwritepost .vimrc source ~/.vimrc
 autocmd! bufwritepost .vimrc call Pl#Load()
 autocmd! BufREAD * call Pl#Load()
@@ -251,20 +254,12 @@ autocmd! BufDelete * call Pl#Load()
 autocmd! BufWritePost *.go execute ':Fmt'
 
 map <Leader>p :YRShow<CR>
-map <Leader>gs :Gstatus<CR>
-map <Leader>gd :Git! diff<CR>
-map <Leader>gc :Gcommit<CR>
-map <Leader>gl :Extradite<CR>
 
 map <leader>cd :lcd %:p:h<CR>:pwd<CR>
 
-""" My `;` HotKeys
-" Windows (;c, ;o)
-nnoremap <Leader> <C-w>
-nnoremap <Leader>o <C-w>o
-nnoremap <Leader>c <C-w>c
+""" Save file
 imap <Leader>w <ESC>:w<CR>
-map   <Leader>w <ESC>:w<CR>
+map  <Leader>w <ESC>:w<CR>
 
 
 """" Copy & Paste
@@ -290,6 +285,7 @@ vnoremap j gj
 vnoremap gk k
 vnoremap gj j
 
+
 " make <c-l> clear the highlight as well as redraw
 nnoremap <C-L> :nohls<CR><C-L>
 inoremap <C-L> <C-O>:nohls<CR>
@@ -302,8 +298,8 @@ nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
 """ Tab
-map <silent> <M-PageUp> :call MoveCurrentTab(-1)<Esc>
-map <silent> <M-PageDown> :call MoveCurrentTab(1)<Esc>
+nn <M-PageUp> :call MoveCurrentTab(-1)<CR>
+nn <M-PageDown> :call MoveCurrentTab(1)<CR>
 
 nn ;1 1gt
 nn ;2 2gt

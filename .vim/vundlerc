@@ -16,9 +16,43 @@ Bundle 'tpope/vim-rake'
 Bundle 'tpope/vim-bundler'
 " ~/.vim/macros/rails.vim
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TMUX
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Bundle 'tpope/vim-tbone'
+" Tmux, Tput, Twrite, Tyank
+
 " Send command from vim to a running tmux session
-" Bundle 'tslime.vim'
+Bundle 'benmills/vimux'
+" Prompt for a command to run
+map <Leader>tp :VimuxPromptCommand<CR>
+" Run last command executed by VimuxRunCommand
+map <Leader>tl :VimuxRunLastCommand<CR>
+" Inspect runner pane
+map <Leader>ti :VimuxInspectRunner<CR>
+" Close all other tmux panes in current window
+map <Leader>tx :VimuxClosePanes<CR>
+" Close vim tmux runner opened by VimuxRunCommand
+map <Leader>tq :VimuxCloseRunner<CR>
+" Interrupt any command running in the runner pane
+map <Leader>ts :VimuxInterruptRunner<CR>
+let g:VimuxHeight = "25"
+
+Bundle 'skalnik/vim-vroom'
+let g:vroom_use_vimux = 1
+let g:vroom_map_keys = 0
+let g:vroom_write_all = 1
+autocmd FileType ruby map <Leader>tr :VroomRunTestFile<CR>
+autocmd FileType ruby map <Leader>tR :VroomRunNearestTest<CR>
+
+Bundle 'benmills/vimux-golang'
+autocmd FileType go map <Leader>tr :GolangTestCurrentPackage<CR>
+
+
+
 " Bundle 'yesmeck/tips.vim'
+
 let g:quickfixsigns_classes = ['marks', 'vcsdiff']
 let g:quickfixsigns_events = ['BufEnter', 'CursorMoved', 'CursorMovedI']
 Bundle 'tomtom/quickfixsigns_vim'
@@ -47,6 +81,11 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'int3/vim-extradite'
 Bundle 'tpope/vim-rhubarb'
 " ~/.vim/bundle/vim-fugitive/doc/fugitive.txt
+map <Leader>gs :Gstatus<CR>
+map <Leader>gd :Git! diff<CR>
+map <Leader>gc :Gcommit<CR>
+map <Leader>gl :Extradite<CR>
+
 
 Bundle 'Gist.vim'
 
@@ -195,32 +234,5 @@ let g:ctrlp_prompt_mappings = {
 
 Bundle 'gmarik/github-search.vim'
 " :GHSearchRepo something
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Delete current file
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! DeleteFile(...)
-  if(exists('a:1'))
-    let theFile=a:1
-  elseif ( &ft == 'help' )
-    echohl Error
-    echo "Cannot delete a help buffer!"
-    echohl None
-    return -1
-  else
-    let theFile=expand('%:p')
-  endif
-  let delStatus=delete(theFile)
-  if(delStatus == 0)
-    echo "Deleted " . theFile
-  else
-    echohl WarningMsg
-    echo "Failed to delete " . theFile
-    echohl None
-  endif
-  return delStatus
-endfunction
-"delete the current file
-com! RmCurrent call DeleteFile()
 
 " vim:tw=78:sw=4:ts=8:et:fdm=marker:ft=vim:norl:
