@@ -258,6 +258,8 @@ map <Leader>p :YRShow<CR>
 map <leader>cd :lcd %:p:h<CR>:pwd<CR>
 
 """ Save file
+nnoremap <Leader>o <C-w>o
+nnoremap <Leader>c <C-w>c
 imap <Leader>w <ESC>:w<CR>
 map  <Leader>w <ESC>:w<CR>
 
