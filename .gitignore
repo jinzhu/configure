@@ -21,3 +21,4 @@ dwm/dwm.o
 .vim/gdbmgr/src/gdbmgr.so
 .vim/gdbmgr/progs
 /secret_files/
+*#

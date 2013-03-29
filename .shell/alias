@@ -99,6 +99,21 @@ function v {
   fi
 }
 
+function se {
+  if [ -n "$*" ]; then
+    sudo emacs -nw $*
+  else
+    sudo emacs -nw
+  fi
+}
+function e {
+  if [ -n "$*" ]; then
+    emacs -nw $*
+  else
+    emacs -nw
+  fi
+}
+
 # Touchpad
 alias tpc='synclient touchpadoff=1'
 alias tpo='synclient touchpadoff=0'
