@@ -87,9 +87,8 @@ urxvt*eightBitInput: false
 urxvt*keysym.sym: string
 
 
-!for url yanking
 URxvt.perl-lib: /home/jinzhu/.scripts/urxvt/
-URxvt.perl-ext-common: default,url-select,vim-scrollback,clipboard,autocomplete-ALL-the-things
+URxvt.perl-ext-common: default,url-select,vim-scrollback,clipboard,autocomplete-ALL-the-things,font-size
 
 ! URxvt.matcher.button:   1
 URxvt.colorUL: #4682B4
@@ -114,7 +113,12 @@ urxvt.vim-scrollback: M-v
 urxvt.vim-scrollback-paste: M-r
 urxvt.vim-scrollback-bg: 16
 urxvt.vim-scrollback-fg: 10
+
 ! file name with line number
 urxvt.vim-scrollback.pattern.1: (.*)
 urxvt.vim-scrollback.launcher.1: /home/jinzhu/.scripts/open_or_search $1
 urxvt*urlLauncher: chromium
+
+! Change font size on the fly
+URxvt.keysym.C-S-Up:   perl:font-size:incglobal
+URxvt.keysym.C-S-Down: perl:font-size:decglobal
