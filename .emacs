@@ -56,7 +56,7 @@
 
 (setq my-packages
       (append
-       '(el-get rhtml-mode)
+       '(el-get rhtml-mode evil-surround)
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync my-packages)
@@ -130,6 +130,9 @@
 (setq projectile-require-project-root nil)
 (setq projectile-enable-caching nil)
 (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
+
+;; Evil Surround
+(global-surround-mode 1)
 
 ;; Evil Nerd Commenter
 (define-key evil-normal-state-map (kbd "gcc") 'evilnc-comment-or-uncomment-lines)
