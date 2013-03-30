@@ -27,7 +27,7 @@
 
                    ;; Tools
                    magit helm projectile undo-tree multiple-cursors w3m find-file-in-project smex
-                   evil evil-leader switch-window
+                   evil evil-leader evil-nerd-commenter switch-window
                    ack-and-a-half ace-jump-mode expand-region
                    ))
 
@@ -130,6 +130,10 @@
 (setq projectile-require-project-root nil)
 (setq projectile-enable-caching nil)
 (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
+
+;; Evil Nerd Commenter
+(define-key evil-normal-state-map (kbd "gcc") 'evilnc-comment-or-uncomment-lines)
+(define-key evil-visual-state-map (kbd "gc") 'comment-region)
 
 ;; Switch Window
 (require 'switch-window)
