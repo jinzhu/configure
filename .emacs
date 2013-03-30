@@ -28,7 +28,7 @@
                    ;; Tools
                    magit helm projectile undo-tree multiple-cursors w3m find-file-in-project smex
                    evil evil-leader evil-nerd-commenter switch-window
-                   ack-and-a-half ace-jump-mode expand-region
+                   ack-and-a-half ace-jump-mode expand-region quickrun
                    ))
 
 ;; install the missing packages
@@ -172,4 +172,4 @@
 ;;                                   (nnimap-address "imap.gmail.com")
 ;;                                   (nnimap-server-port 993)
 ;;                                   (nnimap-stream ssl)))
-;; QuickRun, CopyPaste, CtrlP
+;; CopyPaste, CtrlP
