@@ -11,8 +11,25 @@
 
 
 (setq package-list
-      '(flymake-go flymake-coffee flymake-jslint flymake-ruby flymake-shell flymake-json flymake-sass
-                   ack-and-a-half w3m))
+      '(
+        ;; Flymake
+        flymake-go flymake-coffee flymake-jslint flymake-ruby flymake-sass
+
+                   ;; MODES
+                   coffee-mode js2-mode markdown-mode scss-mode css-mode yaml-mode csv-mode zencoding-mode
+                   php-mode ruby-mode go-mode rspec-mode
+
+                   ;; Themes
+                   color-theme
+
+                   ;; AutoComplete
+                   auto-complete
+
+                   ;; Tools
+                   magit helm projectile undo-tree multiple-cursors w3m find-file-in-project smex
+                   evil evil-leader switch-window
+                   ack-and-a-half ace-jump-mode expand-region
+                   ))
 
 ;; install the missing packages
 (dolist (package package-list)
@@ -32,79 +49,21 @@
 (setq
  el-get-sources
  '(
-   (:name color-theme
-          :after (progn
-                   (color-theme-initialize)
-                   (color-theme-hober)
-                   ))
-
-   (:name auto-complete
-          :after (progn
-                   (require 'auto-complete-config)
-                   (ac-config-default)
-                   (ac-fuzzy-complete)
-                   ;; Show 0.8 second later
-                   (setq ac-auto-show-menu 0.8)
-                   ))
-
-   (:name magit
-          :after (progn
-                   (global-set-key (kbd "C-x g") 'magit-status)
-                   ))
-
-   (:name ace-jump-mode
-          :after (progn
-                   (global-set-key (kbd "C-c SPC") 'ace-jump-mode)
-                   ))
-
-   (:name expand-region
-          :after (progn
-                   (global-set-key (kbd "C-@") 'er/expand-region)
-                   ))
-
-   (:name find-file-in-project
-          :after (progn
-                   (global-set-key (kbd "C-p") 'find-file-in-project)
-                   ))
-
-   ;; Smex, <C-h f> -> describe-function, <M-.> -> definition, <C-h w> -> key bindings
-   (:name smex
-          :after (progn
-                   (global-set-key (kbd "M-x") 'smex)
-                   (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-                   ))
-
    (:name yasnippet
           :after (yas-global-mode 1)
           )
-
-   (:name evil
-          :after (evil-mode 1)
-          )
-
-   (:name evil-leader
-          :after (progn
-                   (evil-leader/set-leader ";")
-                   (evil-leader/set-key
-                     "b" 'switch-to-buffer
-                     "k" 'kill-buffer
-                     "w" 'save-buffer
-                     )
-                   ))
    ))
 
 (setq my-packages
       (append
-       '(
-         el-get switch-window undo-tree
-                quickrun multiple-cursors
-                coffee-mode js2-mode markdown-mode sass-mode scss-mode css-mode yaml-mode ruby-mode go-mode rspec-mode
-                yari rinari ruby-test-mode rvm
-                )
+       '(el-get rhtml-mode)
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync my-packages)
 
+;; Themes
+(color-theme-initialize)
+(color-theme-hober)
 
 ;; Global Setting
 (menu-bar-mode 0)
@@ -120,6 +79,9 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (column-number-mode t)
 
+(global-set-key (kbd "RET") 'newline-and-indent)
+(electric-indent-mode +1)
+
 ;; Key Bindings
 (global-set-key (kbd "<f12>") 'menu-bar-mod)
 
@@ -127,4 +89,60 @@
 (flymake-mode)
 (add-hook 'ruby-mode-hook 'flymake-ruby-load)
 
-(Global-set-key (kbd "C-p") 'find-file-in-project)
+;; Tools
+
+;; Smex <C-h f> -> describe-function, <M-.> -> definition, <C-h w> -> key bindings
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+
+;; Ace Jump Mode
+(global-set-key (kbd "C-c SPC") 'ace-jump-mode)
+
+;; Expand Region
+(global-set-key (kbd "C-@") 'er/expand-region)
+
+;; Magit
+(global-set-key (kbd "C-x g") 'magit-status)
+
+;; Auto Complete
+(require 'auto-complete-config)
+(ac-config-default)
+(setq ac-auto-show-menu 0.8)
+
+;; Evil, VIM Mode
+(evil-mode 1)
+(require 'evil-leader)
+(evil-leader/set-leader ";")
+(evil-leader/set-key
+  "b" 'switch-to-buffer
+  "k" 'kill-buffer
+  "w" 'save-buffer
+  "r" 'projectile-recentf
+  "a" 'projectile-ack
+  )
+
+;; Recentf
+(recentf-mode 1)
+(setq recentf-max-menu-items 100)
+
+;; Projectile
+(projectile-global-mode)
+(setq projectile-require-project-root nil)
+(setq projectile-enable-caching nil)
+(define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
+
+;; Switch Window
+(require 'switch-window)
+
+(ido-mode)
+(ido-everywhere 1)
+(setq ido-enable-flex-matching t)
+(setq ido-case-fold t)
+(setq ido-use-virtual-buffers t)
+(setq ido-file-extensions-order '(".org" ".txt" ".py" ".emacs" ".xml" ".el"
+                                    ".ini" ".cfg" ".conf" ".rb" ".rake" ".coffee" ".scss"))
+
+;; (setq gnus-select-method '(nnimap "gmail"
+;;                                   (nnimap-address "imap.gmail.com")
+;;                                   (nnimap-server-port 993)
+;;                                   (nnimap-stream ssl)))
