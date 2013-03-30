@@ -52,6 +52,14 @@
    (:name yasnippet
           :after (yas-global-mode 1)
           )
+   (:name emacs-emamux
+          :type github
+          :pkgname "syohex/emacs-emamux"
+          )
+   (:name emamux-ruby-test
+          :type github
+          :pkgname "syohex/emamux-ruby-test"
+          )
    ))
 
 (setq my-packages
@@ -109,6 +117,10 @@
 (ac-config-default)
 (setq ac-auto-show-menu 0.8)
 
+;; Emamux
+(require 'emamux)
+(require 'emamux-ruby-test)
+
 ;; Evil, VIM Mode
 (evil-mode 1)
 (require 'evil-leader)
@@ -119,6 +131,13 @@
   "w" 'save-buffer
   "r" 'projectile-recentf
   "a" 'projectile-ack
+  "tp" 'emamux:run-command
+  "ts" 'emamux:send-command
+  "ti" 'emamux:inspect-runner
+  "tq" 'emamux:close-runner-pane
+  "tx" 'emamux:close-panes
+  "tr" 'emamux-ruby-test:run-all
+  "tR" 'emamux-ruby-test:run-focused-test
   )
 
 ;; Recentf
@@ -147,9 +166,10 @@
 (setq ido-case-fold t)
 (setq ido-use-virtual-buffers t)
 (setq ido-file-extensions-order '(".org" ".txt" ".py" ".emacs" ".xml" ".el"
-                                    ".ini" ".cfg" ".conf" ".rb" ".rake" ".coffee" ".scss"))
+                                  ".ini" ".cfg" ".conf" ".rb" ".rake" ".coffee" ".scss"))
 
 ;; (setq gnus-select-method '(nnimap "gmail"
 ;;                                   (nnimap-address "imap.gmail.com")
 ;;                                   (nnimap-server-port 993)
 ;;                                   (nnimap-stream ssl)))
+;; QuickRun, CopyPaste, CtrlP
