@@ -1,3 +1,5 @@
+(setq user-full-name "Jinzhu")
+
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
@@ -13,11 +15,16 @@
 (setq package-list
       '(
         ;; Flymake
-        flymake-go flymake-coffee flymake-jslint flymake-ruby flymake-sass
+        flymake-go flymake-coffee flymake-jslint flymake-ruby flymake-sass flycheck
 
                    ;; MODES
                    coffee-mode js2-mode markdown-mode scss-mode css-mode yaml-mode csv-mode zencoding-mode
+                   git-commit-mode gitconfig-mode gitignore-mode
                    php-mode ruby-mode go-mode rspec-mode
+                   multi-web-mode
+
+                   ;; Language
+                   inf-ruby ruby-electric ruby-tools ruby-end rinari yari
 
                    ;; Themes
                    color-theme
@@ -26,9 +33,14 @@
                    auto-complete
 
                    ;; Tools
-                   magit helm projectile undo-tree multiple-cursors w3m find-file-in-project smex
+                   helm projectile undo-tree multiple-cursors w3m smex
                    evil evil-leader evil-nerd-commenter switch-window
                    ack-and-a-half ace-jump-mode expand-region quickrun
+                   gist powerline
+
+                   ;; GIT
+                   magit ;;git-gutter-fringe
+                   vline
                    ))
 
 ;; install the missing packages
@@ -52,6 +64,9 @@
    (:name yasnippet
           :after (yas-global-mode 1)
           )
+   (:name  auto-complete-yasnippet
+           :after (require 'auto-complete-yasnippet)
+           )
    (:name emacs-emamux
           :type github
           :pkgname "syohex/emacs-emamux"
@@ -64,7 +79,7 @@
 
 (setq my-packages
       (append
-       '(el-get rhtml-mode evil-surround)
+       '(el-get rhtml-mode evil-surround sudo-save)
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync my-packages)
@@ -79,25 +94,56 @@
 (tool-bar-mode 0)
 
 (setq make-backup-files nil)
+(setq kept-old-versions 2)
+(setq kept-new-versions 200)
+(setq delete-old-versions t)
+(setq backup-directory-alist '(("." . "~/.emacs.d/tmp")))
+
 (setq auto-save-default nil)
 (setq-default tab-width 2)
 (setq-default indent-tabs-mode nil)
 (setq inhibit-startup-message t)
 
+(blink-cursor-mode -1)
+(show-paren-mode t)
+
 (fset 'yes-or-no-p 'y-or-n-p)
 (column-number-mode t)
+(setq show-trailing-whitespace t)
 
-(global-set-key (kbd "RET") 'newline-and-indent)
+(setq-default ispell-program-name "aspell")
+(setq ispell-list-command "list")
+(setq ispell-extra-args '("--sug-mode=ultra"))
+
+;; Trailing whitespace is unnecessary
+(add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
+
+(electric-pair-mode)
 (electric-indent-mode +1)
 
+(global-set-key (kbd "RET") 'newline-and-indent)
+
 ;; Key Bindings
-(global-set-key (kbd "<f12>") 'menu-bar-mod)
+(global-set-key (kbd "<f12>") 'menu-bar-mode)
+
+;; Use regex search by default
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "\C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "C-M-s") 'isearch-forward)
+(global-set-key (kbd "C-M-r") 'isearch-backward)
+
+
+;; Dired
+(setq dired-recursive-deletes 'top)
+
+;; Multiple Cursors
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 ;; Flymake
 (flymake-mode)
 (add-hook 'ruby-mode-hook 'flymake-ruby-load)
-
-;; Tools
 
 ;; Smex <C-h f> -> describe-function, <M-.> -> definition, <C-h w> -> key bindings
 (global-set-key (kbd "M-x") 'smex)
@@ -115,7 +161,11 @@
 ;; Auto Complete
 (require 'auto-complete-config)
 (ac-config-default)
+(global-auto-complete-mode t)
 (setq ac-auto-show-menu 0.8)
+(define-key ac-completing-map (kbd "C-n") 'ac-next)
+(define-key ac-completing-map (kbd "C-p") 'ac-previous)
+
 
 ;; Emamux
 (require 'emamux)
@@ -126,7 +176,7 @@
 (require 'evil-leader)
 (evil-leader/set-leader ";")
 (evil-leader/set-key
-  "b" 'switch-to-buffer
+  "b" 'ido-switch-buffer
   "k" 'kill-buffer
   "w" 'save-buffer
   "r" 'projectile-recentf
@@ -142,11 +192,11 @@
 
 ;; Recentf
 (recentf-mode 1)
-(setq recentf-max-menu-items 100)
+(setq recentf-max-menu-items 25)
 
 ;; Projectile
 (projectile-global-mode)
-(setq projectile-require-project-root nil)
+;; (setq projectile-require-project-root nil)
 (setq projectile-enable-caching nil)
 (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
 
@@ -160,16 +210,55 @@
 ;; Switch Window
 (require 'switch-window)
 
+;; Ruby Mode
+(defalias 'ri 'yari)
+(add-hook 'ruby-mode-hook (electric-pair-mode 0))
+(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Guardfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("irbrc$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("sake$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("rake$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("god$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("thor$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.spec$" . ruby-mode))
+
+(require 'ruby-electric)
+(require 'ruby-end)
+
+;; RHTML Mode
+(add-to-list 'auto-mode-alist '("\\.erb$" . rhtml-mode))
+
+;; Markdown Mode
+(add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+
+;; Multi Web Mode
+(require 'multi-web-mode)
+(setq mweb-default-major-mode 'rhtml-mode)
+(setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
+                  (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
+                  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
+(setq mweb-filename-extensions '("php" "htm" "html" "erb" "rhtml"))
+(multi-web-global-mode)
+
+;; IDO
 (ido-mode)
 (ido-everywhere 1)
-(setq ido-enable-flex-matching t)
-(setq ido-case-fold t)
-(setq ido-use-virtual-buffers t)
-(setq ido-file-extensions-order '(".org" ".txt" ".py" ".emacs" ".xml" ".el"
-                                  ".ini" ".cfg" ".conf" ".rb" ".rake" ".coffee" ".scss"))
+(setq
+ ido-enable-flex-matching t
+ ido-enable-last-directory-history t
+ ido-case-fold t
+ ido-use-virtual-buffers t
+ ido-file-extensions-order '(".org" ".txt" ".py" ".emacs" ".xml" ".el"
+                             ".ini" ".cfg" ".conf" ".rb" ".rake" ".coffee" ".scss")
+ ido-ignore-buffers '("\\` " "^\*Mess" "^\*Back" "^\*Buffer" "^\*scratch"
+                      ".*Completion" "^\*Ido" "^\*trace" "^\*ediff" "^\*vc")
+ )
 
 ;; (setq gnus-select-method '(nnimap "gmail"
 ;;                                   (nnimap-address "imap.gmail.com")
 ;;                                   (nnimap-server-port 993)
 ;;                                   (nnimap-stream ssl)))
-;; CopyPaste, CtrlP
+;; CopyPaste, CtrlP, Tbone, Rename, Remove, Powerline
