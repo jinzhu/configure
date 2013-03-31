@@ -34,11 +34,11 @@
                    helm projectile helm-projectile undo-tree multiple-cursors w3m smex
                    evil evil-leader evil-nerd-commenter switch-window
                    ack-and-a-half ace-jump-mode expand-region quickrun
-		   xclip gist powerline pos-tip
+		   xclip gist pos-tip
+		   session
 
-                   ;; GIT
-                   magit ;;git-gutter-fringe
-                   vline
+                   ;; GIT ;;git-gutter-fringe
+                   magit vline
                    ))
 
 ;; install the missing packages
@@ -92,7 +92,7 @@
 
 (setq my-packages
       (append
-       '(el-get rhtml-mode evil-surround sudo-save)
+       '(el-get rhtml-mode evil-surround sudo-save mmm-mode)
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync my-packages)
@@ -169,7 +169,6 @@
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
-
 ;; xclip
 (xclip-mode 1)
 (turn-on-xclip)
@@ -200,6 +199,16 @@
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
 
+;; Hippie Expand
+(global-set-key (kbd "M-\\") 'hippie-expand)
+
+(setq hippie-expand-try-functions-list
+      '(try-expand-all-abbrevs try-complete-file-name-partially try-complete-file-name
+			       try-expand-dabbrev try-expand-dabbrev-visible
+			       try-expand-dabbrev-all-buffers try-expand-dabbrev-from-kill
+			       try-complete-lisp-symbol-partially try-complete-lisp-symbol
+			       try-expand-tag))
+
 ;; Auto Complete
 (require 'auto-complete-config)
 (ac-config-default)
@@ -214,6 +223,10 @@
 (require 'emamux)
 (require 'emamux-ruby-test)
 
+;; ERC
+(add-hook 'erc-mode-hook 'erc-add-scroll-to-bottom)
+(setq erc-fill-column 70)
+
 ;; Evil, VIM Mode
 (evil-mode 1)
 (require 'evil-leader)
@@ -225,6 +238,7 @@
   "r" 'projectile-recentf
   "a" 'projectile-ack
   "tp" 'emamux:run-command
+  "tl" 'emamux:run-last-command
   "ts" 'emamux:send-command
   "ti" 'emamux:inspect-runner
   "tq" 'emamux:close-runner-pane
@@ -277,6 +291,7 @@
 (define-key evil-insert-state-map (kbd "M-h") 'left-char)
 
 ;; Undo
+(setq undo-tree-auto-save-history t)
 (global-undo-tree-mode)
 
 ;; Switch Window
@@ -315,8 +330,16 @@
 (setq mweb-filename-extensions '("php" "htm" "html" "erb" "rhtml"))
 (multi-web-global-mode)
 
+;; MMM Mode
+;; (require 'mmm-mode)
+;; (require 'mmm-auto)
+
+;; Session
+(require 'session)
+(add-hook 'after-init-hook 'session-initialize)
+
 ;; IDO
-(ido-mode)
+(ido-mode t)
 (ido-everywhere 1)
 (setq
  ido-enable-flex-matching t
@@ -405,7 +428,6 @@
      ))
 
 
-;; open with, google search
 (defun copy-file-name-to-clipboard ()
   "Copy the current buffer file name to the clipboard."
   (interactive)
@@ -448,3 +470,28 @@
   (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
     (when file
       (find-file file))))
+
+
+(defun google ()
+  "Google the selected region if any, display a query prompt otherwise."
+  (interactive)
+  (browse-url
+   (concat
+    "http://www.google.com/search?ie=utf-8&oe=utf-8&q="
+    (url-hexify-string (if mark-active
+			   (buffer-substring (region-beginning) (region-end))
+			 (read-string "Google: "))))))
+
+(defun open-with ()
+  "Simple function that allows us to open the underlying
+file of a buffer in an external program."
+  (interactive)
+  (when buffer-file-name
+    (shell-command (concat
+		    (if (eq system-type 'darwin)
+			"open"
+		      (read-shell-command "Open current file with: "))
+		    " "
+		    buffer-file-name))))
+
+;; MMM Mode
