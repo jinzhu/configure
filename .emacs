@@ -1,5 +1,3 @@
-(setq user-full-name "Jinzhu")
-
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
@@ -163,8 +161,6 @@
 (ac-config-default)
 (global-auto-complete-mode t)
 (setq ac-auto-show-menu 0.8)
-(define-key ac-completing-map (kbd "C-n") 'ac-next)
-(define-key ac-completing-map (kbd "C-p") 'ac-previous)
 
 
 ;; Emamux
@@ -206,6 +202,11 @@
 ;; Evil Nerd Commenter
 (define-key evil-normal-state-map (kbd "gcc") 'evilnc-comment-or-uncomment-lines)
 (define-key evil-visual-state-map (kbd "gc") 'comment-region)
+(define-key evil-insert-state-map (kbd "M-j") 'next-line)
+(define-key evil-insert-state-map (kbd "M-k") 'previous-line)
+(define-key evil-insert-state-map (kbd "M-l") 'right-char)
+(define-key evil-insert-state-map (kbd "M-h") 'left-char)
+
 
 ;; Switch Window
 (require 'switch-window)
@@ -257,8 +258,34 @@
                       ".*Completion" "^\*Ido" "^\*trace" "^\*ediff" "^\*vc")
  )
 
-;; (setq gnus-select-method '(nnimap "gmail"
-;;                                   (nnimap-address "imap.gmail.com")
-;;                                   (nnimap-server-port 993)
-;;                                   (nnimap-stream ssl)))
-;; CopyPaste, CtrlP, Tbone, Rename, Remove, Powerline
+
+;; Email
+(require 'mu4e)
+(setq mu4e-maildir (expand-file-name "~/Maildir"))
+(setq mu4e-drafts-folder "/[Gmail].Drafts")
+(setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+(setq mu4e-trash-folder  "/[Gmail].Trash")
+
+;; don't save message to Sent Messages, GMail/IMAP will take care of this
+(setq mu4e-sent-messages-behavior 'delete)
+
+;; setup some handy shortcuts
+(setq mu4e-maildir-shortcuts
+      '(("/INBOX"             . ?i)
+        ("/[Gmail].Sent Mail" . ?s)
+        ("/[Gmail].Trash"     . ?t)))
+
+;; allow for updating mail using 'U' in the main view:
+(setq mu4e-get-mail-command "offlineimap")
+
+(setq
+ user-mail-address "wosmvp@gmail.com"
+ user-full-name  "Jinzhu"
+ )
+
+(require 'smtpmail)
+(setq message-send-mail-function 'smtpmail-send-it
+      smtpmail-stream-type 'starttls
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587)
