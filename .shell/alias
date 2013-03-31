@@ -99,18 +99,11 @@ function v {
   fi
 }
 
-function se {
-  if [ -n "$*" ]; then
-    sudo emacs -nw $*
-  else
-    sudo emacs -nw
-  fi
-}
 function e {
   if [ -n "$*" ]; then
-    emacs -nw $*
+    emacsclient -t $*
   else
-    emacs -nw
+    emacsclient -t
   fi
 }
 

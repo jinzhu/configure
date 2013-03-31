@@ -34,7 +34,7 @@
                    helm projectile undo-tree multiple-cursors w3m smex
                    evil evil-leader evil-nerd-commenter switch-window
                    ack-and-a-half ace-jump-mode expand-region quickrun
-                   gist powerline
+                   gist powerline pos-tip
 
                    ;; GIT
                    magit ;;git-gutter-fringe
@@ -73,6 +73,21 @@
           :type github
           :pkgname "syohex/emamux-ruby-test"
           )
+   (:name youdao
+          :type github
+          :pkgname "zhenze12345/youdao.el"
+          :after (progn
+                   (require 'youdao)
+                   ;; http://fanyi.youdao.com/openapi?path=data-mode
+                   (setf youdao-key-from "jinzhu")
+                   (setf youdao-key "1159909992")
+                   (global-set-key (kbd "C-c C-v") 'youdao-translate-word)
+                   ))
+   (:name weibo
+          :type github
+          :pkgname "austin-----/weibo.emacs"
+          :after (require 'weibo)
+          )
    ))
 
 (setq my-packages
@@ -90,17 +105,29 @@
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
 (tool-bar-mode 0)
+(display-time-mode 1)
 
-(setq make-backup-files nil)
-(setq kept-old-versions 2)
-(setq kept-new-versions 200)
-(setq delete-old-versions t)
-(setq backup-directory-alist '(("." . "~/.emacs.d/tmp")))
+(setq
+ make-backup-files nil
+ kept-old-versions 2
+ kept-new-versions 200
+ delete-old-versions t
+ version-control t
+ auto-save-default nil
+ tab-width 2
+ indent-tabs-mode nil
+ tab-always-indent nil
+ inhibit-startup-message t
+ backup-directory-alist '(("." . "~/.emacs.d/tmp"))
+ display-time-24hr-format t
+ display-time-day-and-date 0
+ )
 
-(setq auto-save-default nil)
-(setq-default tab-width 2)
-(setq-default indent-tabs-mode nil)
-(setq inhibit-startup-message t)
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "chromium")
+
+(mouse-avoidance-mode 'exile)
+(setq mouse-avoidance-threshold 10)
 
 (blink-cursor-mode -1)
 (show-paren-mode t)
@@ -123,6 +150,7 @@
 
 ;; Key Bindings
 (global-set-key (kbd "<f12>") 'menu-bar-mode)
+(global-set-key (kbd "C-x b") 'ido-switch-buffer)
 
 ;; Use regex search by default
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
@@ -144,6 +172,7 @@
 (add-hook 'ruby-mode-hook 'flymake-ruby-load)
 
 ;; Smex <C-h f> -> describe-function, <M-.> -> definition, <C-h w> -> key bindings
+(global-set-key (kbd "M-m") 'smex)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
@@ -162,6 +191,9 @@
 (global-auto-complete-mode t)
 (setq ac-auto-show-menu 0.8)
 
+;; CoffeeMode
+(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
+(add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
 
 ;; Emamux
 (require 'emamux)
@@ -184,6 +216,8 @@
   "tx" 'emamux:close-panes
   "tr" 'emamux-ruby-test:run-all
   "tR" 'emamux-ruby-test:run-focused-test
+  "gd" 'vc-diff
+  "gs" 'magit-status
   )
 
 ;; Recentf
@@ -261,16 +295,19 @@
 
 ;; Email
 (require 'mu4e)
+(require 'mu4e-speedbar)
 
 (setq
  user-mail-address "wosmvp@gmail.com"
  user-full-name  "Jinzhu"
+ mail-reply-to user-mail-address
 
  mu4e-maildir (expand-file-name "~/.mails")
  mu4e-drafts-folder "/[Gmail].Drafts"
  mu4e-sent-folder   "/[Gmail].Sent Mail"
  mu4e-trash-folder  "/[Gmail].Trash"
  mu4e-update-interval 60
+ mu4e-view-show-images t
 
  mu4e-get-mail-command "offlineimap"
  ;; don't save message to Sent Messages, GMail/IMAP will take care of this
@@ -287,10 +324,15 @@
 
 (require 'smtpmail)
 (setq message-send-mail-function 'smtpmail-send-it
-      smtpmail-stream-type 'starttls
+      starttls-use-gnutls t
+      smtpmail-starttls-credentials
+      '(("smtp.gmail.com" 587 nil nil))
+      smtpmail-auth-credentials
+      (expand-file-name "~/.authinfo.gpg")
       smtpmail-default-smtp-server "smtp.gmail.com"
       smtpmail-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-service 587)
+      smtpmail-smtp-service 587
+      smtpmail-debug-info t)
 
 (eval-after-load 'mu4e
   '(progn
