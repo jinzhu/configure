@@ -31,7 +31,7 @@
                    auto-complete
 
                    ;; Tools
-                   helm projectile undo-tree multiple-cursors w3m smex
+                   helm projectile helm-projectile undo-tree multiple-cursors w3m smex
                    evil evil-leader evil-nerd-commenter switch-window
                    ack-and-a-half ace-jump-mode expand-region quickrun
                    gist powerline pos-tip
@@ -118,10 +118,14 @@
  indent-tabs-mode nil
  tab-always-indent nil
  inhibit-startup-message t
- backup-directory-alist '(("." . "~/.emacs.d/tmp"))
  display-time-24hr-format t
  display-time-day-and-date 0
  )
+(global-auto-revert-mode t)
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "chromium")
@@ -140,10 +144,13 @@
 (setq ispell-list-command "list")
 (setq ispell-extra-args '("--sug-mode=ultra"))
 
+(setq x-select-enable-clipboard t)  ; makes killing/yanking interact with clipboard X11 selection
+(setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
+
 ;; Trailing whitespace is unnecessary
 (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
 
-(electric-pair-mode)
+(electric-pair-mode t)
 (electric-indent-mode +1)
 
 (global-set-key (kbd "RET") 'newline-and-indent)
@@ -151,6 +158,10 @@
 ;; Key Bindings
 (global-set-key (kbd "<f12>") 'menu-bar-mode)
 (global-set-key (kbd "C-x b") 'ido-switch-buffer)
+
+;; Font size
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
 
 ;; Use regex search by default
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
@@ -221,8 +232,9 @@
   )
 
 ;; Recentf
-(recentf-mode 1)
-(setq recentf-max-menu-items 25)
+(setq recentf-max-saved-items 200
+      recentf-max-menu-items 25)
+(recentf-mode +1)
 
 ;; Projectile
 (projectile-global-mode)
@@ -230,7 +242,26 @@
 (setq projectile-enable-caching nil)
 (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
 
-;; Evil Surround
+(require 'helm-projectile)
+
+(defun helm-prelude ()
+  "Preconfigured `helm'."
+  (interactive)
+  (condition-case nil
+      (if (projectile-project-root)
+	  ;; add project files and buffers when in project
+	  (helm-other-buffer '(helm-c-source-projectile-files-list
+			       helm-c-source-projectile-buffers-list
+			       helm-c-source-buffers-list
+			       helm-c-source-recentf
+			       helm-c-source-buffer-not-found)
+			     "*helm prelude*")
+	;; otherwise fallback to helm-mini
+	(helm-mini))
+    ;; fall back to helm mini if an error occurs (usually in projectile-project-root)
+    (error (helm-mini))))
+
+;; EVIL Surround
 (global-surround-mode 1)
 
 ;; Evil Nerd Commenter
@@ -241,6 +272,8 @@
 (define-key evil-insert-state-map (kbd "M-l") 'right-char)
 (define-key evil-insert-state-map (kbd "M-h") 'left-char)
 
+;; Undo
+(global-undo-tree-mode)
 
 ;; Switch Window
 (require 'switch-window)
@@ -305,7 +338,7 @@
  mu4e-maildir (expand-file-name "~/.mails")
  mu4e-drafts-folder "/[Gmail].Drafts"
  mu4e-sent-folder   "/[Gmail].Sent Mail"
- mu4e-trash-folder  "/[Gmail].Trash"
+ mu4e-trash-folder  "/Trash"
  mu4e-update-interval 60
  mu4e-view-show-images t
 
@@ -366,3 +399,48 @@
        "j" 'evil-next-line
        "RET" 'mu4e-view-message)
      ))
+
+
+;; open with, google search
+(defun copy-file-name-to-clipboard ()
+  "Copy the current buffer file name to the clipboard."
+  (interactive)
+  (let ((filename (if (equal major-mode 'dired-mode)
+		      default-directory
+		    (buffer-file-name))))
+    (when filename
+      (kill-new filename)
+      (message "Copied buffer file name '%s' to the clipboard." filename))))
+
+(defun rename-file-and-buffer ()
+  "Renames current buffer and file it is visiting."
+  (interactive)
+  (let ((name (buffer-name))
+	(filename (buffer-file-name)))
+    (if (not (and filename (file-exists-p filename)))
+	(message "Buffer '%s' is not visiting a file!" name)
+      (let ((new-name (read-file-name "New name: " filename)))
+	(cond ((get-buffer new-name)
+	       (message "A buffer named '%s' already exists!" new-name))
+	      (t
+	       (rename-file name new-name 1)
+	       (rename-buffer new-name)
+	       (set-visited-file-name new-name)
+	       (set-buffer-modified-p nil)))))))
+
+
+(defun delete-file-and-buffer ()
+  "Kill the current buffer and deletes the file it is visiting."
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (when filename
+      (delete-file filename)
+      (message "Deleted file %s" filename)))
+  (kill-buffer))
+
+(defun recentf-ido-find-file ()
+  "Find a recent file using ido."
+  (interactive)
+  (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
+    (when file
+      (find-file file))))

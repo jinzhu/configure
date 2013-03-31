@@ -108,7 +108,7 @@ URxvt.keysym.M-u: perl:url-select:select_next
 URxvt.url-select.launcher: chromium
 URxvt.url-select.underline: true
 
-urxvt.vim-scrollback: M-v
+urxvt.vim-scrollback: C-M-v
 ! M-r * -> paste from buffer; M-r + -> paste from clipboard
 urxvt.vim-scrollback-paste: M-r
 urxvt.vim-scrollback-bg: 16
