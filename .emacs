@@ -34,7 +34,7 @@
                    helm projectile helm-projectile undo-tree multiple-cursors w3m smex
                    evil evil-leader evil-nerd-commenter switch-window
                    ack-and-a-half ace-jump-mode expand-region quickrun
-                   gist powerline pos-tip
+		   xclip gist powerline pos-tip
 
                    ;; GIT
                    magit ;;git-gutter-fringe
@@ -169,6 +169,10 @@
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
+
+;; xclip
+(xclip-mode 1)
+(turn-on-xclip)
 
 ;; Dired
 (setq dired-recursive-deletes 'top)
