@@ -201,7 +201,7 @@
 
 ;; Evil Nerd Commenter
 (define-key evil-normal-state-map (kbd "gcc") 'evilnc-comment-or-uncomment-lines)
-(define-key evil-visual-state-map (kbd "gc") 'comment-region)
+(define-key evil-visual-state-map (kbd "gc") 'comment-or-uncomment-region)
 (define-key evil-insert-state-map (kbd "M-j") 'next-line)
 (define-key evil-insert-state-map (kbd "M-k") 'previous-line)
 (define-key evil-insert-state-map (kbd "M-l") 'right-char)
@@ -261,27 +261,29 @@
 
 ;; Email
 (require 'mu4e)
-(setq mu4e-maildir (expand-file-name "~/.mails"))
-(setq mu4e-drafts-folder "/[Gmail].Drafts")
-(setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-(setq mu4e-trash-folder  "/[Gmail].Trash")
-
-;; don't save message to Sent Messages, GMail/IMAP will take care of this
-(setq mu4e-sent-messages-behavior 'delete)
-
-;; setup some handy shortcuts
-(setq mu4e-maildir-shortcuts
-      '(("/INBOX"             . ?i)
-        ("/[Gmail].Sent Mail" . ?s)
-        ("/[Gmail].Trash"     . ?t)))
-
-;; allow for updating mail using 'U' in the main view:
-(setq mu4e-get-mail-command "offlineimap")
 
 (setq
  user-mail-address "wosmvp@gmail.com"
  user-full-name  "Jinzhu"
+
+ mu4e-maildir (expand-file-name "~/.mails")
+ mu4e-drafts-folder "/[Gmail].Drafts"
+ mu4e-sent-folder   "/[Gmail].Sent Mail"
+ mu4e-trash-folder  "/[Gmail].Trash"
+ mu4e-update-interval 60
+
+ mu4e-get-mail-command "offlineimap"
+ ;; don't save message to Sent Messages, GMail/IMAP will take care of this
+ mu4e-sent-messages-behavior 'delete
  )
+
+;; setup some handy shortcuts
+(setq mu4e-maildir-shortcuts
+      '(("/INBOX"             . ?a)
+        ("/[Gmail].Important"  . ?i)
+        ("/[Gmail].Sent Mail" . ?s)
+        ("/[Gmail].Trash"     . ?t)))
+
 
 (require 'smtpmail)
 (setq message-send-mail-function 'smtpmail-send-it
@@ -289,3 +291,36 @@
       smtpmail-default-smtp-server "smtp.gmail.com"
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587)
+
+(eval-after-load 'mu4e
+  '(progn
+     ;; use the standard bindings as a base
+     (evil-make-overriding-map mu4e-view-mode-map 'normal t)
+     (evil-make-overriding-map mu4e-main-mode-map 'normal t)
+     (evil-make-overriding-map mu4e-headers-mode-map 'normal t)
+
+     (evil-add-hjkl-bindings mu4e-view-mode-map 'normal
+       "J" 'mu4e~headers-jump-to-maildir
+       "j" 'evil-next-line
+       "C" 'mu4e-compose-new
+       "o" 'mu4e-view-message
+       "Q" 'mu4e-raw-view-quit-buffer)
+
+     (evil-add-hjkl-bindings mu4e-view-raw-mode-map 'normal
+       "J" 'mu4e-jump-to-maildir
+       "j" 'evil-next-line
+       "C" 'mu4e-compose-new
+       "q" 'mu4e-raw-view-quit-buffer)
+
+     (evil-add-hjkl-bindings mu4e-headers-mode-map 'normal
+       "J" 'mu4e~headers-jump-to-maildir
+       "j" 'evil-next-line
+       "C" 'mu4e-compose-new
+       "o" 'mu4e-view-message
+       )
+
+     (evil-add-hjkl-bindings mu4e-main-mode-map 'normal
+       "J" 'mu4e~headers-jump-to-maildir
+       "j" 'evil-next-line
+       "RET" 'mu4e-view-message)
+     ))
