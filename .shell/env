@@ -16,8 +16,8 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.vim/gdbmgr/src
 export GOPATH="/jinzhu/Projects/Lab/go"
 export LC_CTYPE=zh_CN.utf8
 
-# export EDITOR="vim"
-export EDITOR='emacsclient -t -a ""'
+export EDITOR="vim"
+# export EDITOR='emacsclient -t -a ""'
 
 export QOR_ROOT="~/GIT/qor/"
 export CLOSURE_HOME="/home/jinzhu/Lab/closure-library"

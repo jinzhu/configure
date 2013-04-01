@@ -34,8 +34,8 @@
                    helm projectile helm-projectile undo-tree multiple-cursors w3m smex
                    evil evil-leader evil-nerd-commenter switch-window
                    ack-and-a-half ace-jump-mode expand-region quickrun
-		   xclip gist pos-tip
-		   session
+                   xclip gist pos-tip
+                   session
 
                    ;; GIT ;;git-gutter-fringe
                    magit vline
@@ -92,7 +92,7 @@
 
 (setq my-packages
       (append
-       '(el-get rhtml-mode evil-surround sudo-save mmm-mode)
+       '(el-get rhtml-mode evil-surround sudo-save mmm-mode multi-term)
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync my-packages)
@@ -142,6 +142,7 @@
 (setq show-trailing-whitespace t)
 
 (setq-default ispell-program-name "aspell")
+(setq ispell-dictionary "english")
 (setq ispell-list-command "list")
 (setq ispell-extra-args '("--sug-mode=ultra"))
 
@@ -205,10 +206,10 @@
 
 (setq hippie-expand-try-functions-list
       '(try-expand-all-abbrevs try-complete-file-name-partially try-complete-file-name
-			       try-expand-dabbrev try-expand-dabbrev-visible
-			       try-expand-dabbrev-all-buffers try-expand-dabbrev-from-kill
-			       try-complete-lisp-symbol-partially try-complete-lisp-symbol
-			       try-expand-tag))
+                               try-expand-dabbrev try-expand-dabbrev-visible
+                               try-expand-dabbrev-all-buffers try-expand-dabbrev-from-kill
+                               try-complete-lisp-symbol-partially try-complete-lisp-symbol
+                               try-expand-tag))
 
 ;; Auto Complete
 (require 'auto-complete-config)
@@ -254,19 +255,22 @@
   "a" 'projectile-ack
   "gd" 'vc-diff
   "gs" 'magit-status
+  "gl" 'magit-file-log
   )
 
 ;; Recentf
 (setq recentf-max-saved-items 200
       recentf-max-menu-items 25)
 (recentf-mode +1)
+;; add at the front of list, don't conncect to remote hosts
+(add-to-list 'recentf-keep 'file-remote-p)
 
 ;; Projectile
 (projectile-global-mode)
 ;; (setq projectile-require-project-root nil)
 (setq projectile-enable-caching nil)
+(define-key evil-normal-state-map (kbd "M-p") 'ido-find-file-in-dir)
 (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
-
 (require 'helm-projectile)
 
 (defun helm-prelude ()
@@ -274,15 +278,15 @@
   (interactive)
   (condition-case nil
       (if (projectile-project-root)
-	  ;; add project files and buffers when in project
-	  (helm-other-buffer '(helm-c-source-projectile-files-list
-			       helm-c-source-projectile-buffers-list
-			       helm-c-source-buffers-list
-			       helm-c-source-recentf
-			       helm-c-source-buffer-not-found)
-			     "*helm prelude*")
-	;; otherwise fallback to helm-mini
-	(helm-mini))
+          ;; add project files and buffers when in project
+          (helm-other-buffer '(helm-c-source-projectile-files-list
+                               helm-c-source-projectile-buffers-list
+                               helm-c-source-buffers-list
+                               helm-c-source-recentf
+                               helm-c-source-buffer-not-found)
+                             "*helm prelude*")
+        ;; otherwise fallback to helm-mini
+        (helm-mini))
     ;; fall back to helm mini if an error occurs (usually in projectile-project-root)
     (error (helm-mini))))
 
@@ -440,8 +444,8 @@
   "Copy the current buffer file name to the clipboard."
   (interactive)
   (let ((filename (if (equal major-mode 'dired-mode)
-		      default-directory
-		    (buffer-file-name))))
+                      default-directory
+                    (buffer-file-name))))
     (when filename
       (kill-new filename)
       (message "Copied buffer file name '%s' to the clipboard." filename))))
@@ -450,17 +454,17 @@
   "Renames current buffer and file it is visiting."
   (interactive)
   (let ((name (buffer-name))
-	(filename (buffer-file-name)))
+        (filename (buffer-file-name)))
     (if (not (and filename (file-exists-p filename)))
-	(message "Buffer '%s' is not visiting a file!" name)
+        (message "Buffer '%s' is not visiting a file!" name)
       (let ((new-name (read-file-name "New name: " filename)))
-	(cond ((get-buffer new-name)
-	       (message "A buffer named '%s' already exists!" new-name))
-	      (t
-	       (rename-file name new-name 1)
-	       (rename-buffer new-name)
-	       (set-visited-file-name new-name)
-	       (set-buffer-modified-p nil)))))))
+        (cond ((get-buffer new-name)
+               (message "A buffer named '%s' already exists!" new-name))
+              (t
+               (rename-file name new-name 1)
+               (rename-buffer new-name)
+               (set-visited-file-name new-name)
+               (set-buffer-modified-p nil)))))))
 
 
 (defun delete-file-and-buffer ()
@@ -494,8 +498,8 @@
    (concat
     "http://www.google.com/search?ie=utf-8&oe=utf-8&q="
     (url-hexify-string (if mark-active
-			   (buffer-substring (region-beginning) (region-end))
-			 (read-string "Google: "))))))
+                           (buffer-substring (region-beginning) (region-end))
+                         (read-string "Google: "))))))
 
 (defun open-with ()
   "Simple function that allows us to open the underlying
@@ -503,11 +507,11 @@ file of a buffer in an external program."
   (interactive)
   (when buffer-file-name
     (shell-command (concat
-		    (if (eq system-type 'darwin)
-			"open"
-		      (read-shell-command "Open current file with: "))
-		    " "
-		    buffer-file-name))))
+                    (if (eq system-type 'darwin)
+                        "open"
+                      (read-shell-command "Open current file with: "))
+                    " "
+                    buffer-file-name))))
 
 (defun kill-other-buffers ()
   "Kill all buffers but the current one.
@@ -517,4 +521,12 @@ Don't mess with special buffers."
     (unless (or (eql buffer (current-buffer)) (not (buffer-file-name buffer)))
       (kill-buffer buffer))))
 
-;; MMM Mode
+
+;; Multi Term
+(require 'multi-term)
+(setq multi-term-program "/bin/zsh")
+(global-set-key (kbd "<f2>") 'multi-term-dedicated-open)
+(global-set-key (kbd "<C-f2>") 'multi-term)
+(setq multi-term-dedicated-select-after-open-p t)
+
+;; MMM Mod
