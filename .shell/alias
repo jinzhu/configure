@@ -101,11 +101,12 @@ function v {
 
 function e {
   if [ -n "$*" ]; then
-    emacsclient -t $*
+    emacsclient -a "" -t $*
   else
-    emacsclient -t
+    emacsclient -a "" -t
   fi
 }
+alias emacs='emacsclient -c -a ""'
 
 # Touchpad
 alias tpc='synclient touchpadoff=1'

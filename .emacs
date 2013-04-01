@@ -102,30 +102,31 @@
 (color-theme-hober)
 
 ;; Global Setting
-(menu-bar-mode 0)
-(scroll-bar-mode 0)
-(tool-bar-mode 0)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
 (display-time-mode 1)
 
-(setq
- make-backup-files nil
- kept-old-versions 2
- kept-new-versions 200
- delete-old-versions t
- version-control t
- auto-save-default nil
- tab-width 2
- indent-tabs-mode nil
- tab-always-indent nil
- inhibit-startup-message t
- display-time-24hr-format t
- display-time-day-and-date 0
- )
+(setq backup-by-copying t    ; Don't delink hardlinks
+      backup-directory-alist '(("." . "~/.emacs.d/temps/backups"))
+      version-control t      ; Use version numbers on backups
+      delete-old-versions t  ; Automatically delete excess backups
+      kept-new-versions 20   ; how many of the newest versions to keep
+      kept-old-versions 5    ; and how many of the old
+
+      auto-save-file-name-transforms `((".*" ,"~/.emacs.d/temps/autosaves" t))
+      undo-tree-history-directory-alist '(("." . "~/.emacs.d/temps/undotrees"))
+      )
+
+(setq tab-width 2
+      indent-tabs-mode nil
+      tab-always-indent nil
+      inhibit-startup-message t
+      display-time-24hr-format t
+      display-time-day-and-date 0
+      )
+
 (global-auto-revert-mode t)
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "chromium")
@@ -225,6 +226,7 @@
 
 ;; ERC
 (add-hook 'erc-mode-hook 'erc-add-scroll-to-bottom)
+(erc-autojoin-mode t)
 (setq erc-fill-column 70)
 
 ;; Evil, VIM Mode
@@ -428,6 +430,7 @@
      ))
 
 
+;; Functions
 (defun copy-file-name-to-clipboard ()
   "Copy the current buffer file name to the clipboard."
   (interactive)
@@ -493,5 +496,13 @@ file of a buffer in an external program."
 		      (read-shell-command "Open current file with: "))
 		    " "
 		    buffer-file-name))))
+
+(defun kill-other-buffers ()
+  "Kill all buffers but the current one.
+Don't mess with special buffers."
+  (interactive)
+  (dolist (buffer (buffer-list))
+    (unless (or (eql buffer (current-buffer)) (not (buffer-file-name buffer)))
+      (kill-buffer buffer))))
 
 ;; MMM Mode

@@ -8,9 +8,6 @@ export GOPATH="/jinzhu/Projects/Lab/go"
 gocode &
 fcitx &
 
-# emacs --daemon
-emacs --daemon --with-x-toolkit=lucid &
-
 # export GTK_IM_MODULE=ibus
 # export XMODIFIERS=@im=ibus
 # export QT_IM_MODULE=ibus
