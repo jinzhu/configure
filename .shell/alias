@@ -106,7 +106,6 @@ function e {
     emacsclient -a "" -t
   fi
 }
-alias emacs='emacsclient -c -a ""'
 
 # Touchpad
 alias tpc='synclient touchpadoff=1'

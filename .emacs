@@ -31,6 +31,7 @@
                    auto-complete
 
                    ;; Tools
+		   elscreen
                    helm projectile helm-projectile undo-tree multiple-cursors w3m smex
                    evil evil-leader evil-nerd-commenter switch-window
                    ack-and-a-half ace-jump-mode expand-region quickrun
@@ -62,9 +63,19 @@
    (:name yasnippet
           :after (yas-global-mode 1)
           )
-   (:name  auto-complete-yasnippet
-           :after (require 'auto-complete-yasnippet)
-           )
+   (:name emacs-rails
+          :type github
+          :pkgname "remvee/emacs-rails"
+          :after (require 'rails)
+	  )
+   (:name yasnippets-rails
+          :type github
+          :pkgname "martinjlowm/yasnippets-rails"
+          :after (yas/load-directory "~/.emacs.d/el-get/yasnippets-rails/rails-snippets") ;
+          )
+   (:name auto-complete-yasnippet
+          :after (require 'auto-complete-yasnippet)
+          )
    (:name emacs-emamux
           :type github
           :pkgname "syohex/emacs-emamux"
@@ -92,7 +103,7 @@
 
 (setq my-packages
       (append
-       '(el-get rhtml-mode evil-surround sudo-save mmm-mode multi-term)
+       '(el-get rhtml-mode evil-surround sudo-save mmm-mode multi-term evil-elscreen)
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync my-packages)
@@ -271,6 +282,7 @@
 (setq projectile-enable-caching nil)
 (define-key evil-normal-state-map (kbd "M-p") 'ido-find-file-in-dir)
 (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
+
 (require 'helm-projectile)
 
 (defun helm-prelude ()
@@ -308,6 +320,10 @@
 ;; Switch Window
 (require 'switch-window)
 
+;; Mini Buffer
+(define-key minibuffer-local-map (kbd "C-w") 'backward-kill-word)
+
+
 ;; Ruby Mode
 (defalias 'ri 'yari)
 (add-hook 'ruby-mode-hook (electric-pair-mode 0))
@@ -343,7 +359,17 @@
 
 ;; MMM Mode
 ;; (require 'mmm-mode)
-;; (require 'mmm-auto)
+;; (setq mmm-global-mode 'auto)
+
+;; (mmm-add-mode-ext-class 'html-erb-mode "\\.html\\.erb\\'" 'erb)
+;; (mmm-add-mode-ext-class 'html-erb-mode "\\.jst\\.ejs\\'" 'ejs)
+;; (mmm-add-mode-ext-class 'html-erb-mode nil 'html-js)
+;; (mmm-add-mode-ext-class 'html-erb-mode nil 'html-css)
+;; (add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . html-erb-mode))
+;; (add-to-list 'auto-mode-alist '("\\.jst\\.ejs\\'"  . html-erb-mode))
+
+;; (mmm-add-mode-ext-class 'rhtml-mode nil 'html-js)
+;; (mmm-add-mode-ext-class 'rhtml-mode nil 'html-css)
 
 ;; Session
 (require 'session)
@@ -525,8 +551,30 @@ Don't mess with special buffers."
 ;; Multi Term
 (require 'multi-term)
 (setq multi-term-program "/bin/zsh")
-(global-set-key (kbd "<f2>") 'multi-term-dedicated-open)
-(global-set-key (kbd "<C-f2>") 'multi-term)
+(global-set-key (kbd "<f2>") 'elscreen-create)
+(global-set-key (kbd "<f3>") 'multi-term-dedicated-open)
+(global-set-key (kbd "<C-f3>") 'multi-term)
 (setq multi-term-dedicated-select-after-open-p t)
 
-;; MMM Mod
+;; elscreen
+(load "elscreen" "ElScreen" t)
+(setq elscreen-display-tab t)
+
+(defmacro elscreen-create-automatically (ad-do-it)
+  `(if (not (elscreen-one-screen-p))
+       ,ad-do-it
+     (elscreen-create)
+     (elscreen-notify-screen-modification 'force-immediately)
+     (elscreen-message "New screen is automatically created")))
+
+(defadvice elscreen-next (around elscreen-create-automatically activate)
+  (elscreen-create-automatically ad-do-it))
+
+(defadvice elscreen-previous (around elscreen-create-automatically activate)
+  (elscreen-create-automatically ad-do-it))
+
+(defadvice elscreen-toggle (around elscreen-create-automatically activate)
+  (elscreen-create-automatically ad-do-it))
+
+(setq elscreen-prefix-key (kbd "M-n"))
+(require 'evil-elscreen)
