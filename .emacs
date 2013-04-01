@@ -234,11 +234,13 @@
 (require 'evil-leader)
 (evil-leader/set-leader ";")
 (evil-leader/set-key
-  "b" 'ido-switch-buffer
-  "k" 'kill-buffer
-  "w" 'save-buffer
+  "b" 'projectile-switch-to-buffer
+  "B" 'ido-switch-buffer
+  "k" 'projectile-kill-buffers
+  "K" 'kill-buffer
   "r" 'projectile-recentf
-  "a" 'projectile-ack
+  "R" 'recentf-ido-find-file
+
   "tp" 'emamux:run-command
   "tl" 'emamux:run-last-command
   "ts" 'emamux:send-command
@@ -247,6 +249,9 @@
   "tx" 'emamux:close-panes
   "tr" 'emamux-ruby-test:run-all
   "tR" 'emamux-ruby-test:run-focused-test
+
+  "w" 'save-buffer
+  "a" 'projectile-ack
   "gd" 'vc-diff
   "gs" 'magit-status
   )
@@ -368,7 +373,7 @@
  mu4e-drafts-folder "/[Gmail].Drafts"
  mu4e-sent-folder   "/[Gmail].Sent Mail"
  mu4e-trash-folder  "/Trash"
- mu4e-update-interval 60
+ mu4e-update-interval 600
  mu4e-view-show-images t
 
  mu4e-get-mail-command "offlineimap"
@@ -468,11 +473,18 @@
   (kill-buffer))
 
 (defun recentf-ido-find-file ()
-  "Find a recent file using ido."
+  "Find a recent files using ido."
   (interactive)
-  (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
-    (when file
-      (find-file file))))
+  (let* ((path-table (mapcar
+                      (lambda (x) (cons (file-name-nondirectory x) x))
+                      recentf-list))
+         (file-list (mapcar (lambda (x) (file-name-nondirectory x))
+                            recentf-list))
+         (complete-fun (if (require 'ido nil t)
+                           'ido-completing-read
+                         'completing-read))
+         (fname (funcall complete-fun "File Name: " file-list)))
+    (find-file (cdr (assoc fname path-table)))))
 
 
 (defun google ()
