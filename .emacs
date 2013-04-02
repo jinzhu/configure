@@ -1,6 +1,5 @@
 (require 'package)
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
+(setq package-archives '(("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 
 (package-initialize)
@@ -22,7 +21,7 @@
                    multi-web-mode
 
                    ;; Language
-                   inf-ruby ruby-electric ruby-tools ruby-end rinari yari
+                   inf-ruby ruby-electric ruby-tools rinari yari
 
                    ;; Themes
                    color-theme
@@ -35,7 +34,7 @@
                    helm projectile helm-projectile undo-tree multiple-cursors w3m smex
                    evil evil-leader evil-nerd-commenter switch-window
                    ack-and-a-half ace-jump-mode expand-region quickrun
-                   xclip gist pos-tip
+                   gist pos-tip
                    session
 
                    ;; GIT ;;git-gutter-fringe
@@ -103,7 +102,7 @@
 
 (setq my-packages
       (append
-       '(el-get rhtml-mode evil-surround sudo-save mmm-mode multi-term)
+       '(el-get rhtml-mode evil-surround sudo-save mmm-mode multi-term xclip)
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync my-packages)
@@ -183,7 +182,6 @@
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
 ;; xclip
-(xclip-mode 1)
 (turn-on-xclip)
 
 ;; Dired
@@ -222,6 +220,11 @@
                                try-complete-lisp-symbol-partially try-complete-lisp-symbol
                                try-expand-tag))
 
+;; W3M
+(setq w3m-home-page "https://duckduckgo.com" ;; COMMENT: sets homepage for w3m
+      w3m-key-binding 'info) ;; COMMENT: use info style keybindings
+
+
 ;; Auto Complete
 (require 'auto-complete-config)
 (ac-config-default)
@@ -243,6 +246,8 @@
 
 ;; Evil, VIM Mode
 (evil-mode 1)
+(evil-set-toggle-key "<pause>") ;; I don't use emacs mode
+(setq evil-leader/in-all-states t)
 (require 'evil-leader)
 (evil-leader/set-leader ";")
 (evil-leader/set-key
@@ -269,6 +274,13 @@
   "gl" 'magit-file-log
   )
 
+(setq evil-normal-state-tag   (propertize " N " 'face '((:background "green" :foreground "black"))) ;; NORMAL
+      evil-emacs-state-tag    (propertize " E " 'face '((:background "orange" :foreground "black"))) ;; EMACS
+      evil-insert-state-tag   (propertize " I " 'face '((:background "red")))  ;; INSERT
+      evil-motion-state-tag   (propertize " M " 'face '((:background "blue")))  ;; MOTION
+      evil-visual-state-tag   (propertize " V " 'face '((:background "grey80" :foreground "black"))) ;; VISUAL
+      evil-operator-state-tag (propertize " O " 'face '((:background "purple")))) ;; OPER
+
 ;; Recentf
 (setq recentf-max-saved-items 200
       recentf-max-menu-items 25)
@@ -280,8 +292,10 @@
 (projectile-global-mode)
 ;; (setq projectile-require-project-root nil)
 (setq projectile-enable-caching nil)
-(define-key evil-normal-state-map (kbd "M-p") 'ido-find-file-in-dir)
+(define-key evil-normal-state-map (kbd "M-p") 'ido-find-file)
 (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
+(define-key evil-normal-state-map (kbd "M-SPC") 'ace-jump-mode)
+;; (define-key evil-normal-state-map (kbd "TAB") 'evil-undefine)
 
 (require 'helm-projectile)
 
@@ -308,10 +322,11 @@
 ;; Evil Nerd Commenter
 (define-key evil-normal-state-map (kbd "gcc") 'evilnc-comment-or-uncomment-lines)
 (define-key evil-visual-state-map (kbd "gc") 'comment-or-uncomment-region)
-(define-key evil-insert-state-map (kbd "M-j") 'next-line)
-(define-key evil-insert-state-map (kbd "M-k") 'previous-line)
-(define-key evil-insert-state-map (kbd "M-l") 'right-char)
-(define-key evil-insert-state-map (kbd "M-h") 'left-char)
+
+;; In insert mode, use Emacs mode
+(setcdr evil-insert-state-map nil)
+(define-key evil-insert-state-map (read-kbd-macro evil-toggle-key) 'evil-emacs-state)
+(define-key evil-insert-state-map [escape] 'evil-normal-state)
 
 ;; Undo
 (setq undo-tree-auto-save-history t)
@@ -339,7 +354,6 @@
 (add-to-list 'auto-mode-alist '("\\.spec$" . ruby-mode))
 
 (require 'ruby-electric)
-(require 'ruby-end)
 (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
 
 ;; RHTML Mode
@@ -377,6 +391,7 @@
 (add-hook 'after-init-hook 'session-initialize)
 
 ;; IDO
+(icomplete-mode t)
 (ido-mode t)
 (ido-everywhere 1)
 (setq
@@ -567,10 +582,10 @@ Don't mess with special buffers."
 (set-face-attribute 'tabbar-separator nil  :height 0.7)
 (custom-set-variables '(tabbar-separator (quote (0.5)))) ;; adding spaces
 
-(define-key evil-normal-state-map (kbd "gT") 'tabbar-backward-group)
-(define-key evil-normal-state-map (kbd "gt") 'tabbar-forward-group)
-(define-key evil-normal-state-map (kbd "gY") 'tabbar-backward)
-(define-key evil-normal-state-map (kbd "gy") 'tabbar-forward)
+(define-key evil-normal-state-map (kbd "gT") 'tabbar-backward-tab)
+(define-key evil-normal-state-map (kbd "gt") 'tabbar-forward-tab)
+(define-key evil-normal-state-map (kbd "gY") 'tabbar-backward-group)
+(define-key evil-normal-state-map (kbd "gy") 'tabbar-forward-group)
 
 (defun my-tabbar-buffer-groups ()
   (list
@@ -581,7 +596,7 @@ Don't mess with special buffers."
     ((memq major-mode '(term-mode))
      "Term"
      )
-    ((memq major-mode '(mu4e-view-mode-map mu4e-main-mode-map mu4e-headers-mode-map mu4e-view-raw-mode-map))
+    ((memq major-mode '(mu4e-view-mode mu4e-main-mode mu4e-headers-mode mu4e-view-raw-mode))
      "Mail"
      )
     ((string-equal "*" (substring (buffer-name) 0 1))
