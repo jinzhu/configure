@@ -21,7 +21,7 @@
                    multi-web-mode
 
                    ;; Language
-                   inf-ruby ruby-electric ruby-tools rinari yari
+                   inf-ruby ruby-electric ruby-tools yari
 
                    ;; Themes
                    color-theme
@@ -30,7 +30,7 @@
                    auto-complete
 
                    ;; Tools
-		   tabbar
+                   tabbar
                    helm projectile helm-projectile undo-tree multiple-cursors w3m smex
                    evil evil-leader evil-nerd-commenter switch-window
                    ack-and-a-half ace-jump-mode expand-region quickrun
@@ -66,7 +66,7 @@
           :type github
           :pkgname "remvee/emacs-rails"
           :after (require 'rails)
-	  )
+          )
    (:name yasnippets-rails
           :type github
           :pkgname "martinjlowm/yasnippets-rails"
@@ -82,6 +82,10 @@
    (:name emamux-ruby-test
           :type github
           :pkgname "syohex/emamux-ruby-test"
+          )
+   (:name rinari
+          :type github
+          :pkgname "eschulte/rinari"
           )
    (:name youdao
           :type github
@@ -229,7 +233,17 @@
 (require 'auto-complete-config)
 (ac-config-default)
 (global-auto-complete-mode t)
-(setq ac-auto-show-menu 0.8)
+(setq ac-use-quick-help nil)
+;; Ignore case if completion target string doesn't include upper characters
+(setq ac-ignore-case 'smart)
+;; (setq ac-auto-show-menu 0.8)
+
+;; Select candidates with C-n/C-p only when completion menu is displayed
+(setq ac-use-menu-map t)
+;; Default settings
+(define-key ac-menu-map "\C-n" 'ac-next)
+(define-key ac-menu-map "\C-p" 'ac-previous)
+
 
 ;; CoffeeMode
 (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
@@ -268,7 +282,7 @@
   "tR" 'emamux-ruby-test:run-focused-test
 
   "w" 'save-buffer
-  "a" 'projectile-ack
+  "a" 'ack-and-a-half
   "gd" 'vc-diff
   "gs" 'magit-status
   "gl" 'magit-file-log
@@ -358,6 +372,7 @@
 
 ;; RHTML Mode
 (add-to-list 'auto-mode-alist '("\\.erb$" . rhtml-mode))
+(add-hook 'rhtml-mode-hook (lambda () (rinari-launch)))
 
 ;; Markdown Mode
 (add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))

@@ -26,7 +26,6 @@ nn <Space>r  :Rake
 
 nn <Space>M  :Rmigration 
 nn <Space>o  :Robserver 
-nn <Space>p  :Rplugin 
 
 nn <Space>C  :Rconsole 
 nn <Space>D  :Rdoc 

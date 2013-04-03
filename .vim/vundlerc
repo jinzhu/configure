@@ -14,8 +14,11 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-rake'
 Bundle 'tpope/vim-bundler'
+Bundle 'tpope/vim-dispatch'
 " ~/.vim/macros/rails.vim
 
+" + to expand, - to shrink
+Bundle 'terryma/vim-expand-region'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TMUX
@@ -50,12 +53,13 @@ Bundle 'benmills/vimux-golang'
 autocmd FileType go map <Leader>tr :GolangTestCurrentPackage<CR>
 
 
-
 " Bundle 'yesmeck/tips.vim'
 
-let g:quickfixsigns_classes = ['marks', 'vcsdiff']
-let g:quickfixsigns_events = ['BufEnter', 'CursorMoved', 'CursorMovedI']
-Bundle 'tomtom/quickfixsigns_vim'
+Bundle 'mhinz/vim-signify'
+let g:signify_mapping_next_hunk = '<leader>sj'
+let g:signify_mapping_prev_hunk = '<leader>sk'
+let g:signify_mapping_toggle = '<leader>sh'
+let g:signify_mapping_toggle_highlight = '<leader>sl'
 
 Bundle 'jade.vim'
 Bundle 'tpope/vim-ragtag'
@@ -82,7 +86,8 @@ Bundle 'int3/vim-extradite'
 Bundle 'tpope/vim-rhubarb'
 " ~/.vim/bundle/vim-fugitive/doc/fugitive.txt
 map <Leader>gs :Gstatus<CR>
-map <Leader>gd :Git! diff<CR>
+map <Leader>gb :Gblame<CR>
+map <Leader>gd :Git! diff %<CR>
 map <Leader>gc :Gcommit<CR>
 map <Leader>gl :Extradite<CR>
 
@@ -97,10 +102,13 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 Bundle 'VisIncr'
 Bundle 'Align'
+
 Bundle 'tComment'
 " ~/.vim/bundle/tComment/doc/tcomment.txt
+
 Bundle 'mileszs/ack.vim'
-" :Ack
+let g:ackprg = 'ag --nogroup --nocolor --column' " the_silver_searcher
+map <Leader>a :Ack 
 " o (open) go (preview open) t (tab) T (new tab silently) v (vertical) gv q (close)
 
 " Bundle 'AutoComplPop'
@@ -150,8 +158,11 @@ Bundle 'jsbeautify'
 Bundle 'MultipleSearch'
 Bundle 'reorder-tabs'
 " <M-PgUp> / <M-PgDn>
+
 Bundle 'sessionman.vim'
+map <Leader>s :SessionList<CR>
 " :SessionClose :SessionList :SessionOpen :SessionOpenLast :SessionSave :SessionSaveAs :SessionShowLast
+
 Bundle 'scrooloose/nerdtree'
 Bundle 'Glob-Edit'
 " :edit plugin/*vim
@@ -170,6 +181,7 @@ Bundle 'YankRing.vim'
 " Bundle 'gerw/vim-latex-suite'
 
 Bundle 'Raimondi/delimitMate'
+" automatic closing of quotes, parenthesis, brackets
 
 " ColorScheme
 Bundle 'tpope/vim-vividchalk'
@@ -202,7 +214,7 @@ Bundle 'spiiph/vim-space'
 Bundle 'sjl/gundo.vim'
 let g:gundo_width = 60
 let g:gundo_preview_height = 22
-" map <F9> :GundoToggle<CR>
+map <F9> :GundoToggle<CR>
 
 Bundle 'Yggdroot/indentLine'
 let g:indentLine_enabled=0
@@ -214,10 +226,15 @@ let g:Powerline_stl_path_style='full'
 Bundle 'gregsexton/MatchTag'
 Bundle 'bronson/vim-visual-star-search'
 Bundle 'majutsushi/tagbar'
-" nmap <F8> :TagbarToggle<CR>
+nmap <F8> :TagbarToggle<CR>
 
 Bundle 'kien/ctrlp.vim'
 let g:ctrlp_extensions = ['changes', 'line', 'buffertag']
+let g:ctrlp_max_files = 20000
+let g:ctrlp_max_depth = 8
+let g:ctrlp_use_caching = 1
+let g:ctrlp_clear_cache_on_exit = 1
+let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 let g:ctrlp_mruf_last_entered = 1
 let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_max_height = 35
@@ -231,6 +248,12 @@ let g:ctrlp_prompt_mappings = {
       \ 'PrtHistory(-1)':       ['<c-j>'],
       \ 'PrtHistory(1)':        ['<c-k>']
       \}
+
+let g:ctrlp_cmd = 'CtrlP'
+map <Space>p :CtrlPMixed<CR>
+map <Leader>b :CtrlPBuffer<CR>
+map <Leader>r :CtrlPMRUFiles<CR>
+
 
 Bundle 'gmarik/github-search.vim'
 " :GHSearchRepo something

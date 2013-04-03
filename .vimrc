@@ -33,7 +33,7 @@ set modelines=5                " default numbers of lines to read for modeline i
 
 " set autochdir
 let bufpane_showhelp = 0
-set number                      "Line numbers are good
+" set number                      "Line numbers are good
 set backspace=indent,eol,start  "Allow backspace in insert mode
 set showcmd                     "Show incomplete cmds down the bottom
 set showmode                    "Show current mode down the bottom
@@ -92,6 +92,8 @@ set nowb
 set autowrite                   " Writes on make/shell commands
 set autoread                    "Reload files changed outside vim
 
+" no ex mode
+nnoremap Q <nop>
 
 " ================ Persistent Undo ==================
 " Keep undo history across sessions, by storing in file.
@@ -216,15 +218,9 @@ autocmd BufRead,BufNewFile *.rb map <F5>      :% w !ruby<CR>
 imap <F6> <Esc>:ColorPicker<Cr>a
 vmap <F6> <Del><Esc>h:ColorPicker<Cr>a
 map <F7> :IndentLinesToggle <CR>
-nmap <F8> :TagbarToggle<CR>
-map <F9> :GundoToggle<CR>
 set pastetoggle=<F10>          " toggle between paste and normal: for 'safer' pasting from keyboard
 nmap <F11> <Plug>ToggleAutoCloseMappings
 
-let g:ctrlp_cmd = 'CtrlPMixed'
-" map <Leader>t :CtrlP<CR>
-map <Leader>b :CtrlPBuffer<CR>
-map <Leader>r :CtrlPMRUFiles<CR>
 map \c :%s/\s\+$//<CR>
 
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
@@ -242,11 +238,6 @@ noremap <silent> <leader>fn :let @+=expand('%:p')<CR>
 " copy file directory
 noremap <silent> <leader>fd :let @+=expand('%:p:h')<CR>
 
-map <Leader>a :Ack 
-
-map <Leader>s :SessionList<CR>
-autocmd! bufwritepost vundlerc source ~/.vimrc
-autocmd! bufwritepost vundlerc source Pl#Load()
 autocmd! bufwritepost .vimrc source ~/.vimrc
 autocmd! bufwritepost .vimrc call Pl#Load()
 autocmd! BufREAD * call Pl#Load()
@@ -331,3 +322,14 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+
+
+" Git commits.
+autocmd FileType gitcommit setlocal spell
+" Subversion commits.
+autocmd FileType svn       setlocal spell
+" Mercurial commits.
+autocmd FileType asciidoc  setlocal spell
+
+" q: -> open your command history
+" q/ -> open your search history

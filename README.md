@@ -14,7 +14,7 @@
 
     pacman -S xorg-server xmonad xmonad-contrib xmobar dmenu sudo readline abs
     pacman -S base-devel whois wireless_tools unzip unzip tar p7zip gzip bzip2 pm-utils openssh pkgtools
-    pacman -S zsh gvim rxvt-unicode tmux git tig mercurial gdb ranger sdcv xsel openvpn htop iotop ack ctags mutt irssi lsof iptables links go ruby nginx bash-completion
+    pacman -S zsh gvim emacs rxvt-unicode tmux git tig mercurial gdb ranger sdcv xsel openvpn htop iotop the_silver_searcher ctags mutt irssi lsof iptables links go ruby nginx bash-completion
     pacman -S fakeroot rsync network-manager-applet synergy xbindkeys xclip xorg-xmodmap
     pacman -S gimp inkscape gcolor2 dia scrot nautilus-open-terminal memcached mongodb redis mysql postgresql python-beautifulsoup fcitx evince eog smplayer shotwell
     pacman -S chromium firefox
