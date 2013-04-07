@@ -1,6 +1,7 @@
 *.log
 *.sqlite3
 *.swp
+*.txt
 tags
 
 .xmonad/xmonad-*
