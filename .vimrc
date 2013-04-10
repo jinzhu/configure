@@ -333,12 +333,14 @@ autocmd FileType svn       setlocal spell
 " Mercurial commits.
 autocmd FileType asciidoc  setlocal spell
 
-" autocmd BufNew,BufReadPost *
-"       \ let b:orig_file = fnameescape(expand('%:p')) |
-"       \ if getftype(b:orig_file) == 'link' |
-"       \     execute ':silent! lcd ' . fnamemodify(resolve(b:orig_file), ':p:h') |
-"       \     execute ':silent! file ' . fnameescape(resolve(b:orig_file)) |
-"       \ endif
+function! FollowSymlink()
+  let b:orig_file = fnameescape(expand('%:p'))
+  if getftype(b:orig_file) == 'link'
+    execute 'lcd' fnamemodify(resolve(b:orig_file), ':p:h')
+    execute 'file' fnameescape(resolve(b:orig_file))
+    :edit!
+  endif
+endfunction
 
 " q: -> open your command history
 " q/ -> open your search history
