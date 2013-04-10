@@ -85,11 +85,12 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'int3/vim-extradite'
 Bundle 'tpope/vim-rhubarb'
 " ~/.vim/bundle/vim-fugitive/doc/fugitive.txt
-map <Leader>gs :Gstatus<CR>
-map <Leader>gb :Gblame<CR>
-map <Leader>gd :Git! diff %<CR>
-map <Leader>gc :Gcommit<CR>
-map <Leader>gl :Extradite<CR>
+map <LocalLeader>gs :Gstatus<CR>
+map <LocalLeader>gb :Gblame<CR>
+map <LocalLeader>gd :Git! diff %<CR>
+map <LocalLeader>gD :Git! diff<CR>
+map <LocalLeader>gc :Gcommit<CR>
+map <LocalLeader>gl :Extradite<CR>
 
 
 Bundle 'Gist.vim'
@@ -108,7 +109,7 @@ Bundle 'tComment'
 
 Bundle 'mileszs/ack.vim'
 let g:ackprg = 'ag --nogroup --nocolor --column' " the_silver_searcher
-map <Leader>a :Ack
+map <Leader>a :Ack \
 " o (open) go (preview open) t (tab) T (new tab silently) v (vertical) gv q (close)
 
 " Bundle 'AutoComplPop'
@@ -226,8 +227,10 @@ let g:Powerline_stl_path_style='full'
 
 Bundle 'gregsexton/MatchTag'
 Bundle 'bronson/vim-visual-star-search'
+
 Bundle 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
+Bundle 'AutoTag'
 
 Bundle 'kien/ctrlp.vim'
 let g:ctrlp_extensions = ['changes', 'line', 'tag', 'buffertag']
@@ -235,6 +238,7 @@ let g:ctrlp_lazy_update = 1
 let g:ctrlp_max_files = 20000
 let g:ctrlp_max_depth = 8
 let g:ctrlp_use_caching = 1
+let g:ctrlp_show_hidden = 1
 let g:ctrlp_clear_cache_on_exit = 1
 let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 let g:ctrlp_mruf_last_entered = 1
@@ -252,12 +256,21 @@ let g:ctrlp_prompt_mappings = {
       \}
 
 let g:ctrlp_cmd = 'CtrlP'
-map <C-t> :CtrlPTag<CR>
-map <Space>p :CtrlPMixed<CR>
 map <Leader>b :CtrlPBuffer<CR>
 map <Leader>r :CtrlPMRUFiles<CR>
-map <Leader>tg :CtrlPTag<CR>
-map <Leader>tb :CtrlPBufTag<CR>
+map <Leader>gr :CtrlPRoot<CR>
+map <Leader>gf :CtrlPCurFile<CR>
+map <Leader>gd :CtrlPCurWD<CR>
+map <Leader>gl :CtrlPLine<CR>
+map <Leader>gg :CtrlPTag<CR>
+map <Leader>gb :CtrlPBufTag<CR>
+map <Leader>gB :CtrlPBufTagAll<CR>
+map <Leader>gq :CtrlPQuickfix<CR>
+map <Leader>gc :CtrlPChange<CR>
+map <Leader>gC :CtrlPChangeAll<CR>
+map <Leader>gm :CtrlPMixed<CR>
+map <Leader>gc :CtrlPChange<CR>
+map <Leader>gp :CtrlPRTS<CR>
 let g:ctrlp_buftag_types = {
             \ 'go'     : '--language-force=go',
             \ 'coffee'     : '--language-force=coffee',

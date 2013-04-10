@@ -1,6 +1,7 @@
 set nocompatible
 
 let mapleader = ";"
+let maplocalleader = "\\"
 
 if filereadable(expand("~/.vim/vundlerc"))
   source ~/.vim/vundlerc
@@ -25,7 +26,7 @@ set cdpath+=~/GIT
 
 set shiftround                 " round indent to multiple of 'shiftwidth'
 set tags=tags,./tags,tmp/tags,doc/tags
-map <Leader>gt :!ctags --extra=+f -R<CR>
+map <LocalLeader>gt :!ctags --extra=+f -R<CR><CR>
 
 let g:is_posix = 1             " vim's default is archaic bourne shell, bring it up to the 90s
 
@@ -85,8 +86,8 @@ set viminfo='100,f1            "Save up to 100 marks, enable capital marks
 " ================ Turn Off Swap Files ==============
 
 set backup              " make backup file
-set backupdir==~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp  " where to put backup file
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp   " directory is the directory for temp file
+set backupdir=~/.cache/vim,/tmp  " where to put backup file
+set directory=~/.cache/vim,/tmp   " directory is the directory for temp file
 set noswapfile
 set nowb
 
@@ -101,7 +102,7 @@ nnoremap Q <nop>
 " Only works all the time.
 
 set undofile
-set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set undodir=~/.cache/vim,/tmp
 
 " ================ Indentation ======================
 
@@ -225,10 +226,10 @@ nmap <F11> <Plug>ToggleAutoCloseMappings
 map \c :%s/\s\+$//<CR>
 
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
-map <leader>ew :e %%
-map <leader>es :sp %%
-map <leader>ev :vsp %%
-map <leader>et :tabe %%
+map <Leader>ew :e %%
+map <Leader>es :sp %%
+map <Leader>ev :vsp %%
+map <Leader>et :tabe %%
 map <Leader>ec :tabedit ~/.vimrc<CR>
 
 " copy filename with line
@@ -245,9 +246,8 @@ autocmd! BufREAD * call Pl#Load()
 autocmd! BufDelete * call Pl#Load()
 autocmd! BufWritePost *.go execute ':Fmt'
 
-map <Leader>p :YRShow<CR>
-
-map <leader>cd :lcd %:p:h<CR>:pwd<CR>
+map <LocalLeader>p :YRShow<CR>
+map <LocalLeader>cd :lcd %:p:h<CR>:pwd<CR>
 
 """ Save file
 nnoremap <Leader>o <C-w>o
@@ -295,27 +295,27 @@ nnoremap <C-y> 3<C-y>
 nn <M-PageUp> :call MoveCurrentTab(-1)<CR>
 nn <M-PageDown> :call MoveCurrentTab(1)<CR>
 
-nn ;1 1gt
-nn ;2 2gt
-nn ;3 3gt
-nn ;4 4gt
-nn ;5 5gt
-nn ;6 6gt
-nn ;7 7gt
-nn ;8 8gt
-nn ;9 9gt
-nn ;0 :tablast<CR>
+nn <Leader>1 1gt
+nn <Leader>2 2gt
+nn <Leader>3 3gt
+nn <Leader>4 4gt
+nn <Leader>5 5gt
+nn <Leader>6 6gt
+nn <Leader>7 7gt
+nn <Leader>8 8gt
+nn <Leader>9 9gt
+nn <Leader>0 :tablast<CR>
 
-ino ;1 <C-o>1gt
-ino ;2 <C-o>2gt
-ino ;3 <C-o>3gt
-ino ;4 <C-o>4gt
-ino ;5 <C-o>5gt
-ino ;6 <C-o>6gt
-ino ;7 <C-o>7gt
-ino ;8 <C-o>8gt
-ino ;9 <C-o>9gt
-ino ;0 <C-o>:tablast<CR>
+ino <Leader>1 <C-o>1gt
+ino <Leader>2 <C-o>2gt
+ino <Leader>3 <C-o>3gt
+ino <Leader>4 <C-o>4gt
+ino <Leader>5 <C-o>5gt
+ino <Leader>6 <C-o>6gt
+ino <Leader>7 <C-o>7gt
+ino <Leader>8 <C-o>8gt
+ino <Leader>9 <C-o>9gt
+ino <Leader>0 <C-o>:tablast<CR>
 
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags

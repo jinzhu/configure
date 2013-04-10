@@ -11,6 +11,8 @@
 --exclude=*.sql
 --exclude=*.min.js
 --exclude=*.pack.js
+--exclude=*.css
+--exclude=*.js
 
 --langdef=go
 --langmap=go:.go
