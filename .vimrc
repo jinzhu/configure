@@ -211,7 +211,7 @@ let g:html_tag_case     = 'lowercase'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" My Leader HotKeys
+""" My Hot Keys
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <F2> :tabedit<CR>
 map <F3> :lcd %:p:h<CR>:shell<CR>
@@ -222,6 +222,8 @@ vmap <F6> <Del><Esc>h:ColorPicker<Cr>a
 map <F7> :IndentLinesToggle <CR>
 set pastetoggle=<F10>          " toggle between paste and normal: for 'safer' pasting from keyboard
 nmap <F11> <Plug>ToggleAutoCloseMappings
+" ]s - next spell error, [s - previous spell error
+nmap <F12> :set spell! spelllang=en_us<CR>
 
 map \c :%s/\s\+$//<CR>
 
@@ -233,27 +235,26 @@ map <Leader>et :tabe %%
 map <Leader>ec :tabedit ~/.vimrc<CR>
 
 " copy filename with line
-noremap <silent> <leader>fl :let @+=expand("%:p:l").":".line(".")<CR>
-" copy filename
-noremap <silent> <F12> :let @+=expand('%:p')<CR>
-noremap <silent> <leader>fn :let @+=expand('%:p')<CR>
+noremap <silent> <leader>yl :let @+=expand("%:p:l").":".line(".")<CR>:echo @+<CR>
+" copy full filename
+noremap <silent> <Leader>yf :let @+=expand('%:p')<CR>:echo @+<CR>
+" copy short filename
+noremap <silent> <Leader>yF :let @+=expand('%')<CR>:echo @+<CR>
 " copy file directory
-noremap <silent> <leader>fd :let @+=expand('%:p:h')<CR>
+noremap <silent> <Leader>yd :let @+=expand('%:p:h')<CR>:echo @+<CR>
+" copy yanked text to clipboard
+noremap <silent> <Leader>yy :let @+=@"<CR>:echo @+<CR>
 
-autocmd! bufwritepost .vimrc source ~/.vimrc
-autocmd! bufwritepost .vimrc call Pl#Load()
-autocmd! BufREAD * call Pl#Load()
-autocmd! BufDelete * call Pl#Load()
+
 autocmd! BufWritePost *.go execute ':Fmt'
 
-map <LocalLeader>p :YRShow<CR>
 map <LocalLeader>cd :lcd %:p:h<CR>:pwd<CR>
 
 """ Save file
 nnoremap <Leader>o <C-w>o
 nnoremap <Leader>c <C-w>c
-imap <Leader>w <ESC>:w<CR>
-map  <Leader>w <ESC>:w<CR>
+imap <Leader>w <ESC>:update<CR>
+map  <Leader>w <ESC>:update<CR>
 
 
 """" Copy & Paste
@@ -332,5 +333,14 @@ autocmd FileType svn       setlocal spell
 " Mercurial commits.
 autocmd FileType asciidoc  setlocal spell
 
+" autocmd BufNew,BufReadPost *
+"       \ let b:orig_file = fnameescape(expand('%:p')) |
+"       \ if getftype(b:orig_file) == 'link' |
+"       \     execute ':silent! lcd ' . fnamemodify(resolve(b:orig_file), ':p:h') |
+"       \     execute ':silent! file ' . fnameescape(resolve(b:orig_file)) |
+"       \ endif
+
 " q: -> open your command history
 " q/ -> open your search history
+" :verbose map -> list all your maps
+" :verbose abbr -> list all your maps

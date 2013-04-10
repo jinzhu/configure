@@ -38,12 +38,13 @@ def exec(str)
 end
 
 task :install do
-  exec("mkdir ~/.cache/vim -p") unless File.exist?("#{ENV['HOME']}/.cache/vim")
+  system("mkdir ~/.cache/vim -p") unless File.exist?("#{ENV['HOME']}/.cache/vim")
   exec("ln -nfs KEY VALUE")
   puts "\e[33mInstall Complete\e[0m"
   system("git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle") unless File.exist?(File.expand_path("~/.vim/bundle/vundle"))
   # For vim-preview
-  exec("gem install bluecloth github-markup RedCloth ronn RbST")
+  system("gem install bluecloth github-markup RedCloth ronn RbST")
+  system("vim +BundleInstall +qall")
 end
 
 task :remove do

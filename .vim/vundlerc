@@ -83,7 +83,9 @@ Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-git'
 Bundle 'tpope/vim-fugitive'
 Bundle 'int3/vim-extradite'
+Bundle 'gregsexton/gitv'
 Bundle 'tpope/vim-rhubarb'
+autocmd FileType gitcommit nmap <buffer> U :Git checkout -- <C-r><C-g><CR>
 " ~/.vim/bundle/vim-fugitive/doc/fugitive.txt
 map <LocalLeader>gs :Gstatus<CR>
 map <LocalLeader>gb :Gblame<CR>
@@ -91,6 +93,7 @@ map <LocalLeader>gd :Git! diff %<CR>
 map <LocalLeader>gD :Git! diff<CR>
 map <LocalLeader>gc :Gcommit<CR>
 map <LocalLeader>gl :Extradite<CR>
+map <LocalLeader>gv :Gitv<CR>
 
 
 Bundle 'Gist.vim'
@@ -108,9 +111,13 @@ Bundle 'tComment'
 " ~/.vim/bundle/tComment/doc/tcomment.txt
 
 Bundle 'mileszs/ack.vim'
-let g:ackprg = 'ag --nogroup --nocolor --column' " the_silver_searcher
+" let g:ackprg = 'ag --nogroup --nocolor --column' " the_silver_searcher
 noremap <Leader>a :Ack <C-R><C-W>
+" copy visual value to register 'z' first
+vnoremap <Leader>a "zy:Ack <C-R>z
 " o (open) go (preview open) t (tab) T (new tab silently) v (vertical) gv q (close)
+
+" Bundle 'ZoomWin'
 
 " Bundle 'AutoComplPop'
 Bundle 'Shougo/neocomplcache'
@@ -175,6 +182,7 @@ Bundle 'tyru/current-func-info.vim'
 
 " Maintains a history of yanks
 Bundle 'YankRing.vim'
+map <LocalLeader>p :YRShow<CR>
 let g:yankring_history_dir = '~/.cache/vim'
 " s search, also have value in clipboard
 
@@ -230,6 +238,10 @@ let g:indentLine_enabled=0
 
 Bundle 'Lokaltog/vim-powerline'
 let g:Powerline_stl_path_style='full'
+autocmd! bufwritepost .vimrc source ~/.vimrc
+autocmd! bufwritepost .vimrc call Pl#Load()
+autocmd! BufREAD * call Pl#Load()
+autocmd! BufDelete * call Pl#Load()
 
 Bundle 'gregsexton/MatchTag'
 Bundle 'bronson/vim-visual-star-search'
