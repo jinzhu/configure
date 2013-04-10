@@ -124,8 +124,8 @@ Host qtb-dev
             HostName 54.248.102.248
 
 Host fast
-            HostName 175.41.251.74
-            Port 22
+            HostName 175.41.252.65
+            Port 222
             User app
             Protocol 2
 Host usa

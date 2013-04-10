@@ -64,3 +64,5 @@
   tab-size = 2
 [web]
 	browser = chromium
+[core]
+	excludesfile = ~/.git_global_ignore

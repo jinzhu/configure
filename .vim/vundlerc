@@ -252,9 +252,20 @@ let g:ctrlp_prompt_mappings = {
       \}
 
 let g:ctrlp_cmd = 'CtrlP'
+map <C-t> :CtrlPTag<CR>
 map <Space>p :CtrlPMixed<CR>
 map <Leader>b :CtrlPBuffer<CR>
 map <Leader>r :CtrlPMRUFiles<CR>
+map <Leader>tg :CtrlPTag<CR>
+map <Leader>tb :CtrlPBufTag<CR>
+let g:ctrlp_buftag_types = {
+            \ 'go'     : '--language-force=go',
+            \ 'coffee'     : '--language-force=coffee',
+            \ 'css'     : '--language-force=css',
+            \ 'scss'     : '--language-force=scss',
+            \ 'js'     : '--language-force=js',
+            \ 'markdown'     : '--language-force=markdown'
+            \ }
 
 
 Bundle 'gmarik/github-search.vim'

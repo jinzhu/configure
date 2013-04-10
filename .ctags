@@ -1,0 +1,52 @@
+--recurse
+--links=no
+
+--exclude=.git
+--exclude=.svn
+--exclude=.vim
+--exclude=tmp
+--exclude=doc
+--exclude=vendor
+--exclude=*.log
+--exclude=*.sql
+--exclude=*.min.js
+--exclude=*.pack.js
+
+--langdef=go
+--langmap=go:.go
+--regex-go=/func([ \t]+\([^)]+\))?[ \t]+([a-zA-Z0-9_]+)/\2/d,func/
+--regex-go=/var[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/d,var/
+--regex-go=/type[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/d,type/
+
+--langdef=markdown
+--langmap=markdown:.md
+--langmap=markdown:+.mkd
+--regex-markdown=/^#[ \t]+(.*)/\1/h,Heading_L1/
+--regex-markdown=/^##[ \t]+(.*)/\1/i,Heading_L2/
+--regex-markdown=/^###[ \t]+(.*)/\1/k,Heading_L3/
+
+--langdef=coffee
+--langmap=coffee:.coffee
+--regex-coffee=/^[ \t]*class[ \t]+([A-Za-z.@]+)/\1/,class/
+--regex-coffee=/^[ \t]*([A-Za-z.]+)[ \t]*\:.*(->|=>).*$/\1/,method/
+--regex-coffee=/^[ \t]*(@[A-Za-z.]+)[ \t]*\:.*(->|=>).*$/\1/,staticmethod/
+--regex-coffee=/^[ \t]*([A-Za-z.]+)[ \t]*=.*(->|=>).*$/\1/,function/
+--regex-coffee=/^[ \t]*([A-Z0-9_]+)[ \t]*=.*$/\1/,constant/
+
+--langdef=css
+--langmap=css:.css
+--regex-css=/^[ \t]*([^\t {][^{]{1,100})(\t| )*\{/\1/d,definition/
+
+--langdef=scss
+--langmap=scss:.scss
+--regex-scss=/^[ \t]*([^\t {][^{]{1,100})(\t| )*\{/| \1/d,definition/
+--regex-scss=/^[@]mixin ([^ (]+).*/\1/m,mixing/
+
+--langdef=js
+--langmap=js:.js
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/,object/
+--regex-js=/([A-Za-z0-9._$()]+)[ \t]*[:=][ \t]*function[ \t]*\(/\1/,function/
+--regex-js=/function[ \t]+([A-Za-z0-9._$]+)[ \t]*\(([^)])\)/\1/,function/
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/,array/
+--regex-js=/([^= ]+)[ \t]*=[ \t]*[^"]'[^']*/\1/,string/
+--regex-js=/([^= ]+)[ \t]*=[ \t]*[^']"[^"]*/\1/,string/

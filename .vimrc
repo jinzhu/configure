@@ -24,7 +24,8 @@ set cdpath+=~
 set cdpath+=~/GIT
 
 set shiftround                 " round indent to multiple of 'shiftwidth'
-set tags=./tags;$HOME          " walk directory tree upto $HOME looking for tags
+set tags=tags,./tags,tmp/tags,doc/tags
+map <Leader>gt :!ctags --extra=+f -R<CR>
 
 let g:is_posix = 1             " vim's default is archaic bourne shell, bring it up to the 90s
 
