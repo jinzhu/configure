@@ -109,7 +109,7 @@ Bundle 'tComment'
 
 Bundle 'mileszs/ack.vim'
 let g:ackprg = 'ag --nogroup --nocolor --column' " the_silver_searcher
-map <Leader>a :Ack \
+noremap <Leader>a :Ack <C-R><C-W>
 " o (open) go (preview open) t (tab) T (new tab silently) v (vertical) gv q (close)
 
 " Bundle 'AutoComplPop'
@@ -175,7 +175,7 @@ Bundle 'tyru/current-func-info.vim'
 
 " Maintains a history of yanks
 Bundle 'YankRing.vim'
-let g:yankring_history_dir = '~/.vim/'
+let g:yankring_history_dir = '~/.cache/vim'
 " s search, also have value in clipboard
 
 " LaTex
@@ -201,6 +201,12 @@ Bundle 'cespare/mxml.vim'
 Bundle 'nono/jquery.vim'
 Bundle 'actionscript.vim'
 Bundle 'sunaku/vim-ruby-minitest'
+
+" Preview:
+" markdown (gem: bluecloth), rdoc (gem: github-markup), textile (gem: RedCloth)
+" ronn (gem: ronn), html, reStructuredText (gem: RbST) and (util: rst2html)
+let g:PreviewBrowsers='chromium,firefox'
+Bundle 'greyblake/vim-preview'
 
 Bundle 'LargeFile'
 
