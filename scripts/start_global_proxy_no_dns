@@ -1,0 +1,1 @@
+sshuttle -r fast 0.0.0.0/0 -vv
