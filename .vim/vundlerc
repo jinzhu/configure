@@ -119,7 +119,6 @@ vnoremap <Leader>a "zy:Ack <C-R>z
 
 " Bundle 'ZoomWin'
 
-" Bundle 'AutoComplPop'
 Bundle 'Shougo/neocomplcache'
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
@@ -128,14 +127,14 @@ let g:neocomplcache_enable_underbar_completion = 1
 let g:neocomplcache_auto_completion_start_length = 1
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-let g:neocomplcache_max_list = 50
+let g:neocomplcache_max_list = 25
 let g:neocomplcache_enable_auto_select = 1
 let g:neocomplcache_enable_fuzzy_completion = 1
 let g:neocomplcache_fuzzy_completion_start_length = 2
 let g:neocomplcache_enable_cursor_hold_i = 0
 let g:neocomplcache_cursor_hold_i_time = 300
 let g:neocomplcache_enable_insert_char_pre = 0
-let g:neocomplcache_enable_prefetch = 0
+let g:neocomplcache_enable_prefetch = 1
 
 let g:neocomplcache_dictionary_filetype_lists = {
             \ 'default' : ''
@@ -147,11 +146,23 @@ endif
 let g:neocomplcache_wildcard_characters._ = '-'
 let g:neocomplcache_enable_auto_delimiter = 1
 
-inoremap <expr><C-y>  neocomplcache#cancel_popup()
+inoremap <expr><C-y> neocomplcache#cancel_popup()
+inoremap <expr><C-g> neocomplcache#undo_completion()>
 " Enable heavy omni completion.
 if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
+
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1 
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
@@ -159,6 +170,7 @@ let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
 let g:neocomplcache_omni_functions = {
       \ 'ruby' : 'rubycomplete#Complete',
+      \ 'eruby' : 'htmlcomplete#CompleteTags',
       \ }
 
 
@@ -270,7 +282,7 @@ let g:ctrlp_custom_ignore = {
   \ }
 let g:ctrlp_user_command = {
             \ 'types': {
-            \ 1: ['.git', 'cd %s && git ls-files'],
+            \ 1: ['.git', 'cd %s && git ls-files -oc --exclude-standard'],
             \ 2: ['.hg', 'hg --cwd %s locate -I .'],
             \ },
             \ 'fallback': 'find %s -type f'
