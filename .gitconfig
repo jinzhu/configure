@@ -66,3 +66,12 @@
 	browser = chromium
 [core]
 	excludesfile = ~/.git_global_ignore
+
+[pull]
+  rebase = true
+[push]
+  default = tracking
+[rebase]
+  autosquash = true
+[help]
+  autocorrect = 1

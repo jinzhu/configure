@@ -17,6 +17,9 @@ Bundle 'tpope/vim-bundler'
 Bundle 'tpope/vim-dispatch'
 " ~/.vim/macros/rails.vim
 
+Bundle 'tpope/vim-characterize'
+" ga -> to print characterize
+
 " + to expand, - to shrink
 Bundle 'terryma/vim-expand-region'
 
@@ -72,6 +75,12 @@ Bundle 'tpope/vim-unimpaired'
 " ]<Space>, [<Spance>  Add [count] blank lines above/below the cursor.
 " `[x` XML encode, `]x` XML decode, `[u` URL encode, `]u` URL decode, `[y` C String encode, `]y` C String decode
 
+let g:surround_{char2nr('-')} = "<% \r %>"
+let g:surround_{char2nr('=')} = "<%= \r %>"
+let g:surround_{char2nr('8')} = "/* \r */"
+let g:surround_{char2nr('s')} = " \r"
+let g:surround_{char2nr('^')} = "/^\r$/"
+let g:surround_indent = 1
 Bundle 'tpope/vim-surround'
 " cs'<q>, cst", dst, ys2w), yss), v<move>S)
 
@@ -230,6 +239,9 @@ Bundle 'greyblake/vim-preview'
 
 Bundle 'LargeFile'
 
+" Bundle 'css_color.vim'
+" Bundle 'skammer/vim-css-color'
+" let g:cssColorVimDoNotMessMyUpdatetime = 0
 Bundle 'VIM-Color-Picker'
 " <F6> :ColorPicker
 Bundle 'thinca/vim-quickrun'

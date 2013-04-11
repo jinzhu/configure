@@ -326,6 +326,7 @@ autocmd FileType svn       setlocal spell
 " Mercurial commits.
 autocmd FileType asciidoc  setlocal spell
 
+
 function! FollowSymlink()
   let b:orig_file = fnameescape(expand('%:p'))
   if getftype(b:orig_file) == 'link'
@@ -333,7 +334,26 @@ function! FollowSymlink()
     execute 'file' fnameescape(resolve(b:orig_file))
     :edit!
   endif
+  redraw!
 endfunction
+command! FollowSymlink :call FollowSymlink()
+nnoremap <Leader>F :FollowSymlink<CR>
+
+
+function! OpenURL(url)
+  let b:escape_url = escape(a:url, '"')
+  if executable("chromium")
+    exe "silent !chromium \"".b:escape_url."\""
+  elseif executable("gnome-open")
+    exe "silent !gnome-open \"".b:escape_url."\""
+  endif
+  redraw!
+endfunction
+command! -nargs=1 OpenURL :call OpenURL(<q-args>)
+" open URL under cursor in browser
+nnoremap <Leader>G :OpenURL http://www.google.com/search?q=<cword><CR>
+vnoremap <Leader>G "zy:OpenURL http://www.google.com/search?q=<C-R>z<CR>
+
 
 " q: -> open your command history
 " q/ -> open your search history
