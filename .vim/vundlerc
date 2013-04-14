@@ -1,6 +1,6 @@
 " =============== Vundle Initialization ===============
 if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/vundle/
+    set runtimepath+=~/.vim/bundle/vundle/
 endif
 call vundle#rc()
 Bundle 'gmarik/vundle'
@@ -8,6 +8,19 @@ Bundle 'L9'
 
 set runtimepath+=$GOROOT/misc/vim
 set runtimepath+=/usr/share/go/misc/vim/
+
+Bundle 'yesmeck/tips.vim'
+Bundle 'spolu/dwm.vim'
+let g:dwm_map_keys=0
+nmap ,m <Plug>DWMFocus
+nmap ,n <Plug>DWMNew
+nmap ,c <Plug>DWMClose
+nmap ,l <Plug>DWMGrowMaster
+nmap ,h <Plug>DWMShrinkMaster
+nmap ,j <C-W>w
+nmap ,k <C-W>W
+nmap ,, <Plug>DWMRotateCounterclockwise
+nmap ,. <Plug>DWMRotateClockwise
 
 " Ruby & Rails
 Bundle 'vim-ruby/vim-ruby'
@@ -19,6 +32,7 @@ Bundle 'tpope/vim-dispatch'
 
 Bundle 'tpope/vim-characterize'
 " ga -> to print characterize
+" :help digraph-table
 
 " + to expand, - to shrink
 Bundle 'terryma/vim-expand-region'
@@ -45,18 +59,15 @@ map <Leader>tq :VimuxCloseRunner<CR>
 map <Leader>ts :VimuxInterruptRunner<CR>
 let g:VimuxHeight = "25"
 
-Bundle 'skalnik/vim-vroom'
-let g:vroom_use_vimux = 1
-let g:vroom_map_keys = 0
-let g:vroom_write_all = 1
-autocmd FileType ruby map <Leader>tr :VroomRunTestFile<CR>
-autocmd FileType ruby map <Leader>tR :VroomRunNearestTest<CR>
+Bundle 'jgdavey/vim-turbux'
+let g:no_turbux_mappings = 1
+let g:turbux_runner  = 'vimux'
+autocmd FileType ruby map <Leader>tr <Plug>SendFocusedTestToTmux
+autocmd FileType ruby map <Leader>tR <Plug>SendTestToTmux
 
 Bundle 'benmills/vimux-golang'
 autocmd FileType go map <Leader>tr :GolangTestCurrentPackage<CR>
 
-
-" Bundle 'yesmeck/tips.vim'
 
 Bundle 'mhinz/vim-signify'
 let g:signify_mapping_next_hunk = '<leader>sj'
@@ -150,7 +161,7 @@ let g:neocomplcache_dictionary_filetype_lists = {
             \ }
 
 if !exists('g:neocomplcache_wildcard_characters')
-  let g:neocomplcache_wildcard_characters = {}
+    let g:neocomplcache_wildcard_characters = {}
 endif
 let g:neocomplcache_wildcard_characters._ = '-'
 let g:neocomplcache_enable_auto_delimiter = 1
@@ -159,7 +170,7 @@ inoremap <expr><C-y> neocomplcache#cancel_popup()
 inoremap <expr><C-g> neocomplcache#undo_completion()>
 " Enable heavy omni completion.
 if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
+    let g:neocomplcache_omni_patterns = {}
 endif
 
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -168,7 +179,7 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1 
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
@@ -178,9 +189,9 @@ let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
 let g:neocomplcache_omni_functions = {
-      \ 'ruby' : 'rubycomplete#Complete',
-      \ 'eruby' : 'htmlcomplete#CompleteTags',
-      \ }
+            \ 'ruby' : 'rubycomplete#Complete',
+            \ 'eruby' : 'htmlcomplete#CompleteTags',
+            \ }
 
 
 Bundle 'jsbeautify'
@@ -223,7 +234,7 @@ Bundle 'juvenn/mustache.vim'
 Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-liquid'
-Bundle 'vim-coffee-script'
+Bundle 'kchmck/vim-coffee-script'
 Bundle 'kogent/vim-nagios'
 Bundle 'pangloss/vim-javascript'
 Bundle 'cespare/mxml.vim'
@@ -289,9 +300,9 @@ let g:ctrlp_max_height = 35
 let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|\.hg$\|\.svn$\|public\/system$\|tmp$',
-  \ 'file': '\.jpg$\|\.png$\|\.gif$\|tags$'
-  \ }
+            \ 'dir':  '\.git$\|\.hg$\|\.svn$\|public\/system$\|tmp$',
+            \ 'file': '\.jpg$\|\.png$\|\.gif$\|tags$'
+            \ }
 let g:ctrlp_user_command = {
             \ 'types': {
             \ 1: ['.git', 'cd %s && git ls-files -oc --exclude-standard'],
@@ -324,10 +335,10 @@ map <Leader>gc :CtrlPChange<CR>
 map <Leader>gp :CtrlPRTS<CR>
 let g:ctrlp_buftag_types = {
             \ 'go'     : '--language-force=go',
-            \ 'coffee'     : '--language-force=coffee',
             \ 'css'     : '--language-force=css',
             \ 'scss'     : '--language-force=scss',
             \ 'js'     : '--language-force=js',
+            \ 'coffee'     : '--language-force=coffee',
             \ 'markdown'     : '--language-force=markdown'
             \ }
 

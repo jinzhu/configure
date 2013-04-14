@@ -225,7 +225,7 @@ nmap <F11> <Plug>ToggleAutoCloseMappings
 " ]s - next spell error, [s - previous spell error
 nmap <F12> :set spell! spelllang=en_us<CR>
 
-map \c :%s/\s\+$//<CR>
+map <LocalLeader>C :%s/\s\+$//<CR>
 
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 map <Leader>ew :e %%
@@ -282,8 +282,8 @@ vnoremap gj j
 
 
 " make <c-l> clear the highlight as well as redraw
-nnoremap <C-L> :nohls<CR><C-L>
-inoremap <C-L> <C-O>:nohls<CR>
+nnoremap <Leader>l :nohls<CR><C-L>
+inoremap <Leader>l <C-O>:nohls<CR>
 
 noreabbrev te tabedit
 cnoremap <C-A>    <Home>
