@@ -353,7 +353,13 @@ command! -nargs=1 OpenURL :call OpenURL(<q-args>)
 " open URL under cursor in browser
 nnoremap <Leader>G :OpenURL http://www.google.com/search?q=<cword><CR>
 vnoremap <Leader>G "zy:OpenURL http://www.google.com/search?q=<C-R>z<CR>
+nnoremap <Leader>D :OpenURL http://dict.youdao.com/search?q=<cword><CR>
+vnoremap <Leader>D "zy:OpenURL http://dict.youdao.com/search?q=<C-R>z<CR>
 
+augroup filetypedetect
+  au BufNewFile,BufRead  *.yml set filetype=yml.eruby
+  au BufNewFile,BufRead  *.erb set filetype=eruby.html
+augroup END
 
 " q: -> open your command history
 " q/ -> open your search history

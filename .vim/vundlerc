@@ -9,7 +9,7 @@ Bundle 'L9'
 set runtimepath+=$GOROOT/misc/vim
 set runtimepath+=/usr/share/go/misc/vim/
 
-Bundle 'yesmeck/tips.vim'
+" Bundle 'yesmeck/tips.vim'
 Bundle 'spolu/dwm.vim'
 let g:dwm_map_keys=0
 nmap ,m <Plug>DWMFocus
@@ -118,12 +118,6 @@ map <LocalLeader>gv :Gitv<CR>
 
 Bundle 'Gist.vim'
 
-" Snippet
-Bundle 'SirVer/ultisnips'
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
 Bundle 'VisIncr'
 Bundle 'Align'
 
@@ -132,12 +126,35 @@ Bundle 'tComment'
 
 Bundle 'mileszs/ack.vim'
 " let g:ackprg = 'ag --nogroup --nocolor --column' " the_silver_searcher
-noremap <Leader>a :Ack <C-R><C-W>
+nmap <Leader>a :Ack <C-R><C-W>
 " copy visual value to register 'z' first
-vnoremap <Leader>a "zy:Ack <C-R>z
+vmap <Leader>a "zy:Ack <C-R>z
 " o (open) go (preview open) t (tab) T (new tab silently) v (vertical) gv q (close)
 
 " Bundle 'ZoomWin'
+
+" Snippet
+Bundle 'JazzCore/neocomplcache-ultisnips'
+Bundle 'SirVer/ultisnips'
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+
+" Bundle 'honza/vim-snippets'
+" Bundle 'Shougo/neosnippet'
+" " Plugin key-mappings.
+" imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+" smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+" " SuperTab like snippets behavior.
+" imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+" smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+"
+" " For snippet_complete marker.
+" if has('conceal')
+"     set conceallevel=2 concealcursor=i
+" endif
+" let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+" let g:neosnippet#enable_snipmate_compatibility = 1
 
 Bundle 'Shougo/neocomplcache'
 let g:neocomplcache_enable_at_startup = 1
