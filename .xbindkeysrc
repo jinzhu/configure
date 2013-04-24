@@ -18,7 +18,7 @@
     Control+Mod4 + w
 "~/.scripts/start_proxy"
     Control+Shift+Mod4 + p
-"javaws /jinzhu/Dropbox/Stock/jforex.jnlp"
+"javaws https://www.dukascopy.com/client/live/jclient/jforex.jnlp"
     Control+Mod4 + j
 
 # Sound
