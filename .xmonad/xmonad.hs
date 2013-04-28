@@ -42,6 +42,7 @@ manageHook' = composeAll
     [
     isFullscreen --> doFullFloat
     , title =? "Do" --> doFloat
+    , title =? "KRuler" --> doFloat
     , className =? "Gimp"      --> doF (W.shift "dev")
     -- Browser
     , className =? "Chromium" --> doF (W.shift "dev") -- Chrome
