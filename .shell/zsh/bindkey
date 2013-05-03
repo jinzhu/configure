@@ -19,6 +19,14 @@ bindkey "^[[2~"   overwrite-mode          # Insert
 
 bindkey '^[h'     backward-word        # Alt + h
 bindkey '^[l'     forward-word         # Alt + l
+bindkey '^[j'     backward-char        # Alt + j
+bindkey '^[k'     forward-char         # Alt + k
+
+bindkey '^[y'     backward-delete-word # Alt + y
+bindkey '^[o'     delete-word  # Alt + o
+bindkey '^[u'     backward-delete-char # Alt + u
+bindkey '^[i'     delete-char  # Alt + i
+
 bindkey '^[^H'    backward-delete-word # Ctrl + h
 bindkey '^[^L'    delete-word          # Ctrl + l
 bindkey '^[y'     redo                 # Alt + y
