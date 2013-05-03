@@ -9,8 +9,46 @@ alias em='sudo emerge'
 function sp {
   if [ -f '/usr/bin/yaourt' ];then
     sudo yaourt $@
-  else
+  elif [ -f '/usr/bin/pacman' ]; then
     sudo pacman $@
+  elif [ -f '/usr/bin/apt-get' ]; then
+    if [ "$1" = "-Ss" ]; then
+      arg=$(echo $@ | sed 's/-Ss\?\s*//')
+      if [ -f '/usr/bin/aptitude' ]; then
+        aptitude search $arg
+      else
+        apt-cache search $arg
+      fi
+    elif [ "$1" = "-Qs" ]; then
+      arg=$(echo $@ | sed 's/-Qs\?\s*//')
+      apt-cache search -installed $arg
+    elif [ "$1" = "-S" ]; then
+      arg=$(echo $@ | sed 's/-S\?\s*//')
+      sudo apt-get install $arg
+    elif [ "$1" = "-Suy" ]; then
+      sudo apt-get update
+      sudo apt-get dist-upgrade
+    elif [ "$1" = "-Su" ]; then
+      sudo aptitude update
+    elif [ "$1" = "-Rsn" ]; then
+      arg=$(echo $@ | sed 's/-Rsn\?\s*//')
+      sudo apt-get remove $arg
+    elif [ "$1" = "-Qi" ]; then
+      arg=$(echo $@ | sed 's/-Qi\?\s*//')
+      apt-cache show $arg
+    elif [ "$1" = "-Ql" ]; then
+      arg=$(echo $@ | sed 's/-Ql\?\s*//')
+      dpkg -L $arg
+    elif [ "$1" = "-Qo" ]; then
+      arg=$(echo $@ | sed 's/-Qo\?\s*//')
+      dpkg -S $arg
+    else
+      if [ -f '/usr/bin/aptitude' ]; then
+        sudo aptitude $@
+      else
+        sudo apt-get $@
+      fi
+    fi
   fi
 }
 
