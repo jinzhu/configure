@@ -13,15 +13,13 @@ function sp {
     sudo pacman $@
   elif [ -f '/usr/bin/apt-get' ]; then
     if [ "$1" = "-Ss" ]; then
-      arg=$(echo $@ | sed 's/-Ss\?\s*//')
       if [ -f '/usr/bin/aptitude' ]; then
-        aptitude search $arg
+        aptitude search $(echo $@ | sed 's/-Ss\?\s*//')
       else
-        apt-cache search $arg
+        apt-cache search $(echo $@ | sed 's/-Ss\?\s*//')
       fi
     elif [ "$1" = "-Qs" ]; then
-      arg=$(echo $@ | sed 's/-Qs\?\s*//')
-      apt-cache search -installed $arg
+      apt-cache search -installed $(echo $@ | sed 's/-Qs\?\s*//')
     elif [ "$1" = "-S" ]; then
       sudo apt-get install $(echo $@ | sed 's/-S\?\s*//')
     elif [ "$1" = "-Suy" ]; then
@@ -30,17 +28,13 @@ function sp {
     elif [ "$1" = "-Su" ]; then
       sudo aptitude update
     elif [ "$1" = "-Rsn" ]; then
-      arg=$(echo $@ | sed 's/-Rsn\?\s*//')
-      sudo apt-get remove $arg
+      sudo apt-get remove $(echo $@ | sed 's/-Rsn\?\s*//')
     elif [ "$1" = "-Qi" ]; then
-      arg=$(echo $@ | sed 's/-Qi\?\s*//')
-      apt-cache show $arg
+      apt-cache show $(echo $@ | sed 's/-Qi\?\s*//')
     elif [ "$1" = "-Ql" ]; then
-      arg=$(echo $@ | sed 's/-Ql\?\s*//')
-      dpkg -L $arg
+      dpkg -L $(echo $@ | sed 's/-Ql\?\s*//')
     elif [ "$1" = "-Qo" ]; then
-      arg=$(echo $@ | sed 's/-Qo\?\s*//')
-      dpkg -S $arg
+      dpkg -S $(echo $@ | sed 's/-Qo\?\s*//')
     else
       if [ -f '/usr/bin/aptitude' ]; then
         sudo aptitude $@
