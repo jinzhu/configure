@@ -23,8 +23,7 @@ function sp {
       arg=$(echo $@ | sed 's/-Qs\?\s*//')
       apt-cache search -installed $arg
     elif [ "$1" = "-S" ]; then
-      arg=$(echo $@ | sed 's/-S\?\s*//')
-      sudo apt-get install $arg
+      sudo apt-get install $(echo $@ | sed 's/-S\?\s*//')
     elif [ "$1" = "-Suy" ]; then
       sudo apt-get update
       sudo apt-get dist-upgrade
