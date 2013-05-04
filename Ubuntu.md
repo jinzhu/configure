@@ -1,7 +1,7 @@
 sudo apt-get install -y aptitude iotop htop golang ack zsh tmux vim-gnome exuberant-ctags git tig mercurial nodejs npm pv acpi libreadline-dev
-sudo apt-get install -y irssi lsof links bash-completion xbindkeys x11-xserver-utils xclip rsync
+sudo apt-get install -y irssi lsof links bash-completion xbindkeys x11-xserver-utils xclip rsync gconf-editor xsel
 sudo apt-get install -y gimp shutter trimage gcolor2 scrot fcitx-table-wbpy agave
-sudo apt-get install -y memcached mongodb redis-server mysql-server mysql-client postgresql postgresql-client nginx
+sudo apt-get install -y memcached mongodb redis-server mysql-server mysql-client libmysqlclient-dev postgresql postgresql-client nginx
 sudo apt-get install -y chromium-browser zim
 sudo apt-get install -y nkf sshuttle filezilla icedtea-7-plugin
 sudo apt-get install -y virtualbox-guest-utils virtualbox compiz-plugins
@@ -27,5 +27,6 @@ sudo dpkg -i pencil.deb
 # Monaco Font
 curl -kL https://raw.github.com/cstrap/monaco-font/master/install-font.sh | bash
 
+# gconf-editor > Apps > Gnome Terminal -> Confirm Window Close
 gem i tmuxinator vrome zeus yac
 sudo npm install coffee-script-redux -g

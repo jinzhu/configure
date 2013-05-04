@@ -6,7 +6,7 @@
 # Disabling Terminal Flow Control Keystrokes
 stty -ixon
 
-export PATH="$HOME/.scripts:/opt/local/bin:$PATH:/usr/local/bin/:/usr/local/sbin/:/usr/share/java/apache-ant/bin/:/usr/local/apache/bin/:/home/jinzhu/Dropbox/decompile_apk/bin:/opt/java/bin:/opt/go/bin"
+export PATH="$HOME/.scripts:/opt/local/bin:$PATH:/usr/sbin/:/usr/local/bin/:/usr/local/sbin/"
 [ -f ~/.amazon_keys ] && source ~/.amazon_keys
 [ -f ~/.ec2/rc ] && source ~/.ec2/rc
 [ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm && PATH=$PATH:$HOME/.rvm/bin
@@ -17,7 +17,6 @@ export HAXE_LIBRARY_PATH=/opt/haxe/std:.
 # export JAVA_HOME=/opt/java
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.vim/gdbmgr/src
 export GOPATH="/jinzhu/Projects/Lab/go"
-export LC_CTYPE=zh_CN.utf8
 
 export EDITOR="vim"
 # export EDITOR='emacsclient -t -a ""'
