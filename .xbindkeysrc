@@ -2,7 +2,7 @@
 
 "firefox"
     Control+Mod4 + f
-"chromium"
+"chromium || chromium-browser"
     Control+Mod4 + c
 "subl"
     Control+Mod4 + e

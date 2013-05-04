@@ -11,6 +11,7 @@ COPYFILES = {
   "files/environment" => "/etc/environment",
   "files/20-thinkpad.conf" => "/etc/X11/xorg.conf.d/20-thinkpad.conf",
   "files/rc.conf" => "/etc/rc.conf",
+  "files/sudoer" => "/etc/sudoers.d/sudoer",
 }
 
 FILES = Dir.entries('.').select do |x|
