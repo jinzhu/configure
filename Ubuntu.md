@@ -7,11 +7,19 @@ sudo apt-get install -y nkf sshuttle filezilla icedtea-7-plugin
 sudo apt-get install -y virtualbox-guest-utils virtualbox compiz-plugins
 sudo groupadd -a -G vboxusers jinzhu
 sudo apt-get install -y ubuntu-restricted-addons ubuntu-restricted-extras
+sudo apt-get install -y indicator-china-weather indicator-cpufreq radiotray glipper unity-mail unity-tweak-tool
 
 sudo sh -c 'echo "deb http://linux.dropbox.com/ubuntu/ raring main" > /etc/apt/sources.list.d/dropbox.list'
 sudo apt-get install -y dropbox
 sudo sh -c 'echo "deb http://archive.canonical.com/ubuntu/ raring partner" > /etc/apt/sources.list.d/canonical_partner.list'
 sudo apt-get install -y skype adobe-flashplugin
+
+
+sudo add-apt-repository ppa:thebernmeister/ppa
+sudo apt-get install -y indicator-virtual-box
+# sudo ppa-purge ppa:thebernmeister/ppa
+
+sudo add-apt-repository ppa:atareao/atareao
 
 curl -L https://get.rvm.io | bash -s stable --ruby
 rvm autolibs enable

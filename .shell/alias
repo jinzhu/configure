@@ -35,6 +35,11 @@ function sp {
       dpkg -L $(echo $@ | sed 's/-Ql\?\s*//')
     elif [ "$1" = "-Qo" ]; then
       dpkg -S $(echo $@ | sed 's/-Qo\?\s*//')
+    elif [ "$1" = "-Qp" ]; then
+      apt-cache policy $(dpkg -l | awk 'NR >= 6 { print $2 }') |
+      awk '/^[^ ]/    { split($1, a, ":"); pkg = a[1] }
+        nextline == 1 { nextline = 0; printf("%-40s %-50s %s\n", pkg, $2, $3) }
+            /\*\*\*/  { nextline = 1 }' |grep $(echo $@ | sed 's/-Qp\?\s*//')
     else
       if [ -f '/usr/bin/aptitude' ]; then
         sudo aptitude $@
