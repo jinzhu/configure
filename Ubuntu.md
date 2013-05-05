@@ -20,6 +20,7 @@ sudo apt-get install -y indicator-virtual-box
 # sudo ppa-purge ppa:thebernmeister/ppa
 
 sudo add-apt-repository ppa:atareao/atareao
+calendar-indicator
 
 curl -L https://get.rvm.io | bash -s stable --ruby
 rvm autolibs enable
@@ -38,3 +39,5 @@ curl -kL https://raw.github.com/cstrap/monaco-font/master/install-font.sh | bash
 # gconf-editor > Apps > Gnome Terminal -> Confirm Window Close
 gem i tmuxinator vrome zeus yac
 sudo npm install coffee-script-redux -g
+
+# sudo update-alternatives –config pager

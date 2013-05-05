@@ -36,10 +36,11 @@ function sp {
     elif [ "$1" = "-Qo" ]; then
       dpkg -S $(echo $@ | sed 's/-Qo\?\s*//')
     elif [ "$1" = "-Qp" ]; then
-      apt-cache policy $(dpkg -l | awk 'NR >= 6 { print $2 }') |
-      awk '/^[^ ]/    { split($1, a, ":"); pkg = a[1] }
-        nextline == 1 { nextline = 0; printf("%-40s %-50s %s\n", pkg, $2, $3) }
-            /\*\*\*/  { nextline = 1 }' |grep $(echo $@ | sed 's/-Qp\?\s*//')
+      keyword=$(echo $@ | sed 's/-Qp\?\s*//')
+      apt-cache pkgnames | sort | xargs apt-cache policy | awk '/^[^ ]/ { split($1, a, ":"); pkg = a[1]; installed="[i] ";}
+         /Installed/ {version=$2;if (match(version,/none/)){installed="[n] ";version=""}}
+         /Candidate/ {if (version=="") { version=$2 } else if (version!=$2) {version="* "$2} }
+         /Packages/ {printf("%s%-40s %-50s %s   %s\n", installed, pkg, $2, $3, version)}' |grep $keyword
     else
       if [ -f '/usr/bin/aptitude' ]; then
         sudo aptitude $@
