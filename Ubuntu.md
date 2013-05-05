@@ -20,7 +20,16 @@ sudo apt-get install -y indicator-virtual-box
 # sudo ppa-purge ppa:thebernmeister/ppa
 
 sudo add-apt-repository ppa:atareao/atareao
-calendar-indicator
+sudo apt-get install -y calendar-indicator
+
+sudo add-apt-repository ppa:jwigley/window-list
+sudo apt-get install window-list
+
+sudo add-apt-repository ppa:caffeine-developers/ppa
+sudo apt-get install caffeine
+
+sudo add-apt-repository ppa:jconti/recent-notifications
+sudo apt-get install indicator-notifications
 
 curl -L https://get.rvm.io | bash -s stable --ruby
 rvm autolibs enable
