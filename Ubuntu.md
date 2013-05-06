@@ -8,7 +8,7 @@ sudo apt-get install -y virtualbox-guest-utils virtualbox compiz-plugins
 sudo groupadd -a -G vboxusers jinzhu
 sudo apt-get install -y ubuntu-restricted-addons ubuntu-restricted-extras
 # change terminal to use <C-v> to paste for clipit
-sudo apt-get install -y indicator-china-weather indicator-cpufreq radiotray clipit unity-mail unity-tweak-tool
+sudo apt-get install -y indicator-china-weather indicator-cpufreq radiotray clipit unity-mail unity-tweak-tool renameutils
 
 sudo sh -c 'echo "deb http://linux.dropbox.com/ubuntu/ raring main" > /etc/apt/sources.list.d/dropbox.list'
 sudo apt-get install -y dropbox
@@ -51,3 +51,4 @@ gem i tmuxinator vrome zeus yac
 sudo npm install coffee-script-redux -g
 
 # sudo update-alternatives –config pager
+# atool, bc

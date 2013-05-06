@@ -4,14 +4,10 @@
     Control+Mod4 + f
 "chromium || chromium-browser"
     Control+Mod4 + c
-"subl"
-    Control+Mod4 + e
 "skype"
     Control+Mod4 + s
-"pidgin"
-    Control+Mod4 + p
-"dropboxd"
-    Control+Mod4 + d
+# "pidgin"
+#     Control+Mod4 + p
 "killall shutter; shutter -s --min_at_startup"
     Alt + Print
 "~/.scripts/switch_todo_stock"
