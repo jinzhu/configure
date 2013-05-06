@@ -7,7 +7,8 @@ sudo apt-get install -y nkf sshuttle filezilla icedtea-7-plugin
 sudo apt-get install -y virtualbox-guest-utils virtualbox compiz-plugins
 sudo groupadd -a -G vboxusers jinzhu
 sudo apt-get install -y ubuntu-restricted-addons ubuntu-restricted-extras
-sudo apt-get install -y indicator-china-weather indicator-cpufreq radiotray glipper unity-mail unity-tweak-tool
+# change terminal to use <C-v> to paste for clipit
+sudo apt-get install -y indicator-china-weather indicator-cpufreq radiotray clipit unity-mail unity-tweak-tool
 
 sudo sh -c 'echo "deb http://linux.dropbox.com/ubuntu/ raring main" > /etc/apt/sources.list.d/dropbox.list'
 sudo apt-get install -y dropbox
