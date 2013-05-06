@@ -3,6 +3,7 @@ IRREGULAR = {
   "files/ssh_config" => "~/.ssh/config",
   "files/kupfer.cfg" => "~/.config/kupfer/kupfer.cfg",
   "files/zim" => "~/.config/zim",
+  "files/clipit_actions" => "~/.local/share/clipit/actions",
   'scripts' => '~/.scripts'
 }
 
@@ -11,7 +12,7 @@ COPYFILES = {
   "files/environment" => "/etc/environment",
   "files/20-thinkpad.conf" => "/etc/X11/xorg.conf.d/20-thinkpad.conf",
   "files/rc.conf" => "/etc/rc.conf",
-  "files/sudoer" => "/etc/sudoers.d/sudoer",
+  "files/sudoer" => "/etc/sudoers.d/sudoer"
 }
 
 FILES = Dir.entries('.').select do |x|
