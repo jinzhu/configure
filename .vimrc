@@ -285,7 +285,6 @@ vnoremap gj j
 nnoremap <Leader>l :nohls<CR><C-L>
 inoremap <Leader>l <C-O>:nohls<CR>
 
-noreabbrev te tabedit
 cnoremap <C-A>    <Home>
 cnoremap <C-E>    <End>
 
