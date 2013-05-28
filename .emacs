@@ -1,6 +1,7 @@
 (require 'package)
-(setq package-archives '(("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+(setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("gnu" . "http://elpa.gnu.org/packages/")))
 
 (package-initialize)
 
@@ -12,7 +13,7 @@
 (setq package-list
       '(
         ;; Flymake
-        flymake-go flymake-coffee flymake-jslint flymake-ruby flymake-sass flycheck
+        flymake-go flymake-coffee flymake-jslint flymake-ruby flymake-sass ;; flycheck
 
                    ;; MODES
                    coffee-mode js2-mode markdown-mode scss-mode css-mode yaml-mode csv-mode zencoding-mode
@@ -38,7 +39,7 @@
                    session
 
                    ;; GIT ;;git-gutter-fringe
-                   magit vline
+                   vline ;; magit
                    ))
 
 ;; install the missing packages
