@@ -58,6 +58,7 @@ Host lacoste-dev
             HostName 175.41.251.74
             User app
             Protocol 2
+            Port 222
 Host lacoste1
             HostName 175.41.252.65
             User app
@@ -84,7 +85,7 @@ Host lacoste5
             Protocol 2
             Port 222
 Host lacostedb
-            HostName ec2-54-248-33-174.ap-northeast-1.compute.amazonaws.com
+            HostName 54.249.254.127
             User app
             Protocol 2
             Port 222
@@ -124,7 +125,7 @@ Host qtb-dev
             HostName 54.248.102.248
 
 Host fast
-            HostName 54.249.237.25
+            HostName 175.41.242.254
             User app
             Protocol 2
             Port 222
