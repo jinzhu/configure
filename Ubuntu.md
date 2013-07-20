@@ -32,6 +32,9 @@ sudo apt-get install caffeine
 sudo add-apt-repository ppa:jconti/recent-notifications
 sudo apt-get install indicator-notifications
 
+sudo add-apt-repository ppa:zedtux/naturalscrolling
+sudo apt-get install naturalscrolling
+
 curl -L https://get.rvm.io | bash -s stable --ruby
 rvm autolibs enable
 
