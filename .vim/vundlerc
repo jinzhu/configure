@@ -6,9 +6,6 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'L9'
 
-set runtimepath+=$GOROOT/misc/vim
-set runtimepath+=/usr/share/go/misc/vim/
-
 " Bundle 'yesmeck/tips.vim'
 Bundle 'spolu/dwm.vim'
 let g:dwm_map_keys=0
@@ -28,7 +25,15 @@ Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-rake'
 Bundle 'tpope/vim-bundler'
 Bundle 'tpope/vim-dispatch'
+Bundle 'tpope/vim-rsi'
 " ~/.vim/macros/rails.vim
+
+" Golang
+Bundle 'jnwhiteh/vim-golang'
+Bundle 'Blackrush/vim-gocode'
+au BufRead,BufNewFile *.go set filetype=go
+
+Bundle 'AndrewRadev/splitjoin.vim'
 
 Bundle 'tpope/vim-characterize'
 " ga -> to print characterize
