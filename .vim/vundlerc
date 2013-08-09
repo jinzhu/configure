@@ -6,6 +6,8 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'L9'
 
+Bundle 'tpope/vim-sensible'
+
 " Bundle 'yesmeck/tips.vim'
 Bundle 'spolu/dwm.vim'
 let g:dwm_map_keys=0
@@ -32,6 +34,7 @@ Bundle 'tpope/vim-rsi'
 Bundle 'jnwhiteh/vim-golang'
 Bundle 'Blackrush/vim-gocode'
 au BufRead,BufNewFile *.go set filetype=go
+au BufRead,BufNewFile *.coffee set filetype=coffee
 
 Bundle 'AndrewRadev/splitjoin.vim'
 

@@ -246,6 +246,8 @@ noremap <silent> <Leader>yd :let @+=expand('%:p:h')<CR>:echo @+<CR>
 noremap <silent> <Leader>yy :let @+=@"<CR>:echo @+<CR>
 
 
+autocmd! BufWritePost *.go execute ':Fmt'
+
 map <LocalLeader>cd :lcd %:p:h<CR>:pwd<CR>
 
 """ Save file

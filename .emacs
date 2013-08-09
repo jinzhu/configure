@@ -596,7 +596,15 @@ Don't mess with special buffers."
 (set-face-attribute 'tabbar-selected nil   :background "#f2f2f6" :foreground "black" :box nil)
 (set-face-attribute 'tabbar-button nil     :box '(:line-width 1 :color "gray72" :style released-button))
 (set-face-attribute 'tabbar-separator nil  :height 0.7)
-(custom-set-variables '(tabbar-separator (quote (0.5)))) ;; adding spaces
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(rails-ws:default-server-type "webrick")
+ '(session-use-package t nil (session))
+ '(tabbar-separator (quote (0.5))))
+ ;; adding spaces
 
 (define-key evil-normal-state-map (kbd "gT") 'tabbar-backward-tab)
 (define-key evil-normal-state-map (kbd "gt") 'tabbar-forward-tab)
@@ -623,3 +631,9 @@ Don't mess with special buffers."
      )
     )))
 (setq tabbar-buffer-groups-function 'my-tabbar-buffer-groups)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
