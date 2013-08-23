@@ -29,6 +29,8 @@ function sp {
       sudo aptitude update
     elif [ "$1" = "-Rsn" ]; then
       sudo apt-get remove $(echo $@ | sed 's/-Rsn\?\s*//')
+    elif [ "$1" = "-Qc" ]; then
+      apt-get changelog $(echo $@ | sed 's/-Qc\?\s*//')
     elif [ "$1" = "-Qi" ]; then
       apt-cache show $(echo $@ | sed 's/-Qi\?\s*//')
     elif [ "$1" = "-Ql" ]; then

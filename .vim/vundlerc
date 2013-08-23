@@ -293,12 +293,18 @@ Bundle 'Yggdroot/indentLine'
 let g:indentLine_enabled=0
 " map <F7> :IndentGuidesToggle <CR>
 
-Bundle 'Lokaltog/vim-powerline'
-let g:Powerline_stl_path_style='full'
-autocmd! bufwritepost .vimrc source ~/.vimrc
-autocmd! bufwritepost .vimrc call Pl#Load()
-autocmd! BufREAD * call Pl#Load()
-autocmd! BufDelete * call Pl#Load()
+Bundle 'bling/vim-airline'
+let g:airline_theme='bubblegum'
+let g:airline_detect_modified=1
+let g:airline_detect_paste=1
+let g:airline#extensions#hunks#enabled = 1
+
+" Bundle 'Lokaltog/vim-powerline'
+" let g:Powerline_stl_path_style='full'
+" autocmd! bufwritepost .vimrc source ~/.vimrc
+" autocmd! bufwritepost .vimrc call Pl#Load()
+" autocmd! BufREAD * call Pl#Load()
+" autocmd! BufDelete * call Pl#Load()
 
 Bundle 'gregsexton/MatchTag'
 Bundle 'bronson/vim-visual-star-search'
