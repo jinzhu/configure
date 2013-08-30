@@ -4,12 +4,14 @@ xbindkeys &
 
 # Go autocomplete
 export GOROOT="/usr/lib/go/"
-export GOPATH="/jinzhu/Projects/Lab/go"
-gocode &
+# export GOPATH="/jinzhu/Projects/Lab/go"
+# gocode &
 
-export LC_CTYPE=zh_CN.utf8
-export GTK_IM_MODULE=xim
-export QT_IM_MODULE=xim
+export LC_CTYPE="zh_CN.utf8"
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+# export GTK_IM_MODULE=xim
+# export QT_IM_MODULE=xim
 export XMODIFIERS="@im=fcitx"
 fcitx-autostart &
 
