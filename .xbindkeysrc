@@ -16,6 +16,19 @@
 #     XF86AudioMute
 
 "wmctrl -xa Terminal || gnome-terminal"
+    Mod4 + 1
+"wmctrl -xa Chromium || chromium"
+    Mod4 + 2
+"wmctrl -xa Forex || javaws https://www.dukascopy.com/client/live/jclient/jforex.jnlp"
+    Mod4 + 3
+"wmctrl -xa Zim || zim"
+    Mod4 + 4
+"wmctrl -xa VirtualBox || virtualbox"
+    Mod4 + 5
+"wmctrl -xa Emacs || emacs"
+    Mod4 + 6
+
+"wmctrl -xa Terminal || gnome-terminal"
     Control+Mod4 + t
 "wmctrl -xa Chromium || chromium"
     Control+Mod4 + c

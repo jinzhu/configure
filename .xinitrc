@@ -35,6 +35,6 @@ gnome)
     exec ck-launch-session gnome-session
     ;;
 *)
-    exec ck-launch-session $DEFAULT_SESSION
+    exec openbox-session
     ;;
 esac
