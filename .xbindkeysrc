@@ -1,26 +1,35 @@
 # vi ft=shell
 
-"firefox"
-    Control+Mod4 + f
-"chromium || chromium-browser"
-    Control+Mod4 + c
-"skype"
-    Control+Mod4 + s
 # "pidgin"
 #     Control+Mod4 + p
-"killall shutter; shutter -s --min_at_startup"
-    Alt + Print
-"~/.scripts/switch_todo_stock"
-    Control+Mod4 + w
-"~/.scripts/start_proxy"
-    Control+Shift+Mod4 + p
-"javaws https://www.dukascopy.com/client/live/jclient/jforex.jnlp"
-    Control+Mod4 + j
+# "~/.scripts/switch_todo_stock"
+#     Control+Mod4 + w
+# "~/.scripts/start_proxy"
+#     Control+Shift+Mod4 + p
 
 # Sound
-"amixer sset Master 5%- unmute"
-    XF86AudioLowerVolume
-"amixer sset Master 5%+ unmute"
-    XF86AudioRaiseVolume
-"amixer sset Master toggle"
-    XF86AudioMute
+# "amixer sset Master 5%- unmute"
+#     XF86AudioLowerVolume
+# "amixer sset Master 5%+ unmute"
+#     XF86AudioRaiseVolume
+# "amixer sset Master toggle"
+#     XF86AudioMute
+
+"wmctrl -xa Terminal || gnome-terminal"
+    Control+Mod4 + t
+"wmctrl -xa Chromium || chromium"
+    Control+Mod4 + c
+"wmctrl -xa Forex || javaws https://www.dukascopy.com/client/live/jclient/jforex.jnlp"
+    Control+Mod4 + j
+"wmctrl -xa Firefox || firefox"
+    Control+Mod4 + f
+"wmctrl -xa Zim || zim"
+    Control+Mod4 + z
+"wmctrl -xa VirtualBox || virtualbox"
+    Control+Mod4 + v
+"wmctrl -xa Emacs || emacs"
+    Control+Mod4 + e
+"wmctrl -xa Skype || skype"
+    Control+Mod4 + s
+"wmctrl -xa Shutter || shutter"
+    Control+Mod4 + p
