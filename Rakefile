@@ -4,6 +4,7 @@ IRREGULAR = {
   "files/kupfer.cfg" => "~/.config/kupfer/kupfer.cfg",
   "files/zim" => "~/.config/zim",
   "files/clipit_actions" => "~/.local/share/clipit/actions",
+  "files/prelude-modules.el" => "~/.emacs.d/prelude-modules.el",
   'scripts' => '~/.scripts'
 }
 
@@ -50,6 +51,7 @@ task :install => [:link_files] do
   # For vim-preview
   system("gem install bluecloth github-markup RedCloth ronn RbST")
   system("vim +BundleInstall +qall")
+  system("curl -L http://git.io/epre | sh")
 end
 
 task :remove do
