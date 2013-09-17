@@ -35,6 +35,7 @@ Bundle 'jnwhiteh/vim-golang'
 Bundle 'Blackrush/vim-gocode'
 au BufRead,BufNewFile *.go set filetype=go
 au BufRead,BufNewFile *.coffee set filetype=coffee
+au BufWritePost *.go !goimports -w expand('%:p')
 
 Bundle 'AndrewRadev/splitjoin.vim'
 
