@@ -820,6 +820,9 @@
 
   # end of the example
 -->
+  <application name="emacs">
+    <fullscreen>yes</fullscreen>
+  </application>
   <application type="normal">
     <maximized>yes</maximized>
   </application>
