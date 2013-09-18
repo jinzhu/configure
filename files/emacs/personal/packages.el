@@ -21,6 +21,7 @@
 
 (el-get 'sync my-packages)
 
+(setq prelude-clean-whitespace-on-save nil)
 
 (global-set-key (kbd "RET") 'newline-and-indent)
 (setq-default  tab-width 2

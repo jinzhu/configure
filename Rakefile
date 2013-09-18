@@ -1,5 +1,7 @@
 IGNORES   = %w(.gitignore .git)
 IRREGULAR = {
+  "files/modprobe.conf" => "/etc/modprobe.d/modprobe.conf",
+  "files/thinkfan.conf" => "/etc/thinkfan.conf",
   "files/ssh_config" => "~/.ssh/config",
   "files/kupfer.cfg" => "~/.config/kupfer/kupfer.cfg",
   "files/zim" => "~/.config/zim",
