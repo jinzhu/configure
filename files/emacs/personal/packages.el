@@ -1,8 +1,7 @@
 (require 'package)
 ;; My packages
 (setq prelude-packages (append '(
-                                 vline quickrun pos-tip auto-complete git-gutter
-                                       monokai-theme go-eldoc
+                                 vline quickrun pos-tip auto-complete git-gutter go-eldoc
                                  ) prelude-packages))
 
 ;; Install my packages
@@ -21,6 +20,12 @@
        '(el-get sudo-save xclip))
 
 (el-get 'sync my-packages)
+
+
+(global-set-key (kbd "RET") 'newline-and-indent)
+(setq-default  tab-width 2
+               standard-indent 2
+               indent-tabs-mode nil)			; makes sure tabs are not used.
 
 ;; Font
 (load-theme 'monokai)
