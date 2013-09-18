@@ -1,5 +1,5 @@
 sudo pacman -S xorg-server xmonad xmonad-contrib xmobar dmenu sudo readline abs xorg-xkill --noconfirm
-sudo pacman -S base-devel whois wireless_tools unzip unzip tar p7zip gzip bzip2 pm-utils openssh pkgtools --noconfirm
+sudo pacman -S base-devel dnsutils whois wireless_tools unzip unzip tar p7zip gzip bzip2 pm-utils openssh pkgtools --noconfirm
 sudo pacman -S acpi acpid --noconfirm
 sudo pacman -S zsh gvim emacs rxvt-unicode tmux git tig mercurial gdb ranger sdcv xsel openvpn htop iotop the_silver_searcher ctags mutt irssi lsof iptables links go ruby nginx bash-completion wmctrl --noconfirm
 sudo pacman -S fakeroot rsync network-manager-applet synergy xbindkeys xclip xorg-xmodmap gnome-terminal --noconfirm
