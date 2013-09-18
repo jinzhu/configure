@@ -8,6 +8,7 @@ IRREGULAR = {
   "files/openbox" => "~/.config/openbox",
   "files/tint2" => "~/.config/tint2",
   "files/obmenu-generator" => "~/.config/obmenu-generator",
+  "files/profile" => "/etc/profile",
   'scripts' => '~/.scripts'
 }
 Dir["files/emacs/personal/*"].map do |file|
@@ -16,7 +17,6 @@ end
 
 COPYFILES = {
   "files/xmonad.desktop" => '/usr/share/xsessions/xmonad.desktop',
-  "files/environment" => "/etc/profile.d/z_environment.sh",
   "files/20-thinkpad.conf" => "/etc/X11/xorg.conf.d/20-thinkpad.conf",
   "files/rc.conf" => "/etc/rc.conf",
   "files/sudoer" => "/etc/sudoers.d/sudoer"
@@ -57,6 +57,8 @@ task :install => [:link_files] do
   # For vim-preview
   system("gem install bluecloth github-markup RedCloth ronn RbST")
   system("vim +BundleInstall +qall")
+  system("sudo rm -rf /usr/lib/go/site")
+  system("sudo ln -nfs /home/jinzhu/Lab/go /usr/lib/go/site")
   system("curl -L http://git.io/epre | sh")
 end
 
