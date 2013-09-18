@@ -10,6 +10,9 @@ IRREGULAR = {
   "files/obmenu-generator" => "~/.config/obmenu-generator",
   'scripts' => '~/.scripts'
 }
+Dir["files/emacs/personal/*"].map do |file|
+  IRREGULAR.update(file => "~/.emacs.d/personal/" + File.basename(file))
+end
 
 COPYFILES = {
   "files/xmonad.desktop" => '/usr/share/xsessions/xmonad.desktop',
