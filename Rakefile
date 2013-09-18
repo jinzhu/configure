@@ -5,6 +5,7 @@ IRREGULAR = {
   "files/zim" => "~/.config/zim",
   "files/clipit_actions" => "~/.local/share/clipit/actions",
   "files/prelude-modules.el" => "~/.emacs.d/prelude-modules.el",
+  "files/openbox" => "~/.config/openbox",
   'scripts' => '~/.scripts'
 }
 
