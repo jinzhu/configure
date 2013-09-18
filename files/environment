@@ -3,6 +3,32 @@
 #
 # Syntax: simple "KEY=VAL" pairs on separate lines
 
-GTK_IM_MODULE=xim
-QT_IM_MODULE=xim
-XMODIFIERS=@im=fcitx
+# GTK_IM_MODULE=xim
+# QT_IM_MODULE=xim
+# XMODIFIERS=@im=fcitx
+
+export GOROOT="/usr/lib/go/"
+export GOPATH="/jinzhu/Projects/Lab/go"
+
+export EDITOR="vim"
+export PATH="$PATH:/usr/sbin/:/usr/local/bin/:/usr/local/sbin/:$GOROOT/bin:$GOPATH/bin"
+
+export LC_CTYPE="zh_CN.utf8"
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+
+export QOR_ROOT="~/GIT/qor/"
+export CLOSURE_HOME="/home/jinzhu/Lab/closure-library"
+export VBOX_USB=usbfs
+
+# grep
+export GREP_OPTIONS='--color=auto'
+
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'

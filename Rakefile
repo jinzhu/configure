@@ -7,7 +7,6 @@ IRREGULAR = {
   "files/prelude-modules.el" => "~/.emacs.d/prelude-modules.el",
   "files/openbox" => "~/.config/openbox",
   "files/tint2" => "~/.config/tint2",
-  "files/profiles.d/go.sh" => "/etc/profile.d/go.sh",
   "files/obmenu-generator" => "~/.config/obmenu-generator",
   'scripts' => '~/.scripts'
 }
@@ -17,7 +16,7 @@ end
 
 COPYFILES = {
   "files/xmonad.desktop" => '/usr/share/xsessions/xmonad.desktop',
-  "files/environment" => "/etc/environment",
+  "files/environment" => "/etc/profile.d/z_environment.sh",
   "files/20-thinkpad.conf" => "/etc/X11/xorg.conf.d/20-thinkpad.conf",
   "files/rc.conf" => "/etc/rc.conf",
   "files/sudoer" => "/etc/sudoers.d/sudoer"

@@ -1,16 +1,7 @@
 #!/bin/sh
 
 xbindkeys &
-
-export EDITOR="vim"
-export PATH="$HOME/.scripts:/opt/local/bin:$PATH:/usr/sbin/:/usr/local/bin/:/usr/local/sbin/:/usr/local/go/bin/:$GOROOT/bin:$GOPATH/bin"
-
 gocode &
-
-export LC_CTYPE="zh_CN.utf8"
-export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
-export XMODIFIERS="@im=fcitx"
 fcitx-autostart &
 
 [[ -f ~/.screenlayout/layout.sh ]] && ~/.screenlayout/layout.sh
