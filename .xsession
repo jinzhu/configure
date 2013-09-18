@@ -7,7 +7,6 @@ if [ -x /usr/bin/gnome-power-manager ] ; then gnome-power-manager & fi
 if [ -x /usr/bin/xscreensaver ] ; then xscreensaver & fi
 if [ -x /usr/bin/dropboxd ] ; then dropboxd & fi
 
-[[ -f ~/.screenlayout/layout.sh ]] && ~/.screenlayout/layout.sh
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
 [[ -s $HOME/.scripts/start_tmux ]] && ruby $HOME/.scripts/start_tmux
 

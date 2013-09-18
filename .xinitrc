@@ -35,6 +35,7 @@ gnome)
     exec ck-launch-session gnome-session
     ;;
 *)
+    source .xprofile
     exec openbox-session
     ;;
 esac
