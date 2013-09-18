@@ -6,6 +6,8 @@ IRREGULAR = {
   "files/clipit_actions" => "~/.local/share/clipit/actions",
   "files/prelude-modules.el" => "~/.emacs.d/prelude-modules.el",
   "files/openbox" => "~/.config/openbox",
+  "files/tint2" => "~/.config/tint2",
+  "files/obmenu-generator" => "~/.config/obmenu-generator",
   'scripts' => '~/.scripts'
 }
 

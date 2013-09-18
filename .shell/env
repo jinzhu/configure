@@ -29,7 +29,7 @@ export VBOX_USB=usbfs
 # grep
 export GREP_OPTIONS='--color=auto'
 xset b off
-xset s off
+#xset s off
 
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
