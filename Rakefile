@@ -7,6 +7,7 @@ IRREGULAR = {
   "files/prelude-modules.el" => "~/.emacs.d/prelude-modules.el",
   "files/openbox" => "~/.config/openbox",
   "files/tint2" => "~/.config/tint2",
+  "files/profiles.d/go.sh" => "/etc/profile.d/go.sh",
   "files/obmenu-generator" => "~/.config/obmenu-generator",
   'scripts' => '~/.scripts'
 }

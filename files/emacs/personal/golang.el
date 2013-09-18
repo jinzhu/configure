@@ -10,3 +10,5 @@
 (add-hook 'go-mode-hook
     '(lambda()
              (add-hook 'before-save-hook go-save-hook)))
+
+(add-hook 'go-mode-hook 'go-eldoc-setup)

@@ -2,25 +2,16 @@
 
 xbindkeys &
 
-# Go autocomplete
-export GOROOT="/usr/lib/go/"
-# export GOPATH="/jinzhu/Projects/Lab/go"
-# gocode &
+export EDITOR="vim"
+export PATH="$HOME/.scripts:/opt/local/bin:$PATH:/usr/sbin/:/usr/local/bin/:/usr/local/sbin/:/usr/local/go/bin/:$GOROOT/bin:$GOPATH/bin"
+
+gocode &
 
 export LC_CTYPE="zh_CN.utf8"
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
-# export GTK_IM_MODULE=xim
-# export QT_IM_MODULE=xim
 export XMODIFIERS="@im=fcitx"
 fcitx-autostart &
 
-# export GTK_IM_MODULE=ibus
-# export XMODIFIERS=@im=ibus
-# export QT_IM_MODULE=ibus
-# killall ibus-daemon
-# ibus-daemon --xim -d
-
 [[ -f ~/.screenlayout/layout.sh ]] && ~/.screenlayout/layout.sh
 # [ -f ~/.xsession ] && source ~/.xsession
-# xsetroot -cursor_name left_ptr

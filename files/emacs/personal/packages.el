@@ -1,12 +1,8 @@
 (require 'package)
-(add-to-list 'package-archives
-             '("marmalade" .
-               "http://marmalade-repo.org/packages/"))
-(package-initialize)
-
 ;; My packages
 (setq prelude-packages (append '(
-                                 vline quickrun pos-tip auto-complete git-gutter monokai-theme
+                                 vline quickrun pos-tip auto-complete git-gutter
+                                       monokai-theme go-eldoc
                                  ) prelude-packages))
 
 ;; Install my packages

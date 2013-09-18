@@ -6,9 +6,6 @@
 # Disabling Terminal Flow Control Keystrokes
 stty -ixon
 
-export GOROOT="/usr/lib/go/"
-export GOPATH="/jinzhu/Projects/Lab/go"
-export PATH="$HOME/.scripts:/opt/local/bin:$PATH:/usr/sbin/:/usr/local/bin/:/usr/local/sbin/:/usr/local/go/bin/:$GOROOT/bin:$GOPATH/bin"
 [ -f ~/.amazon_keys ] && source ~/.amazon_keys
 [ -f ~/.ec2/rc ] && source ~/.ec2/rc
 [ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm && PATH=$PATH:$HOME/.rvm/bin
@@ -19,7 +16,6 @@ export HAXE_LIBRARY_PATH=/opt/haxe/std:.
 # export JAVA_HOME=/opt/java
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.vim/gdbmgr/src
 
-export EDITOR="vim"
 # export EDITOR='emacsclient -t -a ""'
 
 export QOR_ROOT="~/GIT/qor/"
