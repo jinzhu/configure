@@ -6,7 +6,7 @@
 
 ;; My packages
 (setq prelude-packages (append '(
-                                 vline quickrun pos-tip auto-complete git-gutter
+                                 vline quickrun pos-tip auto-complete git-gutter monokai-theme
                                  ) prelude-packages))
 
 ;; Install my packages
@@ -26,9 +26,8 @@
 
 (el-get 'sync my-packages)
 
-(add-to-list 'custom-theme-load-path "~/.emacs.d/personal/themes/")
-(load-theme 'molokai)
 ;; Font
+(load-theme 'monokai)
 (set-default-font "Monaco-14")
 
 ;; git gutter
