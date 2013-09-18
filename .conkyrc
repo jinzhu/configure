@@ -1,0 +1,71 @@
+# Manjaro Openbox-Lite Conky Configuration Script
+#
+# Written by Carl Duff of the Manjaro Team
+# Email: carl[at]manjaro[dot]org - Website: www.manjaro.org - Forum: http://forum.manjaro.org/
+#
+# Feel free to alter, distribute, etc., this config file as you wish.
+#
+
+#  Basic Settings
+
+background yes
+use_xft yes
+xftfont sans:size=11
+xftalpha 1
+update_interval 1.0
+total_run_times 0
+own_window yes
+own_window_transparent yes
+own_window_type override #desktop
+own_window_hints below,sticky,skip_taskbar,skip_pager
+double_buffer yes
+minimum_size 450 1
+maximum_width 600
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+default_color Black
+default_shade_color 000000
+default_outline_color d9d7d6
+alignment tr
+gap_x 5
+gap_y 20
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+override_utf8_locale yes
+
+# Fancy Conky display
+
+TEXT
+${font sans:size=70}${alignr}${color #696969}${time %H:%M}${voffset -27}${voffset -45}
+${font sans:size=25}${alignr}${time %a %d %B %Y}${voffset -15}
+${font sans:bold:size=9}${alignr}${color #006400}CPU ${color #696969}${cpu cpu0}% - ${color #006400}RAM ${color #696969}$mem - ${color #006400}HD ${color #696969}$fs_used - ${color #006400}BAT ${color #696969}$battery_percent% - ${color #006400}UP ${color #696969}$uptime_short
+${hr 1}${voffset 5}
+${font sans:bold:size=9}${alignr}${color #B22222}Shift + Left-Mouse
+${alignr}${color #696969}Drag Window${voffset -5}
+
+${font sans:bold:size=9}${alignr}${color #B22222}Super + d
+${alignr}${color #696969}Toggle Desktop${voffset -5}
+
+${font sans:bold:size=9}${alignr}${color #006400}Super + f
+${alignr}${color #696969}File Manager${voffset -5}
+
+${font sans:bold:size=9}${alignr}${color #006400}Super + m
+${alignr}${color #696969}DMenu${voffset -5}
+
+${font sans:bold:size=9}${alignr}${color #006400}Super + p
+${alignr}${color #696969}Package Manager${voffset -5}
+
+${font sans:bold:size=9}${alignr}${color #006400}Super + s
+${alignr}${color #696969}Synapse${voffset -5}
+
+${font sans:bold:size=9}${alignr}${color #006400}Super + t
+${alignr}${color #696969}Terminal${voffset -5}
+
+${font sans:bold:size=9}${alignr}${color #006400}Super + u
+${alignr}${color #696969}Update${voffset -5}
+
+${font sans:bold:size=9}${alignr}${color #006400}Super + x
+${alignr}${color #696969}Logout...
