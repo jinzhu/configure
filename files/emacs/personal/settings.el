@@ -111,3 +111,6 @@
  ido-ignore-buffers '("\\` " "^\*Mess" "^\*Back" "^\*Buffer" "^\*scratch"
                       ".*Completion" "^\*Ido" "^\*trace" "^\*ediff" "^\*vc")
  )
+
+;; Auto Generate Tags
+(autoload 'turn-on-ctags-auto-update-mode "ctags-update" "turn on `ctags-auto-update-mode'." t)
