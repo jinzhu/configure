@@ -7,9 +7,11 @@
                standard-indent 2
                indent-tabs-mode nil)			; makes sure tabs are not used.
 
-;; Font
+;; Theme & Font
+(add-to-list 'custom-theme-load-path "~/.emacs.d/personal/themes")
 (load-theme 'monokai)
 (set-default-font "Monaco-14")
+(setq default-frame-alist '((font . "Monaco-14"))) ;; emacs --daemon
 
 ;; Sudo Save
 (require 'sudo-save)

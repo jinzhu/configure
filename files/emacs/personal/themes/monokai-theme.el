@@ -1,8 +1,5 @@
 ;;; monokai-theme.el --- A fruity color theme for Emacs.
 ;;;
-;;;;;;;;; Changed
-;;; '(whitespace-tab
-;;;    (:background monokai-bg))
 
 ;; Copyright (C) 2011-2013
 
@@ -53,10 +50,10 @@
 
 (defvar monokai-colors
   '((((class color) (min-colors 65535))
-     (monokai-bg-1      . "#171A0B")
-     (monokai-bg        . "#272822")
-     (monokai-bg+1      . "#3E3D31")
-     (monokai-bg+2      . "#49483E")
+     (monokai-bg-1      . "#000000") ;; Changed was #171A0B
+     (monokai-bg        . "#080808") ;; Changed was #272822
+     (monokai-bg+1      . "#222222") ;; Changed was #3E3D31
+     (monokai-bg+2      . "#333333") ;; Changed was #49483E
      (monokai-red-1     . "#A20C41")
      (monokai-red       . "#F92672")
      (monokai-red+1     . "#FC5C94")
@@ -90,8 +87,8 @@
      (monokai-cyan+1    . "#BBF7EF")
      (monokai-cyan+2    . "#CBF7F1")
      (monokai-fg-1      . "#75715E")
-     (monokai-fg        . "#F8F8F2")
-     (monokai-fg+1      . "#F8F8F0"))
+     (monokai-fg        . "#8A8A8A")  ;; Changed was #F8F8F2
+     (monokai-fg+1      . "#AAAAAA")) ;; Changed was #F8F8F0
     (t
      (monokai-bg-1      . "#141414")
      (monokai-bg        . "#1B1E1C")
@@ -1941,7 +1938,7 @@ Each element has the form (NAME . HEX).
                  :foreground monokai-bg-1))
 
   '(whitespace-tab
-    (:background monokai-bg))
+    (:background monokai-bg)) ;;; Changed was (:background monokai-red)
 
   '(whitespace-newline
     (:foreground monokai-bg-1))
