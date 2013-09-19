@@ -21,7 +21,7 @@
     Mod4 + 2
 "wmctrl -xa Emacs || emacsclient -c -a ''"
     Mod4 + 3
-"wmctrl -xa Forex || javaws https://www.dukascopy.com/client/live/jclient/jforex.jnlp"
+"wmctrl -xa jnlp || javaws https://www.dukascopy.com/client/live/jclient/jforex.jnlp"
     Mod4 + 4
 "wmctrl -xa VirtualBox || virtualbox"
     Mod4 + 5
@@ -32,7 +32,7 @@
     Control+Mod4 + t
 "wmctrl -xa Chromium || chromium"
     Control+Mod4 + c
-"wmctrl -xa Forex || javaws https://www.dukascopy.com/client/live/jclient/jforex.jnlp"
+"wmctrl -xa jnlp || javaws https://www.dukascopy.com/client/live/jclient/jforex.jnlp"
     Control+Mod4 + j
 "wmctrl -xa Firefox || firefox"
     Control+Mod4 + f
