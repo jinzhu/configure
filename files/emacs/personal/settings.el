@@ -13,6 +13,15 @@
 (set-default-font "Monaco-14")
 (setq default-frame-alist '((font . "Monaco-14"))) ;; emacs --daemon
 
+(require 'multiple-cursors)
+(require 'region-bindings-mode)
+(region-bindings-mode-enable)
+
+(define-key region-bindings-mode-map "a" 'mc/mark-all-like-this)
+(define-key region-bindings-mode-map "p" 'mc/mark-previous-like-this)
+(define-key region-bindings-mode-map "n" 'mc/mark-next-like-this)
+(define-key region-bindings-mode-map "m" 'mc/mark-more-like-this-extended)
+
 ;; Sudo Save
 (require 'sudo-save)
 
@@ -53,6 +62,7 @@
   (end-of-line) ; move to end of line
   (set-mark (line-beginning-position)))
 
+
 (defun copy-current-line (arg)
   "Copy lines (as many as prefix argument) in the kill ring"
   (interactive "p")
@@ -60,5 +70,21 @@
                   (line-beginning-position (+ 1 arg)))
   (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
 
+(defun comment-or-uncomment-region-or-line ()
+  "Comments or uncomments the region or the current line if there's no active region."
+  (interactive)
+  (let (beg end)
+    (if (region-active-p)
+        (setq beg (region-beginning) end (region-end))
+      (setq beg (line-beginning-position) end (line-end-position)))
+    (comment-or-uncomment-region beg end)
+    (next-line)))
+
+;;; key choard
+(setq key-chord-two-keys-delay 0.2)
 (key-chord-define-global "yy" 'copy-current-line)
 (key-chord-define-global "vv" 'select-current-line)
+(key-chord-define-global "ss" 'git-gutter:next-diff)
+(key-chord-define-global "sd" 'git-gutter:previous-diff)
+(key-chord-define-global ";w" 'save-buffer)
+(global-set-key "\C-c\C-c" 'comment-or-uncomment-region-or-line)

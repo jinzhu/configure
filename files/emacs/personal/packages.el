@@ -3,7 +3,7 @@
 ;; My packages
 (prelude-require-packages '(
                             vline quickrun pos-tip auto-complete git-gutter go-eldoc
-                                  xclip
+                                  xclip multiple-cursors region-bindings-mode
                                   ))
 
 ;; el-get
@@ -16,6 +16,6 @@
     (eval-print-last-sexp)))
 
 (setq my-packages
-       '(el-get sudo-save))
+      '(el-get sudo-save))
 
 (el-get 'sync my-packages)

@@ -1,0 +1,16 @@
+Comment
+  e-;     -> Insert or realign comment on current line
+  C-u M-; -> Kill comment on current line (comment-kill).
+  M-j     -> Like <RET> followed by inserting and aligning a comment (comment-indent-new-line).
+  C-c C-c -> comment or uncomment region or current line
+  M-x comment-region
+
+Block Edit
+  C-x r t -> Add to the beginning (string-rectangle)
+  C-x r k -> Kill the text of the region-rectangle
+
+  mc/edit-beginings-of-lines
+  mc/edit-ends-of-lines
+  mc/mark-all-like-this
+  mc/mark-previous-like-this
+  mc/mark-next-like-this
