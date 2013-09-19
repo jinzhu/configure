@@ -29,6 +29,7 @@
 
 ;; Trailing whitespace is unnecessary
 (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
+(add-hook 'before-save-hook (lambda () (prelude-indent-region-or-buffer)))
 
 ;; Auto Complete
 (require 'auto-complete-config)
