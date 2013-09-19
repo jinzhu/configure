@@ -22,6 +22,8 @@
 (define-key region-bindings-mode-map "n" 'mc/mark-next-like-this)
 (define-key region-bindings-mode-map "m" 'mc/mark-more-like-this-extended)
 
+(global-set-key (kbd "C-x o") 'switch-window)
+
 ;; Wrap region
 (require 'wrap-region)
 (wrap-region-mode t)
