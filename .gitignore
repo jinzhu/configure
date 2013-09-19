@@ -24,3 +24,5 @@ dwm/dwm.o
 /secret_files/
 *#
 *pyc
+
+flycheck-settings.el

@@ -45,13 +45,11 @@
 (add-hook 'before-save-hook (lambda () (prelude-indent-region-or-buffer)))
 
 ;; Auto Complete
+(require 'auto-complete)
 (require 'auto-complete-config)
 (ac-config-default)
-(global-auto-complete-mode t)
-(setq ac-use-quick-help nil)
-;; Ignore case if completion target string doesn't include upper characters
-(setq ac-ignore-case 'smart)
-;; (setq ac-auto-show-menu 0.8)
+
+(require 'go-autocomplete)
 
 ;; Select candidates with C-n/C-p only when completion menu is displayed
 (setq ac-use-menu-map t)
@@ -59,13 +57,16 @@
 (define-key ac-menu-map "\C-n" 'ac-next)
 (define-key ac-menu-map "\C-p" 'ac-previous)
 
+;; yasnippet
+(require 'yasnippet)
+(yas-global-mode 1)
+
 
 (defun select-current-line ()
   "Select the current line"
   (interactive)
   (end-of-line) ; move to end of line
   (set-mark (line-beginning-position)))
-
 
 (defun copy-current-line (arg)
   "Copy lines (as many as prefix argument) in the kill ring"
