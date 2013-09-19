@@ -3,7 +3,8 @@
 ;; My packages
 (prelude-require-packages '(
                             vline quickrun pos-tip auto-complete git-gutter go-eldoc
-                                  xclip multiple-cursors region-bindings-mode
+                                  xclip multiple-cursors mark-multiple region-bindings-mode
+                                  wrap-region
                                   ))
 
 ;; el-get

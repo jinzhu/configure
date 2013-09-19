@@ -22,6 +22,10 @@
 (define-key region-bindings-mode-map "n" 'mc/mark-next-like-this)
 (define-key region-bindings-mode-map "m" 'mc/mark-more-like-this-extended)
 
+;; Wrap region
+(require 'wrap-region)
+(wrap-region-mode t)
+
 ;; Sudo Save
 (require 'sudo-save)
 
