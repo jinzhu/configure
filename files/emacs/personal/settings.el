@@ -95,3 +95,19 @@
 (key-chord-define-global "sd" 'git-gutter:previous-diff)
 (key-chord-define-global ";w" 'save-buffer)
 (global-set-key "\C-c\C-c" 'comment-or-uncomment-region-or-line)
+
+
+;;; IDO
+(icomplete-mode t)
+(ido-mode t)
+(ido-everywhere 1)
+(setq
+ ido-enable-flex-matching t
+ ido-enable-last-directory-history t
+ ido-case-fold t
+ ido-use-virtual-buffers t
+ ido-file-extensions-order '(".org" ".txt" ".py" ".emacs" ".xml" ".el"
+                             ".ini" ".cfg" ".conf" ".rb" ".rake" ".coffee" ".scss")
+ ido-ignore-buffers '("\\` " "^\*Mess" "^\*Back" "^\*Buffer" "^\*scratch"
+                      ".*Completion" "^\*Ido" "^\*trace" "^\*ediff" "^\*vc")
+ )
