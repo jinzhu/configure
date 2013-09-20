@@ -123,6 +123,23 @@
 ;; multi term
 (require 'multi-term)
 (setq multi-term-program "/bin/zsh")
-(global-set-key (kbd "<f3>") 'multi-term-dedicated-open)
+(global-set-key (kbd "<f3>") 'multi-term-dedicated-toggle)
 (global-set-key (kbd "<C-f3>") 'multi-term)
 (setq multi-term-dedicated-select-after-open-p t)
+
+(add-hook 'term-mode-hook (lambda ()
+                            (define-key term-raw-map (kbd "C-y") 'term-paste)))
+
+;; readline complete
+(require 'readline-complete)
+
+(add-to-list 'ac-modes 'term-mode)
+(add-hook 'term-mode-hook 'auto-complete-mode)
+(add-hook 'term-mode-hook 'ac-rlc-setup-sources)
+;; (add-hook 'term-mode-hook 'term-line-mode)
+;; By default, term-char-mode forwards most keys to the terminal
+;; (add-hook 'term-mode-hook 'term-char-mode)
+
+
+(add-to-list 'ac-modes 'shell-mode)
+(add-hook 'shell-mode-hook 'ac-rlc-setup-sources)

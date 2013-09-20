@@ -1,62 +1,63 @@
 # vi:ft=zsh
 
 for file in $HOME/.shell/zsh/plugins/*; do
-  source $file
+source $file
 done
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 parse_scm() {
-  if [ -n 'git rev-parse --git-dir 2>/dev/null' ];then
-    branch=$(git branch 2> /dev/null | grep '^\*' | sed 's/^\*\ //') || return
+if [ -n 'git rev-parse --git-dir 2>/dev/null' ];then
+branch=$(git branch 2> /dev/null | grep '^\*' | sed 's/^\*\ //') || return
 
-    if [ "$branch" ] ; then
-      git_status=`git status 2> /dev/null`
-      CLR='1'
-      if [ "`echo $git_status | grep 'nothing to commit'`" ] ; then
-        CLR='2'
-      fi
+if [ "$branch" ] ; then
+git_status=`git status 2> /dev/null`
+CLR='1'
+if [ "`echo $git_status | grep 'nothing to commit'`" ] ; then
+CLR='2'
+fi
 
-      pt=`echo $git_status | grep 'Your branch is ahead' | awk {'print $9'}`
-      if [ "${pt}" ] ; then
-        ptimes=" ${pt}↑"
-      else
-        ptimes=""
-      fi
+pt=`echo $git_status | grep 'Your branch is ahead' | awk {'print $9'}`
+if [ "${pt}" ] ; then
+ptimes=" ${pt}↑"
+else
+ptimes=""
+fi
 
-      echo "%{\033[00;3${CLR}m%}[${branch}${ptimes}]%{$reset_color%}"
-    fi
-  fi
+echo "%{\033[00;3${CLR}m%}[${branch}${ptimes}]%{$reset_color%}"
+fi
+fi
 
-  if [ -d '.svn' ];then
-    local DIRTY REV=$(svn info 2>/dev/null | grep Revision | sed -e 's/Revision: //')
-    [ "$REV" ] || return
+if [ -d '.svn' ];then
+local DIRTY REV=$(svn info 2>/dev/null | grep Revision | sed -e 's/Revision: //')
+[ "$REV" ] || return
 
-    CLR='2'
-    if [ "$(svn st)" ] ; then
-      CLR='1'
-    fi
+CLR='2'
+if [ "$(svn st)" ] ; then
+CLR='1'
+fi
 
-    echo -e "%{\033[00;3${CLR}m%}[r$REV$DIRTY]" && return
-  fi
+echo -e "%{\033[00;3${CLR}m%}[r$REV$DIRTY]" && return
+fi
 }
 
 parse_jobs() {
-  # echo -e " %{\e[01;35m%}[jobs $(jobs | grep ']' | wc -l )]%{\e[m%}"
-  echo -e " %{\e[00;35m%}[jobs %j]%{\e[m%}"
+# echo -e " %{\e[01;35m%}[jobs $(jobs | grep ']' | wc -l )]%{\e[m%}"
+echo -e " %{\e[00;35m%}[jobs %j]%{\e[m%}"
 }
 
 parse_ruby_version() {
-  echo -e "[$(ruby -v | awk '{print $1 " " $2}')]"
+echo -e "[$(ruby -v | awk '{print $1 " " $2}')]"
 }
 
-RPROMPT=$(echo '%{\033[31m%}%D %T%{\033[0m%}')
+# don't show time in emacs's term
+[[ ! $TERM =~ "screen-256color|eterm" ]] && RPROMPT=$(echo '%{\033[31m%}%D %T%{\033[0m%}')
 # PROMPT=$(echo -e '%{\033[01;30m%}[%n@%m] %{\033[01;36m%}[%t] %{\033[01;34m%}[%1~] $(parse_scm)%{\033[0m%}$(parse_jobs)
 # %{\033[01;32m%}\$%{\033[0m%} ')
 PROMPT=$(echo -e '%{\033[00;36m%}[%1~] $(parse_scm)%{\033[0m%} $(parse_jobs) $(parse_ruby_version) $(battery_pct_prompt)
 %{\033[01;32m%}\$%{\033[0m%}$(pwd > /tmp/.last_dir) ')
 
 case $TERM in
-  (xterm*)
-  function precmd () { print -Pn "\e]0;(%j) %2d\a" }
-  ;;
+(xterm*)
+function precmd () { print -Pn "\e]0;(%j) %2d\a" }
+;;
 esac

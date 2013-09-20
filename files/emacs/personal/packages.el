@@ -17,7 +17,19 @@
     (goto-char (point-max))
     (eval-print-last-sexp)))
 
+(setq
+ el-get-sources
+ '(
+   (:name readline-complete
+          :type github
+          :pkgname "monsanto/readline-complete.el"
+          :after (require 'readline-complete)
+          )
+   ))
+
 (setq my-packages
-      '(el-get sudo-save))
+      (append
+       '(el-get sudo-save)
+       (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync my-packages)
