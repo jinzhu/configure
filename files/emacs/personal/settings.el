@@ -13,6 +13,9 @@
 (set-default-font "Monaco-14")
 (setq default-frame-alist '((font . "Monaco-14"))) ;; emacs --daemon
 
+(require 'powerline)
+(powerline-default-theme)
+
 (global-hl-line-mode -1)
 
 ;; copy with middle mouse click
@@ -45,7 +48,7 @@
 (setq x-select-enable-clipboard t)  ; makes killing/yanking interact with clipboard X11 selection
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 ;; xclip
-(turn-on-xclip)
+;; (turn-on-xclip)
 
 ;; Trailing whitespace is unnecessary
 (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
@@ -143,3 +146,6 @@
 
 (add-to-list 'ac-modes 'shell-mode)
 (add-hook 'shell-mode-hook 'ac-rlc-setup-sources)
+
+;; Twitter
+(setq twittering-use-master-password t)

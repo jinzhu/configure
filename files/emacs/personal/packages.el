@@ -5,7 +5,7 @@
                             vline quickrun pos-tip auto-complete git-gutter go-eldoc
                                   xclip multiple-cursors mark-multiple region-bindings-mode
                                   wrap-region yasnippet go-snippets switch-window
-                                  emamux ctags-update multi-term
+                                  emamux ctags-update multi-term powerline
                                   ))
 
 ;; el-get
@@ -24,6 +24,15 @@
           :type github
           :pkgname "monsanto/readline-complete.el"
           :after (require 'readline-complete)
+          )
+   (:name emacs-calfw
+          :type github
+          :pkgname "kiwanami/emacs-calfw"
+          :after (require 'calfw)
+          )
+   (:name twittering-mode
+          :type github
+          :pkgname "hayamiz/twittering-mode"
           )
    ))
 
