@@ -15,11 +15,11 @@
 # "amixer sset Master toggle"
 #     XF86AudioMute
 
-"wmctrl -xa Terminal || gnome-terminal"
+"wmctrl -xa Emacs || emacsclient -c -a ''"
     Mod4 + 1
 "wmctrl -xa Chromium || chromium"
     Mod4 + 2
-"wmctrl -xa Emacs || emacsclient -c -a ''"
+"wmctrl -xa Terminal || gnome-terminal"
     Mod4 + 3
 "wmctrl -xa jnlp || javaws https://www.dukascopy.com/client/live/jclient/jforex.jnlp"
     Mod4 + 4

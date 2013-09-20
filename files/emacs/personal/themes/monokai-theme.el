@@ -51,7 +51,7 @@
 (defvar monokai-colors
   '((((class color) (min-colors 65535))
      (monokai-bg-1      . "#000000") ;; Changed was #171A0B
-     (monokai-bg        . "#080808") ;; Changed was #272822
+     (monokai-bg        . "#000000") ;; Changed was #272822
      (monokai-bg+1      . "#222222") ;; Changed was #3E3D31
      (monokai-bg+2      . "#333333") ;; Changed was #49483E
      (monokai-red-1     . "#A20C41")
@@ -716,9 +716,9 @@ Each element has the form (NAME . HEX).
                 :weight bold))
 
 ;;;;; flx
-'(flx-highlight-face
-  (:foreground monokai-green
-               :weight bold))
+ '(flx-highlight-face
+   (:foreground monokai-green
+                :weight bold))
 ;;;;; flycheck
  '(flycheck-error
    (supports :underline
@@ -766,1297 +766,1297 @@ Each element has the form (NAME . HEX).
               (:style wave :color ,monokai-red) :inherit unspecified)))
 
  ;;;;; erc
-  '(erc-action-face
-    (:inherit 'erc-default-face))
+ '(erc-action-face
+   (:inherit 'erc-default-face))
 
-  '(erc-bold-face
-    (:weight bold))
+ '(erc-bold-face
+   (:weight bold))
 
-  '(erc-current-nick-face
-    (:foreground monokai-blue
-                 :weight bold))
+ '(erc-current-nick-face
+   (:foreground monokai-blue
+                :weight bold))
 
-  '(erc-dangerous-host-face
-    (:inherit 'font-lock-warning))
+ '(erc-dangerous-host-face
+   (:inherit 'font-lock-warning))
 
-  '(erc-default-face
-    (:foreground monokai-fg))
+ '(erc-default-face
+   (:foreground monokai-fg))
 
-  '(erc-direct-msg-face
-    (:inherit 'erc-default))
+ '(erc-direct-msg-face
+   (:inherit 'erc-default))
 
-  '(erc-error-face
-    (:inherit 'font-lock-warning))
+ '(erc-error-face
+   (:inherit 'font-lock-warning))
 
-  '(erc-fool-face
-    (:inherit 'erc-default))
+ '(erc-fool-face
+   (:inherit 'erc-default))
 
-  '(erc-highlight-face
-    (:inherit 'hover-highlight))
+ '(erc-highlight-face
+   (:inherit 'hover-highlight))
 
-  '(erc-input-face
-    (:foreground monokai-fg-1))
+ '(erc-input-face
+   (:foreground monokai-fg-1))
 
-  '(erc-keyword-face
-    (:foreground monokai-blue
-                 :weight bold))
+ '(erc-keyword-face
+   (:foreground monokai-blue
+                :weight bold))
 
-  '(erc-nick-default-face
-    (:foreground monokai-fg-1
-                 :weight bold))
+ '(erc-nick-default-face
+   (:foreground monokai-fg-1
+                :weight bold))
 
-  '(erc-my-nick-face
-    (:foreground monokai-red
-                 :weight bold))
+ '(erc-my-nick-face
+   (:foreground monokai-red
+                :weight bold))
 
-  '(erc-nick-msg-face
-    (:inherit 'erc-default))
+ '(erc-nick-msg-face
+   (:inherit 'erc-default))
 
-  '(erc-notice-face
-    (:foreground monokai-green))
+ '(erc-notice-face
+   (:foreground monokai-green))
 
-  '(erc-pal-face
-    (:foreground monokai-orange
-                 :weight bold))
+ '(erc-pal-face
+   (:foreground monokai-orange
+                :weight bold))
 
-  '(erc-prompt-face
-    (:foreground monokai-orange
-                 :background monokai-bg
-                 :weight bold))
+ '(erc-prompt-face
+   (:foreground monokai-orange
+                :background monokai-bg
+                :weight bold))
 
-  '(erc-timestamp-face
-    (:foreground monokai-green+1))
+ '(erc-timestamp-face
+   (:foreground monokai-green+1))
 
-  '(erc-underline-face
-    (:underline t))
+ '(erc-underline-face
+   (:underline t))
 
  ;;;;; git-gutter
-  '(git-gutter:added
-    (:foreground monokai-green
-                 :weight bold
-                 :inverse-video t))
+ '(git-gutter:added
+   (:foreground monokai-green
+                :weight bold
+                :inverse-video t))
 
-  '(git-gutter:deleted
-    (:foreground monokai-red
-                 :weight bold
-                 :inverse-video t))
+ '(git-gutter:deleted
+   (:foreground monokai-red
+                :weight bold
+                :inverse-video t))
 
-  '(git-gutter:modified
-    (:foreground monokai-yellow
-                 :weight bold
-                 :inverse-video t))
+ '(git-gutter:modified
+   (:foreground monokai-yellow
+                :weight bold
+                :inverse-video t))
 
  ;;;;; git-gutter-fr
-  '(git-gutter-fr:added
-    (:foreground monokai-green
-                 :weight bold))
+ '(git-gutter-fr:added
+   (:foreground monokai-green
+                :weight bold))
 
-  '(git-gutter-fr:deleted
-    (:foreground monokai-red
-                 :weight bold))
+ '(git-gutter-fr:deleted
+   (:foreground monokai-red
+                :weight bold))
 
-  '(git-gutter-fr:modified
-    (:foreground monokai-yellow
-                 :weight bold))
+ '(git-gutter-fr:modified
+   (:foreground monokai-yellow
+                :weight bold))
 
-  ;; gnus
-  '(gnus-group-mail-1
-    (:inherit 'gnus-group-mail-1-empty))
+ ;; gnus
+ '(gnus-group-mail-1
+   (:inherit 'gnus-group-mail-1-empty))
 
-  '(gnus-group-mail-1-empty
-    (:inherit 'gnus-group-news-1-empty))
+ '(gnus-group-mail-1-empty
+   (:inherit 'gnus-group-news-1-empty))
 
-  '(gnus-group-mail-2
-    (:bold t
-           :inherit 'gnus-group-mail-2-empty))
+ '(gnus-group-mail-2
+   (:bold t
+          :inherit 'gnus-group-mail-2-empty))
 
-  '(gnus-group-mail-2-empty
-    (:inherit 'gnus-group-news-2-empty))
+ '(gnus-group-mail-2-empty
+   (:inherit 'gnus-group-news-2-empty))
 
-  '(gnus-group-mail-3
-    (:bold t
-           :inherit 'gnus-group-mail-3-empty))
+ '(gnus-group-mail-3
+   (:bold t
+          :inherit 'gnus-group-mail-3-empty))
 
-  '(gnus-group-mail-3-empty
-    (:inherit 'gnus-group-news-3-empty))
+ '(gnus-group-mail-3-empty
+   (:inherit 'gnus-group-news-3-empty))
 
-  '(gnus-group-mail-4
-    (:bold t
-           :inherit 'gnus-group-mail-4-empty))
+ '(gnus-group-mail-4
+   (:bold t
+          :inherit 'gnus-group-mail-4-empty))
 
-  '(gnus-group-mail-4-empty
-    (:inherit 'gnus-group-news-4-empty))
+ '(gnus-group-mail-4-empty
+   (:inherit 'gnus-group-news-4-empty))
 
-  '(gnus-group-mail-5
-    (:bold t
-           :inherit 'gnus-group-mail-5-empty))
+ '(gnus-group-mail-5
+   (:bold t
+          :inherit 'gnus-group-mail-5-empty))
 
-  '(gnus-group-mail-5-empty
-    (:inherit 'gnus-group-news-5-empty))
+ '(gnus-group-mail-5-empty
+   (:inherit 'gnus-group-news-5-empty))
 
-  '(gnus-group-mail-6
-    (:bold t
-           :inherit 'gnus-group-mail-6-empty))
+ '(gnus-group-mail-6
+   (:bold t
+          :inherit 'gnus-group-mail-6-empty))
 
-  '(gnus-group-mail-6-empty
-    (:inherit 'gnus-group-news-6-empty))
+ '(gnus-group-mail-6-empty
+   (:inherit 'gnus-group-news-6-empty))
 
-  '(gnus-group-mail-low
-    (:bold t
-           :inherit 'gnus-group-mail-low-empty))
+ '(gnus-group-mail-low
+   (:bold t
+          :inherit 'gnus-group-mail-low-empty))
 
-  '(gnus-group-mail-low-empty
-    (:inherit 'gnus-group-news-low-empty))
+ '(gnus-group-mail-low-empty
+   (:inherit 'gnus-group-news-low-empty))
 
-  '(gnus-group-news-1
-    (:bold t
-           :inherit 'gnus-group-news-1-empty))
+ '(gnus-group-news-1
+   (:bold t
+          :inherit 'gnus-group-news-1-empty))
 
-  '(gnus-group-news-2
-    (:bold t
-           :inherit 'gnus-group-news-2-empty))
+ '(gnus-group-news-2
+   (:bold t
+          :inherit 'gnus-group-news-2-empty))
 
-  '(gnus-group-news-3
-    (:bold t
-           :inherit 'gnus-group-news-3-empty))
+ '(gnus-group-news-3
+   (:bold t
+          :inherit 'gnus-group-news-3-empty))
 
-  '(gnus-group-news-4
-    (:bold t
-           :inherit 'gnus-group-news-4-empty))
+ '(gnus-group-news-4
+   (:bold t
+          :inherit 'gnus-group-news-4-empty))
 
-  '(gnus-group-news-5
-    (:bold t
-           :inherit 'gnus-group-news-5-empty))
+ '(gnus-group-news-5
+   (:bold t
+          :inherit 'gnus-group-news-5-empty))
 
-  '(gnus-group-news-6
-    (:bold t
-           :inherit 'gnus-group-news-6-empty))
+ '(gnus-group-news-6
+   (:bold t
+          :inherit 'gnus-group-news-6-empty))
 
-  '(gnus-group-news-low
-    (:bold t
-           :inherit 'gnus-group-news-low-empty))
+ '(gnus-group-news-low
+   (:bold t
+          :inherit 'gnus-group-news-low-empty))
 
-  '(gnus-header-content
-    (:inherit 'message-header-other))
+ '(gnus-header-content
+   (:inherit 'message-header-other))
 
-  '(gnus-header-from
-    (:inherit 'message-header-from))
+ '(gnus-header-from
+   (:inherit 'message-header-from))
 
-  '(gnus-header-name
-    (:inherit 'message-header-name))
+ '(gnus-header-name
+   (:inherit 'message-header-name))
 
-  '(gnus-header-newsgroups
-    (:inherit 'message-header-other))
+ '(gnus-header-newsgroups
+   (:inherit 'message-header-other))
 
-  '(gnus-header-subject
-    (:inherit 'message-header-subject))
+ '(gnus-header-subject
+   (:inherit 'message-header-subject))
 
-  '(gnus-summary-cancelled
-    (:foreground monokai-orange))
+ '(gnus-summary-cancelled
+   (:foreground monokai-orange))
 
-  '(gnus-summary-high-ancient
-    (:foreground monokai-blue))
+ '(gnus-summary-high-ancient
+   (:foreground monokai-blue))
 
-  '(gnus-summary-high-read
-    (:foreground monokai-green
-                 :weight bold))
+ '(gnus-summary-high-read
+   (:foreground monokai-green
+                :weight bold))
 
-  '(gnus-summary-high-ticked
-    (:foreground monokai-orange
-                 :weight bold))
+ '(gnus-summary-high-ticked
+   (:foreground monokai-orange
+                :weight bold))
 
-  '(gnus-summary-high-unread
-    (:foreground monokai-fg
-                 :weight bold))
+ '(gnus-summary-high-unread
+   (:foreground monokai-fg
+                :weight bold))
 
-  '(gnus-summary-low-ancient
-    (:foreground monokai-blue))
+ '(gnus-summary-low-ancient
+   (:foreground monokai-blue))
 
-  '(gnus-summary-low-read
-    (:foreground monokai-green))
+ '(gnus-summary-low-read
+   (:foreground monokai-green))
 
-  '(gnus-summary-low-ticked
-    (:foreground monokai-orange
-                 :weight bold))
+ '(gnus-summary-low-ticked
+   (:foreground monokai-orange
+                :weight bold))
 
-  '(gnus-summary-low-unread
-    (:foreground monokai-fg))
+ '(gnus-summary-low-unread
+   (:foreground monokai-fg))
 
-  '(gnus-summary-normal-ancient
-    (:foreground monokai-blue))
+ '(gnus-summary-normal-ancient
+   (:foreground monokai-blue))
 
-  '(gnus-summary-normal-read
-    (:foreground monokai-green))
+ '(gnus-summary-normal-read
+   (:foreground monokai-green))
 
-  '(gnus-summary-normal-ticked
-    (:foreground monokai-orange
-                 :weight bold))
+ '(gnus-summary-normal-ticked
+   (:foreground monokai-orange
+                :weight bold))
 
-  '(gnus-summary-normal-unread
-    (:foreground monokai-fg))
+ '(gnus-summary-normal-unread
+   (:foreground monokai-fg))
 
-  '(gnus-summary-selected
-    (:foreground monokai-fg-1
-                 :weight bold))
+ '(gnus-summary-selected
+   (:foreground monokai-fg-1
+                :weight bold))
 
-  '(gnus-cite-1
-    (:foreground monokai-blue))
+ '(gnus-cite-1
+   (:foreground monokai-blue))
 
-  '(gnus-cite-10
-    (:foreground monokai-yellow-1))
+ '(gnus-cite-10
+   (:foreground monokai-yellow-1))
 
-  '(gnus-cite-11
-    (:foreground monokai-yellow))
+ '(gnus-cite-11
+   (:foreground monokai-yellow))
 
-  '(gnus-cite-2
-    (:foreground monokai-blue-1))
+ '(gnus-cite-2
+   (:foreground monokai-blue-1))
 
-  '(gnus-cite-3
-    (:foreground monokai-cyan))
+ '(gnus-cite-3
+   (:foreground monokai-cyan))
 
-  '(gnus-cite-4
-    (:foreground monokai-purple))
+ '(gnus-cite-4
+   (:foreground monokai-purple))
 
-  '(gnus-cite-5
-    (:foreground monokai-green+1))
+ '(gnus-cite-5
+   (:foreground monokai-green+1))
 
-  '(gnus-cite-6
-    (:foreground monokai-green))
+ '(gnus-cite-6
+   (:foreground monokai-green))
 
-  '(gnus-cite-7
-    (:foreground monokai-red))
+ '(gnus-cite-7
+   (:foreground monokai-red))
 
-  '(gnus-cite-8
-    (:foreground monokai-red))
+ '(gnus-cite-8
+   (:foreground monokai-red))
 
-  '(gnus-cite-9
-    (:foreground monokai-purple))
+ '(gnus-cite-9
+   (:foreground monokai-purple))
 
-  '(gnus-group-news-1-empty
-    (:foreground monokai-fg-1))
+ '(gnus-group-news-1-empty
+   (:foreground monokai-fg-1))
 
-  '(gnus-group-news-2-empty
-    (:foreground monokai-green+1))
+ '(gnus-group-news-2-empty
+   (:foreground monokai-green+1))
 
-  '(gnus-group-news-3-empty
-    (:foreground monokai-green+1))
+ '(gnus-group-news-3-empty
+   (:foreground monokai-green+1))
 
-  '(gnus-group-news-4-empty
-    (:foreground monokai-cyan))
+ '(gnus-group-news-4-empty
+   (:foreground monokai-cyan))
 
-  '(gnus-group-news-5-empty
-    (:foreground monokai-cyan+1))
+ '(gnus-group-news-5-empty
+   (:foreground monokai-cyan+1))
 
-  '(gnus-group-news-6-empty
-    (:foreground monokai-bg+2))
+ '(gnus-group-news-6-empty
+   (:foreground monokai-bg+2))
 
-  '(gnus-group-news-low-empty
-    (:foreground monokai-bg+2))
+ '(gnus-group-news-low-empty
+   (:foreground monokai-bg+2))
 
-  '(gnus-signature
-    (:foreground monokai-fg-1))
+ '(gnus-signature
+   (:foreground monokai-fg-1))
 
-  '(gnus-x
-    (:background monokai-fg
-                 :foreground monokai-bg))
+ '(gnus-x
+   (:background monokai-fg
+                :foreground monokai-bg))
  ;;;;; guide-key
-  '(guide-key/highlight-command-face
-    (:foreground monokai-blue))
+ '(guide-key/highlight-command-face
+   (:foreground monokai-blue))
 
-  '(guide-key/key-face
-    (:foreground monokai-green))
+ '(guide-key/key-face
+   (:foreground monokai-green))
 
-  '(guide-key/prefix-command-face
-    (:foreground monokai-green+1))
+ '(guide-key/prefix-command-face
+   (:foreground monokai-green+1))
 
  ;;;;; helm
-  '(helm-header
-    (:foreground monokai-green
-                 :background monokai-bg
-                 :underline nil :box nil))
+ '(helm-header
+   (:foreground monokai-green
+                :background monokai-bg
+                :underline nil :box nil))
 
-  '(helm-source-header
-    (:foreground monokai-yellow
-                 :background monokai-bg-1
-                 :underline nil :weight bold
-                 :box (:line-width -1 :style released-button)))
+ '(helm-source-header
+   (:foreground monokai-yellow
+                :background monokai-bg-1
+                :underline nil :weight bold
+                :box (:line-width -1 :style released-button)))
 
-  '(helm-selection
-    (:background monokai-bg+2
-                 :underline nil))
+ '(helm-selection
+   (:background monokai-bg+2
+                :underline nil))
 
-  '(helm-selection-line
-    (:background monokai-bg+1))
+ '(helm-selection-line
+   (:background monokai-bg+1))
 
-  '(helm-visible-mark
-    (:foreground monokai-fg-1
-                 :background monokai-bg+2))
+ '(helm-visible-mark
+   (:foreground monokai-fg-1
+                :background monokai-bg+2))
 
-  '(helm-candidate-number
-    (:foreground monokai-green+2
-                 :background monokai-bg-1))
+ '(helm-candidate-number
+   (:foreground monokai-green+2
+                :background monokai-bg-1))
 
-  '(helm-ff-directory
-    (:foreground monokai-magenta))
+ '(helm-ff-directory
+   (:foreground monokai-magenta))
 
  ;;;;; hl-line-mode
-  '(hl-line
-    (:background monokai-bg+1 :inherit 't))
+ '(hl-line
+   (:background monokai-bg+1 :inherit 't))
 
  ;;;;; hl-sexp
-  '(hl-sexp-face
-    (:background monokai-bg+1 :inherit 't))
+ '(hl-sexp-face
+   (:background monokai-bg+1 :inherit 't))
 
  ;;;;; ido-mode
-  '(ido-first-match
-    (:foreground monokai-orange
-                 :background monokai-bg
-                 :weight bold))
+ '(ido-first-match
+   (:foreground monokai-orange
+                :background monokai-bg
+                :weight bold))
 
-  '(ido-only-match
-    (:foreground monokai-green
-                 :background monokai-bg
-                 :weight bold))
+ '(ido-only-match
+   (:foreground monokai-green
+                :background monokai-bg
+                :weight bold))
 
-  '(ido-subdir
-    (:foreground monokai-blue
-                 :background monokai-bg))
+ '(ido-subdir
+   (:foreground monokai-blue
+                :background monokai-bg))
 
  ;;;;; Js2-mode
-  '(js2-warning-face
-    (:foreground monokai-yellow-1
-                 :underline t))
+ '(js2-warning-face
+   (:foreground monokai-yellow-1
+                :underline t))
 
-  '(js2-error-face
-    (:foreground monokai-red
-                 :weight bold))
+ '(js2-error-face
+   (:foreground monokai-red
+                :weight bold))
 
-  '(js2-jsdoc-tag-face
-    (:foreground monokai-green))
+ '(js2-jsdoc-tag-face
+   (:foreground monokai-green))
 
-  '(js2-jsdoc-type-face
-    (:foreground monokai-blue))
+ '(js2-jsdoc-type-face
+   (:foreground monokai-blue))
 
-  '(js2-jsdoc-value-face
-    (:foreground monokai-purple))
+ '(js2-jsdoc-value-face
+   (:foreground monokai-purple))
 
-  '(js2-function-param-face
-    (:foreground monokai-green))
+ '(js2-function-param-face
+   (:foreground monokai-green))
 
-  '(js2-external-variable-face
-    (:foreground monokai-yellow))
+ '(js2-external-variable-face
+   (:foreground monokai-yellow))
 
  ;;;;; jabber-mode
 
-  '(jabber-roster-user-away
-    (:foreground monokai-purple))
+ '(jabber-roster-user-away
+   (:foreground monokai-purple))
 
-  '(jabber-roster-user-online
-    (:foreground monokai-green))
+ '(jabber-roster-user-online
+   (:foreground monokai-green))
 
-  '(jabber-roster-user-dnd
-    (:foreground monokai-red))
+ '(jabber-roster-user-dnd
+   (:foreground monokai-red))
 
-  '(jabber-rare-time-face
-    (:foreground monokai-purple))
+ '(jabber-rare-time-face
+   (:foreground monokai-purple))
 
-  '(jabber-chat-prompt-local
-    (:foreground monokai-blue))
+ '(jabber-chat-prompt-local
+   (:foreground monokai-blue))
 
-  '(jabber-chat-prompt-foreign
-    (:foreground monokai-orange))
+ '(jabber-chat-prompt-foreign
+   (:foreground monokai-orange))
 
-  '(jabber-activity-face
-    (:foreground monokai-red))
+ '(jabber-activity-face
+   (:foreground monokai-red))
 
-  '(jabber-activity-personal-face
-    (:foreground monokai-cyan))
+ '(jabber-activity-personal-face
+   (:foreground monokai-cyan))
 
-  '(jabber-title-small
-    (:height 1.1 :weight bold))
+ '(jabber-title-small
+   (:height 1.1 :weight bold))
 
-  '(jabber-title-medium
-    (:height 1.2 :weight bold))
+ '(jabber-title-medium
+   (:height 1.2 :weight bold))
 
-  '(jabber-title-large
-    (:height 1.3 :weight bold))
+ '(jabber-title-large
+   (:height 1.3 :weight bold))
 
  ;;;;; linum-mode
-  '(linum
-    (:foreground monokai-purple
-                 :background monokai-bg))
+ '(linum
+   (:foreground monokai-purple
+                :background monokai-bg))
 
  ;;;;; macrostep
-  '(macrostep-gensym-1
-    (:foreground monokai-green+2
-                 :background monokai-bg-1))
+ '(macrostep-gensym-1
+   (:foreground monokai-green+2
+                :background monokai-bg-1))
 
-  '(macrostep-gensym-2
-    (:foreground monokai-red+1
-                 :background monokai-bg-1))
+ '(macrostep-gensym-2
+   (:foreground monokai-red+1
+                :background monokai-bg-1))
 
-  '(macrostep-gensym-3
-    (:foreground monokai-blue+1
-                 :background monokai-bg-1))
+ '(macrostep-gensym-3
+   (:foreground monokai-blue+1
+                :background monokai-bg-1))
 
-  '(macrostep-gensym-4
-    (:foreground monokai-magenta
-                 :background monokai-bg-1))
+ '(macrostep-gensym-4
+   (:foreground monokai-magenta
+                :background monokai-bg-1))
 
-  '(macrostep-gensym-5
-    (:foreground monokai-yellow
-                 :background monokai-bg-1))
+ '(macrostep-gensym-5
+   (:foreground monokai-yellow
+                :background monokai-bg-1))
 
-  '(macrostep-expansion-highlight-face
-    (:inherit 'highlight))
+ '(macrostep-expansion-highlight-face
+   (:inherit 'highlight))
 
-  '(macrostep-macro-face
-    (:underline t))
+ '(macrostep-macro-face
+   (:underline t))
 
  ;;;;; magit
-  '(magit-section-title
-    (:foreground monokai-yellow
-                 :weight bold))
-
-  '(magit-branch
-    (:foreground monokai-blue
-                 :weight bold))
-
-  '(magit-item-highlight
-    (:background monokai-bg+2))
-
- ;;;;; message-mode
-  '(message-cited-text
-    (:inherit 'font-lock-comment))
-
-  '(message-header-name
-    (:foreground monokai-green+1))
-
-  '(message-header-other
-    (:foreground monokai-green))
-
-  '(message-header-to
-    (:foreground monokai-fg-1
-                 :weight bold))
-
-  '(message-header-from
-    (:foreground monokai-fg-1
-                 :weight bold))
-
-  '(message-header-cc
-    (:foreground monokai-fg-1
-                 :weight bold))
-
-  '(message-header-newsgroups
-    (:foreground monokai-fg-1
-                 :weight bold))
-
-  '(message-header-subject
-    (:foreground monokai-orange
-                 :weight bold))
-
-  '(message-header-xheader
-    (:foreground monokai-green))
-
-  '(message-mml
-    (:foreground monokai-fg-1
-                 :weight bold))
-
-  '(message-separator
-    (:inherit 'font-lock-comment))
-
- ;;;;; egg
-  '(egg-text-base
-    (:foreground monokai-fg))
-
-  '(egg-help-header-1
-    (:foreground monokai-blue))
-
-  '(egg-help-header-2
-    (:foreground monokai-green))
-
-  '(egg-branch
-    (:foreground monokai-blue))
-
-  '(egg-branch-mono
-    (:foreground monokai-blue))
-
-  '(egg-term
-    (:foreground monokai-blue))
-
-  '(egg-diff-add
-    (:foreground monokai-green+1))
-
-  '(egg-diff-del
-    (:foreground monokai-red+1))
-
-  '(egg-diff-file-header
-    (:foreground monokai-fg-1))
-
-  '(egg-section-title
-    (:foreground monokai-blue))
-
-  '(egg-stash-mono
-    (:foreground monokai-purple))
-
- ;;;;; message-mode
-  '(message-cited-text
-    (:inherit 'font-lock-comment))
-
-  '(message-header-name
-    (:foreground monokai-green+1))
-
-  '(message-header-other
-    (:foreground monokai-green))
-
-  '(message-header-to
-    (:foreground monokai-yellow
-                 :weight bold))
-
-  '(message-header-from
-    (:foreground monokai-yellow
-                 :weight bold))
-
-  '(message-header-cc
-    (:foreground monokai-yellow
-                 :weight bold))
-
-  '(message-header-newsgroups
-    (:foreground monokai-yellow
-                 :weight bold))
-
-  '(message-header-subject
-    (:foreground monokai-orange
-                 :weight bold))
-
-  '(message-header-xheader
-    (:foreground monokai-green))
-
-  '(message-mml
-    (:foreground monokai-yellow
-                 :weight bold))
-
-  '(message-separator
-    (:inherit 'font-lock-comment))
-
- ;;;;; mew
-  '(mew-face-header-subject
-    (:foreground monokai-orange))
-
-  '(mew-face-header-from
-    (:foreground monokai-yellow))
-
-  '(mew-face-header-date
-    (:foreground monokai-green))
-
-  '(mew-face-header-to
-    (:foreground monokai-red))
-
-  '(mew-face-header-key
-    (:foreground monokai-blue))
-
-  '(mew-face-header-private
-    (:foreground monokai-purple))
-
-  '(mew-face-header-important
-    (:foreground monokai-blue))
-
-  '(mew-face-header-marginal
-    (:foreground monokai-fg
-                 :weight bold))
-
-  '(mew-face-header-warning
-    (:foreground monokai-yellow-1))
-
-  '(mew-face-header-xmew
-    (:foreground monokai-green))
-
-  '(mew-face-header-xmew-bad
-    (:foreground monokai-red))
-
-  '(mew-face-body-url
-    (:foreground monokai-blue))
-
-  '(mew-face-body-comment
-    (:foreground monokai-fg-1
-                 :slant italic))
-
-  '(mew-face-body-cite1
-    (:foreground monokai-cyan))
-
-  '(mew-face-body-cite2
-    (:foreground monokai-purple))
-
-  '(mew-face-body-cite3
-    (:foreground monokai-orange))
-
-  '(mew-face-body-cite4
-    (:foreground monokai-yellow))
-
-  '(mew-face-body-cite5
-    (:foreground monokai-red))
-
-  '(mew-face-mark-review
-    (:foreground monokai-blue))
-
-  '(mew-face-mark-escape
-    (:foreground monokai-green))
-
-  '(mew-face-mark-delete
-    (:foreground monokai-red))
-
-  '(mew-face-mark-unlink
-    (:foreground monokai-yellow))
-
-  '(mew-face-mark-refile
-    (:foreground monokai-orange))
-
-  '(mew-face-mark-unread
-    (:foreground monokai-purple))
-
-  '(mew-face-eof-message
-    (:foreground monokai-red))
-
-  '(mew-face-eof-part
-    (:foreground monokai-yellow))
-
- ;;;;; mic-paren
-  '(paren-face-match
-    (:foreground monokai-bg-1
-                 :background monokai-orange
-                 :weight bold))
-
-  '(paren-face-mismatch
-    (:foreground monokai-bg-1
-                 :background monokai-magenta
-                 :weight bold))
-
-  '(paren-face-no-match
-    (:foreground monokai-bg-1
-                 :background monokai-purple
-                 :weight bold))
-
- ;;;;; mingus
-  '(mingus-directory-face
-    (:foreground monokai-blue))
-
-  '(mingus-pausing-face
-    (:foreground monokai-magenta))
-
-  '(mingus-playing-face
-    (:foreground monokai-cyan))
-
-  '(mingus-playlist-face
-    (:foreground monokai-cyan ))
-
-  '(mingus-song-file-face
-    (:foreground monokai-yellow))
-
-  '(mingus-stopped-face
-    (:foreground monokai-red))
-
- ;;;;; nav
-  '(nav-face-heading
-    (:foreground monokai-fg-1))
-
-  '(nav-face-button-num
-    (:foreground monokai-blue))
-
-  '(nav-face-dir
-    (:foreground monokai-green))
-
-  '(nav-face-hdir
-    (:foreground monokai-red))
-
-  '(nav-face-file
-    (:foreground monokai-fg))
-
-  '(nav-face-hfile
-    (:foreground monokai-purple))
-
- ;;;;; mu4e
-  '(mu4e-cited-1-face
-    (:foreground monokai-blue
-                 :slant italic))
-
-  '(mu4e-cited-2-face
-    (:foreground monokai-purple
-                 :slant italic))
-
-  '(mu4e-cited-3-face
-    (:foreground monokai-cyan
-                 :slant italic))
-
-  '(mu4e-cited-4-face
-    (:foreground monokai-green
-                 :slant italic))
-
-  '(mu4e-cited-5-face
-    (:foreground monokai-orange
-                 :slant italic))
-
-  '(mu4e-cited-6-face
-    (:foreground monokai-purple
-                 :slant italic))
-
-  '(mu4e-cited-7-face
-    (:foreground monokai-yellow
-                 :slant italic))
-
-  '(mu4e-replied-face
-    (:foreground monokai-fg-1))
-
-  '(mu4e-trashed-face
-    (:foreground monokai-fg-1
-                 :strike-through t))
-
- ;;;;; mumamo
-  '(mumamo-background-chunk-major
-    (:background nil))
-
-  '(mumamo-background-chunk-submode1
-    (:background monokai-bg-1))
-
-  '(mumamo-background-chunk-submode2
-    (:background monokai-bg+2))
-
-  '(mumamo-background-chunk-submode3
-    (:background monokai-fg-1))
-
-  '(mumamo-background-chunk-submode4
-    (:background monokai-bg+2))
-
- ;;;;; org-mode
-  '(org-agenda-date-today
-    (:foreground monokai-fg+1
-                 :slant italic
-                 :weight bold))
-
-  '(org-agenda-structure
-    (:inherit 'font-lock-comment-face))
-
-  '(org-archived
-    (:foreground monokai-fg
-                 :weight bold))
-
-  '(org-checkbox
-    (:background monokai-bg+2
-                 :foreground monokai-fg+1
-                 :box (:line-width 1 :style released-button)))
-  '(org-date
-    (:foreground monokai-blue
-                 :underline t))
-
-  '(org-deadline-announce
-    (:foreground monokai-red))
-
-  '(org-done
-    (:foreground monokai-green+1
-                 :weight bold))
-  '(org-formula
-    (:foreground monokai-yellow))
-
-  '(org-headline-done
-    (:foreground monokai-green+1))
-
-  '(org-hide
-    (:foreground monokai-bg-1))
-
-  '(org-level-1
-    (:foreground monokai-orange))
-
-  '(org-level-2
-    (:foreground monokai-orange+1))
-
-  '(org-level-3
-    (:foreground monokai-cyan))
-
-  '(org-level-4
-    (:foreground monokai-cyan+1))
-
-  '(org-level-5
-    (:foreground monokai-purple))
-
-  '(org-level-6
-    (:foreground monokai-purple+1))
-
-  '(org-level-7
-    (:foreground monokai-red+1))
-
-  '(org-level-8
-    (:foreground monokai-red+2))
-
-  '(org-link
-    (:foreground monokai-blue
-                 :underline t))
-
-  '(org-scheduled
-    (:foreground monokai-purple+1))
-
-  '(org-scheduled-previously
-    (:foreground monokai-red))
-
-  '(org-scheduled-today
-    (:foreground monokai-blue+1))
-
-  '(org-special-keyword
-    (:foreground monokai-fg-1))
-
-  '(org-table
-    (:foreground monokai-purple))
-
-  '(org-tag
-    (:weight bold))
-
-  '(org-time-grid
-    (:foreground monokai-orange))
-
-  '(org-todo
-    (:foreground monokai-red
-                 :weight bold))
-
-  '(org-upcoming-deadline
-    (:inherit 'font-lock-keyword-face))
-
-  '(org-warning
-    (:foreground monokai-yellow-1
-                 :weight bold
-                 :underline t))
-
-  '(org-column
-    (:background monokai-bg-1))
-
-  '(org-column-title
-    (:background monokai-bg-1
-                 :underline t
-                 :weight bold))
-
- ;;;;; outline
-  '(outline-1
-    (:foreground monokai-orange))
-
-  '(outline-2
-    (:foreground monokai-magenta))
-
-  '(outline-3
-    (:foreground monokai-blue))
-
-  '(outline-4
-    (:foreground monokai-yellow))
-
-  '(outline-5
-    (:foreground monokai-cyan))
-
-  '(outline-6
-    (:foreground monokai-purple))
-
-  '(outline-7
-    (:foreground monokai-red))
-
-  '(outline-8
-    (:foreground monokai-green))
-
- ;;;;; rainbow-delimiters
-  '(rainbow-delimiters-depth-1-face
-    (:foreground monokai-orange))
-
-  '(rainbow-delimiters-depth-2-face
-    (:foreground monokai-blue))
-
-  '(rainbow-delimiters-depth-3-face
-    (:foreground monokai-purple))
-
-  '(rainbow-delimiters-depth-4-face
-    (:foreground monokai-green))
-
-  '(rainbow-delimiters-depth-5-face
-    (:foreground monokai-cyan))
-
-  '(rainbow-delimiters-depth-6-face
-    (:foreground monokai-red))
-
-  '(rainbow-delimiters-depth-7-face
-    (:foreground monokai-orange))
-
-  '(rainbow-delimiters-depth-8-face
-    (:foreground monokai-blue+1))
-
-  '(rainbow-delimiters-depth-9-face
-    (:foreground monokai-red+1))
-
-  '(rainbow-delimiters-depth-10-face
-    (:foreground monokai-green+1))
-
-  '(rainbow-delimiters-depth-11-face
-    (:foreground monokai-purple+1))
-
-  '(rainbow-delimiters-depth-12-face
-    (:foreground monokai-orange+1))
-
- ;;;;;rcirc
-  '(rcirc-my-nick
-    (:foreground monokai-blue))
-
-  '(rcirc-other-nick
-    (:foreground monokai-orange))
-
-  '(rcirc-bright-nick
-    (:foreground monokai-blue+1))
-
-  '(rcirc-dim-nick
-    (:foreground monokai-blue-1))
-
-  '(rcirc-server
-    (:foreground monokai-green))
-
-  '(rcirc-server-prefix
-    (:foreground monokai-green+1))
-
-  '(rcirc-timestamp
-    (:foreground monokai-purple))
-
-  '(rcirc-nick-in-message
-    (:foreground monokai-yellow))
-
-  '(rcirc-nick-in-message-full-line
-    (:bold t))
-
-  '(rcirc-prompt
-    (:foreground monokai-fg-1
-                 :bold t))
-
-  '(rcirc-track-nick
-    (:inverse-video t))
-
-  '(rcirc-track-keyword
-    (:bold t))
-
-  '(rcirc-url
-    (:bold t))
-
-  '(rcirc-keyword
-    (:foreground monokai-red
-                 :bold t))
-
- ;;;;; rhtml-mode
-  '(erb-face
-    (:foreground monokai-fg+1
-                 :background monokai-bg-1))
-
-  '(erb-delim-face
-    (:foreground monokai-cyan-1
-                 :background monokai-bg-1))
-
-  '(erb-exec-face
-    (:foreground monokai-fg+1
-                 :background monokai-bg-1))
-
-  '(erb-exec-delim-face
-    (:foreground monokai-cyan-1
-                 :background monokai-bg-1))
-
-  '(erb-out-face
-    (:foreground monokai-fg+1
-                 :background monokai-bg-1))
-
-  '(erb-out-delim-face
-    (:foreground monokai-cyan-1
-                 :background monokai-bg-1))
-
-  '(erb-comment-face
-    (:foreground monokai-fg-1
-                 :background monokai-bg-1))
-
-  '(erb-comment-delim-face
-    (:foreground monokai-cyan-1
-                 :background monokai-bg-1))
-
- ;;;;; rpm-mode
-  '(rpm-spec-dir-face
-    (:foreground monokai-green))
-
-  '(rpm-spec-doc-face
-    (:foreground monokai-blue))
-
-  '(rpm-spec-ghost-face
-    (:foreground monokai-magenta))
-
-  '(rpm-spec-macro-face
-    (:foreground monokai-yellow))
-
-  '(rpm-spec-obsolete-tag-face
-    (:foreground monokai-red))
-
-  '(rpm-spec-package-face
-    (:foreground monokai-purple))
-
-  '(rpm-spec-section-face
-    (:foreground monokai-yellow))
-
-  '(rpm-spec-tag-face
-    (:foreground monokai-purple))
-
-  '(rpm-spec-var-face
-    (:foreground monokai-orange))
- ;;;;; rst-mode
-  '(rst-level-1-face
-    (:foreground monokai-orange))
-
-  '(rst-level-2-face
-    (:foreground monokai-green))
-
-  '(rst-level-3-face
-    (:foreground monokai-blue))
-
-  '(rst-level-4-face
-    (:foreground monokai-yellow))
-
-  '(rst-level-5-face
-    (:foreground monokai-purple))
-
-  '(rst-level-6-face
-    (:foreground monokai-red))
-
- ;;;;; show-paren
-  '(show-paren-mismatch
-    (:foreground monokai-bg-1
-                 :background monokai-red
-                 :weight bold))
-
-  '(show-paren-match
-    (:foreground monokai-bg-1
-                 :background monokai-orange
-                 ::weight bold))
-
- ;;;;; sml-mode-line
-  '(sml-modeline-end-face
-    (:inherit 'default
-              :width condensed))
-
- ;;;;; SLIME
-  '(slime-repl-inputed-output-face
-    (:foreground monokai-red))
-
- ;;;;; tabbar
-  '(tabbar-button
-    (:foreground monokai-fg
-                 :background monokai-bg))
-
-  '(tabbar-selected
-    (:foreground monokai-fg
-                 :background monokai-bg
-                 :box (:line-width -1 :style pressed-button)))
-
-  '(tabbar-unselected
-    (:foreground monokai-fg
-                 :background monokai-bg+2
-                 :box (:line-width -1 :style released-button)))
- ;;;;; term
-  '(term-color-black
-    (:foreground monokai-bg
-                 :background monokai-bg+1))
-
-  '(term-color-red
-    (:foreground monokai-red
-                 :background monokai-red+1))
-
-  '(term-color-green
-    (:foreground monokai-green
-                 :background monokai-green+1))
-
-  '(term-color-yellow
-    (:foreground monokai-orange
-                 :background monokai-orange+1))
-
-  '(term-color-blue
-    (:foreground monokai-blue
-                 :background monokai-blue+1))
-
-  '(term-color-magenta
-    (:foreground monokai-purple
-                 :background monokai-purple+1))
-
-  '(term-color-cyan
-    (:foreground monokai-cyan
-                 :background monokai-cyan+1))
-
-  '(term-color-white
-    (:foreground monokai-fg
-                 :background monokai-fg+1))
-
-  '(term-default-fg-color
-    (:foreground monokai-fg))
-
-  '(term-default-bg-color
-    (:foreground monokai-bg))
-
- ;;;;; volatile-highlights
-  '(vhl/default-face
-    (:background monokai-bg+2))
-
- ;;;;; emacs-w3m
-  '(w3m-anchor
-    (:foreground monokai-fg-1
-                 :underline t
-                 :weight bold))
-
-  '(w3m-arrived-anchor
-    (:foreground monokai-yellow-1
-                 :underline t
-                 :weight normal))
-
-  '(w3m-form
-    (:foreground monokai-red
-                 :underline t))
-
-  '(w3m-header-line-location-title
-    (:foreground monokai-fg-1
-                 :underline t
-                 :weight bold))
-
-  '(w3m-history-current-url
-    (:inherit 'match))
-
-  '(w3m-lnum
-    (:foreground monokai-purple
-                 :background monokai-bg))
-
-  '(w3m-lnum-match
-    (:background monokai-bg-1
-                 :foreground monokai-orange
-                 :weight bold))
-
-  '(w3m-lnum-minibuffer-prompt
-    (:foreground monokai-fg-1))
-
- ;;;;; whitespace-mode
-  '(whitespace-space
-    (:background monokai-bg
-                 :foreground monokai-bg-1))
-  '(whitespace-hspace
-    (:background monokai-bg
-                 :foreground monokai-bg-1))
-
-  '(whitespace-tab
-    (:background monokai-bg)) ;;; Changed was (:background monokai-red)
-
-  '(whitespace-newline
-    (:foreground monokai-bg-1))
-
-  '(whitespace-trailing
-    (:background monokai-red))
-
-  '(whitespace-line
-    (:background monokai-bg
-                 :foreground monokai-red))
-
-  '(whitespace-space-before-tab
-    (:background monokai-bg
-                 :foreground monokai-orange))
-
-  '(whitespace-indentation
-    (:background monokai-fg-1
-                 :foreground monokai-red))
-
-  '(whitespace-empty
-    (:background monokai-fg-1))
-
-  '(whitespace-space-after-tab
-    (:background monokai-fg-1
-                 :foreground monokai-red))
-
- ;;;;; wanderlust
-  '(wl-highlight-folder-few-face
-    (:foreground monokai-purple))
-
-  '(wl-highlight-folder-many-face
-    (:foreground monokai-red))
-
-  '(wl-highlight-folder-path-face
-    (:foreground monokai-orange))
-
-  '(wl-highlight-folder-unread-face
-    (:foreground monokai-blue))
-
-  '(wl-highlight-folder-zero-face
-    (:foreground monokai-fg))
-
-  '(wl-highlight-folder-unknown-face
-    (:foreground monokai-cyan))
-
-  '(wl-highlight-message-citation-header
-    (:foreground monokai-yellow))
-
-  '(wl-highlight-message-cited-text-1
-    (:foreground monokai-purple))
-
-  '(wl-highlight-message-cited-text-2
-    (:foreground monokai-purple+1))
-
-  '(wl-highlight-message-cited-text-3
-    (:foreground monokai-blue))
-
-  '(wl-highlight-message-cited-text-4
-    (:foreground monokai-blue+1))
-
-  '(wl-highlight-message-header-contents-face
-    (:foreground monokai-green))
-
-  '(wl-highlight-message-headers-face
-    (:foreground monokai-red+1))
-
-  '(wl-highlight-message-important-header-contents
-    (:foreground monokai-purple))
-
-  '(wl-highlight-message-header-contents
-    (:foreground monokai-green+1))
-
-  '(wl-highlight-message-important-header-contents2
-    (:foreground monokai-purple+1))
-
-  '(wl-highlight-message-signature
-    (:foreground monokai-green))
-
-  '(wl-highlight-message-unimportant-header-contents
-    (:foreground monokai-fg))
-
-  '(wl-highlight-summary-answered-face
-    (:foreground monokai-blue))
-
-  '(wl-highlight-summary-disposed-face
-    (:foreground monokai-fg
-                 :slant italic))
-
-  '(wl-highlight-summary-new-face
-    (:foreground monokai-blue))
-
-  '(wl-highlight-summary-normal-face
-    (:foreground monokai-fg))
-
-  '(wl-highlight-summary-thread-top-face
-    (:foreground monokai-fg-1))
-
-  '(wl-highlight-thread-indent-face
-    (:foreground monokai-magenta))
-
-  '(wl-highlight-summary-refiled-face
-    (:foreground monokai-fg))
-
-  '(wl-highlight-summary-displaying-face
-    (:underline t
+ '(magit-section-title
+   (:foreground monokai-yellow
                 :weight bold))
 
+ '(magit-branch
+   (:foreground monokai-blue
+                :weight bold))
+
+ '(magit-item-highlight
+   (:background monokai-bg+2))
+
+ ;;;;; message-mode
+ '(message-cited-text
+   (:inherit 'font-lock-comment))
+
+ '(message-header-name
+   (:foreground monokai-green+1))
+
+ '(message-header-other
+   (:foreground monokai-green))
+
+ '(message-header-to
+   (:foreground monokai-fg-1
+                :weight bold))
+
+ '(message-header-from
+   (:foreground monokai-fg-1
+                :weight bold))
+
+ '(message-header-cc
+   (:foreground monokai-fg-1
+                :weight bold))
+
+ '(message-header-newsgroups
+   (:foreground monokai-fg-1
+                :weight bold))
+
+ '(message-header-subject
+   (:foreground monokai-orange
+                :weight bold))
+
+ '(message-header-xheader
+   (:foreground monokai-green))
+
+ '(message-mml
+   (:foreground monokai-fg-1
+                :weight bold))
+
+ '(message-separator
+   (:inherit 'font-lock-comment))
+
+ ;;;;; egg
+ '(egg-text-base
+   (:foreground monokai-fg))
+
+ '(egg-help-header-1
+   (:foreground monokai-blue))
+
+ '(egg-help-header-2
+   (:foreground monokai-green))
+
+ '(egg-branch
+   (:foreground monokai-blue))
+
+ '(egg-branch-mono
+   (:foreground monokai-blue))
+
+ '(egg-term
+   (:foreground monokai-blue))
+
+ '(egg-diff-add
+   (:foreground monokai-green+1))
+
+ '(egg-diff-del
+   (:foreground monokai-red+1))
+
+ '(egg-diff-file-header
+   (:foreground monokai-fg-1))
+
+ '(egg-section-title
+   (:foreground monokai-blue))
+
+ '(egg-stash-mono
+   (:foreground monokai-purple))
+
+ ;;;;; message-mode
+ '(message-cited-text
+   (:inherit 'font-lock-comment))
+
+ '(message-header-name
+   (:foreground monokai-green+1))
+
+ '(message-header-other
+   (:foreground monokai-green))
+
+ '(message-header-to
+   (:foreground monokai-yellow
+                :weight bold))
+
+ '(message-header-from
+   (:foreground monokai-yellow
+                :weight bold))
+
+ '(message-header-cc
+   (:foreground monokai-yellow
+                :weight bold))
+
+ '(message-header-newsgroups
+   (:foreground monokai-yellow
+                :weight bold))
+
+ '(message-header-subject
+   (:foreground monokai-orange
+                :weight bold))
+
+ '(message-header-xheader
+   (:foreground monokai-green))
+
+ '(message-mml
+   (:foreground monokai-yellow
+                :weight bold))
+
+ '(message-separator
+   (:inherit 'font-lock-comment))
+
+ ;;;;; mew
+ '(mew-face-header-subject
+   (:foreground monokai-orange))
+
+ '(mew-face-header-from
+   (:foreground monokai-yellow))
+
+ '(mew-face-header-date
+   (:foreground monokai-green))
+
+ '(mew-face-header-to
+   (:foreground monokai-red))
+
+ '(mew-face-header-key
+   (:foreground monokai-blue))
+
+ '(mew-face-header-private
+   (:foreground monokai-purple))
+
+ '(mew-face-header-important
+   (:foreground monokai-blue))
+
+ '(mew-face-header-marginal
+   (:foreground monokai-fg
+                :weight bold))
+
+ '(mew-face-header-warning
+   (:foreground monokai-yellow-1))
+
+ '(mew-face-header-xmew
+   (:foreground monokai-green))
+
+ '(mew-face-header-xmew-bad
+   (:foreground monokai-red))
+
+ '(mew-face-body-url
+   (:foreground monokai-blue))
+
+ '(mew-face-body-comment
+   (:foreground monokai-fg-1
+                :slant italic))
+
+ '(mew-face-body-cite1
+   (:foreground monokai-cyan))
+
+ '(mew-face-body-cite2
+   (:foreground monokai-purple))
+
+ '(mew-face-body-cite3
+   (:foreground monokai-orange))
+
+ '(mew-face-body-cite4
+   (:foreground monokai-yellow))
+
+ '(mew-face-body-cite5
+   (:foreground monokai-red))
+
+ '(mew-face-mark-review
+   (:foreground monokai-blue))
+
+ '(mew-face-mark-escape
+   (:foreground monokai-green))
+
+ '(mew-face-mark-delete
+   (:foreground monokai-red))
+
+ '(mew-face-mark-unlink
+   (:foreground monokai-yellow))
+
+ '(mew-face-mark-refile
+   (:foreground monokai-orange))
+
+ '(mew-face-mark-unread
+   (:foreground monokai-purple))
+
+ '(mew-face-eof-message
+   (:foreground monokai-red))
+
+ '(mew-face-eof-part
+   (:foreground monokai-yellow))
+
+ ;;;;; mic-paren
+ '(paren-face-match
+   (:foreground monokai-bg-1
+                :background monokai-orange
+                :weight bold))
+
+ '(paren-face-mismatch
+   (:foreground monokai-bg-1
+                :background monokai-magenta
+                :weight bold))
+
+ '(paren-face-no-match
+   (:foreground monokai-bg-1
+                :background monokai-purple
+                :weight bold))
+
+ ;;;;; mingus
+ '(mingus-directory-face
+   (:foreground monokai-blue))
+
+ '(mingus-pausing-face
+   (:foreground monokai-magenta))
+
+ '(mingus-playing-face
+   (:foreground monokai-cyan))
+
+ '(mingus-playlist-face
+   (:foreground monokai-cyan ))
+
+ '(mingus-song-file-face
+   (:foreground monokai-yellow))
+
+ '(mingus-stopped-face
+   (:foreground monokai-red))
+
+ ;;;;; nav
+ '(nav-face-heading
+   (:foreground monokai-fg-1))
+
+ '(nav-face-button-num
+   (:foreground monokai-blue))
+
+ '(nav-face-dir
+   (:foreground monokai-green))
+
+ '(nav-face-hdir
+   (:foreground monokai-red))
+
+ '(nav-face-file
+   (:foreground monokai-fg))
+
+ '(nav-face-hfile
+   (:foreground monokai-purple))
+
+ ;;;;; mu4e
+ '(mu4e-cited-1-face
+   (:foreground monokai-blue
+                :slant italic))
+
+ '(mu4e-cited-2-face
+   (:foreground monokai-purple
+                :slant italic))
+
+ '(mu4e-cited-3-face
+   (:foreground monokai-cyan
+                :slant italic))
+
+ '(mu4e-cited-4-face
+   (:foreground monokai-green
+                :slant italic))
+
+ '(mu4e-cited-5-face
+   (:foreground monokai-orange
+                :slant italic))
+
+ '(mu4e-cited-6-face
+   (:foreground monokai-purple
+                :slant italic))
+
+ '(mu4e-cited-7-face
+   (:foreground monokai-yellow
+                :slant italic))
+
+ '(mu4e-replied-face
+   (:foreground monokai-fg-1))
+
+ '(mu4e-trashed-face
+   (:foreground monokai-fg-1
+                :strike-through t))
+
+ ;;;;; mumamo
+ '(mumamo-background-chunk-major
+   (:background nil))
+
+ '(mumamo-background-chunk-submode1
+   (:background monokai-bg-1))
+
+ '(mumamo-background-chunk-submode2
+   (:background monokai-bg+2))
+
+ '(mumamo-background-chunk-submode3
+   (:background monokai-fg-1))
+
+ '(mumamo-background-chunk-submode4
+   (:background monokai-bg+2))
+
+ ;;;;; org-mode
+ '(org-agenda-date-today
+   (:foreground monokai-fg+1
+                :slant italic
+                :weight bold))
+
+ '(org-agenda-structure
+   (:inherit 'font-lock-comment-face))
+
+ '(org-archived
+   (:foreground monokai-fg
+                :weight bold))
+
+ '(org-checkbox
+   (:background monokai-bg+2
+                :foreground monokai-fg+1
+                :box (:line-width 1 :style released-button)))
+ '(org-date
+   (:foreground monokai-blue
+                :underline t))
+
+ '(org-deadline-announce
+   (:foreground monokai-red))
+
+ '(org-done
+   (:foreground monokai-green+1
+                :weight bold))
+ '(org-formula
+   (:foreground monokai-yellow))
+
+ '(org-headline-done
+   (:foreground monokai-green+1))
+
+ '(org-hide
+   (:foreground monokai-bg-1))
+
+ '(org-level-1
+   (:foreground monokai-orange))
+
+ '(org-level-2
+   (:foreground monokai-orange+1))
+
+ '(org-level-3
+   (:foreground monokai-cyan))
+
+ '(org-level-4
+   (:foreground monokai-cyan+1))
+
+ '(org-level-5
+   (:foreground monokai-purple))
+
+ '(org-level-6
+   (:foreground monokai-purple+1))
+
+ '(org-level-7
+   (:foreground monokai-red+1))
+
+ '(org-level-8
+   (:foreground monokai-red+2))
+
+ '(org-link
+   (:foreground monokai-blue
+                :underline t))
+
+ '(org-scheduled
+   (:foreground monokai-purple+1))
+
+ '(org-scheduled-previously
+   (:foreground monokai-red))
+
+ '(org-scheduled-today
+   (:foreground monokai-blue+1))
+
+ '(org-special-keyword
+   (:foreground monokai-fg-1))
+
+ '(org-table
+   (:foreground monokai-purple))
+
+ '(org-tag
+   (:weight bold))
+
+ '(org-time-grid
+   (:foreground monokai-orange))
+
+ '(org-todo
+   (:foreground monokai-red
+                :weight bold))
+
+ '(org-upcoming-deadline
+   (:inherit 'font-lock-keyword-face))
+
+ '(org-warning
+   (:foreground monokai-yellow-1
+                :weight bold
+                :underline t))
+
+ '(org-column
+   (:background monokai-bg-1))
+
+ '(org-column-title
+   (:background monokai-bg-1
+                :underline t
+                :weight bold))
+
+ ;;;;; outline
+ '(outline-1
+   (:foreground monokai-orange))
+
+ '(outline-2
+   (:foreground monokai-magenta))
+
+ '(outline-3
+   (:foreground monokai-blue))
+
+ '(outline-4
+   (:foreground monokai-yellow))
+
+ '(outline-5
+   (:foreground monokai-cyan))
+
+ '(outline-6
+   (:foreground monokai-purple))
+
+ '(outline-7
+   (:foreground monokai-red))
+
+ '(outline-8
+   (:foreground monokai-green))
+
+ ;;;;; rainbow-delimiters
+ '(rainbow-delimiters-depth-1-face
+   (:foreground monokai-orange))
+
+ '(rainbow-delimiters-depth-2-face
+   (:foreground monokai-blue))
+
+ '(rainbow-delimiters-depth-3-face
+   (:foreground monokai-purple))
+
+ '(rainbow-delimiters-depth-4-face
+   (:foreground monokai-green))
+
+ '(rainbow-delimiters-depth-5-face
+   (:foreground monokai-cyan))
+
+ '(rainbow-delimiters-depth-6-face
+   (:foreground monokai-red))
+
+ '(rainbow-delimiters-depth-7-face
+   (:foreground monokai-orange))
+
+ '(rainbow-delimiters-depth-8-face
+   (:foreground monokai-blue+1))
+
+ '(rainbow-delimiters-depth-9-face
+   (:foreground monokai-red+1))
+
+ '(rainbow-delimiters-depth-10-face
+   (:foreground monokai-green+1))
+
+ '(rainbow-delimiters-depth-11-face
+   (:foreground monokai-purple+1))
+
+ '(rainbow-delimiters-depth-12-face
+   (:foreground monokai-orange+1))
+
+ ;;;;;rcirc
+ '(rcirc-my-nick
+   (:foreground monokai-blue))
+
+ '(rcirc-other-nick
+   (:foreground monokai-orange))
+
+ '(rcirc-bright-nick
+   (:foreground monokai-blue+1))
+
+ '(rcirc-dim-nick
+   (:foreground monokai-blue-1))
+
+ '(rcirc-server
+   (:foreground monokai-green))
+
+ '(rcirc-server-prefix
+   (:foreground monokai-green+1))
+
+ '(rcirc-timestamp
+   (:foreground monokai-purple))
+
+ '(rcirc-nick-in-message
+   (:foreground monokai-yellow))
+
+ '(rcirc-nick-in-message-full-line
+   (:bold t))
+
+ '(rcirc-prompt
+   (:foreground monokai-fg-1
+                :bold t))
+
+ '(rcirc-track-nick
+   (:inverse-video t))
+
+ '(rcirc-track-keyword
+   (:bold t))
+
+ '(rcirc-url
+   (:bold t))
+
+ '(rcirc-keyword
+   (:foreground monokai-red
+                :bold t))
+
+ ;;;;; rhtml-mode
+ '(erb-face
+   (:foreground monokai-fg+1
+                :background monokai-bg-1))
+
+ '(erb-delim-face
+   (:foreground monokai-cyan-1
+                :background monokai-bg-1))
+
+ '(erb-exec-face
+   (:foreground monokai-fg+1
+                :background monokai-bg-1))
+
+ '(erb-exec-delim-face
+   (:foreground monokai-cyan-1
+                :background monokai-bg-1))
+
+ '(erb-out-face
+   (:foreground monokai-fg+1
+                :background monokai-bg-1))
+
+ '(erb-out-delim-face
+   (:foreground monokai-cyan-1
+                :background monokai-bg-1))
+
+ '(erb-comment-face
+   (:foreground monokai-fg-1
+                :background monokai-bg-1))
+
+ '(erb-comment-delim-face
+   (:foreground monokai-cyan-1
+                :background monokai-bg-1))
+
+ ;;;;; rpm-mode
+ '(rpm-spec-dir-face
+   (:foreground monokai-green))
+
+ '(rpm-spec-doc-face
+   (:foreground monokai-blue))
+
+ '(rpm-spec-ghost-face
+   (:foreground monokai-magenta))
+
+ '(rpm-spec-macro-face
+   (:foreground monokai-yellow))
+
+ '(rpm-spec-obsolete-tag-face
+   (:foreground monokai-red))
+
+ '(rpm-spec-package-face
+   (:foreground monokai-purple))
+
+ '(rpm-spec-section-face
+   (:foreground monokai-yellow))
+
+ '(rpm-spec-tag-face
+   (:foreground monokai-purple))
+
+ '(rpm-spec-var-face
+   (:foreground monokai-orange))
+ ;;;;; rst-mode
+ '(rst-level-1-face
+   (:foreground monokai-orange))
+
+ '(rst-level-2-face
+   (:foreground monokai-green))
+
+ '(rst-level-3-face
+   (:foreground monokai-blue))
+
+ '(rst-level-4-face
+   (:foreground monokai-yellow))
+
+ '(rst-level-5-face
+   (:foreground monokai-purple))
+
+ '(rst-level-6-face
+   (:foreground monokai-red))
+
+ ;;;;; show-paren
+ '(show-paren-mismatch
+   (:foreground monokai-bg-1
+                :background monokai-red
+                :weight bold))
+
+ '(show-paren-match
+   (:foreground monokai-bg-1
+                :background monokai-orange
+                ::weight bold))
+
+ ;;;;; sml-mode-line
+ '(sml-modeline-end-face
+   (:inherit 'default
+             :width condensed))
+
+ ;;;;; SLIME
+ '(slime-repl-inputed-output-face
+   (:foreground monokai-red))
+
+ ;;;;; tabbar
+ '(tabbar-button
+   (:foreground monokai-fg
+                :background monokai-bg))
+
+ '(tabbar-selected
+   (:foreground monokai-fg
+                :background monokai-bg
+                :box (:line-width -1 :style pressed-button)))
+
+ '(tabbar-unselected
+   (:foreground monokai-fg
+                :background monokai-bg+2
+                :box (:line-width -1 :style released-button)))
+ ;;;;; term
+ '(term-color-black
+   (:foreground monokai-bg
+                :background monokai-bg+1))
+
+ '(term-color-red
+   (:foreground monokai-red
+                :background monokai-red+1))
+
+ '(term-color-green
+   (:foreground monokai-green
+                :background monokai-green+1))
+
+ '(term-color-yellow
+   (:foreground monokai-orange
+                :background monokai-orange+1))
+
+ '(term-color-blue
+   (:foreground monokai-blue
+                :background monokai-blue+1))
+
+ '(term-color-magenta
+   (:foreground monokai-purple
+                :background monokai-purple+1))
+
+ '(term-color-cyan
+   (:foreground monokai-cyan
+                :background monokai-cyan+1))
+
+ '(term-color-white
+   (:foreground monokai-fg
+                :background monokai-fg+1))
+
+ '(term-default-fg-color
+   (:foreground monokai-fg))
+
+ '(term-default-bg-color
+   (:foreground monokai-bg))
+
+ ;;;;; volatile-highlights
+ '(vhl/default-face
+   (:background monokai-bg+2))
+
+ ;;;;; emacs-w3m
+ '(w3m-anchor
+   (:foreground monokai-fg-1
+                :underline t
+                :weight bold))
+
+ '(w3m-arrived-anchor
+   (:foreground monokai-yellow-1
+                :underline t
+                :weight normal))
+
+ '(w3m-form
+   (:foreground monokai-red
+                :underline t))
+
+ '(w3m-header-line-location-title
+   (:foreground monokai-fg-1
+                :underline t
+                :weight bold))
+
+ '(w3m-history-current-url
+   (:inherit 'match))
+
+ '(w3m-lnum
+   (:foreground monokai-purple
+                :background monokai-bg))
+
+ '(w3m-lnum-match
+   (:background monokai-bg-1
+                :foreground monokai-orange
+                :weight bold))
+
+ '(w3m-lnum-minibuffer-prompt
+   (:foreground monokai-fg-1))
+
+ ;;;;; whitespace-mode
+ '(whitespace-space
+   (:background monokai-bg
+                :foreground monokai-bg-1))
+ '(whitespace-hspace
+   (:background monokai-bg
+                :foreground monokai-bg-1))
+
+ '(whitespace-tab
+   (:background monokai-bg)) ;;; Changed was (:background monokai-red)
+
+ '(whitespace-newline
+   (:foreground monokai-bg-1))
+
+ '(whitespace-trailing
+   (:background monokai-red))
+
+ '(whitespace-line
+   (:background monokai-bg
+                :foreground monokai-red))
+
+ '(whitespace-space-before-tab
+   (:background monokai-bg
+                :foreground monokai-orange))
+
+ '(whitespace-indentation
+   (:background monokai-fg-1
+                :foreground monokai-red))
+
+ '(whitespace-empty
+   (:background monokai-fg-1))
+
+ '(whitespace-space-after-tab
+   (:background monokai-fg-1
+                :foreground monokai-red))
+
+ ;;;;; wanderlust
+ '(wl-highlight-folder-few-face
+   (:foreground monokai-purple))
+
+ '(wl-highlight-folder-many-face
+   (:foreground monokai-red))
+
+ '(wl-highlight-folder-path-face
+   (:foreground monokai-orange))
+
+ '(wl-highlight-folder-unread-face
+   (:foreground monokai-blue))
+
+ '(wl-highlight-folder-zero-face
+   (:foreground monokai-fg))
+
+ '(wl-highlight-folder-unknown-face
+   (:foreground monokai-cyan))
+
+ '(wl-highlight-message-citation-header
+   (:foreground monokai-yellow))
+
+ '(wl-highlight-message-cited-text-1
+   (:foreground monokai-purple))
+
+ '(wl-highlight-message-cited-text-2
+   (:foreground monokai-purple+1))
+
+ '(wl-highlight-message-cited-text-3
+   (:foreground monokai-blue))
+
+ '(wl-highlight-message-cited-text-4
+   (:foreground monokai-blue+1))
+
+ '(wl-highlight-message-header-contents-face
+   (:foreground monokai-green))
+
+ '(wl-highlight-message-headers-face
+   (:foreground monokai-red+1))
+
+ '(wl-highlight-message-important-header-contents
+   (:foreground monokai-purple))
+
+ '(wl-highlight-message-header-contents
+   (:foreground monokai-green+1))
+
+ '(wl-highlight-message-important-header-contents2
+   (:foreground monokai-purple+1))
+
+ '(wl-highlight-message-signature
+   (:foreground monokai-green))
+
+ '(wl-highlight-message-unimportant-header-contents
+   (:foreground monokai-fg))
+
+ '(wl-highlight-summary-answered-face
+   (:foreground monokai-blue))
+
+ '(wl-highlight-summary-disposed-face
+   (:foreground monokai-fg
+                :slant italic))
+
+ '(wl-highlight-summary-new-face
+   (:foreground monokai-blue))
+
+ '(wl-highlight-summary-normal-face
+   (:foreground monokai-fg))
+
+ '(wl-highlight-summary-thread-top-face
+   (:foreground monokai-fg-1))
+
+ '(wl-highlight-thread-indent-face
+   (:foreground monokai-magenta))
+
+ '(wl-highlight-summary-refiled-face
+   (:foreground monokai-fg))
+
+ '(wl-highlight-summary-displaying-face
+   (:underline t
+               :weight bold))
+
  ;;;;; which-func-mode
-  '(which-func
-    (:foreground monokai-purple+1))
+ '(which-func
+   (:foreground monokai-purple+1))
 
  ;;;;; yascroll
-  '(yascroll:thumb-text-area
-    (:background monokai-bg-1))
+ '(yascroll:thumb-text-area
+   (:background monokai-bg-1))
 
-  '(yascroll:thumb-fringe
-    (:background monokai-bg-1
-                 :foreground monokai-bg-1))
+ '(yascroll:thumb-fringe
+   (:background monokai-bg-1
+                :foreground monokai-bg-1))
  )
 
 ;;; Theme Variables

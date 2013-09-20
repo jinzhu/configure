@@ -13,6 +13,11 @@
 (set-default-font "Monaco-14")
 (setq default-frame-alist '((font . "Monaco-14"))) ;; emacs --daemon
 
+(global-hl-line-mode -1)
+
+;; copy with middle mouse click
+(global-set-key [mouse-2] 'mouse-yank-at-click)
+
 (require 'multiple-cursors)
 (require 'region-bindings-mode)
 (region-bindings-mode-enable)
@@ -114,3 +119,10 @@
 
 ;; Auto Generate Tags
 (autoload 'turn-on-ctags-auto-update-mode "ctags-update" "turn on `ctags-auto-update-mode'." t)
+
+;; multi term
+(require 'multi-term)
+(setq multi-term-program "/bin/zsh")
+(global-set-key (kbd "<f3>") 'multi-term-dedicated-open)
+(global-set-key (kbd "<C-f3>") 'multi-term)
+(setq multi-term-dedicated-select-after-open-p t)

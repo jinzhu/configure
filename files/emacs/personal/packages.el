@@ -5,7 +5,7 @@
                             vline quickrun pos-tip auto-complete git-gutter go-eldoc
                                   xclip multiple-cursors mark-multiple region-bindings-mode
                                   wrap-region yasnippet go-snippets switch-window
-                                  emamux ctags-update
+                                  emamux ctags-update multi-term
                                   ))
 
 ;; el-get
