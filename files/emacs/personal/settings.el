@@ -99,7 +99,7 @@
 (key-chord-define-global "vv" 'select-current-line)
 (key-chord-define-global ";s" 'git-gutter:next-diff)
 (key-chord-define-global ";d" 'git-gutter:previous-diff)
-(key-chord-define-global ";w" 'save-some-buffers)
+(key-chord-define-global ";w" 'save-buffer)
 (global-set-key "\C-c\C-c" 'comment-or-uncomment-region-or-line)
 
 ;;; IDO
@@ -156,7 +156,7 @@
 
 ;; Write good mode
 (add-hook 'text-mode-hook 'writegood-mode)
-(add-hook 'org-mode-hook 'writegood-mode)
+;; (add-hook 'org-mode-hook 'writegood-mode)
 
 ;; Evil Mode
 (require 'evil)
@@ -191,3 +191,9 @@
 
 (global-set-key [f8] 'deft)
 (setq deft-use-filename-as-title t)
+
+;; Org Mode
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "|" "DONE(d)")
+        (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")
+        (sequence "|" "CANCELED(c)")))
