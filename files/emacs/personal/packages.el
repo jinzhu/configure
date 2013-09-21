@@ -6,7 +6,7 @@
                                   multiple-cursors mark-multiple region-bindings-mode
                                   wrap-region yasnippet go-snippets switch-window
                                   emamux ctags-update multi-term powerline
-                                  writegood-mode evil
+                                  writegood-mode evil pos-tip ; pos tip is for youdao
                                   ))
 
 ;; el-get
@@ -44,6 +44,17 @@
           :type github
           :pkgname "zhengyuli/DoubanMusic"
           )
+   (:name youdao
+          :type github
+          :pkgname "zhenze12345/youdao.el"
+          :after (progn
+                   (require 'pos-tip)
+                   (require 'youdao)
+                   ;; http://fanyi.youdao.com/openapi?path=data-mode
+                   (setf youdao-key-from "jinzhu")
+                   (setf youdao-key "1159909992")
+                   (global-set-key (kbd "C-c C-v") 'youdao-translate-word)
+                   ))
    ))
 
 (setq my-packages

@@ -98,8 +98,8 @@
 (setq key-chord-two-keys-delay 0.2)
 (key-chord-define-global "yy" 'copy-current-line)
 (key-chord-define-global "vv" 'select-current-line)
-(key-chord-define-global "ss" 'git-gutter:next-diff)
-(key-chord-define-global "sd" 'git-gutter:previous-diff)
+(key-chord-define-global ";s" 'git-gutter:next-diff)
+(key-chord-define-global ";d" 'git-gutter:previous-diff)
 (key-chord-define-global ";w" 'save-buffer)
 (global-set-key "\C-c\C-c" 'comment-or-uncomment-region-or-line)
 
