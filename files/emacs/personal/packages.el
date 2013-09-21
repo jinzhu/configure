@@ -7,6 +7,7 @@
                                   wrap-region yasnippet go-snippets switch-window
                                   emamux ctags-update multi-term powerline
                                   writegood-mode evil pos-tip ; pos tip is for youdao
+                                  w3m jabber deft
                                   ))
 
 ;; el-get

@@ -57,18 +57,17 @@
 (require 'auto-complete)
 (require 'auto-complete-config)
 (ac-config-default)
-
 (require 'go-autocomplete)
+
+;; yasnippet
+(require 'yasnippet)
+(yas-global-mode 1)
 
 ;; Select candidates with C-n/C-p only when completion menu is displayed
 (setq ac-use-menu-map t)
 ;; Default settings
 (define-key ac-menu-map "\C-n" 'ac-next)
 (define-key ac-menu-map "\C-p" 'ac-previous)
-
-;; yasnippet
-(require 'yasnippet)
-(yas-global-mode 1)
 
 
 (defun select-current-line ()
@@ -100,9 +99,8 @@
 (key-chord-define-global "vv" 'select-current-line)
 (key-chord-define-global ";s" 'git-gutter:next-diff)
 (key-chord-define-global ";d" 'git-gutter:previous-diff)
-(key-chord-define-global ";w" 'save-buffer)
+(key-chord-define-global ";w" 'save-some-buffers)
 (global-set-key "\C-c\C-c" 'comment-or-uncomment-region-or-line)
-
 
 ;;; IDO
 (icomplete-mode t)
@@ -156,7 +154,7 @@
 (cua-mode 'emacs)
 (setq cua-enable-cua-keys nil)
 
-;; write good mode
+;; Write good mode
 (add-hook 'text-mode-hook 'writegood-mode)
 (add-hook 'org-mode-hook 'writegood-mode)
 
@@ -165,3 +163,31 @@
 (global-set-key (kbd "<C-escape>") 'evil-mode)
 (evil-set-toggle-key "<C-escape>")
 (global-surround-mode 1)
+
+;; Jabber
+(require 'netrc)
+(require 'jabber)
+(setq cred (netrc-machine (netrc-parse "~/.authinfo.gpg") "jabber" t))
+(setq jabber-account-list
+      `((,(netrc-get cred "login")
+         (:password . ,(netrc-get cred "password"))
+         (:network-server . "talk.google.com")
+         (:connection-type . ssl)
+         (:port . 5223))))
+
+(setq jabber-alert-presence-message-function (lambda (who oldstatus newstatus statustext) nil))
+(setq jabber-vcard-avatars-retrieve nil)
+(setq jabber-mode-line-mode t)
+(setq jabber-show-offline-contacts nil)
+
+;; Tramp
+(setq tramp-default-method "ssh")
+
+;; deft
+(require 'deft)
+(setq deft-directory "/jinzhu/Dropbox/Notebooks")
+(setq deft-extension "org")
+(setq deft-text-mode 'org-mode)
+
+(global-set-key [f8] 'deft)
+(setq deft-use-filename-as-title t)
