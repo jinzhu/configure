@@ -155,3 +155,13 @@
 ;; Cua Mode
 (cua-mode 'emacs)
 (setq cua-enable-cua-keys nil)
+
+;; write good mode
+(add-hook 'text-mode-hook 'writegood-mode)
+(add-hook 'org-mode-hook 'writegood-mode)
+
+;; Evil Mode
+(require 'evil)
+(global-set-key (kbd "<C-escape>") 'evil-mode)
+(evil-set-toggle-key "<C-escape>")
+(global-surround-mode 1)

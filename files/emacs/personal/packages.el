@@ -6,6 +6,7 @@
                                   multiple-cursors mark-multiple region-bindings-mode
                                   wrap-region yasnippet go-snippets switch-window
                                   emamux ctags-update multi-term powerline
+                                  writegood-mode evil
                                   ))
 
 ;; el-get
@@ -34,11 +35,20 @@
           :type github
           :pkgname "hayamiz/twittering-mode"
           )
+   (:name weibo
+          :type github
+          :pkgname "austin-----/weibo.emacs"
+          :after (require 'weibo)
+          )
+   (:name DoubanMusic
+          :type github
+          :pkgname "zhengyuli/DoubanMusic"
+          )
    ))
 
 (setq my-packages
       (append
-       '(el-get sudo-save)
+       '(el-get sudo-save evil-surround)
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync my-packages)
