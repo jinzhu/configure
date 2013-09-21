@@ -3,7 +3,7 @@
 ;; My packages
 (prelude-require-packages '(
                             vline quickrun pos-tip auto-complete git-gutter go-eldoc
-                                  xclip multiple-cursors mark-multiple region-bindings-mode
+                                  multiple-cursors mark-multiple region-bindings-mode
                                   wrap-region yasnippet go-snippets switch-window
                                   emamux ctags-update multi-term powerline
                                   ))

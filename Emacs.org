@@ -1,0 +1,71 @@
+* Comment:
+  M-;     -> Insert or realign comment on current line
+  C-u M-; -> Kill comment on current line (comment-kill).
+  M-j     -> Like <RET> followed by inserting and aligning a comment (comment-indent-new-line).
+  C-c C-c -> comment or uncomment region or current line
+  M-x comment-region
+
+* Block Edit:
+  C-x r t -> Add to the beginning (string-rectangle)
+  C-x r k -> Kill the text of the region-rectangle
+  cua-mode -> C-Enter select region
+
+  mc/edit-beginings-of-lines
+  mc/edit-ends-of-lines (mark lines, C-e to end, edit)
+  mc/mark-previous-like-this
+  mc/mark-all-like-this
+  mc/mark-next-like-this
+  inline-string-rectangle
+
+* CUA:
+  Ctrl+Enter -> block select
+  [M-a]: 将rect中的文字左对齐
+  [M-b]: 用空格(tabs或者spaces)替换所有rect中的字符
+  [M-c]: 去掉所有行左侧的空格
+  [M-f]: 用单个字符替换所有rect中的字符(提示输入一个字符)
+  [M-i]: 对每行中第一个找到的数字进行加1操作(自动把0x开头的当作十六进制数字)
+  [M-k]: 剪切rect
+  [M-l]: 把rect中的内容全部转换为小写
+  [M-m]: 拷贝rect
+  [M-n]: 用一串自增的数字替换rect中的每一行(这个功能可以用来给每行编号)
+  [M-o]: rect的内容右移，选中的rect用空格填充
+  [M-r]: 用字符串替换符满足正则表达式的字符串
+  [M-R]: 上下反转
+  [M-s]: 把rect中的每一行替换为一个字符串(提示输入)
+  [M-t]: 把rect整个替换为一个字符串(提示输入)
+  [M-u]: 把rect中的内容全部转换为大写
+  [M-|]: 对rect执行一个shell命令
+
+* Jump:
+  C-x C-SPACE - Jump between marks
+  C-u C-SPANCE - Jump between local marks
+  C-x r SPACE [a-z] -> mark a point in the document
+  C-x r j [a-z] -> jump to the point in the document
+
+* Jump Window: (winner mode)
+  C-c <left> winner-undo
+  C-c <right> redo
+
+* Undo / Redo:
+  C-/ -> undo
+  C-? -> redo
+  C-x u -> undo tree
+
+* Align:
+  align
+  align-regexp
+
+* SQL:
+  sql-postgres
+  sql-mysql
+  p-> M-x sql-set-sqli-buffer RET *SQL* RET (No sql process started)
+
+* Proced:
+  m -> 'proced-mark
+  u -> 'proced-unmark
+  k -> 'proced-send-signal
+
+  # ctags -e --extra=+q -R
+* OrgMode
+  C-x C-o -> Open link
+  http://www.cnblogs.com/holbrook/archive/2012/04/12/2444992.html#sec-1-2-1

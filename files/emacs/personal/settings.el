@@ -1,7 +1,5 @@
 (require 'package)
 
-(setq prelude-clean-whitespace-on-save nil)
-
 (global-set-key (kbd "RET") 'newline-and-indent)
 (setq-default  tab-width 2
                standard-indent 2
@@ -45,12 +43,13 @@
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "chromium")
 
+(setq mouse-drag-copy-region nil)  ; stops selection with a mouse being immediately injected to the kill ring
+(setq x-select-enable-primary t)  ; stops killing/yanking interacting with primary X11 selection
 (setq x-select-enable-clipboard t)  ; makes killing/yanking interact with clipboard X11 selection
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
-;; xclip
-;; (turn-on-xclip)
 
 ;; Trailing whitespace is unnecessary
+(setq prelude-clean-whitespace-on-save nil)
 (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
 (add-hook 'before-save-hook (lambda () (prelude-indent-region-or-buffer)))
 
@@ -149,3 +148,10 @@
 
 ;; Twitter
 (setq twittering-use-master-password t)
+
+;; Set limit line length
+(setq whitespace-line-column 100)
+
+;; Cua Mode
+(cua-mode 'emacs)
+(setq cua-enable-cua-keys nil)
