@@ -1,6 +1,6 @@
 (require 'package)
 
-(global-set-key (kbd "RET") 'newline-and-indent)
+(electric-indent-mode +1)
 (setq-default  tab-width 2
                standard-indent 2
                indent-tabs-mode nil)			; makes sure tabs are not used.
@@ -51,7 +51,7 @@
 ;; Trailing whitespace is unnecessary
 (setq prelude-clean-whitespace-on-save nil)
 (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
-(add-hook 'before-save-hook (lambda () (prelude-indent-region-or-buffer)))
+;; (add-hook 'before-save-hook (lambda () (prelude-indent-region-or-buffer)))
 
 ;; Auto Complete
 (require 'auto-complete)
