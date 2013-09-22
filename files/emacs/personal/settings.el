@@ -140,9 +140,11 @@
 ;; By default, term-char-mode forwards most keys to the terminal
 ;; (add-hook 'term-mode-hook 'term-char-mode)
 
-
-(add-to-list 'ac-modes 'shell-mode)
-(add-hook 'shell-mode-hook 'ac-rlc-setup-sources)
+;; Bash Complete
+(require 'shell-command)
+(shell-command-completion-mode)
+(require 'bash-completion)
+(bash-completion-setup)
 
 ;; Twitter
 (setq twittering-use-master-password t)
@@ -198,15 +200,20 @@
         (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")
         (sequence "|" "CANCELED(c)")))
 
-;; Bash Complete
-(require 'shell-command)
-(shell-command-completion-mode)
-(require 'bash-completion)
-(bash-completion-setup)
-
 ;; SQL Mode
 (add-hook 'sql-interactive-mode-hook (lambda ()
                                        (yas-minor-mode -1)))
 
 ;; Disable warnning while edit emacs lisp scripts
 (eval-after-load 'flycheck '(setq flycheck-checkers (delq 'emacs-lisp-checkdoc flycheck-checkers)))
+
+(defadvice vc-git-mode-line-string (after plus-minus (file) compile activate)
+  (setq ad-return-value
+        (concat ad-return-value
+                (let ((plus-minus (vc-git--run-command-string
+                                   file "diff" "--numstat" "--")))
+                  (and plus-minus
+                       (string-match "^\\([0-9]+\\)\t\\([0-9]+\\)\t" plus-minus)
+                       (format " +%s-%s" (match-string 1 plus-minus) (match-string 2 plus-minus))))
+                )
+        ))
