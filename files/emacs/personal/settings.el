@@ -217,3 +217,13 @@
                        (format " +%s-%s" (match-string 1 plus-minus) (match-string 2 plus-minus))))
                 )
         ))
+
+;; Diminish
+(require 'diminish)
+(eval-after-load "yasnippet" '(diminish 'yas-minor-mode))
+(eval-after-load "auto-complete" '(diminish 'auto-complete-mode))
+(eval-after-load "flycheck" '(diminish 'flycheck-mode))
+(eval-after-load "flyspell" '(diminish 'flyspell-mode))
+
+;; Guru
+(setq prelude-guru nil)
