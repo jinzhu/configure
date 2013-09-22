@@ -6,18 +6,18 @@ C-c C-c -> comment or uncomment region or current line
 M-x comment-region
 
 * Block Edit
+** rectangle
 C-px r t -> Add to the beginning (string-rectangle)
 C-x r k -> Kill the text of the region-rectangle
-cua-mode -> C-Enter select region
-
+inline-string-rectangle
+** MC
 mc/edit-beginings-of-lines
 mc/edit-ends-of-lines (mark lines, C-e to end, edit)
 mc/mark-previous-like-this
 mc/mark-all-like-this
 mc/mark-next-like-this
-inline-string-rectangle
 
-* CUA
+** CUA
 Ctrl+Enter -> block select
 [M-a]: 将rect中的文字左对齐
 [M-b]: 用空格(tabs或者spaces)替换所有rect中的字符
@@ -36,6 +36,11 @@ Ctrl+Enter -> block select
 [M-u]: 把rect中的内容全部转换为大写
 [M-|]: 对rect执行一个shell命令
 
+** SetGoalColumn
+   C-x C-n -> Set Goal Column
+   C-n -> next line
+   C-p -> prev line
+   C-u C-x C-n -> Disable Goal Column
 * Jump
 C-x C-SPACE - Jump between marks
 C-u C-SPANCE - Jump between local marks
@@ -52,7 +57,7 @@ C-? -> redo
 C-x u -> undo tree
 
 * Align
-align
+  align
 align-regexp
 
 * SQL
@@ -171,3 +176,6 @@ S-<down> (org-priority-down)
    C-c C-x a   -> 将某一个节点打上ARCHIVE标签
    C-c C-x A   -> 将当前节点归入一个名为Archive的子树中，并且这个子树是位于当前级别子树的最下方
    C-c C-x C-s -> 是把当前的节点移到archived文件中去
+* Drawing
+1) Picture Mode
+2) Artist Mode

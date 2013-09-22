@@ -245,7 +245,7 @@
         <to>4</to>
       </action>
     </keybind>
-    <keybind key="W-d">
+    <keybind key="W-S-d">
       <action name="ToggleShowDesktop"/>
     </keybind>
     <!-- Keybindings for windows -->
@@ -266,7 +266,7 @@
       <action name="FocusToBottom"/>
       <action name="Unfocus"/>
     </keybind>
-    <keybind key="A-space">
+    <keybind key="A-F12">
       <action name="ShowMenu">
         <menu>client-menu</menu>
       </action>
@@ -332,7 +332,7 @@
         <command>synapse</command>
       </action>
     </keybind>
-    <keybind key="W-m">
+    <keybind key="W-S-m">
       <action name="Execute">
         <startupnotify>
           <enabled>true</enabled>
@@ -341,7 +341,7 @@
         <command>dmenu_run -fn -misc-fixed-*-*-*-*-20-200-*-*-*-*-*-*  -i -b -nf 'gray' -sb 'dark green' -nb 'black'</command>
       </action>
     </keybind>
-    <keybind key="W-x">
+    <keybind key="W-S-x">
       <action name="Execute">
         <startupnotify>
           <enabled>true</enabled>
@@ -365,13 +365,13 @@
       </action>
     </keybind>
     <keybind key="XF86MonBrightnessDown">
-      <action name="Execute"> 
+      <action name="Execute">
         <command>xbacklight -10</command>
       </action>
     </keybind>
 <!-- Where installing pulse-audio instead, change 'amixer set' to 'amixer -D pulse set' -->
 <keybind key="XF86AudioRaiseVolume">
-     <action name="Execute"> 
+     <action name="Execute">
        <command>amixer set Master 10%+</command>
      </action>
   </keybind>
@@ -383,7 +383,7 @@
    </keybind>
 <!-- Where installing pulse-audio instead, nothing needs to be changed -->
    <keybind key="XF86AudioMute">
-     <action name="Execute"> 
+     <action name="Execute">
        <command>amixer set Master toggle</command>
      </action>
   </keybind>
@@ -763,7 +763,7 @@
   # order that they appear in this list
 
 
-    # each rule element can be left out or set to 'default' to specify to not 
+    # each rule element can be left out or set to 'default' to specify to not
     # change that attribute of the window
 
     <decor>yes</decor>
