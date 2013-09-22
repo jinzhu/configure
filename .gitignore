@@ -1,3 +1,4 @@
+*.db
 *.log
 *.sqlite3
 *.swp

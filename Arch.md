@@ -14,6 +14,7 @@ sudo yaourt -S shutter trimage-git fontypython nkf agave kdewebdev-klinkstatus p
 sudo yaourt -S virtualbox virtualbox-guest-modules vboxhost-hook virtualbox-ext-oracle --noconfirm
 sudo yaourt -S filezilla hd2u skype --noconfirm
 sudo yaourt -S wps-office --noconfirm
+sudo yaourt -S perl-file-mimeinfo --noconfirm # for chrome open download files correctly
 
 sudo yaourt -S caffeine-bzr indicator-china-weather indicator-virtualbox indicator-cpufreq-bzr --noconfirm
 

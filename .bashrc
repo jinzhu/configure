@@ -11,12 +11,10 @@ export HISTCONTROL=ignoreboth
 
 # dircolors --print-database uses its own built-in database
 [ $BASH ] && [ -f /etc/bash_completion ] && source /etc/bash_completion
-
+[ $BASH ] && [ -f /usr/share/bash-completion/bash_completion ] && source /usr/share/bash-completion/bash_completion
 
 for file in $HOME/{.shell/bash,.shell}/*; do
   if [ ! -d $file ]; then
     [ $BASH ] && source $file
   fi
 done
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

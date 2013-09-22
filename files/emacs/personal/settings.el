@@ -1,5 +1,9 @@
 (require 'package)
 
+;; main line
+(display-time-mode 1)
+(display-battery-mode 1)
+
 (electric-indent-mode +1)
 (setq-default  tab-width 2
                standard-indent 2
@@ -128,14 +132,10 @@
 (setq multi-term-dedicated-select-after-open-p t)
 
 (add-hook 'term-mode-hook (lambda ()
-                            (define-key term-raw-map (kbd "C-y") 'term-paste)))
+                            (define-key term-raw-map (kbd "C-y") 'term-paste)
+                            (yas-minor-mode -1)
+                            (ansi-color-for-comint-mode-on)))
 
-;; readline complete
-(require 'readline-complete)
-
-(add-to-list 'ac-modes 'term-mode)
-(add-hook 'term-mode-hook 'auto-complete-mode)
-(add-hook 'term-mode-hook 'ac-rlc-setup-sources)
 ;; (add-hook 'term-mode-hook 'term-line-mode)
 ;; By default, term-char-mode forwards most keys to the terminal
 ;; (add-hook 'term-mode-hook 'term-char-mode)
@@ -197,3 +197,16 @@
       '((sequence "TODO(t)" "|" "DONE(d)")
         (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")
         (sequence "|" "CANCELED(c)")))
+
+;; Bash Complete
+(require 'shell-command)
+(shell-command-completion-mode)
+(require 'bash-completion)
+(bash-completion-setup)
+
+;; SQL Mode
+(add-hook 'sql-interactive-mode-hook (lambda ()
+                                       (yas-minor-mode -1)))
+
+;; Disable warnning while edit emacs lisp scripts
+(eval-after-load 'flycheck '(setq flycheck-checkers (delq 'emacs-lisp-checkdoc flycheck-checkers)))

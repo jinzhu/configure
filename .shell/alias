@@ -100,7 +100,7 @@ uname | grep 'Darwin' > /dev/null
 if [[ $? -eq 0 ]] ; then
   alias ls='ls -G'
 else
-  alias ls='ls --color=auto'
+  alias ls='ls -CF --color=auto'
 fi
 
 alias lsl='ls -l'

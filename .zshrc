@@ -1,4 +1,4 @@
-EDITOR="vim"
+EDITOR="emacs"
 VISUAL=$EDITOR
 
 for file in $HOME/{.shell/zsh,.shell}/*; do
@@ -11,5 +11,3 @@ done
 limit coredumpsize 0
 #以下字符视为单词的一部分
 WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
