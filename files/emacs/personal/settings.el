@@ -227,3 +227,10 @@
 
 ;; Guru
 (setq prelude-guru nil)
+
+;; Ditaa
+(setq ditaa-cmd "java -jar /usr/share/java/ditaa/ditaa-0_9.jar")
+(defun djcb-ditaa-generate ()
+  (interactive)
+  (shell-command
+   (concat ditaa-cmd " " buffer-file-name)))

@@ -177,5 +177,5 @@ S-<down> (org-priority-down)
    C-c C-x A   -> 将当前节点归入一个名为Archive的子树中，并且这个子树是位于当前级别子树的最下方
    C-c C-x C-s -> 是把当前的节点移到archived文件中去
 * Drawing
-1) Picture Mode
+1) Picture Mode -> use ditaa to convert ascii-art to image
 2) Artist Mode
