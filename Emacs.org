@@ -179,3 +179,6 @@ S-<down> (org-priority-down)
 * Drawing
 1) Picture Mode -> use ditaa to convert ascii-art to image
 2) Artist Mode
+* Term
+  <M-r> -> term-send-reverse-search-history
+  <M-x> erase-buffer -> Delete buffer

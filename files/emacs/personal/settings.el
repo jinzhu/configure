@@ -131,8 +131,14 @@
 (global-set-key (kbd "<C-f3>") 'multi-term)
 (setq multi-term-dedicated-select-after-open-p t)
 
+(defun term-clear ()
+  (interactive)
+  (let ((comint-buffer-maximum-size 0))
+    (comint-truncate-buffer)))
+
 (add-hook 'term-mode-hook (lambda ()
                             (define-key term-raw-map (kbd "C-y") 'term-paste)
+                            (define-key term-raw-map (kbd "C-l") 'term-clear)
                             (yas-minor-mode -1)
                             (ansi-color-for-comint-mode-on)))
 
