@@ -8,7 +8,7 @@ stty -ixon
 
 [ -f ~/.amazon_keys ] && source ~/.amazon_keys
 [ -f ~/.ec2/rc ] && source ~/.ec2/rc
-[ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm && PATH=$PATH:$HOME/.rvm/bin
+[ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm &> /dev/null
 # [ -f ~/.rbenv/bin/rbenv ] && PATH=$HOME/.rbenv/bin:$PATH && eval "$(rbenv init -)"
 
 export CDPATH=".:~"
