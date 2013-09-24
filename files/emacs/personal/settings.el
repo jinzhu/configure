@@ -63,6 +63,10 @@
 (ac-config-default)
 (require 'go-autocomplete)
 
+;; GoLang
+(add-hook 'go-mode-hook (lambda ()
+                          (local-set-key (kbd "M-.") 'godef-jump)))
+
 ;; yasnippet
 (require 'yasnippet)
 (yas-global-mode 1)
@@ -240,3 +244,8 @@
   (interactive)
   (shell-command
    (concat ditaa-cmd " " buffer-file-name)))
+
+;; Undo
+(setq undo-tree-visualizer-timestamps t)
+(setq undo-tree-history-directory-alist (quote (("." . "~/.cache/emacs"))))
+(setq undo-tree-auto-save-history t)
