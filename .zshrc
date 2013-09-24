@@ -1,4 +1,3 @@
-EDITOR="emacs"
 VISUAL=$EDITOR
 
 for file in $HOME/{.shell/zsh,.shell}/*; do

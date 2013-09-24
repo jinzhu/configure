@@ -132,11 +132,14 @@ function sv {
 }
 function v {
   if [ -n "$*" ]; then
-    vim $*
+    emacsclient -t -a "" $*
   else
-    vim
+    emacsclient -t -a ""
   fi
 }
+
+alias vim='emacsclient -t -a ""'
+alias emacs='emacsclient -t -a ""'
 
 function e {
   if [ -n "$*" ]; then
