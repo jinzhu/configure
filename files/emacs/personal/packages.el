@@ -46,6 +46,10 @@
           :type github
           :pkgname "zhengyuli/DoubanMusic"
           )
+   (:name browse-kill-ring
+          :type github
+          :pkgname "browse-kill-ring/browse-kill-ring"
+          )
    (:name youdao
           :type github
           :pkgname "zhenze12345/youdao.el"

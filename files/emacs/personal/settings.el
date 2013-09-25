@@ -1,6 +1,6 @@
 (require 'package)
 
-;; main line
+;; Main line
 (display-time-mode 1)
 (display-battery-mode 1)
 
@@ -249,3 +249,13 @@
 (setq undo-tree-visualizer-timestamps t)
 (setq undo-tree-history-directory-alist (quote (("." . "~/.cache/emacs"))))
 (setq undo-tree-auto-save-history t)
+
+;; Recentf
+(setq recentf-exclude '(
+                        "\.hist$"
+                        "/COMMIT_EDITMSG$"
+                        ))
+
+;; Browse Kill Ring
+(require 'browse-kill-ring)
+(global-set-key "\C-xy" 'browse-kill-ring)
