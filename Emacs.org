@@ -176,9 +176,16 @@ S-<down> (org-priority-down)
    C-c C-x a   -> 将某一个节点打上ARCHIVE标签
    C-c C-x A   -> 将当前节点归入一个名为Archive的子树中，并且这个子树是位于当前级别子树的最下方
    C-c C-x C-s -> 是把当前的节点移到archived文件中去
-* Drawing
+* drawing
 1) Picture Mode -> use ditaa to convert ascii-art to image
 2) Artist Mode
 * Term
   <M-r> -> term-send-reverse-search-history
   <M-x> erase-buffer -> Delete buffer
+* Ruby
+  C-c { -> toggle { to block
+* Window
+  S-right/left/up/down -> move window
+* Wrap region
+  in html mode, type < to wrap region with tag
+  other modes, select region, type punctuation

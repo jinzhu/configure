@@ -167,14 +167,16 @@
 (setq cua-enable-cua-keys nil)
 
 ;; Write good mode
-(add-hook 'text-mode-hook 'writegood-mode)
+;; (add-hook 'text-mode-hook 'writegood-mode)
 ;; (add-hook 'org-mode-hook 'writegood-mode)
 
 ;; Evil Mode
 (require 'evil)
 (global-set-key (kbd "<C-escape>") 'evil-mode)
 (evil-set-toggle-key "<C-escape>")
-(global-surround-mode 1)
+(global-set-key (kbd "C-*") 'evil-search-symbol-forward)
+(global-set-key (kbd "C-#") 'evil-search-symbol-backward)
+
 
 ;; Jabber
 (require 'netrc)
@@ -262,3 +264,20 @@
 
 ;; Dired
 (global-set-key (kbd "C-c j") 'dired-jump)
+
+;; Keyfreq
+(keyfreq-mode 1)
+(keyfreq-autosave-mode 1)
+
+;; Point Undo
+(require 'point-undo)
+(define-key global-map [f5] 'point-undo)
+(define-key global-map [f6] 'point-redo)
+
+;; Smart Window
+(require 'smart-window)
+(setq smart-window-remap-keys 0)
+(global-set-key (kbd "C-x ,") 'smart-window-rotate)
+
+;; Linum mode
+(define-key global-map [f4] 'linum-mode)
