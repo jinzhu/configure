@@ -259,3 +259,6 @@
 ;; Browse Kill Ring
 (require 'browse-kill-ring)
 (global-set-key "\C-xy" 'browse-kill-ring)
+
+;; Dired
+(global-set-key (kbd "C-c j") 'dired-jump)
