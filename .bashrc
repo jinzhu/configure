@@ -18,3 +18,5 @@ for file in $HOME/{.shell/bash,.shell}/*; do
     [ $BASH ] && source $file
   fi
 done
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

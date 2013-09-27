@@ -281,3 +281,18 @@
 
 ;; Linum mode
 (define-key global-map [f4] 'linum-mode)
+
+;; Web Jump
+(require 'webjump)
+(global-set-key (kbd "C-x j") 'webjump)
+(setq webjump-sites '(
+                ("Github" . "github.com")
+                ("Qortex" . "qortex.com")
+                ("Qortex cn" . "qortex.cn")
+                ("Weibo" . "weibo.com")
+                ("CnBeta" . "cnbeta.com")
+                ("Gmail" . "gmail.com")
+                ("Google Drive" . "drive.google.com")
+                ("Google Calendar" . "calendar.google.com")
+                ("Sina Finance" . "finance.sina.com.cn")
+                ))
