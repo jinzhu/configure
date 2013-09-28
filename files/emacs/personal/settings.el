@@ -55,7 +55,7 @@
 ;; Trailing whitespace is unnecessary
 (setq prelude-clean-whitespace-on-save nil)
 (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
-;; (add-hook 'before-save-hook (lambda () (prelude-indent-region-or-buffer)))
+(add-hook 'before-save-hook (lambda () (prelude-indent-region-or-buffer)))
 
 ;; Auto Complete
 (require 'auto-complete)
@@ -286,13 +286,14 @@
 (require 'webjump)
 (global-set-key (kbd "C-x j") 'webjump)
 (setq webjump-sites '(
-                ("Github" . "github.com")
-                ("Qortex" . "qortex.com")
-                ("Qortex cn" . "qortex.cn")
-                ("Weibo" . "weibo.com")
-                ("CnBeta" . "cnbeta.com")
-                ("Gmail" . "gmail.com")
-                ("Google Drive" . "drive.google.com")
-                ("Google Calendar" . "calendar.google.com")
-                ("Sina Finance" . "finance.sina.com.cn")
-                ))
+                      ("Github" . "github.com")
+                      ("Qortex" . "qortex.com")
+                      ("Qortex cn" . "qortex.cn")
+                      ("Weibo" . "weibo.com")
+                      ("CnBeta" . "cnbeta.com")
+                      ("Gmail" . "gmail.com")
+                      ("Google Drive" . "drive.google.com")
+                      ("Google Calendar" . "calendar.google.com")
+                      ("ThePlant Drive" . "https://drive.google.com/a/theplant.jp/#shared-")
+                      ("Sina Finance" . "finance.sina.com.cn")
+                      ))

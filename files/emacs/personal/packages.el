@@ -61,7 +61,7 @@
                    (setf youdao-key "1159909992")
                    (global-set-key (kbd "C-c C-v") 'youdao-translate-word)
                    ))
-))
+   ))
 
 (setq my-packages
       (append

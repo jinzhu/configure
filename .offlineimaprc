@@ -20,4 +20,7 @@ remotepasseval = get_authinfo_password("imap.gmail.com", "wosmvp@gmail.com", 993
 ssl = yes
 maxconnections = 10
 realdelete = no
-cert_fingerprint = 6d1b5b5ee0180ab493b71d3b94534b5ab937d042
+
+holdconnectionopen = true
+keepalive = 60
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
