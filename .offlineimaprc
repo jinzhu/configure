@@ -20,7 +20,10 @@ remotepasseval = get_authinfo_password("imap.gmail.com", "wosmvp@gmail.com", 993
 ssl = yes
 maxconnections = 10
 realdelete = no
-
+nametrans = lambda foldername: re.sub ('^\[gmail\]', 'bak',
+                               re.sub ('sent_mail', 'sent',
+                               re.sub ('starred', 'flagged',
+                               re.sub (' ', '_', foldername.lower()))))
 holdconnectionopen = true
 keepalive = 60
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt

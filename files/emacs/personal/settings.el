@@ -55,7 +55,7 @@
 ;; Trailing whitespace is unnecessary
 (setq prelude-clean-whitespace-on-save nil)
 (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
-(add-hook 'before-save-hook (lambda () (prelude-indent-region-or-buffer)))
+;; (add-hook 'before-save-hook (lambda () (prelude-indent-region-or-buffer)))
 
 ;; Auto Complete
 (require 'auto-complete)
