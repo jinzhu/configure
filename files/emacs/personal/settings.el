@@ -294,6 +294,12 @@
                       ("Gmail" . "gmail.com")
                       ("Google Drive" . "drive.google.com")
                       ("Google Calendar" . "calendar.google.com")
-                      ("ThePlant Drive" . "https://drive.google.com/a/theplant.jp/#shared-")
+                      ("ThePlant Drive" . "drive.google.com/a/theplant.jp")
                       ("Sina Finance" . "finance.sina.com.cn")
                       ))
+
+;; Find file at point
+(ffap-bindings)
+
+;; Smex
+(global-set-key (kbd "<menu>") 'smex)
