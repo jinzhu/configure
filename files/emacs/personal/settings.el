@@ -299,7 +299,9 @@
                       ))
 
 ;; Find file at point
-(ffap-bindings)
+;; (ffap-bindings)
+(global-set-key (kbd "C-c C-f") 'find-file-at-point)
+
 
 ;; Smex
 (global-set-key (kbd "<menu>") 'smex)

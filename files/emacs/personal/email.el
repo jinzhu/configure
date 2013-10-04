@@ -14,7 +14,7 @@
  mu4e-update-interval 60
  mu4e-view-show-images t
 
- mu4e-get-mail-command "offlineimap"
+ ;; mu4e-get-mail-command "offlineimap"
  ;; don't save message to Sent Messages, GMail/IMAP will take care of this
  mu4e-sent-messages-behavior 'delete
  )
