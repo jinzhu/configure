@@ -2,7 +2,6 @@
 (require 'mu4e)
 (require 'mu4e-speedbar)
 
-(require 'mu4e-maildirs-extension)
 (mu4e-maildirs-extension)
 (define-key global-map [f2] 'mu4e)
 
