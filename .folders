@@ -1,11 +1,3 @@
 %inbox  "inbox"
 %+trash  "Trash"
 %+draft  "Drafts"
-/flag:unread/.inbox    "Unread/inbox"
-/!flag:unread/.inbox   "Read/inbox"
-
-VFolders {
-  [date:today..now]!mu  "Today"
-  [size:1m..100m]!mu    "Big"
-  [flag:unread]!mu      "Unread"
-}
