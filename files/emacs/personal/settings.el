@@ -259,8 +259,8 @@
                         ))
 
 ;; Browse Kill Ring
-(require 'browse-kill-ring)
-(global-set-key "\C-xy" 'browse-kill-ring)
+(global-set-key "\C-xy" 'helm-show-kill-ring)
+(setq savehist-additional-variables '(kill-ring compile-command search-ring regexp-search-ring))
 
 ;; Dired
 (global-set-key (kbd "C-c j") 'dired-jump)
@@ -326,3 +326,10 @@
 
 (sauron-start-hidden)
 (global-set-key (kbd "<C-f2>") 'sauron-toggle-hide-show)
+
+;; iCal
+(require 'calfw-ical)
+(setq cred (netrc-machine (netrc-parse "~/.authinfo.gpg") "calics" t))
+;; (cfw:open-ical-calendar (netrc-get cred "password"))
+
+(require 'calfw-gcal)

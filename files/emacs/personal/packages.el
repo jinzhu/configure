@@ -10,6 +10,7 @@
                                   w3m jabber deft bash-completion shell-command
                                   rinari keyfreq point-undo smart-window
                                   mu4e-maildirs-extension sauron
+                                  calfw-gcal
                                   ))
 
 ;; el-get
@@ -46,10 +47,6 @@
    (:name DoubanMusic
           :type github
           :pkgname "zhengyuli/DoubanMusic"
-          )
-   (:name browse-kill-ring
-          :type github
-          :pkgname "browse-kill-ring/browse-kill-ring"
           )
    (:name youdao
           :type github
