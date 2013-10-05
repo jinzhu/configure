@@ -309,19 +309,20 @@
 ;; Gnutls
 (setq gnutls-min-prime-bits 2048)
 
+;; Sauron
+(setq
+ sauron-dbus-cookie t
+ sauron-separate-frame nil
+ )
 
-(defun djcb-popup (title msg &optional icon sound)
-  "Show a popup if we're on X, or echo it otherwise; TITLE is the title
-of the message, MSG is the context. Optionally, you can provide an ICON and
-a sound to be played"
+(add-hook 'sauron-event-added-functions
+          (lambda (origin prio msg &optional props)
+            (if (string-match "ping" msg)
+                (sauron-fx-sox "/usr/share/sounds/freedesktop/stereo/bell.oga")
+              (sauron-fx-sox "/usr/share/sounds/freedesktop/stereo/bell.oga"))
+            (when (>= prio 4)
+              (sauron-fx-sox "/usr/share/sounds/freedesktop/stereo/message-new-instant.oga")
+              (sauron-fx-gnome-osd msg 10))))
 
-  (interactive)
-  (when sound (shell-command
-               (concat "mplayer -really-quiet " sound " 2> /dev/null")))
-  (if (eq window-system 'x)
-      (shell-command (concat "notify-send "
-
-                             (if icon (concat "-i " icon) "")
-                             " '" title "' '" msg "'"))
-    ;; text only version
-    (message (concat title ": " msg))))
+(sauron-start-hidden)
+(global-set-key (kbd "<C-f2>") 'sauron-toggle-hide-show)

@@ -9,6 +9,7 @@
                                   writegood-mode evil pos-tip ; pos tip is for youdao
                                   w3m jabber deft bash-completion shell-command
                                   rinari keyfreq point-undo smart-window
+                                  mu4e-maildirs-extension sauron
                                   ))
 
 ;; el-get
