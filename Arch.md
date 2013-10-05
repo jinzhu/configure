@@ -5,7 +5,7 @@ sudo pacman -S zsh gvim emacs rxvt-unicode tmux git tig mercurial gdb ranger sdc
 sudo pacman -S fakeroot rsync network-manager-applet synergy xbindkeys xclip xorg-xmodmap gnome-terminal --noconfirm
 sudo pacman -S gimp inkscape gcolor2 dia scrot nautilus-open-terminal memcached mongodb redis mysql postgresql python-beautifulsoup fcitx-im evince eog smplayer shotwell file-roller --noconfirm
 sudo pacman -S chromium firefox --noconfirm
-sudo pacman -S zim icedtea-web-java7 --noconfirm
+sudo pacman -S zim icedtea-web-java7 wanderlust --noconfirm
 
 sudo pacman -S yaourt downgrade --noconfirm
 sudo yaourt -S wqy-bitmapfont ttf-monaco wqy-zenhei --noconfirm
