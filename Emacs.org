@@ -189,3 +189,11 @@ S-<down> (org-priority-down)
 * Wrap region
   in html mode, type < to wrap region with tag
   other modes, select region, type punctuation
+* Bookmarks
+ + C-x r m Add current buffer to bookmarks.
+ + C-x r b Open a buffer from bookmarks.
+ + C-x r l List bookmarks.
+* Tips
++ M-z -> zap to char
++ C-x 5 2 -> create new top-level X windows
++ M-x command-history -> show command history

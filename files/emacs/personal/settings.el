@@ -14,11 +14,10 @@
 (load-theme 'monokai)
 (set-default-font "Monaco-14")
 (setq default-frame-alist '((font . "Monaco-14"))) ;; emacs --daemon
+(global-hl-line-mode -1)
 
 (require 'powerline)
 (powerline-default-theme)
-
-(global-hl-line-mode -1)
 
 ;; copy with middle mouse click
 (global-set-key [mouse-2] 'mouse-yank-at-click)
@@ -137,8 +136,8 @@
 
 (defun term-clear ()
   (interactive)
-  (let ((comint-buffer-maximum-size 0))
-    (comint-truncate-buffer)))
+  (term-send-raw-string (kbd "C-l"))
+  )
 
 (add-hook 'term-mode-hook (lambda ()
                             (define-key term-raw-map (kbd "C-y") 'term-paste)
@@ -274,11 +273,6 @@
 (global-set-key (kbd "<C-f5>") 'point-undo)
 (global-set-key (kbd "<C-f6>") 'point-redo)
 
-;; Smart Window
-(require 'smart-window)
-(setq smart-window-remap-keys 0)
-(global-set-key (kbd "C-x ,") 'smart-window-rotate)
-
 ;; Linum mode
 (define-key global-map [f4] 'linum-mode)
 
@@ -336,3 +330,11 @@
 ;; Pomodoro
 (global-set-key (kbd "<f5>") 'pomodoro)
 (global-set-key (kbd "<M-f5>") 'pomodoro-status)
+
+;; Windmove
+(windmove-default-keybindings 'super)
+
+;; Smart Window
+(require 'smart-window)
+(setq smart-window-remap-keys 0)
+(global-set-key (kbd "C-x ,") 'smart-window-rotate)
