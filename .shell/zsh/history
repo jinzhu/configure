@@ -1,4 +1,4 @@
-# vi:ft=zsh
+#!/bin/zsh
 
 HISTFILE=~/.zsh_history
 export HISTSIZE=100000

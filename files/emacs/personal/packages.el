@@ -9,8 +9,7 @@
                                   writegood-mode evil pos-tip ; pos tip is for youdao
                                   w3m jabber deft bash-completion shell-command
                                   rinari keyfreq point-undo smart-window
-                                  mu4e-maildirs-extension sauron
-                                  calfw-gcal
+                                  mu4e-maildirs-extension sauron calfw-gcal
                                   ))
 
 ;; el-get
@@ -59,6 +58,11 @@
                    (setf youdao-key "1159909992")
                    (global-set-key (kbd "C-c C-v") 'youdao-translate-word)
                    ))
+   (:name pomodoro
+          :type github
+          :pkgname "vderyagin/pomodoro.el"
+          :post-init (setq pomodoro-icon
+                           (expand-file-name "pomodoro/pomodoro_technique.png" el-get-dir)))
    ))
 
 (setq my-packages

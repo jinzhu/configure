@@ -1,4 +1,4 @@
-# vi:ft=zsh
+#!/bin/zsh
 
 for file in $HOME/.shell/zsh/plugins/*; do
 source $file

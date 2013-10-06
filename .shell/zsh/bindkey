@@ -1,4 +1,4 @@
-# vi:ft=zsh
+#!/bin/zsh
 ## Vi/Emacs-style keybindings
 # bindkey -v
 # setopt VI

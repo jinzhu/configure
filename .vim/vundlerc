@@ -7,6 +7,7 @@ Bundle 'gmarik/vundle'
 Bundle 'L9'
 
 Bundle 'tpope/vim-sensible'
+Bundle 'hsitz/VimOrganizer'
 
 " Bundle 'yesmeck/tips.vim'
 Bundle 'spolu/dwm.vim'

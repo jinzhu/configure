@@ -1,4 +1,4 @@
-# vi:ft=sh
+#!/bin/sh
 
 # PROMPT
 case ${TERM} in

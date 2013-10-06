@@ -271,8 +271,8 @@
 
 ;; Point Undo
 (require 'point-undo)
-(define-key global-map [f5] 'point-undo)
-(define-key global-map [f6] 'point-redo)
+(global-set-key (kbd "<C-f5>") 'point-undo)
+(global-set-key (kbd "<C-f6>") 'point-redo)
 
 ;; Smart Window
 (require 'smart-window)
@@ -331,5 +331,8 @@
 (require 'calfw-ical)
 (setq cred (netrc-machine (netrc-parse "~/.authinfo.gpg") "calics" t))
 ;; (cfw:open-ical-calendar (netrc-get cred "password"))
-
 (require 'calfw-gcal)
+
+;; Pomodoro
+(global-set-key (kbd "<f5>") 'pomodoro)
+(global-set-key (kbd "<M-f5>") 'pomodoro-status)
