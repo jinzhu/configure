@@ -156,6 +156,18 @@
       (term-send-raw-string (kbd "C-l"))
       )))
 
+(defun goto-last-dir ()
+  (interactive)
+  (shell-process-cd
+   (replace-regexp-in-string "\n" "" (get-string-from-file "/tmp/.last_dir"))))
+
+(setq
+ tramp-default-method "ssh"          ; uses ControlMaster
+ comint-scroll-to-bottom-on-input t  ; always insert at the bottom
+ comint-scroll-to-bottom-on-output nil ; always add output at the bottom
+ comint-scroll-show-maximum-output t
+ )
+
 (add-hook 'term-mode-hook (lambda ()
                             (define-key term-raw-map (kbd "C-y") 'term-paste)
                             (define-key term-raw-map (kbd "C-l") 'term-send-raw)
@@ -164,7 +176,8 @@
                             (define-key term-raw-map (kbd "C-c C-j") 'term-line-mode)
                             (define-key term-raw-map (kbd "C-c C-k") 'term-char-mode)
                             (yas-minor-mode -1)
-                            (ansi-color-for-comint-mode-on)))
+                            (ansi-color-for-comint-mode-on)
+                            ))
 
 ;; (add-hook 'term-mode-hook 'term-line-mode)
 ;; By default, term-char-mode forwards most keys to the terminal
@@ -213,6 +226,8 @@
 (setq jabber-vcard-avatars-retrieve nil)
 (setq jabber-mode-line-mode t)
 (setq jabber-show-offline-contacts nil)
+(global-set-key (kbd "<M-f2>") 'jabber-connect)
+
 
 ;; Tramp
 (setq tramp-default-method "ssh")
@@ -344,7 +359,7 @@
 
 ;; iCal
 (require 'calfw-ical)
-(setq cred (netrc-machine (netrc-parse "~/.authinfo.gpg") "calics" t))
+(setq calcred (netrc-machine (netrc-parse "~/.authinfo.gpg") "calics" t))
 ;; (cfw:open-ical-calendar (netrc-get cred "password"))
 (require 'calfw-gcal)
 
@@ -358,4 +373,13 @@
 ;; Smart Window
 (require 'smart-window)
 (setq smart-window-remap-keys 0)
-(global-set-key (kbd "C-x ,") 'smart-window-rotate)
+(global-set-key (kbd "C-c ,") 'smart-window-rotate)
+
+;; Rename buffer
+(global-set-key (kbd "C-x ,") 'rename-buffer)
+
+(defun get-string-from-file (filePath)
+  "Return filePath's file content."
+  (with-temp-buffer
+    (insert-file-contents filePath)
+    (buffer-string)))
