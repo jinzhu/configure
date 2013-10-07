@@ -426,7 +426,6 @@
 
 (if (not (display-graphic-p))
     (progn
-      (goto-jabber-or-connect)
       (mu4e)
       )
 )
