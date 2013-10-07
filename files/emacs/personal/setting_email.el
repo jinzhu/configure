@@ -15,6 +15,7 @@
  mu4e-drafts-folder "/[Gmail].Drafts"
  mu4e-sent-folder   "/[Gmail].Sent Mail"
  mu4e-trash-folder  "/[Gmail].Trash"
+ mu4e-refile-folder "/[Gmail].All Mail"
  mu4e-update-interval 300
  mu4e-view-show-images t
 
@@ -26,6 +27,7 @@
 (setq
  message-kill-buffer-on-exit t
  mu4e-use-fancy-chars t
+
  mu4e-html2text-command "w3m -dump -T text/html"
  mu4e-compose-complete-ignore-address-regexp (regexp-opt '("donotreply" "no-reply" "noreply" "docs.google.com" "reply.github.com" "ticket+theplant" "compute.internal"))
 
@@ -47,6 +49,7 @@
          ("mime:image/*"                     "Messages with images" ?i)
          ("to:juice@theplant.jp"             "Company" ?c)
          ))
+
 
 (require 'smtpmail)
 (setq message-send-mail-function 'smtpmail-send-it

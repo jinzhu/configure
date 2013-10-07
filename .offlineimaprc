@@ -7,6 +7,7 @@ ui = quiet
 [Account Gmail]
 localrepository = Local
 remoterepository = Remote
+maxage = 600
 #autorefresh = 5
 
 [Repository Local]
