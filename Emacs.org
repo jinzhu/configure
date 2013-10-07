@@ -1,3 +1,96 @@
+* Move cursor
+  C-a/C-e -> beginning/end of current line
+  M-a/M-e -> beginning/end of current paragraph
+  C-f/C-b -> next/backward char
+  M-f/M-b -> next/backward word
+  C-n/C-p -> next/previous line
+  C-v/M-v -> scroll up/down
+  C-l     -> re center
+
+  M-9 M-9 M-9 C-f -> Move forward 999 char
+
+* Mark
+  M-@ -> Mark word
+  M-h -> Mark paragraph
+  C-x h -> Mark whole buffer
+  C-u C-space -> last mark place -> then use C-space
+  C-space C-space -> set mark
+  C-x C-x -> select to last mark place
+
+* Kill text
+  C-d -> kill next char
+  Backspace -> kill backward char
+
+  M-Delete -> backward kill word
+  M-d	-> kill word
+
+  C-k -> kill line to end
+  C-0 C-k -> kill line to beginning
+  Super-k -> kill current line
+
+  M-k -> kill paragraph to end
+  C-x Delete -> backward kill paragraph
+
+  M-0 M-k -> kill paragraph to beginning
+  M-z -> zap to char
+  M-9 M-z -> ignore the first 9 chars when zap
+
+  C-u -> universal-argument -> default is 4
+
+* Register
+  + C-x r space (key) -> add to register (key)
+  + C-x r j (key) -> jump to register (key)
+  + C-x r s (key) -> save text to register (key)
+  + C-x r i (key) -> read text from register (key)
+** Bookmarks
+ + C-x r m Add current buffer to bookmarks.
+ + C-x r b Open a buffer from bookmarks.
+ + C-x r l List bookmarks.
+ + M-x bookmark-delete or in list page d (delete) -> x (execute)
+ + M-x bookmark-save
+
+* Jump
+  C-x C-SPACE - Jump between marks
+  C-u C-SPANCE - Jump between local marks
+  C-x r SPACE [a-z] -> mark a point in the document
+  C-x r j [a-z] -> jump to the point in the document
+
+** Jump Window: (winner mode)
+C-c <left> winner-undo
+C-c <right> redo
+Super + up/down/left/right -> move window
+C-c , -> rotate window
+
+* Undo / Redo
+C-/ -> undo
+C-? -> redo
+C-x u -> undo tree
+
+* Indent
+  C-x C-i -> Add tab to last mark place
+  C-u 22 C-x C-i -> Add 22 blank spaces
+  M-2 2 C-x C-i -> Add 22 blank spaces
+  M-- 22 C-x C-i -> Remove first 22 blank space
+  C-i -> indent back
+  M-\ -> delete all blanks around cursor
+  M-^ -> delete-indentation (join current line with above line)
+  C-^ -> join current line with below line
+* Transpose C-t -> transpose char
+  M-t -> transpose word
+  C-x C-t -> transpose above line
+  M-2 M-t -> transpose word to next two words
+  M-- 2 M-t -> transpose word to perv two words
+* Wrap region
+  in html mode, type < to wrap region with tag
+  other modes, select region, type punctuation
+* Abbrevs
+   C-x a l -> Add local abbrev
+   C-x a g -> Add global abbrev
+   M-x kill-all-abbrevs -> Delete all abbrevs
+   M-x edit-abbrevs -> Edit abbrevs
+
+
+registe registe Registe
 * Comment
 M-;     -> Insert or realign comment on current line
 C-u M-; -> Kill comment on current line (comment-kill).
@@ -5,6 +98,12 @@ M-j     -> Like <RET> followed by inserting and aligning a comment (comment-inde
 C-c C-c -> comment or uncomment region or current line
 M-x comment-region
 
+* Up/Down case
+  M-l -> down case current word
+  M-u -> up case current word
+  M-c -> capitalize current word
+  C-x C-l -> downcase region
+  C-x C-u -> upcase region
 * Block Edit
 ** rectangle
 C-px r t -> Add to the beginning (string-rectangle)
@@ -41,24 +140,12 @@ Ctrl+Enter -> block select
    C-n -> next line
    C-p -> prev line
    C-u C-x C-n -> Disable Goal Column
-* Jump
-C-x C-SPACE - Jump between marks
-C-u C-SPANCE - Jump between local marks
-C-x r SPACE [a-z] -> mark a point in the document
-C-x r j [a-z] -> jump to the point in the document
-
-* Jump Window: (winner mode)
-C-c <left> winner-undo
-C-c <right> redo
-
-* Undo / Redo
-C-/ -> undo
-C-? -> redo
-C-x u -> undo tree
-
+* Repeat
+  C-x z -> repeat last command -> (z) repeat again
 * Align
   align
-align-regexp
+  C-x \ -> align-regexp
+  C-u C-x \ RET \(\s-*\) = RET 1 RET 0 RET n -> align with = for whole line
 
 * SQL
 sql-postgres
@@ -182,24 +269,24 @@ S-<down> (org-priority-down)
 * Term
   <M-r> -> term-send-reverse-search-history
   <M-x> erase-buffer -> Delete buffer
+  <C-j> -> toggle shell mode
 * Ruby
   C-c { -> toggle { to block
-* Window
-  S-right/left/up/down -> move window
-* Wrap region
-  in html mode, type < to wrap region with tag
-  other modes, select region, type punctuation
-* Bookmarks
- + C-x r m Add current buffer to bookmarks.
- + C-x r b Open a buffer from bookmarks.
- + C-x r l List bookmarks.
 * Ispell
 + C-. -> auto correct last error word
 + M-$ -> correct current word with selection
+* Help
+  C-c C-h -> List all key binding begging with C-c
+  C-h l -> view lossage
+  C-h w function	-> key binding of function
+* Search
+  C-s C-w -> search current word
+  C-s C-y -> search yanked text
 * Tips
-+ M-z -> zap to char
 + C-x 5 2 -> create new top-level X windows
 + M-x command-history -> show command history
 + M-x htmlize-file/buffer -> htmlize a file
 + M-x vc-resolve-conflicts -> resolve conflicts.
   (In ediff 'n' takes you to the next change, and 'a' or 'b' lets you choose the change from buffer A or B being compared)
+* Magit
+  c -> commit  ( -r commit amend)

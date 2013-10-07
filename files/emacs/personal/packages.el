@@ -56,7 +56,7 @@
                    ;; http://fanyi.youdao.com/openapi?path=data-mode
                    (setf youdao-key-from "jinzhu")
                    (setf youdao-key "1159909992")
-                   (global-set-key (kbd "C-c C-v") 'youdao-translate-word)
+                   (global-set-key (kbd "<f6>") 'youdao-translate-word)
                    ))
    (:name pomodoro
           :type github

@@ -1,5 +1,5 @@
 # My dot files
-  For Xmonad, Vim, Emacs, urxvt, tmux, Archlinux, Zsh/Bash, Git, Ruby/Rails, Xbindkey, Vrome, Vimperator, Yac , Chrome...
+  For Emacs, Vim, Openbox, Xmonad, Conky, Urxvt, tmux, Archlinux, Zsh/Bash, Git, Ruby/Rails, Xbindkey, Vrome, Vimperator, Yac , Chrome...
 
 ## Install:
 

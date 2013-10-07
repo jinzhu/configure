@@ -2,6 +2,7 @@
 
 ;; Main line
 (display-time-mode 1)
+(setq default-major-mode 'conf-mode)
 (display-battery-mode 1)
 
 (electric-indent-mode +1)
@@ -166,6 +167,9 @@
  comint-scroll-to-bottom-on-input t  ; always insert at the bottom
  comint-scroll-to-bottom-on-output nil ; always add output at the bottom
  comint-scroll-show-maximum-output t
+ comint-input-ignoredups t ; no duplicates in command history
+ comint-completion-addsuffix t ; insert space/slash after file completion
+ comint-buffer-maximum-size 200000
  )
 
 (add-hook 'term-mode-hook (lambda ()
@@ -177,11 +181,14 @@
                             (define-key term-raw-map (kbd "C-c C-k") 'term-char-mode)
                             (yas-minor-mode -1)
                             (ansi-color-for-comint-mode-on)
+                            (set (make-local-variable 'outline-regexp) "\$ ")
+                            (outline-minor-mode)
                             ))
 
-;; (add-hook 'term-mode-hook 'term-line-mode)
-;; By default, term-char-mode forwards most keys to the terminal
-;; (add-hook 'term-mode-hook 'term-char-mode)
+(add-hook 'shell-mode-hook (lambda ()
+                             (define-key shell-mode-map (kbd "<up>") 'term-send-up)
+                             (define-key shell-mode-map (kbd "<down>") 'term-send-down)
+                            ))
 
 ;; Bash Complete
 (require 'shell-command)
@@ -366,7 +373,7 @@
               (sauron-fx-gnome-osd msg 10))))
 
 (sauron-start-hidden)
-(global-set-key (kbd "<C-f2>") 'sauron-toggle-hide-show)
+(global-set-key (kbd "<C-f1>") 'sauron-toggle-hide-show)
 
 ;; iCal
 (require 'calfw-ical)
@@ -395,12 +402,24 @@
     (insert-file-contents filePath)
     (buffer-string)))
 
-(defun find-setting-file ()
+(defun goto-emacs-setting-file ()
      (interactive)
      (if (not (get-buffer "settings.el"))
-         (find-file-other-window (expand-file-name ".emacs.d/personal/settings.el" (getenv "HOME"))))
+         (find-file (expand-file-name ".emacs.d/personal/settings.el" (getenv "HOME"))))
      (switch-to-buffer "settings.el"))
 
-(global-set-key (kbd "<M-f1>") 'find-setting-file)
+(defun goto-emacs-tips-file ()
+  (interactive)
+  (if (not (get-buffer "Emacs.org"))
+      (find-file (expand-file-name "GIT/configure/Emacs.org" (getenv "HOME"))))
+  (switch-to-buffer "Emacs.org"))
+
+(global-set-key (kbd "<M-f1>") 'goto-emacs-setting-file)
+(global-set-key (kbd "<C-f1>") 'goto-emacs-tips-file)
 (global-set-key (kbd "<M-S-f1>") 'goto-last-dir)
-(global-set-key (kbd "<f6>") 'command-history)
+(global-set-key (kbd "<C-f6>") 'command-history)
+
+(global-set-key "\C-s" 'isearch-forward-regexp)
+(global-set-key "\C-r" 'isearch-backward-regexp)
+(global-set-key (kbd "C-M-s") 'search-forward-regexp)
+(global-set-key (kbd "C-M-r") 'search-backward-regexp)
