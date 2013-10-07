@@ -15,7 +15,7 @@
  mu4e-drafts-folder "/[Gmail].Drafts"
  mu4e-sent-folder   "/[Gmail].Sent Mail"
  mu4e-trash-folder  "/[Gmail].Trash"
- mu4e-update-interval 60
+ mu4e-update-interval 300
  mu4e-view-show-images t
 
  mu4e-get-mail-command "offlineimap"
