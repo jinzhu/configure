@@ -223,6 +223,7 @@
 (setq jabber-vcard-avatars-retrieve nil)
 (setq jabber-mode-line-mode t)
 (setq jabber-show-offline-contacts nil)
+(add-hook 'jabber-chat-mode-hook 'flyspell-mode)
 
 (defun goto-jabber-or-connect ()
      (interactive)
@@ -402,3 +403,4 @@
 
 (global-set-key (kbd "<M-f1>") 'find-setting-file)
 (global-set-key (kbd "<M-S-f1>") 'goto-last-dir)
+(global-set-key (kbd "<f6>") 'command-history)

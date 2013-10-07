@@ -193,7 +193,13 @@ S-<down> (org-priority-down)
  + C-x r m Add current buffer to bookmarks.
  + C-x r b Open a buffer from bookmarks.
  + C-x r l List bookmarks.
+* Ispell
++ C-. -> auto correct last error word
++ M-$ -> correct current word with selection
 * Tips
 + M-z -> zap to char
 + C-x 5 2 -> create new top-level X windows
 + M-x command-history -> show command history
++ M-x htmlize-file/buffer -> htmlize a file
++ M-x vc-resolve-conflicts -> resolve conflicts.
+  (In ediff 'n' takes you to the next change, and 'a' or 'b' lets you choose the change from buffer A or B being compared)
