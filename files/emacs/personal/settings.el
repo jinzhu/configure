@@ -189,9 +189,6 @@
 (require 'bash-completion)
 (bash-completion-setup)
 
-;; Twitter
-(setq twittering-use-master-password t)
-
 ;; Set limit line length
 (setq whitespace-line-column 100)
 
@@ -226,8 +223,22 @@
 (setq jabber-vcard-avatars-retrieve nil)
 (setq jabber-mode-line-mode t)
 (setq jabber-show-offline-contacts nil)
-(global-set-key (kbd "<M-f2>") 'jabber-connect)
 
+(defun goto-jabber-or-connect ()
+     (interactive)
+     (if (not (get-buffer "*-jabber-roster-*"))
+       (jabber-connect-all))
+     (switch-to-buffer "*-jabber-roster-*")
+     )
+
+(global-set-key (kbd "<M-f2>") 'goto-jabber-or-connect)
+
+;; Twitter
+(setq twittering-use-master-password t)
+(global-set-key (kbd "<M-S-f2>") 'twit)
+
+;; Weibo
+(global-set-key (kbd "<C-f2>") 'weibo-timeline)
 
 ;; Tramp
 (setq tramp-default-method "ssh")
@@ -237,8 +248,7 @@
 (setq deft-directory "/jinzhu/Dropbox/Notebooks")
 (setq deft-extension "org")
 (setq deft-text-mode 'org-mode)
-
-(global-set-key [f8] 'deft)
+(global-set-key (kbd "<M-f1>") 'deft)
 (setq deft-use-filename-as-title t)
 
 ;; Org Mode
@@ -306,8 +316,8 @@
 
 ;; Point Undo
 (require 'point-undo)
-(global-set-key (kbd "<C-f5>") 'point-undo)
-(global-set-key (kbd "<C-f6>") 'point-redo)
+(global-set-key (kbd "<C-f4>") 'point-undo)
+(global-set-key (kbd "<S-f4>") 'point-redo)
 
 ;; Linum mode
 (define-key global-map [f4] 'linum-mode)
@@ -383,3 +393,12 @@
   (with-temp-buffer
     (insert-file-contents filePath)
     (buffer-string)))
+
+(defun find-setting-file ()
+     (interactive)
+     (if (not (get-buffer "settings.el"))
+         (find-file-other-window (expand-file-name ".emacs.d/personal/settings.el" (getenv "HOME"))))
+     (switch-to-buffer "settings.el"))
+
+(global-set-key (kbd "<M-f1>") 'find-setting-file)
+(global-set-key (kbd "<M-S-f1>") 'goto-last-dir)
