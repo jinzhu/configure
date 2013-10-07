@@ -138,9 +138,6 @@ function v {
   fi
 }
 
-alias vim='emacsclient -t -a ""'
-alias emacs='emacsclient -t -a ""'
-
 function e {
   if [ -n "$*" ]; then
     emacsclient -a "" -t $*

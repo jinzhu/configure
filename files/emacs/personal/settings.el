@@ -423,3 +423,10 @@
 (global-set-key "\C-r" 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'search-forward-regexp)
 (global-set-key (kbd "C-M-r") 'search-backward-regexp)
+
+(if (not (display-graphic-p))
+    (progn
+      (goto-jabber-or-connect)
+      (mu4e)
+      )
+)
