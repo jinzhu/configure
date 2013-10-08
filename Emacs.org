@@ -290,6 +290,10 @@ S-<down> (org-priority-down)
   (In ediff 'n' takes you to the next change, and 'a' or 'b' lets you choose the change from buffer A or B being compared)
 * Magit
   c -> commit  ( -r commit amend)
+  s -> stage
+  S -> stage all
+  u -> unstage
+  U -> unstage all
 * Mu4e
   % -> mu4e-headers-mark-pattern
   ! -> mark as read
@@ -309,3 +313,9 @@ S-<down> (org-priority-down)
 * File & Buffer
   C-c r -> rename file and buffer
   C-x , -> rename buffer
+* DocView
+  n -> next page
+  p -> previous page
+  Space -> scroll next screen
+  W -> fit by width
+  H -> fit by height

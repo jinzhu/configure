@@ -453,4 +453,6 @@
       (jabber-connect-all))
   (if (not (get-buffer "*weibo-timeline*"))
       (weibo-timeline))
+  (if (not (get-buffer ":home"))
+      (twit))
   )
