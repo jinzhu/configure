@@ -17,7 +17,6 @@
  mu4e-trash-folder  "/[Gmail].Trash"
  mu4e-refile-folder "/[Gmail].All Mail"
  mu4e-update-interval 300
- mu4e-view-show-images t
 
  mu4e-get-mail-command "offlineimap"
  ;; don't save message to Sent Messages, GMail/IMAP will take care of this
@@ -27,6 +26,8 @@
 (setq
  message-kill-buffer-on-exit t
  mu4e-use-fancy-chars t
+ mu4e-headers-skip-duplicates t
+
  mu4e-msg2pdf "/usr/bin/msg2pdf"
  mu4e-html2text-command "w3m -dump -T text/html"
  mu4e-compose-complete-ignore-address-regexp (regexp-opt '("donotreply" "no-reply" "noreply" "docs.google.com" "reply.github.com" "ticket+theplant" "compute.internal"))

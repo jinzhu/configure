@@ -12,6 +12,7 @@ IRREGULAR = {
   "files/obmenu-generator" => "~/.config/obmenu-generator",
   "files/profile" => "/etc/profile",
   "files/ifup.sh" => "/etc/ppp/ip-up.d/01-ifup.sh",
+  "files/fcitx_config" => "~/.config/fcitx/config",
   'scripts' => '~/.scripts'
 }
 Dir["files/emacs/personal/*"].map do |file|

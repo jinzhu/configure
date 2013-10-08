@@ -1,6 +1,7 @@
 * Move cursor
   C-a/C-e -> beginning/end of current line
-  M-a/M-e -> beginning/end of current paragraph
+  M-a/M-e -> backward/forward sentence
+  M-{/M-} -> backward/forward paragraph
   C-f/C-b -> next/backward char
   M-f/M-b -> next/backward word
   C-n/C-p -> next/previous line

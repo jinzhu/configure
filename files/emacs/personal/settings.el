@@ -44,8 +44,8 @@
 ;; git gutter
 (global-git-gutter-mode t)
 (global-set-key (kbd "<escape>gg") 'git-gutter:toggle)
-(global-set-key (kbd "<escape>gj") 'git-gutter:next-diff)
-(global-set-key (kbd "<escape>gk") 'git-gutter:previous-diff)
+(global-set-key (kbd "<escape>j") 'git-gutter:next-diff)
+(global-set-key (kbd "<escape>k") 'git-gutter:previous-diff)
 (global-set-key (kbd "<escape>gd") 'git-gutter:popup-diff)
 (global-set-key (kbd "<escape>gr") 'git-gutter:revert-hunk)
 
@@ -109,10 +109,16 @@
 
 ;;; key choard
 (setq key-chord-two-keys-delay 0.2)
+(global-set-key (kbd "<escape>yy") 'copy-current-line)
 (key-chord-define-global "yy" 'copy-current-line)
+(global-set-key (kbd "<escape>vv") 'select-current-line)
 (key-chord-define-global "vv" 'select-current-line)
+(global-set-key (kbd "<escape>m") 'magit-status)
 (key-chord-define-global ";w" 'save-buffer)
 (global-set-key "\C-c\C-c" 'comment-or-uncomment-region-or-line)
+(global-set-key (kbd "<escape>l") 'helm-all-mark-rings)
+
+
 
 ;;; IDO
 (icomplete-mode t)
@@ -337,8 +343,10 @@
 
 ;; Point Undo
 (require 'point-undo)
-(global-set-key (kbd "<C-f4>") 'point-undo)
-(global-set-key (kbd "<S-f4>") 'point-redo)
+(global-set-key (kbd "<escape>p") 'point-undo)
+(global-set-key (kbd "<escape>n") 'point-redo)
+(global-set-key (kbd "<escape>t") 'jump-to-register)
+(global-set-key (kbd "<escape>r") 'point-to-register)
 
 ;; Linum mode
 (define-key global-map [f4] 'linum-mode)
