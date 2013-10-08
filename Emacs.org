@@ -329,3 +329,13 @@ S-<down> (org-priority-down)
   Space -> scroll next screen
   W -> fit by width
   H -> fit by height
+* W3m
+  h,j,k,l -> move cursor
+  Space -> next half screen
+  S-Space -> previous half screen
+  C-c M-r -> delete right tabs
+  C-c M-l -> delete left tabs
+  M-n -> copy buffer
+  C-c C-w -> delete current buffer
+  C-c C-n -> next buffer
+  C-c C-p -> previous buffer

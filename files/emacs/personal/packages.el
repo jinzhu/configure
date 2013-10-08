@@ -8,7 +8,7 @@
                                   emamux ctags-update multi-term powerline
                                   writegood-mode evil pos-tip ; pos tip is for youdao
                                   w3m jabber deft bash-completion shell-command
-                                  rinari keyfreq point-undo smart-window
+                                  rinari keyfreq point-undo smart-window zlc
                                   mu4e-maildirs-extension sauron calfw-gcal
                                   ))
 

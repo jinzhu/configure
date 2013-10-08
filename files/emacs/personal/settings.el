@@ -49,10 +49,6 @@
 (global-set-key (kbd "<escape>gd") 'git-gutter:popup-diff)
 (global-set-key (kbd "<escape>gr") 'git-gutter:revert-hunk)
 
-
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "chromium")
-
 (setq mouse-drag-copy-region nil)  ; stops selection with a mouse being immediately injected to the kill ring
 (setq x-select-enable-primary t)  ; stops killing/yanking interacting with primary X11 selection
 (setq x-select-enable-clipboard t)  ; makes killing/yanking interact with clipboard X11 selection
@@ -76,6 +72,7 @@
 ;; yasnippet
 (require 'yasnippet)
 (yas-global-mode 1)
+(yas-minor-mode-on)
 
 ;; Select candidates with C-n/C-p only when completion menu is displayed
 (setq ac-use-menu-map t)
@@ -117,8 +114,7 @@
 (key-chord-define-global ";w" 'save-buffer)
 (global-set-key "\C-c\C-c" 'comment-or-uncomment-region-or-line)
 (global-set-key (kbd "<escape>l") 'helm-all-mark-rings)
-
-
+(global-set-key (kbd "<escape>cd") 'goto-last-dir)
 
 ;;; IDO
 (icomplete-mode t)
@@ -186,6 +182,7 @@
                             (define-key term-raw-map (kbd "C-y") 'term-paste)
                             (define-key term-raw-map (kbd "C-l") 'term-send-raw)
                             (define-key term-raw-map (kbd "C-j") 'term-switch-to-shell-mode)
+                            (define-key term-raw-map (kbd "<escape><escape>") 'term-send-raw-meta)
                             (define-key term-raw-map (kbd "M-.") 'term-send-raw-meta)
                             (define-key term-raw-map (kbd "C-c C-j") 'term-line-mode)
                             (define-key term-raw-map (kbd "C-c C-k") 'term-char-mode)
@@ -198,7 +195,7 @@
 (add-hook 'shell-mode-hook (lambda ()
                              (define-key shell-mode-map (kbd "<up>") 'term-send-up)
                              (define-key shell-mode-map (kbd "<down>") 'term-send-down)
-                            ))
+                             ))
 
 ;; Bash Complete
 (require 'shell-command)
@@ -240,10 +237,10 @@
 (setq jabber-vcard-avatars-retrieve nil)
 (setq jabber-mode-line-mode t)
 (setq
-  jabber-show-offline-contacts nil
-  jabber-backlog-days 3.0
-  ;; jabber-keepalive-interval 100
-)
+ jabber-show-offline-contacts nil
+ jabber-backlog-days 3.0
+ ;; jabber-keepalive-interval 100
+ )
 (add-hook 'jabber-chat-mode-hook 'flyspell-mode)
 (add-hook 'jabber-lost-connection-hooks 'jabber-connect-all)
 ;; (add-hook 'jabber-post-connect-hooks (lambda ()
@@ -252,11 +249,11 @@
 ;;                                        (jabber-send-default-presence)))
 
 (defun goto-jabber-or-connect ()
-     (interactive)
-     (if (not (get-buffer "*-jabber-roster-*"))
-       (jabber-connect-all))
-     (switch-to-buffer "*-jabber-roster-*")
-     )
+  (interactive)
+  (if (not (get-buffer "*-jabber-roster-*"))
+      (jabber-connect-all))
+  (switch-to-buffer "*-jabber-roster-*")
+  )
 
 (global-set-key (kbd "<M-f2>") 'goto-jabber-or-connect)
 
@@ -424,10 +421,10 @@
     (buffer-string)))
 
 (defun goto-emacs-setting-file ()
-     (interactive)
-     (if (not (get-buffer "settings.el"))
-         (find-file (expand-file-name ".emacs.d/personal/settings.el" (getenv "HOME"))))
-     (switch-to-buffer "settings.el"))
+  (interactive)
+  (if (not (get-buffer "settings.el"))
+      (find-file (expand-file-name ".emacs.d/personal/settings.el" (getenv "HOME"))))
+  (switch-to-buffer "settings.el"))
 
 (defun goto-emacs-tips-file ()
   (interactive)
@@ -458,6 +455,56 @@
       (mu4e)
       )
   )
+
+;; zlc mode
+(zlc-mode t)
+(setq zlc-select-completion-immediately t)
+(let ((map minibuffer-local-map))
+  ;;; like menu select
+  (define-key map (kbd "<C-down>")  'zlc-select-next-vertical)
+  (define-key map (kbd "<C-up>")    'zlc-select-previous-vertical)
+  (define-key map (kbd "<C-right>") 'zlc-select-next)
+  (define-key map (kbd "<C-left>")  'zlc-select-previous)
+
+  ;;; reset selection
+  (define-key map (kbd "C-c") 'zlc-reset)
+  )
+
+;; w3m
+(global-set-key (kbd "<escape>w") 'w3m)
+(global-set-key (kbd "<escape>W") 'browse-url-at-point)
+;; (setq browse-url-browser-function 'browse-url-generic
+;;       browse-url-generic-program "chromium")
+(setq browse-url-browser-function 'w3m-browse-url)
+
+(setq
+   w3m-default-display-inline-images t
+   w3m-command-arguments '("-cookie" "-F")
+   w3m-use-cookies t
+   w3m-use-mule-ucs t
+   w3m-new-session-in-background t
+   w3m-home-page "http://www.google.com"
+ )
+(require 'w3m-search)
+(add-to-list 'w3m-search-engine-alist
+             '("emacs-wiki" "http://www.emacswiki.org/cgi-bin/wiki.pl?search=%s"))
+
+(defun w3m-copy-current-url ()
+  "Display the current url in the echo area and put it into `kill-ring'."
+  (interactive)
+  (when w3m-current-url
+    (let ((deactivate-mark nil))
+      (kill-new w3m-current-url)
+      (w3m-print-current-url))))
+
+(add-hook 'w3m-mode-hook (lambda ()
+   (define-key w3m-mode-map "n"     'w3m-next-anchor)
+   (define-key w3m-mode-map "p"     'w3m-previous-anchor)
+   (define-key w3m-mode-map "f"     'w3m-lnum-follow)
+   (define-key w3m-mode-map "d"     'w3m-download-this-url)
+   (define-key w3m-mode-map "Y"     'w3m-copy-current-url)
+   (define-key w3m-mode-map [(shift button2)] 'w3m-mouse-view-this-url-new-session)
+   ))
 
 (defun vpnonline-hook ()
   (interactive)
