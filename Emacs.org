@@ -290,3 +290,13 @@ S-<down> (org-priority-down)
   (In ediff 'n' takes you to the next change, and 'a' or 'b' lets you choose the change from buffer A or B being compared)
 * Magit
   c -> commit  ( -r commit amend)
+* Mu4e
+  % -> mu4e-headers-mark-pattern
+  ! -> mark as read
+  ? -> mark as unread
+  x -> mark for move
+  x -> execute marked command
+  S -> search
+  R -> reply
+  F -> forward
+  C -> compose new email

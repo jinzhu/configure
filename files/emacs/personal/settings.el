@@ -105,8 +105,8 @@
 (setq key-chord-two-keys-delay 0.2)
 (key-chord-define-global "yy" 'copy-current-line)
 (key-chord-define-global "vv" 'select-current-line)
-(key-chord-define-global ";s" 'git-gutter:next-diff)
-(key-chord-define-global ";d" 'git-gutter:previous-diff)
+(key-chord-define-global ";;" 'git-gutter:next-diff)
+(key-chord-define-global "''" 'git-gutter:previous-diff)
 (key-chord-define-global ";w" 'save-buffer)
 (global-set-key "\C-c\C-c" 'comment-or-uncomment-region-or-line)
 
@@ -229,8 +229,17 @@
 (setq jabber-alert-presence-message-function (lambda (who oldstatus newstatus statustext) nil))
 (setq jabber-vcard-avatars-retrieve nil)
 (setq jabber-mode-line-mode t)
-(setq jabber-show-offline-contacts nil)
+(setq
+  jabber-show-offline-contacts nil
+  jabber-backlog-days 3.0
+  ;; jabber-keepalive-interval 100
+)
 (add-hook 'jabber-chat-mode-hook 'flyspell-mode)
+(add-hook 'jabber-lost-connection-hooks 'jabber-connect-all)
+;; (add-hook 'jabber-post-connect-hooks (lambda ()
+;;                                        (jabber-gmail-subscribe)
+;;                                        (jabber-keepalive-start)
+;;                                        (jabber-send-default-presence)))
 
 (defun goto-jabber-or-connect ()
      (interactive)
@@ -424,8 +433,24 @@
 (global-set-key (kbd "C-M-s") 'search-forward-regexp)
 (global-set-key (kbd "C-M-r") 'search-backward-regexp)
 
+;; Doc View
+(setq doc-view-continuous t)
+(define-key doc-view-mode-map (kbd "j") 'doc-view-next-line-or-next-page)
+(define-key doc-view-mode-map (kbd "k") 'doc-view-previous-line-or-previous-page)
+(define-key doc-view-mode-map (kbd "h") 'image-backward-hscroll)
+(define-key doc-view-mode-map (kbd "l") 'image-forward-hscroll)
+
+;; Run in Daemon
 (if (not (display-graphic-p))
     (progn
       (mu4e)
       )
-)
+  )
+
+(defun vpnonline-hook ()
+  (interactive)
+  (if (not (get-buffer "*-jabber-roster-*"))
+      (jabber-connect-all))
+  (if (not (get-buffer "*weibo-timeline*"))
+      (weibo-timeline))
+  )
