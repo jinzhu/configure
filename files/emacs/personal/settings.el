@@ -43,6 +43,12 @@
 
 ;; git gutter
 (global-git-gutter-mode t)
+(global-set-key (kbd "<escape>gg") 'git-gutter:toggle)
+(global-set-key (kbd "<escape>gj") 'git-gutter:next-diff)
+(global-set-key (kbd "<escape>gk") 'git-gutter:previous-diff)
+(global-set-key (kbd "<escape>gd") 'git-gutter:popup-diff)
+(global-set-key (kbd "<escape>gr") 'git-gutter:revert-hunk)
+
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "chromium")
@@ -105,8 +111,6 @@
 (setq key-chord-two-keys-delay 0.2)
 (key-chord-define-global "yy" 'copy-current-line)
 (key-chord-define-global "vv" 'select-current-line)
-(key-chord-define-global ";;" 'git-gutter:next-diff)
-(key-chord-define-global "''" 'git-gutter:previous-diff)
 (key-chord-define-global ";w" 'save-buffer)
 (global-set-key "\C-c\C-c" 'comment-or-uncomment-region-or-line)
 
