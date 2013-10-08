@@ -27,7 +27,7 @@
 (setq
  message-kill-buffer-on-exit t
  mu4e-use-fancy-chars t
-
+ mu4e-msg2pdf "/usr/bin/msg2pdf"
  mu4e-html2text-command "w3m -dump -T text/html"
  mu4e-compose-complete-ignore-address-regexp (regexp-opt '("donotreply" "no-reply" "noreply" "docs.google.com" "reply.github.com" "ticket+theplant" "compute.internal"))
 

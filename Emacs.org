@@ -300,3 +300,12 @@ S-<down> (org-priority-down)
   R -> reply
   F -> forward
   C -> compose new email
+  A -> view attachment action
+  o -> view open attachment
+  e -> save attachment
+  ac -> capture an email for attach later
+  av -> capture an email as pdf
+  M-x mu4e-compose-attach-captured-message -> attach captured email
+* File & Buffer
+  C-c r -> rename file and buffer
+  C-x , -> rename buffer

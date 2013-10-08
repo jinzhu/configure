@@ -18,6 +18,8 @@ sudo yaourt -S perl-file-mimeinfo --noconfirm # for chrome open download files c
 
 sudo yaourt -S caffeine-bzr indicator-china-weather indicator-virtualbox indicator-cpufreq-bzr --noconfirm
 
+sudo yaourt -S mu-git # install msg2pdf by edit PKGFILEk
+
 curl -L https://get.rvm.io | bash -s stable --ruby
 rvm autolibs enable
 
