@@ -75,7 +75,8 @@ C-x u -> undo tree
   M-\ -> delete all blanks around cursor
   M-^ -> delete-indentation (join current line with above line)
   C-^ -> join current line with below line
-* Transpose C-t -> transpose char
+* Transpose
+  C-t -> transpose char
   M-t -> transpose word
   C-x C-t -> transpose above line
   M-2 M-t -> transpose word to next two words
@@ -156,6 +157,14 @@ p-> M-x sql-set-sqli-buffer RET *SQL* RET (No sql process started)
 m -> 'proced-mark
 u -> 'proced-unmark
 k -> 'proced-send-signal
+s S -> 'proced-sort-interactive
+s c -> 'proced-sort-pcpu
+s m -> 'proced-sort-pmem
+s p -> 'proced-sort-pid
+s s -> 'proced-sort-start
+s t -> 'proced-sort-time
+s u -> 'proced-sort-user
+
 * Org Mode
 c-x C-o -> Open link
 http://www.cnblogs.com/holbrook/archive/2012/04/12/2444992.html#sec-1-2-1
