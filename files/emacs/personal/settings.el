@@ -2,8 +2,13 @@
 
 ;; Main line
 (display-time-mode 1)
-(setq default-major-mode 'conf-mode)
+(setq major-mode 'conf-mode)
 (display-battery-mode 1)
+
+(setq frame-title-format
+      '("" invocation-name " : " (:eval (if (buffer-file-name)
+                                          (abbreviate-file-name (buffer-file-name))
+                                        "%b"))))
 
 (electric-indent-mode +1)
 (setq-default  tab-width 2
@@ -362,6 +367,7 @@
                       ("Google Calendar" . "calendar.google.com")
                       ("ThePlant Drive" . "drive.google.com/a/theplant.jp")
                       ("Sina Finance" . "finance.sina.com.cn")
+                      ("Melpa" . "melpa.milkbox.net")
                       ))
 
 ;; Find file at point
@@ -405,11 +411,6 @@
 
 ;; Windmove
 (windmove-default-keybindings 'super)
-
-;; Smart Window
-(require 'smart-window)
-(setq smart-window-remap-keys 0)
-(global-set-key (kbd "C-c ,") 'smart-window-rotate)
 
 ;; Rename buffer
 (global-set-key (kbd "C-x ,") 'rename-buffer)

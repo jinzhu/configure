@@ -76,6 +76,7 @@ C-x u -> undo tree
   M-\ -> delete all blanks around cursor
   M-^ -> delete-indentation (join current line with above line)
   C-^ -> join current line with below line
+  C-j -> indent and next line
 * Transpose
   C-t -> transpose char
   M-t -> transpose word
@@ -298,6 +299,7 @@ S-<down> (org-priority-down)
 + M-x htmlize-file/buffer -> htmlize a file
 + M-x vc-resolve-conflicts -> resolve conflicts.
   (In ediff 'n' takes you to the next change, and 'a' or 'b' lets you choose the change from buffer A or B being compared)
++ M-x list-packages -> U (mark as upgrade) -> x (execute it) -> upgrade packages
 * Magit
   c -> commit  ( -r commit amend)
   s -> stage

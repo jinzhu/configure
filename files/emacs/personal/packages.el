@@ -1,5 +1,8 @@
 (require 'package)
 
+;; Smart Window
+(setq smart-window-remap-keys 0)
+
 ;; My packages
 (prelude-require-packages '(
                             vline quickrun pos-tip auto-complete git-gutter go-eldoc

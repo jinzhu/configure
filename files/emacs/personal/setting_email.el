@@ -23,6 +23,13 @@
  mu4e-sent-messages-behavior 'delete
  )
 
+(setq mu4e-attachment-dir
+      (lambda (fname mtype)
+        (cond
+         ((and fname (string-match "\\.doc$" fname))  "~/Documents")
+         ((and fname (string-match "log.?[[:digit:]]+?$" fname))  "~/logs")
+         (t "~/Downloads")))) ;; everything else
+
 (setq
  message-kill-buffer-on-exit t
  mu4e-use-fancy-chars t
