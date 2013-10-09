@@ -236,13 +236,13 @@
 (setq jabber-alert-presence-message-function (lambda (who oldstatus newstatus statustext) nil))
 (setq jabber-vcard-avatars-retrieve nil)
 (setq jabber-mode-line-mode t)
-(setq
- jabber-show-offline-contacts nil
- jabber-backlog-days 3.0
- ;; jabber-keepalive-interval 100
- )
+;; (setq
+;; jabber-show-offline-contacts nil
+;; jabber-backlog-days 3.0
+;; jabber-keepalive-interval 100
+;; )
 (add-hook 'jabber-chat-mode-hook 'flyspell-mode)
-(add-hook 'jabber-lost-connection-hooks 'jabber-connect-all)
+;; (add-hook 'jabber-lost-connection-hooks 'jabber-connect-all)
 ;; (add-hook 'jabber-post-connect-hooks (lambda ()
 ;;                                        (jabber-gmail-subscribe)
 ;;                                        (jabber-keepalive-start)
@@ -473,17 +473,28 @@
 ;; w3m
 (global-set-key (kbd "<escape>w") 'w3m)
 (global-set-key (kbd "<escape>W") 'browse-url-at-point)
-;; (setq browse-url-browser-function 'browse-url-generic
-;;       browse-url-generic-program "chromium")
-(setq browse-url-browser-function 'w3m-browse-url)
+(defun set_chromium_as_default_browser ()
+  (interactive)
+  (progn
+    (setq browse-url-browser-function 'browse-url-generic
+          browse-url-generic-program "chromium")
+    (message "set chromium as default browser")))
+(defun set_w3m_as_default_browser ()
+  (interactive)
+  (progn
+    (setq browse-url-browser-function 'w3m-browse-url)
+    (message "set w3m as default browser")))
+
+(global-set-key (kbd "<escape>M-w") 'set_chromium_as_default_browser)
+(global-set-key (kbd "<escape>C-w") 'set_w3m_as_default_browser)
 
 (setq
-   w3m-default-display-inline-images t
-   w3m-command-arguments '("-cookie" "-F")
-   w3m-use-cookies t
-   w3m-use-mule-ucs t
-   w3m-new-session-in-background t
-   w3m-home-page "http://www.google.com"
+ w3m-default-display-inline-images t
+ w3m-command-arguments '("-cookie" "-F")
+ w3m-use-cookies t
+ w3m-use-mule-ucs t
+ w3m-new-session-in-background t
+ w3m-home-page "http://www.google.com"
  )
 (require 'w3m-search)
 (add-to-list 'w3m-search-engine-alist
@@ -498,13 +509,13 @@
       (w3m-print-current-url))))
 
 (add-hook 'w3m-mode-hook (lambda ()
-   (define-key w3m-mode-map "n"     'w3m-next-anchor)
-   (define-key w3m-mode-map "p"     'w3m-previous-anchor)
-   (define-key w3m-mode-map "f"     'w3m-lnum-follow)
-   (define-key w3m-mode-map "d"     'w3m-download-this-url)
-   (define-key w3m-mode-map "Y"     'w3m-copy-current-url)
-   (define-key w3m-mode-map [(shift button2)] 'w3m-mouse-view-this-url-new-session)
-   ))
+                           (define-key w3m-mode-map "n"     'w3m-next-anchor)
+                           (define-key w3m-mode-map "p"     'w3m-previous-anchor)
+                           (define-key w3m-mode-map "f"     'w3m-lnum-follow)
+                           (define-key w3m-mode-map "d"     'w3m-download-this-url)
+                           (define-key w3m-mode-map "Y"     'w3m-copy-current-url)
+                           (define-key w3m-mode-map [(shift button2)] 'w3m-mouse-view-this-url-new-session)
+                           ))
 
 (defun vpnonline-hook ()
   (interactive)
