@@ -13,6 +13,7 @@
                                   w3m jabber deft bash-completion shell-command
                                   rinari keyfreq point-undo smart-window zlc
                                   mu4e-maildirs-extension sauron calfw-gcal
+                                  org-pomodoro org-screenshot
                                   ))
 
 ;; el-get

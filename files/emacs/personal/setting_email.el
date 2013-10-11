@@ -37,8 +37,10 @@
 
  mu4e-msg2pdf "/usr/bin/msg2pdf"
  mu4e-html2text-command "w3m -dump -T text/html"
+ ;; mu4e-html2text-command "html2text"
  mu4e-compose-complete-ignore-address-regexp (regexp-opt '("donotreply" "no-reply" "noreply" "docs.google.com" "reply.github.com" "ticket+theplant" "compute.internal"))
 
+ mu4e-show-images t
  mu4e-view-show-images t
  mu4e-view-image-max-width 800
  )
@@ -76,3 +78,20 @@
             (shell-command "mplayer -really-quiet /usr/share/sounds/freedesktop/stereo/message-new-instant.oga 2&> /dev/null; notify-send -t 15000 -i '/usr/share/icons/oxygen/32x32/status/mail-unread-new.png' 'New email received'")
             )
           )
+
+    ;;; message view action
+(defun mu4e-msgv-action-view-in-browser (msg)
+  "View the body of the message in a web browser."
+  (interactive)
+  (let ((html (mu4e-msg-field (mu4e-message-at-point t) :body-html))
+        (tmpfile (format "%s/%d.html" temporary-file-directory (random))))
+    (unless html (error "No html part for this message"))
+    (with-temp-file tmpfile
+      (insert
+       "<html>"
+       "<head><meta http-equiv=\"content-type\""
+       "content=\"text/html;charset=UTF-8\">"
+       html))
+    (browse-url (concat "file://" tmpfile))))
+(add-to-list 'mu4e-view-actions
+             '("View in browser" . mu4e-msgv-action-view-in-browser) t)

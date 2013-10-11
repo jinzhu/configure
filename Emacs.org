@@ -1,3 +1,147 @@
+* Org Mode
+  C-c / -> filter org tree
+  C-c \ -> 按tag搜索标题
+  C-c a m -> 按标签搜索多个文件（需要将文件加入全局agenda)
+  C-c C-a  ->  (org-attach)
+  C-c C-e -> Export
+
+  c-x C-o -> Open link
+  http://www.cnblogs.com/holbrook/archive/2012/04/12/2444992.html#sec-1-2-1
+** Agenda
+   n       -> 下一行
+   p       -> 上一行
+   <space> ->  在另一个窗口中显示条目的源位置，带前缀使得整个条目在大纲中可见，而不只是标题
+   <TAB>   -> 在另一个窗口中条目的准确源位置
+   <Enter> -> 转到条目的源位置并删除其它的窗口
+
+   o   -> 删除其他窗口
+   d/w -> 切换到日/周视图
+   f/b -> 时间前移或者后移显示，例如显示了一周的内容，切换到下/上一周
+   .   -> 转到今天
+   j   -> 询问日期并转到那天
+   r/g -> 重新构造议程，以反映最新状态
+   s   -> 保存当前 Emacs 会话的所有 Org 缓冲区和ID的地址
+   l   -> 触发日志模式（Logbook mode）
+
+   0-9          -> 数字参数
+   t            -> 修改议程和 org 文件中条目的TODO状态
+   C-k          -> 删除当前的议程条目以及源文件中它的整个子树
+   C-c C-d      -> 为条目设置截止期限
+   I            -> 对当前条目开始计时
+   O/X          -> 暂停最近开始的计时
+   J            -> 在另一个窗口中跳转正在进行的计时
+   S-RIGHT/LEFT -> 将与当前行相关的时间戳改变一天
+** Outline
+   C-c C-n/p    下/上一标题
+   C-c C-f/b    下/上一标题（仅限同级标题）
+   C-c C-u    跳到上一级标题
+   C-c C-j    切换到大纲浏览状态
+   C-c *   将本行设为标题/正文
+
+   M-LEFT/RIGHT    将当前标题升/降级
+   M-RET   插入一个同级标题
+   M-S-RET   插入一个同级TODO 标题
+
+   ppp   C-c C-w   将子树或区域移动到另一标题处（跨缓冲区）
+
+   M-S-LEFT/RIGHT    将子树升/降级
+   M-S-UP/DOWN   将子树上/下移
+   C-x n s/w   只显示当前子树/返回
+   C-c C-x b   在新缓冲区显示当前分支（类似C-x n s)
+   C-c C-c   取消高亮
+*** List
+    无序列表项以‘-’、‘+’或者‘*‘开头。
+    有序列表项以‘1.’或者‘1)’开头。
+    描述列表用‘::’将项和描述分开。
+    有序列表和无序列表都以缩进表示层级。只要对齐缩进，不管是换行还是分块都认为是处于当前列表项
+
+    M-S-RET   插入带复选框的项
+    M-S-UP/DOWN   移动列表项
+    C-c C-c   改变复选框状态
+    C-c -   更换列表标记（循环切换）
+** Schedule Planer
+   C-c C-d     (org-deadline)
+   C-c C-s     (org-schedule)
+
+   C-c C-x 0     (org-timer-start)
+   C-c C-x .     (org-timer)  Insert a relative time into the buffer.
+   C-c C-x -     (org-timer-item) Insert a description list item with the current relative time.
+
+   C-c C-x C-i -> 开始当前条目的计时（clock-in）
+   C-c C-x C-o -> 停止计时（clock-out）
+   C-c C-x C-e -> 为当前的计时任务更新进度
+   C-c C-x C-x -> 取消当前的计时
+   C-c C-x C-j -> 跳转到包含当前正在运行的计时的任务条目
+
+** Links
+   C-c l    保存链接
+   C-c C-l org-insert-link 创建或修改链接，可以引用已保存的链接
+   C-c C-o org-open-at-point 打开链接
+
+   C-c %   记录内部链接地址
+   C-c &   跳转到已记录的内部链接
+** Table
+   C-c |   创建或转换成表格
+
+   M-LEFT/RIGHT   移动列
+   M-UP/DOWN   移动行
+   M-S-LEFT/RIGHT    删除/插入列
+   M-S-UP/DOWN   删除/插入行
+   C-c -   添加水平分割线
+   C-c RET   添加水平分割线并跳到下一行
+   C-c ^   根据当前列排序，可以选择排序方式
+** Tag / Properties
+   C-c C-q -> 直接在标题上用
+   C-c C-c -> 创建标签
+   C-c C-x p -> Add Properties
+   M-x org-delete-property -> Org delete properties
+
++     和      a+b     同时有这两个标签
+-     排除    a-b     有 a 但没有 b
+|     或      a|b     有 a 或者有 b
+&     和      a&b     同时有 a 和 b，可以用“+”替代
+** Priorities
+   C-c ,    Set the priority of the current headline (org-priority). The command prompts for a priority character ‘A’, ‘B’ or ‘C’. When you press <SPC> instead, the priority cookie is removed from the headline. The priorities can also be changed “remotely” from the timeline and agenda buffer with the , command (see Agenda commands).
+   S-<up>   (org-priority-up)
+   S-<down> (org-priority-down)
+** TO-DOs
+   C-c a t		 (org-todo-list) Show the global TODO list.
+   C-c a T		 (org-todo-list) Like `t`, but filter by keyword
+   S-<right> / S-<left>	 Select the following/preceding TODO state
+
+   C-c [ -> 将当前文件加入到议程文件列表中
+   C-c ] 将当前文件从议程文件列表中删除
+   Add ‘[/]’ or ‘[%]’ to the headline for Progress
+
+*** SCHEDULE
+    1w表示每周，另外1d表示每天，1m表示每月
+    C-c >  -> 打开Emacs Calendar
+    C-c <  -> 把Emacs Calendar光标所在的日期插入到org mode
+    C-c C-y -> 当光标放在time range上时，计算两个timestamp之间的天数
+    C-c ! -> 添加一个inactive 的timestamp
+
+    <2009-01-22 Thu> -> 2009/01/22
+    <2009-01-29 Thu +1w> -> 2009/01/22 开始的每周四, 下一次时间为 2009/01/29
+    <2013-10-17 Thu ++1w> -> 下一次日期一定是今天之后的第一个星期四, 例如今天为2013/10/09, 下一个周期为2013/10/16
+    <2013-10-17 Thu .+1w> -> 下一次日期一定是今天之后的7天, 例如今天为2013/10/10,  下一个周期为2013/10/17
+    <2004-08-23 Mon>--<2004-08-26 Thu> -> 表示一段时间
+
+** Archived
+   C-c C-x a   -> 将某一个节点打上ARCHIVE标签
+   C-c C-x A   -> 将当前节点归入一个名为Archive的子树中，并且这个子树是位于当前级别子树的最下方
+   C-c C-x C-s -> 是把当前的节点移到archived文件中去
+** Font
+   *粗体*
+   /斜体/
+   +删除线+
+   _下划线_
+   下标： H_2 O
+   上标： E=mc^2
+   等宽字：  =git=  或者 ～git～
+
+** Inline Image
+   M-x iimage-mode RET
+
 * Move cursor
   C-a/C-e -> beginning/end of current line
   M-a/M-e -> backward/forward sentence
@@ -57,15 +201,15 @@
   C-x r j [a-z] -> jump to the point in the document
 
 ** Jump Window: (winner mode)
-C-c <left> winner-undo
-C-c <right> redo
-Super + up/down/left/right -> move window
-C-c , -> rotate window
+   C-c <left> winner-undo
+   C-c <right> redo
+   Super + up/down/left/right -> move window
+   C-c , -> rotate window
 
 * Undo / Redo
-C-/ -> undo
-C-? -> redo
-C-x u -> undo tree
+  C-/ -> undo
+  C-? -> redo
+  C-x u -> undo tree
 
 * Indent
   C-x C-i -> Add tab to last mark place
@@ -87,19 +231,19 @@ C-x u -> undo tree
   in html mode, type < to wrap region with tag
   other modes, select region, type punctuation
 * Abbrevs
-   C-x a l -> Add local abbrev
-   C-x a g -> Add global abbrev
-   M-x kill-all-abbrevs -> Delete all abbrevs
-   M-x edit-abbrevs -> Edit abbrevs
+  C-x a l -> Add local abbrev
+  C-x a g -> Add global abbrev
+  M-x kill-all-abbrevs -> Delete all abbrevs
+  M-x edit-abbrevs -> Edit abbrevs
 
 
-registe registe Registe
+  registe registe Registe
 * Comment
-M-;     -> Insert or realign comment on current line
-C-u M-; -> Kill comment on current line (comment-kill).
-M-j     -> Like <RET> followed by inserting and aligning a comment (comment-indent-new-line).
-C-c C-c -> comment or uncomment region or current line
-M-x comment-region
+  M-;     -> Insert or realign comment on current line
+  C-u M-; -> Kill comment on current line (comment-kill).
+  M-j     -> Like <RET> followed by inserting and aligning a comment (comment-indent-new-line).
+  C-c C-c -> comment or uncomment region or current line
+  M-x comment-region
 
 * Up/Down case
   M-l -> down case current word
@@ -109,34 +253,34 @@ M-x comment-region
   C-x C-u -> upcase region
 * Block Edit
 ** rectangle
-C-px r t -> Add to the beginning (string-rectangle)
-C-x r k -> Kill the text of the region-rectangle
-inline-string-rectangle
+   C-px r t -> Add to the beginning (string-rectangle)
+   C-x r k -> Kill the text of the region-rectangle
+   inline-string-rectangle
 ** MC
-mc/edit-beginings-of-lines
-mc/edit-ends-of-lines (mark lines, C-e to end, edit)
-mc/mark-previous-like-this
-mc/mark-all-like-this
-mc/mark-next-like-this
+   mc/edit-beginings-of-lines
+   mc/edit-ends-of-lines (mark lines, C-e to end, edit)
+   mc/mark-previous-like-this
+   mc/mark-all-like-this
+   mc/mark-next-like-this
 
 ** CUA
-Ctrl+Enter -> block select
-[M-a]: 将rect中的文字左对齐
-[M-b]: 用空格(tabs或者spaces)替换所有rect中的字符
-[M-c]: 去掉所有行左侧的空格
-[M-f]: 用单个字符替换所有rect中的字符(提示输入一个字符)
-[M-i]: 对每行中第一个找到的数字进行加1操作(自动把0x开头的当作十六进制数字)
-[M-k]: 剪切rect
-[M-l]: 把rect中的内容全部转换为小写
-[M-m]: 拷贝rect
-[M-n]: 用一串自增的数字替换rect中的每一行(这个功能可以用来给每行编号)
-[M-o]: rect的内容右移，选中的rect用空格填充
-[M-r]: 用字符串替换符满足正则表达式的字符串
-[M-R]: 上下反转
-[M-s]: 把rect中的每一行替换为一个字符串(提示输入)
-[M-t]: 把rect整个替换为一个字符串(提示输入)
-[M-u]: 把rect中的内容全部转换为大写
-[M-|]: 对rect执行一个shell命令
+   Ctrl+Enter -> block select
+   [M-a]: 将rect中的文字左对齐
+   [M-b]: 用空格(tabs或者spaces)替换所有rect中的字符
+   [M-c]: 去掉所有行左侧的空格
+   [M-f]: 用单个字符替换所有rect中的字符(提示输入一个字符)
+   [M-i]: 对每行中第一个找到的数字进行加1操作(自动把0x开头的当作十六进制数字)
+   [M-k]: 剪切rect
+   [M-l]: 把rect中的内容全部转换为小写
+   [M-m]: 拷贝rect
+   [M-n]: 用一串自增的数字替换rect中的每一行(这个功能可以用来给每行编号)
+   [M-o]: rect的内容右移，选中的rect用空格填充
+   [M-r]: 用字符串替换符满足正则表达式的字符串
+   [M-R]: 上下反转
+   [M-s]: 把rect中的每一行替换为一个字符串(提示输入)
+   [M-t]: 把rect整个替换为一个字符串(提示输入)
+   [M-u]: 把rect中的内容全部转换为大写
+   [M-|]: 对rect执行一个shell命令
 
 ** SetGoalColumn
    C-x C-n -> Set Goal Column
@@ -151,132 +295,25 @@ Ctrl+Enter -> block select
   C-u C-x \ RET \(\s-*\) = RET 1 RET 0 RET n -> align with = for whole line
 
 * SQL
-sql-postgres
-sql-mysql
-p-> M-x sql-set-sqli-buffer RET *SQL* RET (No sql process started)
+  sql-postgres
+  sql-mysql
+  p-> M-x sql-set-sqli-buffer RET *SQL* RET (No sql process started)
 
 * Proced
-m -> 'proced-mark
-u -> 'proced-unmark
-k -> 'proced-send-signal
-s S -> 'proced-sort-interactive
-s c -> 'proced-sort-pcpu
-s m -> 'proced-sort-pmem
-s p -> 'proced-sort-pid
-s s -> 'proced-sort-start
-s t -> 'proced-sort-time
-s u -> 'proced-sort-user
+  m -> 'proced-mark
+  u -> 'proced-unmark
+  k -> 'proced-send-signal
+  s S -> 'proced-sort-interactive
+  s c -> 'proced-sort-pcpu
+  s m -> 'proced-sort-pmem
+  s p -> 'proced-sort-pid
+  s s -> 'proced-sort-start
+  s t -> 'proced-sort-time
+  s u -> 'proced-sort-user
 
-* Org Mode
-c-x C-o -> Open link
-http://www.cnblogs.com/holbrook/archive/2012/04/12/2444992.html#sec-1-2-1
-** Outline
-C-c C-n/p    下/上一标题
-C-c C-f/b    下/上一标题（仅限同级标题）
-C-c C-u    跳到上一级标题
-C-c C-j    切换到大纲浏览状态
-
-M-RET   插入一个同级标题
-M-S-RET   插入一个同级TODO 标题
-M-LEFT/RIGHT    将当前标题升/降级
-M-S-LEFT/RIGHT    将子树升/降级
-M-S-UP/DOWN   将子树上/下移
-C-c *   将本行设为标题/正文
-C-c C-w   将子树或区域移动到另一标题处（跨缓冲区）
-C-x n s/w   只显示当前子树/返回
-C-c C-x b   在新缓冲区显示当前分支（类似C-x n s)
-C-c /   只列出包含搜索结果的大纲，并高亮，支持多种搜索方式
-C-c C-c   取消高亮
-** Schedule Planer
- C-c C-d     (org-deadline)
- C-c C-s     (org-schedule)
- C-c C-x C-k (org-mark-entry-for-agenda-action)
- C-c / d     (org-check-deadlines)
- C-c / b     (org-check-before-date)
- C-c / a     (org-check-after-date)
-** Take note with related time
- C-c C-x 0     (org-timer-start)
- C-c C-x .     (org-timer)  Insert a relative time into the buffer.
- C-c C-x -     (org-timer-item) Insert a description list item with the current relative time.
- M-<RET>     (org-insert-heading) Once the timer list is started, you can also use M-<RET> to insert new timer items.
- C-c C-x  Pause the timer, or continue it if it is already paused (org-timer-pause-or-continue).
- C-u C-c C-x  Stop the timer. After this, you can only start a new timer, not continue the old one. This command also removes the timer from the mode line.
-** Attachment
-C-c C-a    (org-attach)
-** Links
-C-c pl    保存链接
-C-c C-l org-insert-link 创建或修改链接，可以引用已保存的链接
-C-c C-o org-open-at-point 打开链接
-
-C-c %   记录内部链接地址
-C-c &   跳转到已记录的内部链接
-
-# ctags -e --extra=+q -R
-** Inline Image
-M-x iimage-mode RET
-** Font
-*粗体*
-/斜体/
-+删除线+
-_下划线_
-下标： H_2 O
-上标： E=mc^2
-等宽字：  =git=  或者 ～git～
-** Table
-C-c |   创建或转换成表格
-
-M-LEFT/RIGHT   移动列
-M-UP/DOWN   移动行
-M-S-LEFT/RIGHT    删除/插入列
-M-S-UP/DOWN   删除/插入行
-C-c -   添加水平分割线
-C-c RET   添加水平分割线并跳到下一行
-C-c ^   根据当前列排序，可以选择排序方式
-** List
-无序列表项以‘-’、‘+’或者‘*‘开头。
-有序列表项以‘1.’或者‘1)’开头。
-描述列表用‘::’将项和描述分开。
-有序列表和无序列表都以缩进表示层级。只要对齐缩进，不管是换行还是分块都认为是处于当前列表项
-
-M-S-RET   插入带复选框的项
-M-S-UP/DOWN   移动列表项
-M-LEFT/RIGHT    升/降级列表项，不包括子项
-M-S-LEFT/RIGTH    升/降级列表项，包括子项
-C-c C-c   改变复选框状态
-C-c -   更换列表标记（循环切换）
-** Tag / Propertes
-C-c C-q 或直接在标题上用 C-c C-c创建标签
-C-c \ 按tag搜索标题
-C-c / m 搜索并按树状结构显示
-C-c a m 按标签搜索多个文件（需要将文件加入全局agenda)
-
-+     和      a+b     同时有这两个标签
--     排除    a-b     有 a 但没有 b
-|     或      a|b     有 a 或者有 b
-&     和      a&b     同时有 a 和 b，可以用“+”替代
-** Export
-C-c C-e Export
-** Priorities
-C-c ,    Set the priority of the current headline (org-priority). The command prompts for a priority character ‘A’, ‘B’ or ‘C’. When you press <SPC> instead, the priority cookie is removed from the headline. The priorities can also be changed “remotely” from the timeline and agenda buffer with the , command (see Agenda commands).
-S-<up>   (org-priority-up)
-S-<down> (org-priority-down)
-** TO-DOs
-   :PROPERTIES:
-   :ARCHIVE_TIME: 2013-09-21 Sat 22:43
-   :END:
-   C-c a t     (org-todo-list) Show the global TODO list.
-   C-c a T     (org-todo-list) Like `t`, but filter by keyword
-   C-c / t     (org-show-todo-tree)
-   S-<right> / S-<left>  Select the following/preceding TODO state
-*** Progress
-    Add ‘[/]’ or ‘[%]’ to the headline
-** Archived
-   C-c C-x a   -> 将某一个节点打上ARCHIVE标签
-   C-c C-x A   -> 将当前节点归入一个名为Archive的子树中，并且这个子树是位于当前级别子树的最下方
-   C-c C-x C-s -> 是把当前的节点移到archived文件中去
 * drawing
-1) Picture Mode -> use ditaa to convert ascii-art to image
-2) Artist Mode
+  Picture Mode -> use ditaa to convert ascii-art to image
+  Artist Mode
 * Term
   <M-r> -> term-send-reverse-search-history
   <M-x> erase-buffer -> Delete buffer
@@ -341,3 +378,5 @@ S-<down> (org-priority-down)
   C-c C-w -> delete current buffer
   C-c C-n -> next buffer
   C-c C-p -> previous buffer
+
+  # ctags -e --extra=+q -R

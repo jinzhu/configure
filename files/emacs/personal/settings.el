@@ -7,13 +7,14 @@
 
 (setq frame-title-format
       '("" invocation-name " : " (:eval (if (buffer-file-name)
-                                          (abbreviate-file-name (buffer-file-name))
-                                        "%b"))))
+                                            (abbreviate-file-name (buffer-file-name))
+                                          "%b"))))
 
 (electric-indent-mode +1)
 (setq-default  tab-width 2
                standard-indent 2
                indent-tabs-mode nil)			; makes sure tabs are not used.
+(global-set-key (kbd "C-j") 'reindent-newline-and-indent)
 
 ;; Theme & Font
 (add-to-list 'custom-theme-load-path "~/.emacs.d/personal/themes")
@@ -48,7 +49,7 @@
 
 ;; git gutter
 (global-git-gutter-mode t)
-(global-set-key (kbd "<escape>gg") 'git-gutter:toggle)
+(global-set-key (kbd "<escape>gt") 'git-gutter:toggle)
 (global-set-key (kbd "<escape>j") 'git-gutter:next-diff)
 (global-set-key (kbd "<escape>k") 'git-gutter:previous-diff)
 (global-set-key (kbd "<escape>gd") 'git-gutter:popup-diff)
@@ -63,6 +64,19 @@
 (setq prelude-clean-whitespace-on-save nil)
 (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
 ;; (add-hook 'before-save-hook (lambda () (prelude-indent-region-or-buffer)))
+
+;; VC
+(setq vc-follow-symlinks t)
+(defadvice vc-git-mode-line-string (after plus-minus (file) compile activate)
+  (setq ad-return-value
+        (concat ad-return-value
+                (let ((plus-minus (vc-git--run-command-string
+                                   file "diff" "--numstat" "--")))
+                  (and plus-minus
+                       (string-match "^\\([0-9]+\\)\t\\([0-9]+\\)\t" plus-minus)
+                       (format " +%s-%s" (match-string 1 plus-minus) (match-string 2 plus-minus))))
+                )
+        ))
 
 ;; Auto Complete
 (require 'auto-complete)
@@ -120,6 +134,7 @@
 (global-set-key "\C-c\C-c" 'comment-or-uncomment-region-or-line)
 (global-set-key (kbd "<escape>l") 'helm-all-mark-rings)
 (global-set-key (kbd "<escape>cd") 'goto-last-dir)
+(global-set-key (kbd "s-b") 'helm-buffers-list)
 
 ;;; IDO
 (icomplete-mode t)
@@ -281,10 +296,77 @@
 (setq deft-use-filename-as-title t)
 
 ;; Org Mode
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "|" "DONE(d)")
-        (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")
-        (sequence "|" "CANCELED(c)")))
+(require 'org-install)
+(setq
+ org-todo-keywords '(
+                     (sequence "TODO(t)" "STARTED(s)" "NEXT(n)" "DONE(d)")
+                     (sequence "QUESTION(q)" "WAITING(w)" "HOLD(h)" "CANCELED(c)")
+                     )
+
+ org-todo-keyword-faces
+ '(("STARTED" . "yellow")
+   ("DONE"     . (:foreground "#94ff94"))
+   ("QUESTION" . (:foreground "blue"))
+   ("DEFERRED" . (:foreground "#ffc358"))
+   ("HOLD" :foreground "magenta" :weight bold)
+   ("CANCELED" . (:foreground "#ff65ff" :weight bold)
+    ))
+
+ org-todo-state-tags-triggers
+ (quote (("CANCELLED" ("CANCELLED" . t))
+         ("WAITING" ("WAITING" . t))
+         ("HOLD" ("WAITING" . t) ("HOLD" . t))
+         ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
+         ("DONE" ("WAITING") ("CANCELLED") ("HOLD"))))
+
+ ;; Resume clocking task when emacs is restarted
+ org-clock-persistence-insinuate t
+
+ ;; Show lot of clocking history so it's easy to pick items off the C-F11 list
+ org-clock-history-length 23
+ ;; Resume clocking task on clock-in if the clock is open
+ org-clock-in-resume t
+ ;; Save clock data and state changes and notes in the LOGBOOK drawer
+ org-clock-into-drawer t
+ ;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
+ org-clock-out-remove-zero-time-clocks t
+ ;; Clock out when moving task to a done state
+ org-clock-out-when-done t
+ ;; Save the running clock and all clock history when exiting Emacs, load it on startup
+ org-clock-persist t
+ ;; Do not prompt to resume an active clock
+ org-clock-persist-query-resume nil
+
+ org-startup-folded nil
+ ;; org-log-done t
+ org-log-done 'time
+ org-log-done 'note
+ org-completion-use-ido t
+
+ org-agenda-files (list "~/.todos")
+ org-agenda-include-diary t
+ org-agenda-ndays 7
+ org-agenda-start-on-weekday 0
+ org-agenda-repeating-timestamp-show-all t
+ org-agenda-sorting-strategy (quote ((agenda time-up priority-down tag-up) (todo tag-up)))
+
+ org-agenda-custom-commands '(
+                              ("w" todo "WAITING")
+                              ("u" tags-todo "+urgent")
+                              ("p" . "Priorities")
+                              ("pa" "A items" tags-todo "+PRIORITY=\"A\"")
+                              ("pb" "B items" tags-todo "+PRIORITY=\"B\"")
+                              ("pc" "C items" tags-todo "+PRIORITY=\"C\"")
+                              )
+ )
+
+(org-agenda-to-appt t)
+
+(defun no-electric-indent-mode-hook ()
+  (electric-indent-mode -1))
+
+(add-hook 'org-mode-hook 'no-electric-indent-mode-hook)
+(global-set-key (kbd "<M-f7>") 'org-agenda-list)
 
 ;; SQL Mode
 (add-hook 'sql-interactive-mode-hook (lambda ()
@@ -292,17 +374,6 @@
 
 ;; Disable warnning while edit emacs lisp scripts
 (eval-after-load 'flycheck '(setq flycheck-checkers (delq 'emacs-lisp-checkdoc flycheck-checkers)))
-
-(defadvice vc-git-mode-line-string (after plus-minus (file) compile activate)
-  (setq ad-return-value
-        (concat ad-return-value
-                (let ((plus-minus (vc-git--run-command-string
-                                   file "diff" "--numstat" "--")))
-                  (and plus-minus
-                       (string-match "^\\([0-9]+\\)\t\\([0-9]+\\)\t" plus-minus)
-                       (format " +%s-%s" (match-string 1 plus-minus) (match-string 2 plus-minus))))
-                )
-        ))
 
 ;; Diminish
 (require 'diminish)
@@ -486,6 +557,8 @@
     (setq browse-url-browser-function 'w3m-browse-url)
     (message "set w3m as default browser")))
 
+(set_chromium_as_default_browser)
+
 (global-set-key (kbd "<escape>M-w") 'set_chromium_as_default_browser)
 (global-set-key (kbd "<escape>C-w") 'set_w3m_as_default_browser)
 
@@ -527,3 +600,18 @@
   (if (not (get-buffer ":home"))
       (twit))
   )
+
+(defun join-region (beg end)
+  "Apply join-line over region."
+  (interactive "r")
+  (if mark-active
+      (let ((beg (region-beginning))
+            (end (copy-marker (region-end))))
+        (goto-char beg)
+        (while (< (point) end)
+          (join-line 1)))))
+
+(global-set-key (kbd "<escape>C-j") 'join-region)
+(global-set-key (kbd "<escape>E") 'eval-buffer)
+(global-set-key (kbd "<escape>e") 'eval-region)
+(global-set-key (kbd "<escape>i") 'prelude-indent-buffer)
