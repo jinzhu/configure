@@ -42,7 +42,9 @@
    M-RET   插入一个同级标题
    M-S-RET   插入一个同级TODO 标题
 
-   ppp   C-c C-w   将子树或区域移动到另一标题处（跨缓冲区）
+   M-h ->  mark-element, 当前在一个二级headline上，按下 M-h 则会mar中整个二级树，再按 M-h mark后来的二级树
+   C-c C-w ->  将子树或区域移动到另一标题处（跨缓冲区）
+   M-up/down -> org-move-subtree-up or org-table-move-row or org-move-item-up
 
    M-S-LEFT/RIGHT    将子树升/降级
    M-S-UP/DOWN   将子树上/下移
@@ -59,7 +61,7 @@
     M-S-UP/DOWN   移动列表项
     C-c C-c   改变复选框状态
     C-c -   更换列表标记（循环切换）
-** Schedule Planer
+** Schedule & Report
    C-c C-d     (org-deadline)
    C-c C-s     (org-schedule)
 
@@ -72,6 +74,34 @@
    C-c C-x C-e -> 为当前的计时任务更新进度
    C-c C-x C-x -> 取消当前的计时
    C-c C-x C-j -> 跳转到包含当前正在运行的计时的任务条目
+
+   C-c C-c / C-c C-x C-u -> org-dblock-update
+   C-c C-x C-r           -> org-clock-report
+   C-u C-c C-x C-u       -> Update all dynamic blocks
+
+   http://www.gnu.org/software/emacs/manual/html_node/org/The-clock-table.html
+
+*** SCHEDULE
+    1w表示每周，另外1d表示每天，1m表示每月
+    C-c >  -> 打开Emacs Calendar
+    C-c <  -> 把Emacs Calendar光标所在的日期插入到org mode
+    C-c C-y -> 当光标放在time range上时，计算两个timestamp之间的天数
+    C-c .  -> 插入动态日期
+    C-c ! -> 添加一个inactive 的timestamp, 不会产生agenda entry
+    C-u C-c . -> 插入日期+时间
+    C-c C-o   ->  (org-open-at-point)
+
+    S-<left>     (org-timestamp-down-day)
+    S-<right>     (org-timestamp-up-day)
+    S-<up>     (org-timestamp-up)
+    S-<down>     (org-timestamp-down-down)
+    C-c C-y     (org-evaluate-time-range)
+
+    <2009-01-22 Thu> -> 2009/01/22
+    <2009-01-29 Thu +1w> -> 2009/01/22 开始的每周四, 下一次时间为 2009/01/29
+    <2013-10-17 Thu ++1w> -> 下一次日期一定是今天之后的第一个星期四, 例如今天为2013/10/09, 下一个周期为2013/10/16
+    <2013-10-17 Thu .+1w> -> 下一次日期一定是今天之后的7天, 例如今天为2013/10/10,  下一个周期为2013/10/17
+    <2004-08-23 Mon>--<2004-08-26 Thu> -> 表示一段时间
 
 ** Links
    C-c l    保存链接
@@ -96,6 +126,11 @@
    C-c C-x p -> Add Properties
    M-x org-delete-property -> Org delete properties
 
+   <TAB> -> Enter a tag in the minibuffer, even if the tag is not in the predefined list
+   <SPC> -> Clear all tags for this line
+   <RET> -> Accept the modified set
+   <C-g> -> Abort without installing changes
+
 +     和      a+b     同时有这两个标签
 -     排除    a-b     有 a 但没有 b
 |     或      a|b     有 a 或者有 b
@@ -113,19 +148,6 @@
    C-c ] 将当前文件从议程文件列表中删除
    Add ‘[/]’ or ‘[%]’ to the headline for Progress
 
-*** SCHEDULE
-    1w表示每周，另外1d表示每天，1m表示每月
-    C-c >  -> 打开Emacs Calendar
-    C-c <  -> 把Emacs Calendar光标所在的日期插入到org mode
-    C-c C-y -> 当光标放在time range上时，计算两个timestamp之间的天数
-    C-c ! -> 添加一个inactive 的timestamp
-
-    <2009-01-22 Thu> -> 2009/01/22
-    <2009-01-29 Thu +1w> -> 2009/01/22 开始的每周四, 下一次时间为 2009/01/29
-    <2013-10-17 Thu ++1w> -> 下一次日期一定是今天之后的第一个星期四, 例如今天为2013/10/09, 下一个周期为2013/10/16
-    <2013-10-17 Thu .+1w> -> 下一次日期一定是今天之后的7天, 例如今天为2013/10/10,  下一个周期为2013/10/17
-    <2004-08-23 Mon>--<2004-08-26 Thu> -> 表示一段时间
-
 ** Archived
    C-c C-x a   -> 将某一个节点打上ARCHIVE标签
    C-c C-x A   -> 将当前节点归入一个名为Archive的子树中，并且这个子树是位于当前级别子树的最下方
@@ -141,6 +163,31 @@
 
 ** Inline Image
    M-x iimage-mode RET
+
+** Templates
+   <s  <Tab>
+   http://orgmode.org/manual/Easy-Templates.html#Easy-Templates
+
+#+BEGIN_SRC
+s	#+BEGIN_SRC ... #+END_SRC
+e	#+BEGIN_EXAMPLE ... #+END_EXAMPLE
+q	#+BEGIN_QUOTE ... #+END_QUOTE
+v	#+BEGIN_VERSE ... #+END_VERSE
+c	#+BEGIN_CENTER ... #+END_CENTER
+l	#+BEGIN_LaTeX ... #+END_LaTeX
+L	#+LaTeX:
+h	#+BEGIN_HTML ... #+END_HTML
+H	#+HTML:
+a	#+BEGIN_ASCII ... #+END_ASCII
+A	#+ASCII:
+i	#+INDEX: line
+I	#+INCLUDE: line
+#+END_SRC
+
+** Babel
+   C-c C-c   -> run script in block
+   C-c C-v e -> run script in block
+   C-c C-t   -> run script in other window
 
 * Move cursor
   C-a/C-e -> beginning/end of current line

@@ -1,6 +1,7 @@
 ;; Email
 (require 'mu4e)
 (require 'mu4e-speedbar)
+(require 'org-mu4e)
 
 (mu4e-maildirs-extension)
 (define-key global-map [f2] 'mu4e)

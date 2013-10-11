@@ -3,6 +3,10 @@
 ;; Smart Window
 (setq smart-window-remap-keys 0)
 
+(setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("gnu" . "http://elpa.gnu.org/packages/")))
+
 ;; My packages
 (prelude-require-packages '(
                             vline quickrun pos-tip auto-complete git-gutter go-eldoc
@@ -13,7 +17,7 @@
                                   w3m jabber deft bash-completion shell-command
                                   rinari keyfreq point-undo smart-window zlc
                                   mu4e-maildirs-extension sauron calfw-gcal
-                                  org-pomodoro org-screenshot
+                                  org-pomodoro org-screenshot easy-kill org-magit
                                   ))
 
 ;; el-get
