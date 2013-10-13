@@ -49,6 +49,9 @@
           :pkgname "kiwanami/emacs-calfw"
           :after (require 'calfw)
           )
+   (:name auto-complete-yasnippet
+          :after (require 'auto-complete-yasnippet)
+          )
    (:name twittering-mode
           :type github
           :pkgname "hayamiz/twittering-mode"
