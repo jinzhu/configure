@@ -27,3 +27,4 @@ dwm/dwm.o
 *pyc
 
 flycheck-settings.el
+/files/emacs/personal/flycheck-packages.el

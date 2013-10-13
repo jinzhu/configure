@@ -18,7 +18,8 @@
                                   rinari keyfreq point-undo smart-window
                                   mu4e-maildirs-extension sauron calfw-gcal
                                   org-pomodoro org-screenshot easy-kill org-magit
-                                  esh-buf-stack multi-eshell rvm
+                                  esh-buf-stack multi-eshell rvm pcmpl-git
+                                  bitlbee
                                   ))
 ;; starter-kit-eshell
 

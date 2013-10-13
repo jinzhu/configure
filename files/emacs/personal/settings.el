@@ -78,27 +78,6 @@
                 )
         ))
 
-;; Auto Complete
-(require 'auto-complete)
-(require 'auto-complete-config)
-(ac-config-default)
-(require 'go-autocomplete)
-
-;; GoLang
-(add-hook 'go-mode-hook (lambda ()
-                          (local-set-key (kbd "M-.") 'godef-jump)))
-
-;; yasnippet
-(require 'yasnippet)
-(yas-global-mode 1)
-(yas-minor-mode-on)
-
-;; Select candidates with C-n/C-p only when completion menu is displayed
-(setq ac-use-menu-map t)
-;; Default settings
-(define-key ac-menu-map "\C-n" 'ac-next)
-(define-key ac-menu-map "\C-p" 'ac-previous)
-
 
 (defun select-current-line ()
   "Select the current line"
@@ -565,10 +544,15 @@
 
 (defun eshell-zle-sudo-command ()
   (interactive "*")
+  (let ((cmd (caar (eshell-hist-parse-arguments
+                    'silent
+                    (save-excursion (eshell-bol) (point))
+                    (point-at-eol)))))
+  (when (not cmd) (eshell-zle-up-history 1))
   (eshell-bol)
   (insert "sudo ")
   (end-of-line)
-  )
+  ))
 
 (defun eshell/clear ()
   (interactive)
@@ -586,7 +570,11 @@
                               (define-key eshell-mode-map (kbd "M-?") 'eshell-zle-which-command)
                               (define-key eshell-mode-map (kbd "C-r") 'eshell-isearch-backward)
                               (define-key eshell-mode-map (kbd "<escape><escape>") 'eshell-zle-sudo-command)
+                              (define-key eshell-mode-map (kbd "<C-backspace>") 'eshell-zle-kill-whole-line)
+
                               (ansi-color-for-comint-mode-on)
+                              (set (make-local-variable 'outline-regexp) "\$" )
+                              (outline-minor-mode)
                               ))
 
 (global-unset-key (kbd "<f3>"))
@@ -594,8 +582,48 @@
 (global-set-key (kbd "<f3>c") 'multi-eshell)
 (global-set-key (kbd "<f3>n") 'multi-eshell-switch)
 (global-set-key (kbd "<f3>p") 'multi-eshell-go-back)
+(global-set-key (kbd "<f3>l") 'eshell-show-output)
+(global-set-key (kbd "<f3>b") 'eshell-insert-buffer-name)
+
 
 (global-set-key (kbd "<f3><f3>d") 'multi-term-dedicated-toggle)
 (global-set-key (kbd "<f3><f3>c") 'multi-term)
 (global-set-key (kbd "<f3><f3>n") 'multi-term-next)
 (global-set-key (kbd "<f3><f3>p") 'multi-term-prev)
+
+;; Auto Complete
+(require 'auto-complete)
+(require 'auto-complete-config)
+(ac-config-default)
+(global-auto-complete-mode t)
+
+(defvar ac-source-eshell-pcomplete
+  '((candidates . (pcomplete-completions))))
+
+(defun ac-complete-eshell-pcomplete ()
+  (interactive)
+  (auto-complete '(ac-source-eshell-pcomplete)))
+
+(add-to-list 'ac-modes 'eshell-mode)
+(add-to-list 'ac-modes 'ac-source-eshell-pcomplete)
+(add-to-list 'ac-modes 'ac-source-words-in-buffer)
+
+(setq ac-use-menu-map t)
+(setq ac-auto-start 1)
+(setq ac-menu-height 20)
+(setq ac-ignore-case 'smart)
+(setq ac-auto-show-menu 0.1)
+
+;; Default settings
+(define-key ac-menu-map "\C-n" 'ac-next)
+(define-key ac-menu-map "\C-p" 'ac-previous)
+
+;; GoLang
+(require 'go-autocomplete)
+(add-hook 'go-mode-hook (lambda ()
+                          (local-set-key (kbd "M-.") 'godef-jump)))
+
+;; yasnippet
+(require 'yasnippet)
+(yas-global-mode 1)
+(yas-minor-mode-on)
