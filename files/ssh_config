@@ -1,155 +1,106 @@
-TCPKeepAlive=yes
-ServerAliveInterval=15
-ServerAliveCountMax=6
-StrictHostKeyChecking=no
-Compression=yes
-ForwardAgent=yes
+TCPKeepAlive yes
+ServerAliveInterval 15
+ServerAliveCountMax 6
+StrictHostKeyChecking no
+Compression yes
+ForwardAgent yes
 ControlMaster auto
 ControlPath ~/.ssh/master-%r@%h:%p
+Protocol 2
+User app
 
 Host amn
             HostName ec2.joblet.jp
             User amn
-            Protocol 2
 Host atom
             HostName ec2.joblet.jp
             User metropolis
-            Protocol 2
 Host joblet
             HostName joblet.jp
             User joblet.jp
-            Protocol 2
 Host piqshare
             HostName piqshare.com
             User piqshare
-            Protocol 2
 Host dev3
             HostName dev3.asics.eu
             User asics
-            Protocol 2
 Host dev2
             HostName dev2.asics.eu
             User asics
-            Protocol 2
 Host theplant
             HostName theplant.jp
             User theplant
-            Protocol 2
 Host smtp
             HostName 67.23.1.16
             User smtp
-            Protocol 2
 Host delonghi
             HostName 218.45.229.54
             User delonghi
             Port 222
-            Protocol 2
 Host theplant-backup
             HostName 122.248.240.13
             User theplant
-            Protocol 2
             Port 222
 Host theplant-ci
             HostName 10.0.1.229
             User theplant
-            Protocol 2
             Port 222
 Host lacoste-dev
             HostName 175.41.251.74
-            User app
-            Protocol 2
             Port 222
 Host lacoste1
             HostName 175.41.252.65
-            User app
-            Protocol 2
             Port 222
 Host lacoste2
             HostName 175.41.242.254
-            User app
-            Protocol 2
             Port 222
 Host lacoste3
             HostName 54.249.237.25
-            User app
-            Protocol 2
             Port 222
 Host lacoste4
             HostName 54.249.237.24
-            User app
-            Protocol 2
             Port 222
 Host lacoste5
             HostName 54.248.204.153
-            User app
-            Protocol 2
             Port 222
 Host lacostedb
             HostName 54.249.254.127
-            User app
-            Protocol 2
             Port 222
 Host asics-dev
             HostName 79.125.17.184
-            User app
-            Protocol 2
 Host asics1
             HostName 46.137.66.152
-            User app
-            Protocol 2
 Host asics2
             HostName 46.137.46.173
-            User app
-            Protocol 2
 Host danone-dev
             HostName 175.41.216.78
-            User app
-            Protocol 2
 Host danone
             User app
             HostName localhost
             Port 9999
             ProxyCommand ssh middleman exec nc %h %p
-
 Host middleman
             User ubuntu
             HostName middleman.theplant-dev.com
             Port 443
-
 Host qtb
             User qintaobao
             HostName 58.215.173.182
-
 Host qtb-dev
             User qintaobao
             HostName 54.248.102.248
-
 Host fast
             HostName 175.41.242.254
-            User app
-            Protocol 2
             Port 222
 Host usa
             HostName 175.41.251.74
-            Port 22
-            User app
-            Protocol 2
-
 Host yyets
             HostName 60.190.171.239
-            User app
-            Protocol 2
-            Port 22
-
 Host yyets-dev
             HostName 175.41.252.65
-            User app
-            Protocol 2
-            Port 22
 Host theplantvpn
             HostName theplant-vpn.theplant-dev.com
             User theplantvpn
-
 Host murenwu
             HostName 42.121.18.245
             User murenwu

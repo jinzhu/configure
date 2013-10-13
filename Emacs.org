@@ -120,6 +120,8 @@
    C-c -   添加水平分割线
    C-c RET   添加水平分割线并跳到下一行
    C-c ^   根据当前列排序，可以选择排序方式
+
+   http://idlebox.net/2011/apidocs/emacs-23.3.zip/org/org_3.html
 ** Tag / Properties
    C-c C-q -> 直接在标题上用
    C-c C-c -> 创建标签
@@ -349,6 +351,8 @@ I	#+INCLUDE: line
 * Proced
   m -> 'proced-mark
   u -> 'proced-unmark
+  r -> renice
+  f -> filter
   k -> 'proced-send-signal
   s S -> 'proced-sort-interactive
   s c -> 'proced-sort-pcpu
@@ -427,3 +431,20 @@ I	#+INCLUDE: line
   C-c C-p -> previous buffer
 
   # ctags -e --extra=+q -R
+* EShell
+  echo hello > /dev/clip
+  echo hello > /dev/kill
+  echo "hello world" >> #<buffer eshell.txt>
+
+  cd =        -> list directories
+  cd -4       -> go to the fourth one
+  cd =Dropbox -> go to the first matched directoryw
+  cd /ssh:lacoste4:~/app/current
+
+  $ setq foobar ${date}
+  Tue Nov  5 22:54:54 2002
+  $ echo $foobar
+  Tue Nov  5 22:54:54 2002
+
+  M-2 M-x eshell -> open the second eshell
+  C-u M-x eshell -> create a new eshell

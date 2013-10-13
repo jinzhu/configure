@@ -15,10 +15,12 @@
                                   emamux ctags-update multi-term powerline
                                   writegood-mode evil pos-tip ; pos tip is for youdao
                                   w3m jabber deft bash-completion shell-command
-                                  rinari keyfreq point-undo smart-window zlc
+                                  rinari keyfreq point-undo smart-window
                                   mu4e-maildirs-extension sauron calfw-gcal
                                   org-pomodoro org-screenshot easy-kill org-magit
+                                  esh-buf-stack multi-eshell rvm
                                   ))
+;; starter-kit-eshell
 
 ;; el-get
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -36,6 +38,10 @@
           :type github
           :pkgname "monsanto/readline-complete.el"
           :after (require 'readline-complete)
+          )
+   (:name em-zle
+          :type github
+          :pkgname "emacsmirror/em-zle"
           )
    (:name emacs-calfw
           :type github

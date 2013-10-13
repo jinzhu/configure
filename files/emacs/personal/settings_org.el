@@ -95,3 +95,34 @@
 (global-set-key (kbd "<f7>e") 'org-mu4e-compose-org-mode)
 (global-set-key (kbd "<f7><f5>") 'org-dblock-update)
 (global-set-key (kbd "<M-f7>") 'org-agenda-list)
+
+(defun org-table-run-and-select-next-line ()
+  (interactive)
+  (progn
+    (org-ctrl-c-ctrl-c)
+    (next-line)
+    )
+  )
+
+(global-set-key (kbd "<f7>c") 'org-table-run-and-select-next-line)
+
+;; Archive
+(global-set-key (kbd "<f7>A") 'org-archive-to-archive-sibling)
+(global-set-key (kbd "<f7>a") 'org-toggle-archive-tag)
+(global-set-key (kbd "<f7>M-a") 'org-advertized-archive-subtree)
+(global-set-key (kbd "<f7>k") 'org-kill-note-or-show-branches)
+(global-set-key (kbd "<f7>j") 'org-clock-goto)
+(global-set-key (kbd "<f7>i") 'org-clock-in)
+(global-set-key (kbd "<f7>o") 'org-clock-out)
+
+(global-set-key (kbd "<f7><f7>0") 'org-timer-start)
+(global-set-key (kbd "<f7><f7>.") 'org-timer)
+(global-set-key (kbd "<f7><f7>-") 'org-timer-item)
+
+(global-set-key (kbd "<f7>.") 'org-time-stamp)
+(global-set-key (kbd "<f7>l") 'org-store-link)
+(global-set-key (kbd "<f7><f7>l") 'org-insert-link)
+(global-set-key (kbd "<f7><f7>t") 'org-todo)
+
+(global-set-key (kbd "<f7><f7>e") 'org-babel-execute-mayb)
+(global-set-key (kbd "<f7>q") 'org-set-tags-command)

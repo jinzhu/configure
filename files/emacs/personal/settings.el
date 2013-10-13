@@ -42,7 +42,7 @@
 
 ;; Wrap region
 (require 'wrap-region)
-(wrap-region-mode t)
+(wrap-region-global-mode)
 
 ;; Sudo Save
 (require 'sudo-save)
@@ -133,6 +133,7 @@
 (key-chord-define-global ";w" 'save-buffer)
 (global-set-key "\C-c\C-c" 'comment-or-uncomment-region-or-line)
 (global-set-key (kbd "<escape>l") 'helm-all-mark-rings)
+(global-set-key (kbd "<escape>s") 'smartparens-strict-mode)
 (global-set-key (kbd "<escape>cd") 'goto-last-dir)
 (global-set-key (kbd "s-b") 'helm-buffers-list)
 
@@ -147,81 +148,12 @@
  ido-use-virtual-buffers t
  ido-file-extensions-order '(".org" ".txt" ".py" ".emacs" ".xml" ".el"
                              ".ini" ".cfg" ".conf" ".rb" ".rake" ".coffee" ".scss")
- ido-ignore-buffers '("\\` " "^\*Mess" "^\*Back" "^\*Buffer" "^\*scratch"
+ ido-ignore-buffers '("\\` " "^\*Mess" "^\*Back" "^\*Buffer"
                       ".*Completion" "^\*Ido" "^\*trace" "^\*ediff" "^\*vc")
  )
 
 ;; Auto Generate Tags
 (autoload 'turn-on-ctags-auto-update-mode "ctags-update" "turn on `ctags-auto-update-mode'." t)
-
-;; multi term
-(require 'multi-term)
-(setq multi-term-program "/bin/zsh")
-(global-set-key (kbd "<f3>") 'multi-term-dedicated-toggle)
-(global-set-key (kbd "<C-f3>") 'multi-term)
-(global-set-key (kbd "<M-f3>") 'multi-term-next)
-(global-set-key (kbd "<M-s-f3>") 'multi-term-next)
-
-(setq multi-term-dedicated-select-after-open-p t)
-
-(defun term-switch-to-shell-mode ()
-  (interactive)
-  (if (equal major-mode 'term-mode)
-      (progn
-        (shell-mode)
-        (set-process-filter  (get-buffer-process (current-buffer)) 'comint-output-filter )
-        (local-set-key (kbd "C-j") 'term-switch-to-shell-mode)
-        (compilation-shell-minor-mode 1)
-        (comint-send-input)
-        )
-    (progn
-      (compilation-shell-minor-mode -1)
-      (font-lock-mode -1)
-      (set-process-filter  (get-buffer-process (current-buffer)) 'term-emulate-terminal)
-      (term-mode)
-      (term-char-mode)
-      (term-send-raw-string (kbd "C-l"))
-      )))
-
-(defun goto-last-dir ()
-  (interactive)
-  (shell-process-cd
-   (replace-regexp-in-string "\n" "" (get-string-from-file "/tmp/.last_dir"))))
-
-(setq
- tramp-default-method "ssh"          ; uses ControlMaster
- comint-scroll-to-bottom-on-input t  ; always insert at the bottom
- comint-scroll-to-bottom-on-output nil ; always add output at the bottom
- comint-scroll-show-maximum-output t
- comint-input-ignoredups t ; no duplicates in command history
- comint-completion-addsuffix t ; insert space/slash after file completion
- comint-buffer-maximum-size 200000
- )
-
-(add-hook 'term-mode-hook (lambda ()
-                            (define-key term-raw-map (kbd "C-y") 'term-paste)
-                            (define-key term-raw-map (kbd "C-l") 'term-send-raw)
-                            (define-key term-raw-map (kbd "C-j") 'term-switch-to-shell-mode)
-                            (define-key term-raw-map (kbd "<escape><escape>") 'term-send-raw-meta)
-                            (define-key term-raw-map (kbd "M-.") 'term-send-raw-meta)
-                            (define-key term-raw-map (kbd "C-c C-j") 'term-line-mode)
-                            (define-key term-raw-map (kbd "C-c C-k") 'term-char-mode)
-                            (yas-minor-mode -1)
-                            (ansi-color-for-comint-mode-on)
-                            (set (make-local-variable 'outline-regexp) "\$ ")
-                            (outline-minor-mode)
-                            ))
-
-(add-hook 'shell-mode-hook (lambda ()
-                             (define-key shell-mode-map (kbd "<up>") 'term-send-up)
-                             (define-key shell-mode-map (kbd "<down>") 'term-send-down)
-                             ))
-
-;; Bash Complete
-(require 'shell-command)
-(shell-command-completion-mode)
-(require 'bash-completion)
-(bash-completion-setup)
 
 ;; Set limit line length
 (setq whitespace-line-column 100)
@@ -447,20 +379,6 @@
       )
   )
 
-;; zlc mode
-(zlc-mode t)
-(setq zlc-select-completion-immediately t)
-(let ((map minibuffer-local-map))
-  ;;; like menu select
-  (define-key map (kbd "<C-down>")  'zlc-select-next-vertical)
-  (define-key map (kbd "<C-up>")    'zlc-select-previous-vertical)
-  (define-key map (kbd "<C-right>") 'zlc-select-next)
-  (define-key map (kbd "<C-left>")  'zlc-select-previous)
-
-  ;;; reset selection
-  (define-key map (kbd "C-c") 'zlc-reset)
-  )
-
 ;; w3m
 (global-set-key (kbd "<escape>w") 'w3m)
 (global-set-key (kbd "<escape>W") 'browse-url-at-point)
@@ -535,3 +453,149 @@
 (global-set-key (kbd "<escape>e") 'eval-region)
 (global-set-key (kbd "<escape>i") 'prelude-indent-buffer)
 (global-set-key (kbd "s-w") 'easy-kill)
+
+
+;; multi term
+(require 'multi-term)
+(setq multi-term-program "/bin/zsh")
+
+(setq multi-term-dedicated-select-after-open-p t)
+
+(defun term-switch-to-shell-mode ()
+  (interactive)
+  (if (equal major-mode 'term-mode)
+      (progn
+        (shell-mode)
+        (set-process-filter  (get-buffer-process (current-buffer)) 'comint-output-filter )
+        (local-set-key (kbd "C-j") 'term-switch-to-shell-mode)
+        (compilation-shell-minor-mode 1)
+        (comint-send-input)
+        )
+    (progn
+      (compilation-shell-minor-mode -1)
+      (font-lock-mode -1)
+      (set-process-filter  (get-buffer-process (current-buffer)) 'term-emulate-terminal)
+      (term-mode)
+      (term-char-mode)
+      (term-send-raw-string (kbd "C-l"))
+      )))
+
+(defun goto-last-dir ()
+  (interactive)
+  (shell-process-cd
+   (replace-regexp-in-string "\n" "" (get-string-from-file "/tmp/.last_dir"))))
+
+(setq
+ tramp-default-method "ssh"          ; uses ControlMaster
+ comint-scroll-to-bottom-on-input t  ; always insert at the bottom
+ comint-scroll-to-bottom-on-output nil ; always add output at the bottom
+ comint-scroll-show-maximum-output t
+ comint-input-ignoredups t ; no duplicates in command history
+ comint-completion-addsuffix t ; insert space/slash after file completion
+ comint-buffer-maximum-size 200000
+ )
+
+(add-hook 'term-mode-hook (lambda ()
+                            (define-key term-raw-map (kbd "C-y") 'term-paste)
+                            (define-key term-raw-map (kbd "C-l") 'term-send-raw)
+                            (define-key term-raw-map (kbd "C-j") 'term-switch-to-shell-mode)
+                            (define-key term-raw-map (kbd "<escape><escape>") 'term-send-raw-meta)
+                            (define-key term-raw-map (kbd "M-.") 'term-send-raw-meta)
+                            (define-key term-raw-map (kbd "C-c C-j") 'term-line-mode)
+                            (define-key term-raw-map (kbd "C-c C-k") 'term-char-mode)
+                            (yas-minor-mode -1)
+                            (ansi-color-for-comint-mode-on)
+                            (set (make-local-variable 'outline-regexp) "\$ ")
+                            (outline-minor-mode)
+                            ))
+
+(add-hook 'shell-mode-hook (lambda ()
+                             (define-key shell-mode-map (kbd "<up>") 'term-send-up)
+                             (define-key shell-mode-map (kbd "<down>") 'term-send-down)
+                             (yas-minor-mode -1)
+                             (ansi-color-for-comint-mode-on)
+                             ))
+
+;; Bash Complete
+(require 'shell-command)
+(shell-command-completion-mode)
+(require 'bash-completion)
+(bash-completion-setup)
+
+
+;; eshell
+(rvm-use-default)
+
+(require 'eshell)
+(require 'em-smart)
+(require 'em-zle)
+
+(setq
+ multi-eshell-name "*eshell*"
+ multi-eshell-shell-function '(eshell)
+ tramp-chunksize 500
+ eshell-last-dir-ring-size 100
+
+ eshell-save-history-on-exit   t
+ eshell-history-size           1024
+ eshell-hist-ignoredups        t
+
+ eshell-cmpl-ignore-case       t
+ eshell-cmpl-cycle-completions t
+ eshell-cmpl-dir-ignore "\\`\\(\\.\\.?\\|CVS\\|\\.svn\\|\\.git\\)/\\'"
+
+ eshell-cp-interactive-query   t
+ eshell-ln-interactive-query   t
+ eshell-mv-interactive-query   t
+ eshell-rm-interactive-query   t
+ eshell-mv-overwrite-files     nil
+ eshell-where-to-jump 'begin
+ eshell-review-quick-commands nil
+ eshell-smart-space-goes-to-end t
+
+ eshell-scroll-to-bottom-on-output t
+ eshell-scroll-show-maximum-output t
+
+ eshell-highlight-prompt   t
+ eshell-prompt-regexp "^[^#$\n]*[#$>] "
+
+ eshell-aliases-file "~/.emacs.d/personal/alias"
+ eshell-visual-commands (quote ("vim" "tail" "ssh" "less"))
+ )
+
+(defun eshell-zle-sudo-command ()
+  (interactive "*")
+  (eshell-bol)
+  (insert "sudo ")
+  (end-of-line)
+  )
+
+(defun eshell/clear ()
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)))
+
+(setup-eshell-buf-stack)
+(add-hook 'eshell-mode-hook (lambda ()
+                              (local-set-key (kbd "M-q") 'eshell-push-command)
+                              (define-key eshell-mode-map (kbd "M-.") 'eshell-zle-insert-last-word)
+                              (define-key eshell-mode-map (kbd "M-a") 'eshell-zle-accept-and-hold)
+                              (define-key eshell-mode-map (kbd "M-_") 'eshell-zle-copy-prev-shell-word)
+                              (define-key eshell-mode-map (kbd "M-RET") 'eshell-zle-push-line)
+                              (define-key eshell-mode-map (kbd "M-g") 'eshell-zle-get-line)
+                              (define-key eshell-mode-map (kbd "M-?") 'eshell-zle-which-command)
+                              (define-key eshell-mode-map (kbd "C-r") 'eshell-isearch-backward)
+                              (define-key eshell-mode-map (kbd "<escape><escape>") 'eshell-zle-sudo-command)
+                              (ansi-color-for-comint-mode-on)
+                              ))
+
+(global-unset-key (kbd "<f3>"))
+(global-set-key (kbd "<f3>d") 'eshell)
+(global-set-key (kbd "<f3>c") 'multi-eshell)
+(global-set-key (kbd "<f3>n") 'multi-eshell-switch)
+(global-set-key (kbd "<f3>p") 'multi-eshell-go-back)
+
+(global-set-key (kbd "<f3><f3>d") 'multi-term-dedicated-toggle)
+(global-set-key (kbd "<f3><f3>c") 'multi-term)
+(global-set-key (kbd "<f3><f3>n") 'multi-term-next)
+(global-set-key (kbd "<f3><f3>p") 'multi-term-prev)
