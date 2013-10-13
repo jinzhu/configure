@@ -1,0 +1,25 @@
+alias ff find-file $1
+alias ss bundle exec rails server $*
+alias gci magit-status .
+alias w3m w3m-find-file $1
+alias gcount git shortlog -sn
+alias rdc rake db:create
+alias rdm rake db:migrate
+alias rvm `(rvm-activate-corresponding-ruby)
+alias ll ls -l $*
+alias emacs find-file $1
+alias gs git status
+alias gd magit-status .
+alias sp sudo yaourt $*
+alias sc bundle exec rails console $*
+alias sd bundle exec rails dbconsole $*
+alias lsa ls -A $*
+alias lssize ls -rlS $*
+alias lsnew ls -rtl $*
+alias gap git am $*
+alias gfp git format-patch origin/master
+alias df df -Tm $*
+alias dusort du -scm *|sort -n
+alias ... cd ../..
+alias .... cd ../../..
+alias open xdg-open $*
