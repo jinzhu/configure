@@ -1,4 +1,4 @@
-`rm -rf ~/.eamcs.d/personal/*`
+`sudo rm -rf ~/.emacs.d/personal/*`
 IGNORES   = %w(.gitignore .git)
 IRREGULAR = {
   "files/modprobe.conf" => "/etc/modprobe.d/modprobe.conf",

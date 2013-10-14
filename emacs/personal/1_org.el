@@ -95,8 +95,7 @@
       )
     )
 
-  :bind (
-         ("<f2>b" . org-iswitchb)
+  :bind (("<f2>b" . org-iswitchb)
          ("<f2>t" . org-todo-list)
          ("<f2>r" . remember)
          ("<f2>s" . org-search-view)
@@ -114,7 +113,6 @@
          ("<f2>i" . org-clock-in)
          ("<f2>o" . org-clock-out)
          ("<f2>j" . org-clock-goto)
-
 
          ("<f2><f2>0" . org-timer-start)
          ("<f2><f2>." . org-timer)

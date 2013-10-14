@@ -18,7 +18,7 @@
 
 ;; Theme & Font
 (add-to-list 'custom-theme-load-path "~/.emacs.d/personal/themes")
-(load-theme 'monokai)
+(load-theme 'monokai t)
 (set-default-font "Monaco-14")
 (setq default-frame-alist '((font . "Monaco-14"))) ;; emacs --daemon
 (global-hl-line-mode -1)
@@ -153,47 +153,6 @@
 (global-set-key (kbd "C-#") 'evil-search-symbol-backward)
 
 
-;; Jabber
-(require 'netrc)
-(require 'jabber)
-(setq cred (netrc-machine (netrc-parse "~/.authinfo.gpg") "jabber" t))
-(setq jabber-account-list
-      `((,(netrc-get cred "login")
-         (:password . ,(netrc-get cred "password"))
-         (:network-server . "talk.google.com")
-         (:connection-type . ssl)
-         (:port . 5223))))
-
-(setq jabber-alert-presence-message-function (lambda (who oldstatus newstatus statustext) nil))
-(setq jabber-vcard-avatars-retrieve nil)
-(setq jabber-mode-line-mode t)
-;; (setq
-;; jabber-show-offline-contacts nil
-;; jabber-backlog-days 3.0
-;; jabber-keepalive-interval 100
-;; )
-(add-hook 'jabber-chat-mode-hook 'flyspell-mode)
-;; (add-hook 'jabber-lost-connection-hooks 'jabber-connect-all)
-;; (add-hook 'jabber-post-connect-hooks (lambda ()
-;;                                        (jabber-gmail-subscribe)
-;;                                        (jabber-keepalive-start)
-;;                                        (jabber-send-default-presence)))
-
-(defun goto-jabber-or-connect ()
-  (interactive)
-  (if (not (get-buffer "*-jabber-roster-*"))
-      (jabber-connect-all))
-  (switch-to-buffer "*-jabber-roster-*")
-  )
-
-(global-set-key (kbd "<M-f2>") 'goto-jabber-or-connect)
-
-;; Twitter
-(setq twittering-use-master-password t)
-(global-set-key (kbd "<M-S-f2>") 'twit)
-
-;; Weibo
-(global-set-key (kbd "<C-f2>") 'weibo-timeline)
 
 ;; Tramp
 (setq tramp-default-method "ssh")
@@ -301,10 +260,10 @@
 (global-set-key (kbd "<C-f1>") 'sauron-toggle-hide-show)
 
 ;; iCal
-(require 'calfw-ical)
-(setq calcred (netrc-machine (netrc-parse "~/.authinfo.gpg") "calics" t))
+;; (require 'calfw-ical)
+;; (setq calcred (netrc-machine (netrc-parse "~/.authinfo.gpg") "calics" t))
 ;; (cfw:open-ical-calendar (netrc-get cred "password"))
-(require 'calfw-gcal)
+;; (require 'calfw-gcal)
 
 ;; Pomodoro
 (global-set-key (kbd "<f5>") 'pomodoro)
@@ -440,3 +399,8 @@
 ;; flycheck
 (eval-after-load "flycheck"
   '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+
+(define-key flycheck-mode-map (kbd "<f1>ej") #'flycheck-next-error)
+(define-key flycheck-mode-map (kbd "<f1>ek") #'flycheck-previous-error)
+(define-key flycheck-mode-map (kbd "<f1>el") #'flycheck-list-errors)
+(define-key flycheck-mode-map (kbd "<f1>eg") #'flycheck-google-message)
