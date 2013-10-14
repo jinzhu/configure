@@ -252,7 +252,7 @@
 (global-set-key (kbd "<escape>r") 'point-to-register)
 
 ;; Linum mode
-(define-key global-map [f4] 'linum-mode)
+(define-key global-map [f4] 'global-linum-mode)
 
 ;; Web Jump
 (require 'webjump)
@@ -433,4 +433,6 @@
 (global-set-key (kbd "<escape>E") 'eval-buffer)
 (global-set-key (kbd "<escape>e") 'eval-region)
 (global-set-key (kbd "<escape>i") 'prelude-indent-buffer)
-(global-set-key (kbd "s-w") 'easy-kill)
+(global-set-key [remap kill-ring-save] 'easy-kill)
+(global-set-key (kbd "<f1><left>") 'previous-buffer)
+(global-set-key (kbd "<f1><right>") 'next-buffer)

@@ -448,3 +448,5 @@ I	#+INCLUDE: line
 
   M-2 M-x eshell -> open the second eshell
   C-u M-x eshell -> create a new eshell
+* Projectile
+  C-c p C-h -> help

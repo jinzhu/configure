@@ -479,6 +479,8 @@ Each element has the form (NAME . HEX).
    (:background monokai-bg+1
                 :foreground monokai-fg-1))
 
+ '(popup-face (:background monokai-bg+1))
+
  '(ac-selection-face
    (:background monokai-bg+2
                 :foreground monokai-orange))

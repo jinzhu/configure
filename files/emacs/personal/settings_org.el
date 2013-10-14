@@ -47,7 +47,7 @@
  ;; Do not prompt to resume an active clock
  org-clock-persist-query-resume nil
 
- org-startup-folded nil
+ org-startup-folded t
  ;; org-log-done t
  org-log-done 'time
  org-log-done 'note

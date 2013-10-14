@@ -161,6 +161,22 @@
 (ac-config-default)
 (global-auto-complete-mode t)
 
+(setq
+ ac-auto-show-menu 0.5
+ ac-fuzzy-enable t
+ ac-use-menu-map t
+
+ ac-quick-help-prefer-pos-tip t
+ ac-use-quick-help t
+ ac-quick-help-delay 1.5
+
+ ac-auto-start 1
+ ac-menu-height 20
+ ac-ignore-case 'smart
+ ac-trigger-commands (cons 'backward-delete-char-untabify ac-trigger-commands)
+ ac-comphist-file "~/.emacs.d/auto-complete"
+ )
+
 (defun ac-eshell-pcomplete ()
   ;; eshell uses `insert-and-inherit' to insert a \t if no completion
   ;; can be found, but this must not happen as auto-complete source
@@ -214,13 +230,6 @@
 (setq ac-sources '(ac-source-semantic ac-source-yasnippet ac-source-words-in-buffer ac-source-abbrev
                                       ac-source-dictionary ac-source-files-in-current-dir ac-source-filename))
 
-(setq ac-fuzzy-enable t)
-(setq ac-use-menu-map t)
-(setq ac-auto-start 1)
-(setq ac-menu-height 20)
-(setq ac-ignore-case 'smart)
-(setq ac-auto-show-menu 0)
-
 ;; Default settings
 (define-key ac-menu-map "\C-n" 'ac-next)
 (define-key ac-menu-map "\C-p" 'ac-previous)
@@ -236,9 +245,7 @@
 (yas-minor-mode-on)
 
 (setq hippie-expand-try-functions-list
-      '(
-        try-expand-line
-        try-expand-dabbrev
+      '(try-expand-dabbrev
         try-expand-dabbrev-visible
         try-expand-dabbrev-all-buffers
         try-expand-dabbrev-from-kill
@@ -246,5 +253,6 @@
         try-complete-file-name
         try-expand-all-abbrevs
         try-expand-list
+        try-expand-line
         try-complete-lisp-symbol-partially
         try-complete-lisp-symbol))
