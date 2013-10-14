@@ -6,16 +6,17 @@ IRREGULAR = {
   "files/kupfer.cfg" => "~/.config/kupfer/kupfer.cfg",
   "files/zim" => "~/.config/zim",
   "files/clipit_actions" => "~/.local/share/clipit/actions",
-  "files/prelude-modules.el" => "~/.emacs.d/prelude-modules.el",
   "files/openbox" => "~/.config/openbox",
   "files/tint2" => "~/.config/tint2",
   "files/obmenu-generator" => "~/.config/obmenu-generator",
   "files/profile" => "/etc/profile",
   "files/ifup.sh" => "/etc/ppp/ip-up.d/01-ifup.sh",
   "files/fcitx_config" => "~/.config/fcitx/config",
+  "emacs/prelude-modules.el" => "~/.emacs.d/prelude-modules.el",
   'scripts' => '~/.scripts'
 }
-Dir["files/emacs/personal/*"].map do |file|
+
+Dir["emacs/personal/*"].map do |file|
   IRREGULAR.update(file => "~/.emacs.d/personal/" + File.basename(file))
 end
 

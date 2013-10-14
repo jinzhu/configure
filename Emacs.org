@@ -450,3 +450,26 @@ I	#+INCLUDE: line
   C-u M-x eshell -> create a new eshell
 * Projectile
   C-c p C-h -> help
+* Smartparens
+  <C-M-left>      sp-backward-slurp-sexp
+  <C-M-right>     sp-backward-barf-sexp
+  <C-left>        sp-forward-barf-sexp
+  <C-right>       sp-forward-slurp-sexp
+  <M-down>        sp-splice-sexp-killing-forward
+  <M-up>          sp-splice-sexp-killing-backward
+
+  C-M-b           sp-backward-sexp
+  C-M-d           sp-down-sexp
+  C-M-f           sp-forward-sexp
+  C-M-n           sp-up-sexp
+  C-M-p           sp-backward-down-sexp
+  C-M-u           sp-backward-up-sexp
+  M-S             sp-split-sexp
+  M-r             sp-splice-sexp-killing-around
+  M-s             sp-splice-sexp
+
+F1 -> Shell Mode, FlyCheck, Tab
+F2 -> Org Mode
+F3 -> Social mode, Gtalk
+F4 -> Highlight line
+F5 > macro

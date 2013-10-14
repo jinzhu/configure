@@ -436,3 +436,7 @@
 (global-set-key [remap kill-ring-save] 'easy-kill)
 (global-set-key (kbd "<f1><left>") 'previous-buffer)
 (global-set-key (kbd "<f1><right>") 'next-buffer)
+
+;; flycheck
+(eval-after-load "flycheck"
+  '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))

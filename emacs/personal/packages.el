@@ -19,7 +19,7 @@
                                   mu4e-maildirs-extension sauron calfw-gcal
                                   org-pomodoro org-screenshot easy-kill org-magit
                                   esh-buf-stack multi-eshell rvm pcmpl-git
-                                  bitlbee
+                                  google-this flycheck-color-mode-line
                                   ))
 ;; starter-kit-eshell
 
