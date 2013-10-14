@@ -1,5 +1,6 @@
 (prelude-ensure-module-deps '(use-package))
 (require 'use-package)
+(require 'netrc)
 
 (global-unset-key (kbd "<f1>")) ;; Shell Mode
 (global-unset-key (kbd "<f2>")) ;; Org Mode
@@ -16,7 +17,7 @@
                                   multiple-cursors mark-multiple region-bindings-mode
                                   wrap-region yasnippet go-snippets switch-window
                                   emamux ctags-update multi-term powerline
-                                  writegood-mode evil pos-tip ; pos tip is for youdao
+                                  writegood-mode pos-tip ; pos tip is for youdao
                                   w3m jabber bash-completion shell-command
                                   rinari keyfreq point-undo smart-window
                                   mu4e-maildirs-extension sauron calfw-gcal
@@ -83,7 +84,7 @@
 
 (setq my-packages
       (append
-       '(el-get sudo-save evil-surround)
+       '(el-get sudo-save)
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync my-packages)

@@ -102,3 +102,10 @@
          ("<f3><f3>c" . mu4e-compose-new)
          )
   )
+
+;; Run in Daemon
+(if (not (display-graphic-p))
+    (progn
+      (mu4e)
+      )
+  )

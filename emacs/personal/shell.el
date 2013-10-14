@@ -4,6 +4,12 @@
 ;; (require 'bash-completion)
 ;; (bash-completion-setup)
 
+;; Tramp
+(setq
+ tramp-default-method "ssh"
+ tramp-chunksize 500
+ )
+
 ;; Multi Term
 (use-package multi-term
   :init (progn
@@ -76,10 +82,8 @@
           (require 'em-smart)
 
           (setq
-           tramp-chunksize 500
            eshell-last-dir-ring-size 100
 
-           tramp-default-method "ssh"          ; uses ControlMaster
            comint-scroll-to-bottom-on-input t  ; always insert at the bottom
            comint-scroll-to-bottom-on-output nil ; always add output at the bottom
            comint-scroll-show-maximum-output t

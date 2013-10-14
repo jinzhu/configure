@@ -1,6 +1,4 @@
 ;; Jabber
-(require 'netrc)
-
 (use-package jabber
   :init
   (progn
