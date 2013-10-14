@@ -1,3 +1,5 @@
+(require 'package)
+
 ;; Email
 (require 'mu4e)
 (require 'mu4e-speedbar)
