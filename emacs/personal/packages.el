@@ -8,13 +8,13 @@
                          ("gnu" . "http://elpa.gnu.org/packages/")))
 
 ;; My packages
-(prelude-require-packages '(
+(prelude-require-packages '( use-package
                             vline quickrun pos-tip auto-complete git-gutter go-eldoc
                                   multiple-cursors mark-multiple region-bindings-mode
                                   wrap-region yasnippet go-snippets switch-window
                                   emamux ctags-update multi-term powerline
                                   writegood-mode evil pos-tip ; pos tip is for youdao
-                                  w3m jabber deft bash-completion shell-command
+                                  w3m jabber bash-completion shell-command
                                   rinari keyfreq point-undo smart-window
                                   mu4e-maildirs-extension sauron calfw-gcal
                                   org-pomodoro org-screenshot easy-kill org-magit
