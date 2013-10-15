@@ -19,6 +19,23 @@
                standard-indent 2
                indent-tabs-mode nil)	; makes sure tabs are not used.
 
+(setq backup-by-copying t    ; Don't delink hardlinks
+      backup-directory-alist '(("." . "~/.emacs.d/temps/backups"))
+      version-control t      ; Use version numbers on backups
+      delete-old-versions t  ; Automatically delete excess backups
+      kept-new-versions 20   ; how many of the newest versions to keep
+      kept-old-versions 5    ; and how many of the old
+
+      auto-save-file-name-transforms `((".*" ,"~/.emacs.d/temps/autosaves" t))
+      undo-tree-history-directory-alist '(("." . "~/.emacs.d/temps/undotrees"))
+
+      display-time-24hr-format t
+      display-time-day-and-date 0
+      )
+
+;; Dired
+(setq dired-recursive-deletes 'top)
+
 (global-set-key (kbd "C-j") 'reindent-newline-and-indent)
 
 ;; Theme & Font
@@ -140,7 +157,7 @@
               (sauron-fx-gnome-osd msg 10))))
 
 (sauron-start-hidden)
-(global-set-key (kbd "<C-f1>") 'sauron-toggle-hide-show)
+(global-set-key (kbd "<C-f5>") 'sauron-toggle-hide-show)
 
 ;; iCal
 (require 'calfw-ical)

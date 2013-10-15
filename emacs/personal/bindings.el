@@ -24,8 +24,8 @@
 
 (bind-key "C-s" 'isearch-forward-regexp)
 (bind-key "C-r" 'isearch-backward-regexp)
-(bind-key "C-M-s" 'search-forward-regexp)
-(bind-key "C-M-r" 'search-backward-regexp)
+(bind-key "C-M-s" 'isearch-forward)
+(bind-key "C-M-r" 'isearch-backward)
 
 (bind-key "C-c C-f" 'find-file-at-point)
 

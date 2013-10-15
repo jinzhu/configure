@@ -24,7 +24,7 @@
                                   org-pomodoro org-screenshot easy-kill org-magit
                                   esh-buf-stack multi-eshell rvm pcmpl-git
                                   google-this flycheck-color-mode-line
-                                  twittering-mode
+                                  twittering-mode tabbar
                                   ))
 
 ;; el-get
