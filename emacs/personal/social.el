@@ -35,7 +35,7 @@
     )
 
   :bind (("<f3>g" . goto-jabber-or-connect)
-         ("<f3>j" . jabber-activity-switch-to))
+         ("<f3>l" . jabber-activity-switch-to))
   )
 
 (use-package twittering-mode

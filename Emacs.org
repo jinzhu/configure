@@ -469,11 +469,3 @@ I	#+INCLUDE: line
   M-s             sp-splice-sexp
 * Dired
   C-c C-q -> WDired rename files with emacs magic
-
-
-
-F1 -> Shell Mode, FlyCheck, Tab
-F2 -> Org Mode
-F3 -> Social mode, Gtalk
-F4 -> Highlight line
-F5 > macro

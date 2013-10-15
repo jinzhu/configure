@@ -10,17 +10,21 @@
 (custom-set-variables
  '(tabbar-separator (quote (0.5))))
 
+
 (defun my-tabbar-buffer-groups ()
   (list
    (cond
-    ((memq major-mode '(erc-mode twittering-mode weibo-timeline-mode jabber-roster-mode))
-     "Social"
+    ((memq major-mode '(mu4e-view-mode mu4e-main-mode mu4e-headers-mode mu4e-view-raw-mode
+                                       twittering-mode weibo-timeline-mode
+                                       jabber-roster-mode jabber-chat-mode erc-mode
+                                       ))
+     "Activity"
      )
     ((memq major-mode '(eshell-mode term-mode shell-mode))
      "Shell"
      )
-    ((memq major-mode '(mu4e-view-mode mu4e-main-mode mu4e-headers-mode mu4e-view-raw-mode))
-     "Mail"
+    ((memq major-mode '(org-mode org-agenda-mode diary-mode))
+     "OrgMode"
      )
     ((string-equal "*" (substring (buffer-name) 0 1))
      "Emacs"
@@ -31,7 +35,7 @@
     )))
 (setq tabbar-buffer-groups-function 'my-tabbar-buffer-groups)
 
-(bind-key "<escape><left>" 'tabbar-backward-tab)
-(bind-key "<escape><right>" 'tabbar-forward-tab)
-(bind-key "<escape><up>" 'tabbar-backward-group)
-(bind-key "<escape><down>" 'tabbar-forward-group)
+(bind-key "<f1><f1><left>" 'tabbar-backward-group)
+(bind-key "<f1><f1><right>" 'tabbar-forward-group)
+(bind-key "<f1><up>" 'tabbar-backward-tab)
+(bind-key "<f1><down>" 'tabbar-forward-tab)
