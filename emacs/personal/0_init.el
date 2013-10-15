@@ -16,7 +16,7 @@
 (prelude-require-packages '(vline quickrun auto-complete git-gutter go-eldoc
                                   multiple-cursors mark-multiple region-bindings-mode
                                   wrap-region yasnippet go-snippets switch-window
-                                  emamux ctags-update multi-term powerline
+                                  emamux ctags-update multi-term smart-mode-line
                                   writegood-mode pos-tip ; pos tip is for youdao
                                   w3m jabber bash-completion shell-command
                                   rinari keyfreq point-undo smart-window

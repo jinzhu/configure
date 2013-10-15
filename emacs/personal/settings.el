@@ -44,8 +44,10 @@
 (set-default-font "Monaco-14")
 (setq default-frame-alist '((font . "Monaco-14"))) ;; emacs --daemon
 
-(require 'powerline)
-(powerline-default-theme)
+(if after-init-time (sml/setup)
+  (add-hook 'after-init-hook 'sml/setup))
+(setq sml/mode-width 5
+      sml/name-width 30)
 
 ;; Trailing whitespace is unnecessary
 (setq prelude-clean-whitespace-on-save nil)
