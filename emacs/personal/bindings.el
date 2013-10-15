@@ -7,8 +7,8 @@
 (bind-key "<f1>i" 'prelude-indent-buffer)
 
 ;; tabbar <escape> up/down/right/left
-(bind-key "<f1><left>"  'previous-buffer)
-(bind-key "<f1><right>" 'next-buffer)
+(bind-key "<f1><up>"  'previous-buffer)
+(bind-key "<f1><down>" 'next-buffer)
 (bind-key "<f1>1" 'delete-other-windows)
 (bind-key "<f1>0" 'delete-window)
 (bind-key "<f1>2" 'split-window-below)
@@ -22,7 +22,6 @@
 (bind-key "<f1>r" 'prelude-recentf-ido-find-file)
 (bind-key "<f1>h" 'helm-projectile)
 
-
 (bind-key "<escape><up>"    'windmove-up)
 (bind-key "<escape><down>"  'windmove-down)
 (bind-key "<escape><right>" 'windmove-right)
@@ -34,10 +33,6 @@
 (bind-key "<escape>t" 'jump-to-register)
 (bind-key "<escape>r" 'point-to-register)
 
-;; Pomodoro
-(bind-key "<f5>" 'pomodoro)
-(bind-key "<M-f5>" 'pomodoro-status)
-
 (bind-key "<M-f1>" 'goto-emacs-setting-file)
 (bind-key "<C-f1>" 'goto-emacs-tips-file)
 (bind-key "<M-S-f1>" 'goto-last-dir)
@@ -47,20 +42,30 @@
 (bind-key "C-r" 'isearch-backward-regexp)
 (bind-key "C-M-s" 'isearch-forward)
 (bind-key "C-M-r" 'isearch-backward)
+(bind-key "<escape><escape>s" 'isearch-forward-at-point)
 
 (bind-key "C-c C-f" 'find-file-at-point)
 
 ;; Smex
 (bind-key "<menu>" 'smex)
 
-;; Linum mode
-(bind-key "<f4>" 'global-linum-mode)
-
 ;; Dired
 (bind-key "C-c j" 'dired-jump)
 
 ;; Browse Kill Ring
-(bind-key "C-x y" 'helm-show-kill-ring)
+(use-package browse-kill-ring
+  :init (progn
+          (setq browse-kill-ring-highlight-current-entry t
+                browse-kill-ring-display-duplicates nil)
+
+          (browse-kill-ring-default-keybindings)
+          (define-key browse-kill-ring-mode-map (kbd "C-n")      'browse-kill-ring-forward)
+          (define-key browse-kill-ring-mode-map (kbd "C-p")      'browse-kill-ring-previous)
+          (define-key browse-kill-ring-mode-map (kbd "C-g")      'browse-kill-ring-quit)
+          (define-key browse-kill-ring-mode-map (kbd "<escape>") 'browse-kill-ring-quit)
+          )
+  :bind ("C-x y" . browse-kill-ring)
+  )
 
 ;;; key choard
 (setq key-chord-two-keys-delay 0.2)
@@ -70,14 +75,21 @@
 (key-chord-define-global "vv" 'select-current-line)
 (key-chord-define-global ";w" 'save-buffer)
 
-(bind-key "<escape>m" 'magit-status)
-(bind-key "<f1>m" 'magit-status)
-
 (bind-key "C-c C-c" 'comment-or-uncomment-region-or-line)
 (bind-key "<escape>s" 'smartparens-strict-mode)
 (bind-key "<escape>cd" 'goto-last-dir)
 
-;; Evil Mode
-;; (require 'evil)
-;; (bind-key "C-*" 'evil-search-symbol-forward)
-;; (bind-key "C-#" 'evil-search-symbol-backward)
+;; Line & Vline
+(bind-key "<f4>v" 'vline-global-mode)
+(bind-key "<f4>l" 'global-linum-mode)
+
+;; Pomodoro
+(bind-key "<f4>p" 'pomodoro)
+(bind-key "<f4><f4>p" 'pomodoro-status)
+
+;; Quickrun
+(bind-key "<f4>q" 'quickrun)
+(bind-key "<f4><f4>q" 'quickrun-region)
+
+;; Switch Window
+(bind-key "C-x o" 'switch-window)

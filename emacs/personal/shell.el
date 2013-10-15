@@ -70,12 +70,10 @@
 
 ;; Eshell
 (use-package multi-eshell
-  :init (progn
-          (setq
-           multi-eshell-name "*eshell*"
-           multi-eshell-shell-function '(eshell)
-           )
-          ))
+  :init (setq
+         multi-eshell-name "*eshell*"
+         multi-eshell-shell-function '(eshell)
+         ))
 
 (use-package eshell
   :init (progn

@@ -22,9 +22,7 @@
 
     (add-hook 'jabber-chat-mode-hook 'flyspell-mode)
     (add-hook 'jabber-lost-connection-hooks 'jabber-connect-all)
-    (add-hook 'jabber-post-connect-hooks (lambda ()
-                                           (jabber-gmail-subscribe)
-                                           (jabber-send-default-presence)))
+    (add-hook 'jabber-post-connect-hooks 'jabber-gmail-subscribe)
 
     (defun goto-jabber-or-connect ()
       (interactive)
@@ -35,7 +33,8 @@
     )
 
   :bind (("<f3>g" . goto-jabber-or-connect)
-         ("<f3>l" . jabber-activity-switch-to))
+         ("<f3>l" . jabber-activity-switch-to)
+         ("<f3>o" . jabber-send-default-presence))
   )
 
 (use-package twittering-mode

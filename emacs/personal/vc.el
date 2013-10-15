@@ -1,12 +1,19 @@
-;; git gutter
-(global-git-gutter-mode t)
-(global-set-key (kbd "<escape>gt") 'git-gutter:toggle)
-(global-set-key (kbd "<escape>j") 'git-gutter:next-diff)
-(global-set-key (kbd "<escape>k") 'git-gutter:previous-diff)
-(global-set-key (kbd "<escape>gd") 'git-gutter:popup-diff)
-(global-set-key (kbd "<escape>gr") 'git-gutter:revert-hunk)
+(use-package git-gutter
+  :init (global-git-gutter-mode t)
+  :bind (
+         ("<escape>gt" . git-gutter:toggle)
+         ("<escape>j" . git-gutter:next-diff)
+         ("<escape>k" . git-gutter:previous-diff)
+         ("<escape>gd" . git-gutter:popup-diff)
+         ("<escape>gr" . git-gutter:revert-hunk)
+         ))
 
-;; VC
+(use-package magit
+  :bind (
+         ("<escape>m" . magit-status)
+         ("<f1>m" . magit-status)
+         ))
+
 (setq vc-follow-symlinks t)
 (defadvice vc-git-mode-line-string (after plus-minus (file) compile activate)
   (setq ad-return-value

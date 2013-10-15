@@ -10,8 +10,6 @@
   )
 
 ;; Org
-(require 'org-install)
-
 (use-package org
   :init
   (progn

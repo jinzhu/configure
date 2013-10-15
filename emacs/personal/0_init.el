@@ -14,7 +14,7 @@
                          ("gnu" . "http://elpa.gnu.org/packages/")))
 
 (prelude-require-packages '(vline quickrun auto-complete git-gutter go-eldoc
-                                  multiple-cursors mark-multiple region-bindings-mode
+                                  multiple-cursors region-bindings-mode
                                   wrap-region yasnippet go-snippets switch-window
                                   emamux ctags-update multi-term smart-mode-line
                                   writegood-mode pos-tip ; pos tip is for youdao
@@ -24,7 +24,7 @@
                                   org-pomodoro org-screenshot easy-kill org-magit
                                   esh-buf-stack multi-eshell rvm pcmpl-git
                                   google-this flycheck-color-mode-line
-                                  twittering-mode tabbar
+                                  twittering-mode tabbar browse-kill-ring
                                   ))
 
 ;; el-get
