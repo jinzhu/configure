@@ -111,10 +111,10 @@
            eshell-scroll-show-maximum-output t
 
            eshell-highlight-prompt   t
-           eshell-prompt-regexp "^[^#$\n]*[#$>] "
+           eshell-prompt-regexp "^[^#$\n]*\\([[:digit:]][\*\'\"\>]\\|[#$]\\) "
 
            eshell-aliases-file "~/.emacs.d/personal/alias"
-           eshell-visual-commands (quote ("vim" "tail" "ssh" "less"))
+           eshell-visual-commands (quote ("vim" "tail" "less"))
            )
 
           (use-package em-zle)
@@ -135,6 +135,22 @@
             (let ((inhibit-read-only t))
               (erase-buffer)))
 
+          (defun user-send-input (&optional use-region queue-p no-newline)
+            (interactive "P")
+            ;; Note that the input string does not include its terminal newline.
+            (let ((proc-running-p (and (eshell-interactive-process)
+                                       (not queue-p)))
+                  (inhibit-point-motion-hooks t)
+                  after-change-functions)
+
+              (if proc-running-p
+                  (eshell-add-input-to-history (eshell-get-old-input))
+                )
+              )
+
+            (eshell-send-input use-region queue-p no-newline)
+            )
+
           (setup-eshell-buf-stack)
           (add-hook 'eshell-mode-hook (lambda ()
                                         (local-set-key (kbd "M-q") 'eshell-push-command)
@@ -148,6 +164,7 @@
                                         (define-key eshell-mode-map (kbd "<escape><escape>") 'eshell-zle-sudo-command)
                                         (define-key eshell-mode-map (kbd "<C-backspace>") 'eshell-zle-kill-whole-line)
                                         (define-key eshell-mode-map (kbd "M-p") 'helm-eshell-history)
+                                        (define-key eshell-mode-map [return] 'user-send-input)
 
                                         (ansi-color-for-comint-mode-on)
                                         (set (make-local-variable 'outline-regexp) "\$" )

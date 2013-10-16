@@ -40,8 +40,8 @@
 (bind-key "<M-S-f1>" 'goto-last-dir)
 (bind-key "<C-f6>" 'command-history)
 
-(bind-key "C-s" 'isearch-forward-at-point)
-(bind-key "C-r" 'isearch-backward-regexp)
+(bind-key "C-r" 'isearch-forward-at-point)
+(bind-key "C-s" 'isearch-forward-regexp)
 (define-key isearch-mode-map [up] 'isearch-repeat-backward)
 (define-key isearch-mode-map [down] 'isearch-repeat-forward)
 
@@ -111,3 +111,4 @@
 
 (bind-key "<f4>i" 'helm-semantic-or-imenu)
 (bind-key "<f4>t" 'helm-etags-select)
+(bind-key "<f4>o" 'helm-occur)
