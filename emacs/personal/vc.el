@@ -9,6 +9,9 @@
          ))
 
 (use-package magit
+  :init (setq
+         magit-stage-all-confirm nil
+         magit-unstage-all-confirm nil)
   :bind (
          ("<escape>m" . magit-status)
          ("<f1>m" . magit-status)

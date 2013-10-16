@@ -83,17 +83,22 @@
 ;;; IDO
 (icomplete-mode t)
 (ido-mode t)
-(ido-everywhere 1)
+
 (setq
  ido-enable-flex-matching t
+ ido-everywhere t
  ido-enable-last-directory-history t
+ ido-use-filename-at-point 'guess
+ ido-create-new-buffer 'always
+
  ido-case-fold t
  ido-use-virtual-buffers t
- ido-file-extensions-order '(".org" ".txt" ".py" ".emacs" ".xml" ".el"
-                             ".ini" ".cfg" ".conf" ".rb" ".rake" ".coffee" ".scss")
+ ido-file-extensions-order '(".org" ".txt" ".py" ".rb" ".go" ".emacs" ".xml" ".el"
+                             ".ini" ".cfg" ".conf" ".rake" ".coffee" ".scss")
  ido-ignore-buffers '("\\` " "^\*Mess" "^\*Back" "^\*Buffer"
                       ".*Completion" "^\*Ido" "^\*trace" "^\*ediff" "^\*vc")
  )
+(add-to-list 'ido-ignore-directories "\\.jabber-avatar")
 
 ;; Auto Generate Tags
 (autoload 'turn-on-ctags-auto-update-mode "ctags-update" "turn on `ctags-auto-update-mode'." t)
@@ -172,3 +177,9 @@
                            (define-key doc-view-mode-map (kbd "h") 'image-backward-hscroll)
                            (define-key doc-view-mode-map (kbd "l") 'image-forward-hscroll)
                            ))
+
+;; Which Func
+(use-package which-func
+  :init (progn
+          (add-to-list 'which-func-modes 'go-mode)
+          (which-func-mode 1)))

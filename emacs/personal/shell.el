@@ -71,9 +71,10 @@
 ;; Eshell
 (use-package multi-eshell
   :init (setq
-         multi-eshell-name "*eshell*"
-         multi-eshell-shell-function '(eshell)
-         ))
+   multi-eshell-name "*eshell*"
+   multi-eshell-shell-function '(eshell)
+   )
+  )
 
 (use-package eshell
   :init (progn
@@ -146,6 +147,7 @@
                                         (define-key eshell-mode-map (kbd "C-r") 'eshell-isearch-backward)
                                         (define-key eshell-mode-map (kbd "<escape><escape>") 'eshell-zle-sudo-command)
                                         (define-key eshell-mode-map (kbd "<C-backspace>") 'eshell-zle-kill-whole-line)
+                                        (define-key eshell-mode-map (kbd "M-p") 'helm-eshell-history)
 
                                         (ansi-color-for-comint-mode-on)
                                         (set (make-local-variable 'outline-regexp) "\$" )

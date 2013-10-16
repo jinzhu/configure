@@ -66,23 +66,26 @@
         (while (< (point) end)
           (join-line 1)))))
 
+;; search at points
 (defvar isearch-initial-string nil)
 (defun isearch-set-initial-string ()
   (remove-hook 'isearch-mode-hook 'isearch-set-initial-string)
-  (setq isearch-string isearch-initial-string)
+  (setq isearch-string isearch-initial-string
+        isearch-message isearch-initial-string)
   (isearch-search-and-update))
 
 (defun isearch-forward-at-point (&optional regexp-p no-recursive-edit)
   "Interactive search forward for the symbol at point."
   (interactive "P\np")
-  (if regexp-p (isearch-forward regexp-p no-recursive-edit)
+  (if regexp-p (isearch-forward-regexp regexp-p no-recursive-edit)
     (let* ((end (progn (skip-syntax-forward "w_") (point)))
            (begin (progn (skip-syntax-backward "w_") (point))))
       (if (eq begin end)
-          (isearch-forward regexp-p no-recursive-edit)
+          (isearch-forward-regexp regexp-p no-recursive-edit)
         (setq isearch-initial-string (buffer-substring begin end))
         (add-hook 'isearch-mode-hook 'isearch-set-initial-string)
-        (isearch-forward regexp-p no-recursive-edit)))))
+        (isearch-forward-regexp regexp-p no-recursive-edit)))))
+
 
 (defun delete-file-if-no-contents ()
   (when (and (buffer-file-name (current-buffer))
@@ -116,3 +119,16 @@
     (goto-char beg)
     (delete-region beg end)
     (insert (url-encode-string str 'utf-8))))
+
+(defun jump-to-mark ()
+  "Jumps to the local mark, respecting the `mark-ring' order.
+This is the same as using \\[set-mark-command] with the prefix argument."
+  (interactive)
+  (set-mark-command 1))
+
+(defun push-mark-no-activate ()
+  "Pushes `point' to `mark-ring' and does not activate the region
+Equivalent to \\[set-mark-command] when \\[transient-mark-mode] is disabled"
+  (interactive)
+  (push-mark (point) t nil)
+  (message "Pushed mark to ring"))

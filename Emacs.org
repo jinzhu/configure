@@ -192,15 +192,20 @@ I	#+INCLUDE: line
    C-c C-t   -> run script in other window
 
 * Move cursor
-  C-a/C-e -> beginning/end of current line
-  M-a/M-e -> backward/forward sentence
-  M-{/M-} -> backward/forward paragraph
   C-f/C-b -> next/backward char
   M-f/M-b -> next/backward word
   C-n/C-p -> next/previous line
+
+  C-a/C-e -> beginning/end of current line
+  M-a/M-e -> backward/forward sentence
+  M-{/M-} -> backward/forward paragraph
+
+  C-M-a -> beginning-of-defun
+  C-M-e -> end-of-defun
+
   C-v/M-v -> scroll up/down
   C-l     -> re center
-
+  C-c i   -> prelude-ido-goto-symbol
   M-9 M-9 M-9 C-f -> Move forward 999 char
 
 * Mark
@@ -220,8 +225,10 @@ I	#+INCLUDE: line
 
   C-k -> kill line to end
   C-0 C-k -> kill line to beginning
+  C-S- Backspace -> kill whole line
   Super-k -> kill current line
 
+  Ctrl+Meta+w -> append-next-kill
   M-k -> kill paragraph to end
   C-x Delete -> backward kill paragraph
 
@@ -295,11 +302,12 @@ I	#+INCLUDE: line
   M-x comment-region
 
 * Up/Down case
-  M-l -> down case current word
-  M-u -> up case current word
-  M-c -> capitalize current word
-  C-x C-l -> downcase region
-  C-x C-u -> upcase region
+  M-l         -> down case current word
+  M-u         -> up case current word
+  M-c         -> capitalize current word
+  M-- M-2 M-c -> capitalize last two words
+  C-x C-l     -> downcase region
+  C-x C-u     -> upcase region
 * Block Edit
 ** rectangle
    C-px r t -> Add to the beginning (string-rectangle)
@@ -378,9 +386,11 @@ I	#+INCLUDE: line
   C-c C-h -> List all key binding begging with C-c
   C-h l -> view lossage
   C-h w function	-> key binding of function
-* Search
+* Search & Replace
   C-s C-w -> search current word
   C-s C-y -> search yanked text
+  M-%     -> query replace
+  C-M-%   -> query replace by regexp
 * Tips
 + C-x 5 2 -> create new top-level X windows
 + M-x command-history -> show command history
@@ -469,3 +479,20 @@ I	#+INCLUDE: line
   M-s             sp-splice-sexp
 * Dired
   C-c C-q -> WDired rename files with emacs magic
+* Tag
+  M-. -> Find by tag
+  M-* -> Jump back
+  C-M-. pattern -> Find a tag whose name matches pattern
+* Flycheck Error
+  M-g n -> Next error
+  M-g p -> Prev error
+* Isearch
+  M-e -> edit keyword when in search
+* IMenu
+  Search by imenu
+  WhichFuncMode
+* Helm
+ C-e -> 2nd action
+ C-j -> 3nd action
+ Tab -> View all actions
+ helm-occur

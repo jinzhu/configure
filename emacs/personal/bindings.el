@@ -16,6 +16,8 @@
 
 (bind-key "<f1>k" 'kill-this-buffer)
 (bind-key "<f1><f1>r" 'rename-buffer)
+(bind-key "<f1><f1>R" 'revert-buffer)
+
 
 (bind-key "<f1>b" 'helm-buffers-list)
 (bind-key "<f1>f" 'projectile-find-file)
@@ -38,8 +40,11 @@
 (bind-key "<M-S-f1>" 'goto-last-dir)
 (bind-key "<C-f6>" 'command-history)
 
-(bind-key "C-s" 'isearch-forward-regexp)
+(bind-key "C-s" 'isearch-forward-at-point)
 (bind-key "C-r" 'isearch-backward-regexp)
+(define-key isearch-mode-map [up] 'isearch-repeat-backward)
+(define-key isearch-mode-map [down] 'isearch-repeat-forward)
+
 (bind-key "C-M-s" 'isearch-forward)
 (bind-key "C-M-r" 'isearch-backward)
 (bind-key "<escape><escape>s" 'isearch-forward-at-point)
@@ -93,3 +98,16 @@
 
 ;; Switch Window
 (bind-key "C-x o" 'switch-window)
+
+;; Move Faster
+(bind-key "<S-down>" '(lambda () (interactive) (forward-line 5))) ; Move the cursor around fast with shift
+(bind-key "<S-up>" '(lambda () (interactive) (forward-line -5)))
+(bind-key "<S-right>" '(lambda () (interactive) (forward-word 3)))
+(bind-key "<S-left>" '(lambda () (interactive) (backward-word 3)))
+
+;; Mark (useful when transient-mark-mode disabled)
+(bind-key "M-`" 'jump-to-mark)
+(bind-key "C-`" 'push-mark-no-activate)
+
+(bind-key "<f4>i" 'helm-semantic-or-imenu)
+(bind-key "<f4>t" 'helm-etags-select)
