@@ -63,15 +63,11 @@
 (setq x-select-enable-clipboard t)  ; makes killing/yanking interact with clipboard X11 selection
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
-
+;; multiple-cursors
 (require 'multiple-cursors)
 (require 'region-bindings-mode)
 (region-bindings-mode-enable)
-
-(define-key region-bindings-mode-map "a" 'mc/mark-all-like-this)
-(define-key region-bindings-mode-map "p" 'mc/mark-previous-like-this)
-(define-key region-bindings-mode-map "n" 'mc/mark-next-like-this)
-(define-key region-bindings-mode-map "m" 'mc/mark-more-like-this-extended)
+(define-key region-bindings-mode-map (kbd "C-m") 'mc/mark-more-like-this-extended)
 
 ;; Wrap region
 (require 'wrap-region)

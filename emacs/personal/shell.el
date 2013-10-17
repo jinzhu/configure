@@ -71,9 +71,9 @@
 ;; Eshell
 (use-package multi-eshell
   :init (setq
-   multi-eshell-name "*eshell*"
-   multi-eshell-shell-function '(eshell)
-   )
+         multi-eshell-name "*eshell*"
+         multi-eshell-shell-function '(eshell)
+         )
   )
 
 (use-package eshell
