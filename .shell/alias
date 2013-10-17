@@ -106,10 +106,10 @@ fi
 alias lsl='ls -l'
 alias lsa='ls -A'
 # lists files in reverse time order
-alias lsr='ls -rtl'
+alias lsnew='ls -rtl'
 # lists files in size order with the biggest at the end
-alias lss='ls -rlS'
-alias lsnew=" ls -al --time-style=+%D | grep `date +%D` "
+alias lssize='ls -rlS'
+# alias lsnew=" ls -al --time-style=+%D | grep `date +%D` "
 
 # find the directory with the biggest file in it
 alias dud='du -scm *|sort -n'

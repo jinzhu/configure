@@ -178,4 +178,4 @@
 (use-package which-func
   :init (progn
           (add-to-list 'which-func-modes 'go-mode)
-          (which-func-mode 1)))
+          (which-func-mode nil)))
