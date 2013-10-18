@@ -58,6 +58,10 @@
           org-agenda-start-on-weekday 0
           org-agenda-repeating-timestamp-show-all t
           org-agenda-sorting-strategy (quote ((agenda time-up priority-down tag-up) (todo tag-up)))
+          org-agenda-window-setup 'current-window
+
+          org-mobile-directory "~/.mobileorg"
+          org-directory "~/.notes"
 
           org-agenda-custom-commands '(
                                        ("w" todo "WAITING")

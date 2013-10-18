@@ -114,7 +114,7 @@
            eshell-prompt-regexp "^[^#$\n]*\\([[:digit:]][\*\'\"\>]\\|[#$]\\) "
 
            eshell-aliases-file "~/.emacs.d/personal/alias"
-           eshell-visual-commands (quote ("vim" "tail" "less"))
+           eshell-visual-commands (quote ("vim" "tail" "less" "htop"))
            )
 
           (use-package em-zle)

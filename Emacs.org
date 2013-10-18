@@ -496,3 +496,5 @@ I	#+INCLUDE: line
  C-j -> 3nd action
  Tab -> View all actions
  helm-occur
+* Calc
+  (calc-eval "1+2*9")

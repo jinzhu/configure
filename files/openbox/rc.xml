@@ -261,18 +261,13 @@
     <keybind key="A-F4">
       <action name="Close"/>
     </keybind>
-    <keybind key="A-Escape">
-      <action name="Lower"/>
-      <action name="FocusToBottom"/>
-      <action name="Unfocus"/>
-    </keybind>
     <keybind key="A-F12">
       <action name="ShowMenu">
         <menu>client-menu</menu>
       </action>
     </keybind>
     <!-- Keybindings for window switching -->
-    <keybind key="A-Tab">
+    <keybind key="A-Escape">
       <action name="NextWindow">
         <finalactions>
           <action name="Focus"/>
@@ -281,7 +276,7 @@
         </finalactions>
       </action>
     </keybind>
-    <keybind key="A-S-Tab">
+    <keybind key="A-S-Escape">
       <action name="PreviousWindow">
         <finalactions>
           <action name="Focus"/>

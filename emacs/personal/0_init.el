@@ -9,9 +9,11 @@
 
 (setq smart-window-remap-keys 0)
 
-(setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
+(setq package-archives '(("org" . "http://orgmode.org/elpa/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")))
+                         ("gnu" . "http://elpa.gnu.org/packages/")
+                         ))
 
 (prelude-require-packages '(vline quickrun auto-complete git-gutter go-eldoc
                                   multiple-cursors region-bindings-mode
@@ -21,7 +23,8 @@
                                   w3m jabber bash-completion shell-command
                                   rinari keyfreq point-undo smart-window
                                   mu4e-maildirs-extension sauron calfw-gcal
-                                  org-pomodoro org-screenshot easy-kill org-magit
+                                  ;; org-pomodoro org-screenshot org-magit
+                                  org easy-kill
                                   esh-buf-stack multi-eshell rvm pcmpl-git
                                   google-this flycheck-color-mode-line
                                   twittering-mode tabbar browse-kill-ring
@@ -88,3 +91,15 @@
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync my-packages)
+
+(defun require-package (package &optional min-version no-refresh)
+  "Install given PACKAGE, optionally requiring MIN-VERSION.
+  If NO-REFRESH is non-nil, the available package lists will not be
+  re-downloaded in order to locate PACKAGE."
+  (if (package-installed-p package min-version)
+    t
+    (if (or (assoc package package-archive-contents) no-refresh)
+      (package-install package)
+      (progn
+        (package-refresh-contents)
+        (require-package package min-version t)))))
