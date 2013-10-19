@@ -2,6 +2,7 @@
 *.sqlite3
 *.swp
 .~lock.*
+*.elc
 .rbenv-version
 tags
 TAGS

@@ -1,4 +1,3 @@
-`sudo rm -rf ~/.emacs.d/personal/*`
 IGNORES   = %w(.gitignore .git)
 IRREGULAR = {
   "files/modprobe.conf" => "/etc/modprobe.d/modprobe.conf",
@@ -13,12 +12,11 @@ IRREGULAR = {
   "files/profile" => "/etc/profile",
   "files/ifup.sh" => "/etc/ppp/ip-up.d/01-ifup.sh",
   "files/fcitx_config" => "~/.config/fcitx/config",
-  "emacs/prelude-modules.el" => "~/.emacs.d/prelude-modules.el",
   'scripts' => '~/.scripts'
 }
 
-Dir["emacs/personal/*"].map do |file|
-  IRREGULAR.update(file => "~/.emacs.d/personal/" + File.basename(file))
+Dir["emacs/*"].map do |file|
+  IRREGULAR.update(file => "~/.emacs.d/" + File.basename(file))
 end
 
 COPYFILES = {

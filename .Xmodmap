@@ -1,8 +1,8 @@
 remove Lock = Caps_Lock
 
-keysym Tab = F13
-keysym Control_L = Tab
+!keysym Tab = F13
+!keysym Control_L = Tab
 keysym Caps_Lock = Control_R
-keysym Control_L = Tab
+!keysym Control_L = Tab
 
 add Control = Control_R
