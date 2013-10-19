@@ -155,15 +155,17 @@
 ;; Doc View
 (setq doc-view-continuous t)
 (add-hook 'doc-view-mode-hook (lambda ()
-				(bind-key "j" 'doc-view-next-line-or-next-page doc-view-mode-hook)
-				(bind-key "k" 'doc-view-previous-line-or-previous-page doc-view-mode-hook)
-				(bind-key "h" 'image-backward-hscroll doc-view-mode-map)
-				(bind-key "l" 'image-forward-hscroll doc-view-mode-map)
-				))
+                                (bind-key "j" 'doc-view-next-line-or-next-page doc-view-mode-hook)
+                                (bind-key "k" 'doc-view-previous-line-or-previous-page doc-view-mode-hook)
+                                (bind-key "h" 'image-backward-hscroll doc-view-mode-map)
+                                (bind-key "l" 'image-forward-hscroll doc-view-mode-map)
+                                ))
 
-;; Proggram
-(add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
-
+(setq mouse-drag-copy-region nil)  ; stops selection with a mouse being immediately injected to the kill ring
+(setq x-select-enable-primary t)  ; stops killing/yanking interacting with primary X11 selection
+(setq x-select-enable-clipboard t)  ; makes killing/yanking interact with clipboard X11 selection
+(setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
+(setq mouse-yank-at-point t)
 (bind-key "<mouse-2>" 'mouse-yank-at-click)
 (bind-key "<S-mouse-2>" 'mouse-yank-at-click)
 
@@ -183,3 +185,11 @@
 (bind-key "C-g"      'browse-kill-ring-quit browse-kill-ring-mode-map)
 (bind-key "<escape>" 'browse-kill-ring-quit browse-kill-ring-mode-map)
 (bind-key "C-x y"    'browse-kill-ring)
+
+;; Pomodoro
+(require-package 'pomodoro)
+(setq pomodoro-sound-player "/usr/bin/mplayer"
+      pomodoro-break-start-sound "/usr/share/sounds/purple/alert.wav"
+      pomodoro-work-start-sound "/usr/share/sounds/freedesktop/stereo/message-new-instant.oga"
+      )
+(add-hook 'after-init-hook 'pomodoro-add-to-mode-line)

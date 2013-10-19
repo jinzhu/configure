@@ -5,19 +5,16 @@
 (add-hook 'prog-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'prog-mode-hook 'rainbow-mode)
 
+(add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
+
 ;; Go Mode
-(require-package 'go-mode)
-(setq go-save-hook #'gofmt-before-save)  ;; gofmt by default
-(dolist (path exec-path)
-  (when (file-exists-p (concat path "/goimports"))
-    (setq go-save-hook #'goimports-before-save)))
+(require-packages '(go-mode go-eldoc))
 
 ;; Format / fix imports before every save.
-(add-hook 'go-mode-hook
-          '(lambda()
-             (add-hook 'before-save-hook go-save-hook)
-             (flycheck-declare-checker go-fmt)
-             ))
+(dolist (path exec-path)
+  (if (file-exists-p (concat path "/goimports"))
+      (add-hook 'before-save-hook 'goimports-before-save) (add-hook 'before-save-hook 'gofmt-before-save)
+      ))
 
 (add-hook 'go-mode-hook 'go-eldoc-setup)
 
@@ -33,4 +30,46 @@
 (add-hook 'ruby-mode-hook 'robe-mode)
 
 ;; Web
-(require-packages '(mmm-mode yaml-mode coffee-mode js2-mode js3-mode markdown-mode textile-mode))
+(require-packages '(yaml-mode coffee-mode js2-mode js3-mode markdown-mode textile-mode))
+
+(require-package 'mmm-mode)
+
+(defun set-up-mode-for-erb(mode)
+  (require 'mmm-erb)
+  (mmm-add-mode-ext-class mode "\\.erb\\'" 'erb))
+
+(mapc 'set-up-mode-for-erb '(html-mode html-erb-mode nxml-mode coffee-mode js-mode js2-mode js3-mode markdown-mode textile-mode))
+
+(mmm-add-group
+ 'html-css
+ '((css-cdata
+    :submode css-mode
+    :face mmm-code-submode-face
+    :front "<style[^>]*>[ \t\n]*\\(//\\)?<!\\[CDATA\\[[ \t]*\n?"
+    :back "[ \t]*\\(//\\)?]]>[ \t\n]*</style>"
+    :insert ((?j js-tag nil @ "<style type=\"text/css\">"
+                 @ "\n" _ "\n" @ "</script>" @)))
+   (css
+    :submode css-mode
+    :face mmm-code-submode-face
+    :front "<style[^>]*>[ \t]*\n?"
+    :back "[ \t]*</style>"
+    :insert ((?j js-tag nil @ "<style type=\"text/css\">"
+                 @ "\n" _ "\n" @ "</style>" @)))
+   (css-inline
+    :submode css-mode
+    :face mmm-code-submode-face
+    :front "style=\""
+    :back "\"")))
+
+(dolist (mode (list 'html-mode 'nxml-mode))
+  (mmm-add-mode-ext-class mode "\\.r?html\\(\\.erb\\)?\\'" 'html-css))
+
+;;; Use eldoc for syntax hints
+(require-package 'css-eldoc)
+(autoload 'turn-on-css-eldoc "css-eldoc")
+(add-hook 'css-mode-hook 'turn-on-css-eldoc)
+
+;; crontab
+(require-package 'crontab-mode)
+(add-auto-mode 'crontab-mode "\\.?cron\\(tab\\)?\\'")

@@ -11,17 +11,19 @@
 (setq sml/mode-width 5
       sml/name-width 30)
 
-
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (menu-bar-mode -1)
 (blink-cursor-mode -1)
 (setq inhibit-startup-screen t)
 
 (display-time-mode t)
-(setq major-mode 'conf-mode)
+(setq major-mode 'conf-mode
+      display-time-24hr-format t
+      display-time-day-and-date 0
+      )
 (display-battery-mode t)
 (electric-indent-mode t)
-(global-hl-line-mode t)
+(global-hl-line-mode -1)
 
 (setq frame-title-format
       '("" invocation-name " : " (:eval (if (buffer-file-name)

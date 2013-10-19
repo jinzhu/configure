@@ -36,6 +36,7 @@
 (setq cache-dir (expand-file-name "~/.cache/emacs"))
 
 (require-package 'use-package)
+(require-package 'dash)
 (require 'bind-key)
 
 (setq functions-dir (expand-file-name "~/.emacs.d/functions"))

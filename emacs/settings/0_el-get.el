@@ -6,22 +6,13 @@
     (goto-char (point-max))
     (eval-print-last-sexp)))
 
+;; calfw
 (setq
  el-get-sources
  '(
-   (:name readline-complete
-          :type github
-          :pkgname "monsanto/readline-complete.el"
-          :after (require 'readline-complete)
-          )
    (:name em-zle
           :type github
           :pkgname "emacsmirror/em-zle"
-          )
-   (:name emacs-calfw
-          :type github
-          :pkgname "kiwanami/emacs-calfw"
-          :after (require 'calfw)
           )
    (:name auto-complete-yasnippet
           :after (require 'auto-complete-yasnippet)
@@ -45,11 +36,6 @@
                    (setf youdao-key "1159909992")
                    (bind-key "<f6>" 'youdao-translate-word)
                    ))
-   (:name pomodoro
-          :type github
-          :pkgname "vderyagin/pomodoro.el"
-          :post-init (setq pomodoro-icon
-                           (expand-file-name "pomodoro/pomodoro_technique.png" el-get-dir)))
    ))
 
 (setq my-packages
