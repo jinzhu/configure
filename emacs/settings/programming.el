@@ -4,6 +4,7 @@
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 (add-hook 'prog-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'prog-mode-hook 'rainbow-mode)
+(global-subword-mode)
 
 (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
 

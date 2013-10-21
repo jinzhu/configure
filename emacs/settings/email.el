@@ -100,6 +100,6 @@
 (bind-key "<f3><f3>c" 'mu4e-compose-new)
 
 ;; Run in Daemon
-(if (not (display-graphic-p))
-  (mu4e)
-  )
+; (if (not (display-graphic-p))
+;   (mu4e)
+;   )

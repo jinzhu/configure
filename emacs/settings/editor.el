@@ -33,13 +33,16 @@
 (setq smex-history-length 100)
 
 ;; Pojectile
-(require-package 'projectile)
-(setq projectile-cache-file (expand-file-name  "projectile.cache" cache-dir))
-(setq projectile-known-projects-file (expand-file-name  "projectile-bookmarks.eld" cache-dir))
+(require-packages '(projectile ag))
+(setq projectile-cache-file (expand-file-name  "projectile.cache" cache-dir)
+      projectile-known-projects-file (expand-file-name  "projectile-bookmarks.eld" cache-dir)
+      ag-highlight-search t)
 (projectile-global-mode)
 
-(bind-key "<escape>a" 'projectile-ack)
+(bind-key "<escape>a" 'ag-project)
+(bind-key "<escape>A" 'ag)
 (bind-key "<escape>d" 'projectile-find-dir)
+(bind-key "<escape>D" 'projectile-dired)
 (bind-key "<escape>f" 'projectile-find-file)
 (bind-key "<escape>t" 'projectile-find-test-file)
 (bind-key "<escape>g" 'projectile-grep)
@@ -176,6 +179,7 @@
 
 ;; browse-kill-ring
 (require-package 'browse-kill-ring)
+;; (require-package 'popup-kill-ring)
 (setq browse-kill-ring-highlight-current-entry t
       browse-kill-ring-display-duplicates nil)
 

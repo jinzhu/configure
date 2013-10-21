@@ -11,7 +11,7 @@
 (bind-key "<f1>2" 'split-window-below)
 (bind-key "<f1>3" 'split-window-right)
 
-(bind-key "<f1>k" 'kill-this-buffer)
+(bind-key "<f1>k" 'kill-buffer-and-window)
 (bind-key "<f1><f1>r" 'rename-buffer)
 (bind-key "<f1><f1>R" 'revert-buffer)
 

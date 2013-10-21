@@ -14,7 +14,7 @@
     (cond
       ((memq major-mode '(mu4e-view-mode mu4e-main-mode mu4e-headers-mode mu4e-view-raw-mode
                                          twittering-mode weibo-timeline-mode
-                                         jabber-roster-mode jabber-chat-mode erc-mode
+                                         jabber-roster-mode jabber-chat-mode erc-mode douban-music-mode
                                          ))
        "Activity"
        )

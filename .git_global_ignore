@@ -6,3 +6,5 @@
 .rbenv-version
 tags
 TAGS
+*#
+.#*
