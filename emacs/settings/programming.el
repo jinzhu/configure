@@ -32,39 +32,13 @@
 
 ;; Web
 (require-packages '(yaml-mode coffee-mode js2-mode js3-mode markdown-mode textile-mode))
-
-(require-package 'mmm-mode)
-
-(defun set-up-mode-for-erb(mode)
-  (require 'mmm-erb)
-  (mmm-add-mode-ext-class mode "\\.erb\\'" 'erb))
-
-(mapc 'set-up-mode-for-erb '(html-mode html-erb-mode nxml-mode coffee-mode js-mode js2-mode js3-mode markdown-mode textile-mode))
-
-(mmm-add-group
- 'html-css
- '((css-cdata
-    :submode css-mode
-    :face mmm-code-submode-face
-    :front "<style[^>]*>[ \t\n]*\\(//\\)?<!\\[CDATA\\[[ \t]*\n?"
-    :back "[ \t]*\\(//\\)?]]>[ \t\n]*</style>"
-    :insert ((?j js-tag nil @ "<style type=\"text/css\">"
-                 @ "\n" _ "\n" @ "</script>" @)))
-   (css
-    :submode css-mode
-    :face mmm-code-submode-face
-    :front "<style[^>]*>[ \t]*\n?"
-    :back "[ \t]*</style>"
-    :insert ((?j js-tag nil @ "<style type=\"text/css\">"
-                 @ "\n" _ "\n" @ "</style>" @)))
-   (css-inline
-    :submode css-mode
-    :face mmm-code-submode-face
-    :front "style=\""
-    :back "\"")))
-
-(dolist (mode (list 'html-mode 'nxml-mode))
-  (mmm-add-mode-ext-class mode "\\.r?html\\(\\.erb\\)?\\'" 'html-css))
+(require-package 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+(setq web-mode-engines-alist
+      '(("erb"    . "\\.erb\\'")
+        ))
 
 ;;; Use eldoc for syntax hints
 (require-package 'css-eldoc)

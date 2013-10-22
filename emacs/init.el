@@ -38,6 +38,7 @@
 (require-package 'use-package)
 (require-package 'dash)
 (require 'bind-key)
+(savehist-mode)
 
 (setq functions-dir (expand-file-name "~/.emacs.d/functions"))
 (when (file-exists-p functions-dir)
