@@ -1,13 +1,17 @@
 (setq auto-save-interval 1
       auto-save-timeout 1
       auto-save-list-file-prefix (expand-file-name "auto-save-list" cache-dir)
+      auto-save-file-name-transforms `((".*" ,cache-dir t))
       savehist-additional-variables '(kill-ring compile-command search-ring regexp-search-ring)
 
+      backup-directory-alist `((".*" . ,cache-dir))
       backup-by-copying t    ; Don't delink hardlinks
       version-control t      ; Use version numbers on backups
       delete-old-versions t  ; Automatically delete excess backups
       kept-new-versions 20   ; how many of the newest versions to keep
       kept-old-versions 5    ; and how many of the old
+
+      create-lockfiles nil   ; no lock file
       )
 
 (setq-default  tab-width 2
@@ -15,9 +19,6 @@
                indent-tabs-mode nil)	; makes sure tabs are not used.
 
 (global-auto-revert-mode 1)
-
-(setq backup-directory-alist
-      `((".*" . , (expand-file-name "backup" cache-dir))))
 
 ;; Bookmarks
 (require 'bookmark)
@@ -44,6 +45,8 @@
 (bind-key "<escape>d" 'projectile-find-dir)
 (bind-key "<escape>D" 'projectile-dired)
 (bind-key "<escape>f" 'projectile-find-file)
+(bind-key "<escape>F" 'ido-find-file)
+(bind-key "<escape>C-f" 'projectile-find-file-in-directory)
 (bind-key "<escape>t" 'projectile-find-test-file)
 (bind-key "<escape>g" 'projectile-grep)
 (bind-key "<escape>T" 'projectile-regenerate-tags)
@@ -129,6 +132,9 @@
 (key-chord-define-global ",," 'comment-or-uncomment-region-or-line)
 (bind-key "M-j" 'indent-new-comment-line)
 
+(require-package 'ace-jump-buffer)
+(key-chord-define-global "bb" 'ace-jump-buffer)
+
 (key-chord-mode +1)
 
 ;; Ack
@@ -197,3 +203,6 @@
       pomodoro-work-start-sound "/usr/share/sounds/freedesktop/stereo/message-new-instant.oga"
       )
 (add-hook 'after-init-hook 'pomodoro-add-to-mode-line)
+
+;; Helm
+(require-packages '(helm-descbinds helm-go-package))

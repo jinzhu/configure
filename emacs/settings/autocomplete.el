@@ -1,3 +1,8 @@
+;; Go Autocomplete
+(require-package 'go-autocomplete)
+(add-hook 'go-mode-hook (lambda () (local-set-key (kbd "M-.") 'godef-jump)))
+
+;; Auto Complete
 (require-package 'auto-complete)
 
 (require 'auto-complete-config)
@@ -81,10 +86,6 @@
 ;; Default settings
 (bind-key "C-n" 'ac-next ac-menu-map)
 (bind-key "C-p" 'ac-previous ac-menu-map)
-
-;; Go Autocomplete
-(require-package 'go-autocomplete)
-(add-hook 'go-mode-hook (lambda () (local-set-key (kbd "M-.") 'godef-jump)))
 
 ;; Yasnippet
 (require-package 'yasnippet)

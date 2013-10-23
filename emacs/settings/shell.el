@@ -153,3 +153,5 @@
 (bind-key "<f1>p" 'multi-eshell-go-back)
 (bind-key "<f1><f1>l" 'eshell-show-output)
 (bind-key "<f1><f1>b" 'eshell-insert-buffer-name)
+
+(setq eshell-path-env (concat (expand-file-name "~/.gem/ruby/2.0.0/bin:") eshell-path-env))
