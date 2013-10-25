@@ -55,7 +55,7 @@
 (require 'em-smart)
 
 (setq
- eshell-directory-name (expand-file-name "eshell" cache-dir)
+ ;; eshell-directory-name (expand-file-name "eshell" cache-dir)
 
  eshell-last-dir-ring-size 100
 

@@ -59,7 +59,13 @@
 ;; Smartparens
 (require-package 'smartparens)
 (require 'smartparens-config)
-(show-smartparens-global-mode +1)
+(smartparens-global-mode t)
+(show-smartparens-global-mode t)
+;; https://github.com/Fuco1/smartparens/wiki/Example-configuration
+
+;;; html-mode
+(sp-with-modes '(html-mode sgml-mode)
+  (sp-local-pair "<" ">"))
 
 ;; Rainbow Mode
 (require-package 'rainbow-mode)
@@ -206,3 +212,18 @@
 
 ;; Helm
 (require-packages '(helm-descbinds helm-go-package))
+
+;; Google Translation
+(require-package 'google-translate)
+
+(setq google-translate-default-source-language "auto"
+      google-translate-default-target-language "zh-CN"
+      google-translate-show-phonetic t)
+(bind-key "<f1>t" 'google-translate-query-or-region)
+
+;; Smart Forward
+(require-package 'smart-forward)
+(global-set-key (kbd "M-<up>") 'smart-up)
+(global-set-key (kbd "M-<down>") 'smart-down)
+(global-set-key (kbd "M-<left>") 'smart-backward)
+(global-set-key (kbd "M-<right>") 'smart-forward)

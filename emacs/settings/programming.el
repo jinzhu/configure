@@ -48,3 +48,5 @@
 ;; crontab
 (require-package 'crontab-mode)
 (add-auto-mode 'crontab-mode "\\.?cron\\(tab\\)?\\'")
+
+(require-package 'htmlize)

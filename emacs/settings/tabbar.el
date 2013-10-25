@@ -11,26 +11,29 @@
 
 (defun my-tabbar-buffer-groups ()
   (list
-    (cond
-      ((memq major-mode '(mu4e-view-mode mu4e-main-mode mu4e-headers-mode mu4e-view-raw-mode
-                                         twittering-mode weibo-timeline-mode
-                                         jabber-roster-mode jabber-chat-mode erc-mode douban-music-mode
-                                         ))
-       "Activity"
-       )
-      ((memq major-mode '(eshell-mode term-mode shell-mode))
-       "Shell"
-       )
-      ((memq major-mode '(org-mode org-agenda-mode diary-mode))
-       "OrgMode"
-       )
-      ((string-equal "*" (substring (buffer-name) 0 1))
-       "Emacs"
-       )
-      (t
-        "Common"
-        )
-      )))
+   (cond
+    ((memq major-mode '(mu4e-view-mode mu4e-main-mode mu4e-headers-mode mu4e-view-raw-mode
+                                       twittering-mode weibo-timeline-mode
+                                       jabber-roster-mode jabber-chat-mode erc-mode douban-music-mode
+                                       ))
+     "Activity"
+     )
+    ((memq major-mode '(eshell-mode term-mode shell-mode))
+     "Shell"
+     )
+    ((memq major-mode '(org-mode org-agenda-mode diary-mode))
+     "OrgMode"
+     )
+    ((string-equal "*" (substring (buffer-name) 0 1))
+     "Emacs"
+     )
+    ((memq major-mode '(fundamental-mode))
+     "Emacs"
+     )
+    (t
+     "Common"
+     )
+    )))
 
 (setq tabbar-buffer-groups-function 'my-tabbar-buffer-groups)
 
