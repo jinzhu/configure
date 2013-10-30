@@ -11,7 +11,8 @@
 (bind-key "<f1>2" 'split-window-below)
 (bind-key "<f1>3" 'split-window-right)
 
-(bind-key "<f1>k" 'kill-buffer-and-window)
+(bind-key "<f1>k" 'kill-this-buffer)
+(bind-key "<f1>K" 'kill-buffer-and-window)
 (bind-key "<f1><f1>r" 'rename-buffer)
 (bind-key "<f1><f1>R" 'revert-buffer)
 
@@ -65,7 +66,8 @@
 (require-package 'helm)
 (bind-key "C-c i" 'helm-semantic-or-imenu)
 (bind-key "C-c t" 'helm-etags-select)
-(bind-key "C-c o" 'helm-occur)
+(require-package 'helm-swoop)
+(bind-key "C-c o" 'helm-swoop)
 
 ;; Open with
 (bind-key "C-c C-o" 'open-with)

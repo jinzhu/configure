@@ -131,7 +131,7 @@
 
 ;; Recentf
 (setq recentf-exclude '(
-                        "\.hist$" "/COMMIT_EDITMSG$" "/tmp/" "/ssh:" "/sudo:"
+                         "\.hist$" "/COMMIT_EDITMSG$" "/tmp/" "/ssh:" "/sudo:"
                         ))
 
 ;; Keyfreq

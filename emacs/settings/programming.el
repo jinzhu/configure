@@ -9,7 +9,7 @@
 (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
 
 ;; Go Mode
-(require-packages '(go-mode go-eldoc))
+(require-packages '(go-mode go-eldoc gore-mode))
 
 ;; Format / fix imports before every save.
 (dolist (path exec-path)
