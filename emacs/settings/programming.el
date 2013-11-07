@@ -32,13 +32,27 @@
 
 ;; Web
 (require-packages '(yaml-mode coffee-mode js2-mode js3-mode markdown-mode textile-mode))
-(require-package 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-(setq web-mode-engines-alist
-      '(("erb"    . "\\.erb\\'")
-        ))
+
+;; (require-package 'web-mode)
+;; (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+;; (setq web-mode-engines-alist
+;;       '(("erb"    . "\\.erb\\'")
+;;         ))
+
+(require-package 'mmm-mode)
+(require 'mmm-defaults)
+(setq mmm-global-mode 'buffers-with-submode-classes)
+(setq mmm-submode-decoration-level 2)
+
+(require-package 'multi-web-mode)
+(setq mweb-default-major-mode 'html-mode)
+(setq mweb-tags '((ruby-mode "<%==\\|<%=\\|<%#\\|<%" "%>")
+                  (js3-mode "<script[^>]*>" "</script>")
+                  (css-mode "<style[^>]*>" "</style>")))
+(setq mweb-filename-extensions '("htm" "html" "erb"))
+(multi-web-global-mode 1)
 
 ;;; Use eldoc for syntax hints
 (require-package 'css-eldoc)

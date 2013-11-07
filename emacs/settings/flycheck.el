@@ -1,8 +1,8 @@
 (require-packages '(flycheck google-this))
-;; (require-package 'flycheck-color-mode-line)
+(require-package 'flycheck-color-mode-line)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
-;; (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)
+(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)
 ;; Disable warnning while edit emacs lisp scripts
 (setq flycheck-checkers (delq 'emacs-lisp-checkdoc flycheck-checkers))
 
