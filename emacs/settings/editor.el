@@ -209,6 +209,7 @@
       pomodoro-work-start-sound "/usr/share/sounds/freedesktop/stereo/message-new-instant.oga"
       )
 (add-hook 'after-init-hook 'pomodoro-add-to-mode-line)
+(pomodoro-start nil)
 
 ;; Helm
 (require-packages '(helm-descbinds helm-go-package))
