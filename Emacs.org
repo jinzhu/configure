@@ -191,7 +191,7 @@ I	#+INCLUDE: line
    C-c C-v e -> run script in block
    C-c C-t   -> run script in other window
 
-* Move cursor
+* Move Cursor
   C-f/C-b -> next/backward char
   M-f/M-b -> next/backward word
   C-n/C-p -> next/previous line
@@ -259,7 +259,7 @@ I	#+INCLUDE: line
 ** Jump Window: (winner mode)
    C-c <left> winner-undo
    C-c <right> redo
-   Super + up/down/left/right -> move window
+   Esc + up/down/left/right -> move window
    C-c , -> rotate window
 
 * Undo / Redo
@@ -274,6 +274,7 @@ I	#+INCLUDE: line
   M-- 22 C-x C-i -> Remove first 22 blank space
   C-i -> indent back
   M-\ -> delete all blanks around cursor
+  M-Space -> just one space
   M-^ -> delete-indentation (join current line with above line)
   C-^ -> join current line with below line
   C-j -> indent and next line
@@ -298,7 +299,7 @@ I	#+INCLUDE: line
   M-;     -> Insert or realign comment on current line
   C-u M-; -> Kill comment on current line (comment-kill).
   M-j     -> Like <RET> followed by inserting and aligning a comment (comment-indent-new-line).
-  C-c C-c -> comment or uncomment region or current line
+  ,,      -> comment or uncomment region or current line
   M-x comment-region
 
 * Up/Down case
@@ -398,6 +399,8 @@ I	#+INCLUDE: line
 + M-x vc-resolve-conflicts -> resolve conflicts.
   (In ediff 'n' takes you to the next change, and 'a' or 'b' lets you choose the change from buffer A or B being compared)
 + M-x list-packages -> U (mark as upgrade) -> x (execute it) -> upgrade packages
++ M+= -> show information in region
++ C-x+= -> show information of cursor position
 * Magit
   c -> commit  ( -r commit amend)
   s -> stage
