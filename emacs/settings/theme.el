@@ -5,11 +5,10 @@
 
 ;; Smart Mode Line
 (require-package 'smart-mode-line)
-(require 'smart-mode-line)
-(if after-init-time (sml/setup)
-  (add-hook 'after-init-hook 'sml/setup))
+(setq sml/theme 'dark)
+(sml/setup)
 (setq sml/mode-width 5
-      sml/name-width 30
+      sml/name-width 50
       sml/show-encoding t)
 
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))

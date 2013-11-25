@@ -185,9 +185,12 @@
 (bind-key "<S-mouse-2>" 'mouse-yank-at-click)
 
 ;; easy-kill
-(require-package 'easy-kill)
-(global-set-key [remap kill-ring-save] 'easy-kill)
-(global-set-key [remap mark-sexp] 'easy-mark-sexp)
+;; (require-package 'easy-kill)
+;; (global-set-key [remap kill-ring-save] 'easy-kill)
+;; (global-set-key [remap mark-sexp] 'easy-mark-sexp)
+;; vim region
+(require-package 'vim-region)
+(bind-key "M-w" 'vim-region-mode)
 
 ;; browse-kill-ring
 (require-package 'browse-kill-ring)

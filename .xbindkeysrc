@@ -27,6 +27,8 @@
     Mod4 + 5
 "wmctrl -xa Zim || zim"
     Mod4 + 6
+"wmctrl -xa Evince || evince"
+    Mod4 + 7
 
 "wmctrl -xa Terminal || gnome-terminal"
     Control+Mod4 + t
