@@ -55,6 +55,7 @@
 
 (bind-key "<escape>b" 'ido-switch-buffer)
 (bind-key "<escape>B" 'projectile-recentf)
+(bind-key "<escape>k" 'projectile-kill-buffers)
 (bind-key "<escape>r" 'recentf-ido-find-file)
 
 ;; Smartparens
@@ -62,6 +63,7 @@
 (require 'smartparens-config)
 (smartparens-global-mode t)
 (show-smartparens-global-mode t)
+(setq sp-autoescape-string-quote nil)
 ;; https://github.com/Fuco1/smartparens/wiki/Example-configuration
 
 ;;; html-mode

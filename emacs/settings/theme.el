@@ -42,3 +42,8 @@
 
 ;; enable y/n answers
 (fset 'yes-or-no-p 'y-or-n-p)
+
+(require 'uniquify)
+(setq
+  uniquify-buffer-name-style 'post-forward
+  uniquify-separator ":")
