@@ -54,6 +54,7 @@
 (bind-key "<escape>p" 'projectile-switch-project)
 
 (bind-key "<escape>b" 'ido-switch-buffer)
+(bind-key "<escape>B" 'projectile-recentf)
 (bind-key "<escape>r" 'recentf-ido-find-file)
 
 ;; Smartparens
@@ -188,9 +189,9 @@
 ;; (require-package 'easy-kill)
 ;; (global-set-key [remap kill-ring-save] 'easy-kill)
 ;; (global-set-key [remap mark-sexp] 'easy-mark-sexp)
-;; vim region
+;; vim-region
 (require-package 'vim-region)
-(bind-key "M-w" 'vim-region-mode)
+(bind-key "C-SPC" 'vim-region-mode)
 
 ;; browse-kill-ring
 (require-package 'browse-kill-ring)
