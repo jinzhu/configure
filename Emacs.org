@@ -501,3 +501,27 @@ I	#+INCLUDE: line
  helm-occur
 * Calc
   (calc-eval "1+2*9")
+* Keyboard Macros
+C-x ( –> Start defining a keyboard macro
+C-u C-x ) -> Re-execute last keyboard macro, then append keys to its definition
+C-u C-u <F3> -> Append keys to the last keyboard macro without re-executing it
+C-x ) –> Stop defining the keyboard macro
+C-x e -> Execute the keyboard macro -> (e to repeat)
+C-u 37 C-x e -> Execute the macro 37 times
+C-u 0 C-x e -> Execute the macro an infinite number of times until the end of the file is reached
+C-x C-k r -> apply-macro-to-region-lines
+
+M-x name-last-kbd-macro -> Name the last-defined keyboard macro
+M-x insert-kbd-macro -> Insert macro to current buffer
+M-x edit-kbd-macro -> Edit macro (C-x C-k RET)
+
+// Record interactive macro
+C-x ( -> C-u C-x q -> (recursive editing at that point) -> C-M-c -> C-x )
+// Execute interactive macro
+C-x e -> (typing) -> C-M-c
+
+C-x C-k C-p -> kmacro-cycle-ring-previous -> (C-p previous)
+C-x C-k C-n -> kmacro-cycle-ring-next -> (C-n next)
+C-x C-k SPC -> (kmacro-step-edit-macro) Stepwise Editing a Keyboard Macro
+C-x C-k n -> name last macro
+C-x C-k b -> bind last macro
