@@ -124,6 +124,9 @@
 ;; Wrap Region
 (require-package 'wrap-region)
 (wrap-region-global-mode)
+(require-package 'change-inner)
+(bind-key "<f4>i" 'change-inner)
+(bind-key "<f4>o" 'change-outer)
 
 ;; Ace Jump
 (require-package 'ace-jump-mode)

@@ -47,3 +47,19 @@
 (setq
   uniquify-buffer-name-style 'post-forward
   uniquify-separator ":")
+
+;; Show keystrokes in progress
+(setq echo-keystrokes 0.1)
+
+;; Transparently open compressed files
+(auto-compression-mode t)
+
+;; UTF-8 please
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+
+;; large gc threshold
+(setq gc-cons-threshold 20000000)
