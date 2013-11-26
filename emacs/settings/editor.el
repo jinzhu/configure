@@ -275,3 +275,5 @@
 (bind-key "<f4>SPC" `(lambda () (interactive) (replace-region-by (lambda (word) (s-replace "-" " " (s-dashed-words word))))))
 (bind-key "<f4>c" `(lambda () (interactive) (replace-region-by 's-lower-camel-case)))
 (bind-key "<f4>C" `(lambda () (interactive) (replace-region-by 's-upper-camel-case)))
+(bind-key "<f4>t" `(lambda () (interactive) (replace-region-by 's-titleize)))
+(bind-key "<f4>d" `(lambda () (interactive) (replace-region-by 's-downcase)))
