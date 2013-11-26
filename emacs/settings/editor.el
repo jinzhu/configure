@@ -161,11 +161,15 @@
 (bind-key "<f5>e" 'mc/edit-ends-of-lines)
 (bind-key "<f5><down>" 'mc/mark-next-like-this)
 (bind-key "<f5><up>" 'mc/mark-previous-like-this)
-(bind-key "<f5><f5><down>" 'mc/skip-to-next-like-this)
-(bind-key "<f5><f5><up>" 'mc/skip-previous-like-this)
+(bind-key "<f5><left>" 'mc/unmark-next-like-this)
+(bind-key "<f5><right>" 'mc/unmark-previous-like-this)
 (bind-key "<f5>m" 'mc/mark-more-like-this-extended)
 (bind-key "<f5><f5>a" 'mc/mark-all-dwim)
-(bind-key "C-S-<mouse-1>" 'mc/add-cursor-on-click)
+(bind-key "<s-mouse-1>" 'mc/add-cursor-on-click)
+(bind-key "<f5>r" 'mc/reverse-regions)
+(bind-key "<f5>s" 'mc/sort-regions)
+(bind-key "<f5>i" 'mc/insert-numbers)
+(bind-key "<f5>l" 'set-rectangular-region-anchor)
 
 ;; White Space
 (setq whitespace-line-column 100)
