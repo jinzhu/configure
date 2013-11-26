@@ -219,6 +219,20 @@
 
 ;; Helm
 (require-packages '(helm-descbinds helm-go-package))
+(defun my-helm()
+  (interactive)
+  (require 'helm-files)
+  (helm-other-buffer '(
+                       helm-source-ido-virtual-buffers
+                       helm-source-files-in-current-dir
+                       helm-source-bookmarks
+                       helm-source-etags-select
+                       helm-source-recentf
+                       helm-source-calculation-result
+                       helm-source-locate)
+                     "*my helm*"))
+(bind-key "<escape>h" 'my-helm)
+
 
 ;; Google Translation
 (require-package 'google-translate)
