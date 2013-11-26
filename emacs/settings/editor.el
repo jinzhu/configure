@@ -102,10 +102,17 @@
 
 ;; Undo Tree
 (require-package 'undo-tree)
-(setq undo-tree-visualizer-timestamps t)
-(setq undo-tree-history-directory-alist (quote (("." . "~/.cache/emacs/undo-tree"))))
-(setq undo-tree-auto-save-history t)
+(setq undo-tree-visualizer-timestamps t
+      undo-tree-history-directory-alist (quote (("." . "~/.cache/emacs/undo-tree")))
+      undo-tree-auto-save-history t
+      undo-tree-visualizer-relative-timestamps nil
+      undo-tree-visualizer-diff t
+      undo-limit 600000
+      undo-strong-limit 900000)
 (global-undo-tree-mode)
+(defadvice undo-tree-make-history-save-file-name
+  (after undo-tree activate)
+  (setq ad-return-value (concat ad-return-value ".gz")))
 
 ;; Align
 (bind-key "C-x \\" 'align-regexp)

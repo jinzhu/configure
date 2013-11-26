@@ -267,6 +267,10 @@ I	#+INCLUDE: line
   C-/ -> undo
   C-? -> redo
   C-x u -> undo tree
+** undo tree
+  t -> toggle-timestamps
+  s -> Exit selection mode
+  d -> Toggle diff display
 
 * Indent
   C-x C-i -> Add tab to last mark place
