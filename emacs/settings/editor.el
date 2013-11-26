@@ -160,8 +160,8 @@
 (setq whitespace-line-column 100)
 
 ;; Cua Mode
-(cua-mode 'emacs)
-(setq cua-enable-cua-keys nil)
+;; (cua-mode 'emacs)
+;; (setq cua-enable-cua-keys nil)
 
 ;; SQL Mode
 (add-hook 'sql-interactive-mode-hook (lambda ()

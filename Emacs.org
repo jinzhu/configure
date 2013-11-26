@@ -310,17 +310,21 @@ I	#+INCLUDE: line
   C-x C-l     -> downcase region
   C-x C-u     -> upcase region
 * Block Edit
-** rectangle
-   C-px r t -> Add to the beginning (string-rectangle)
+** Rectangle
+   矩形，以光标选定点为起始，当前光标点为终止的区域
+   C-x r t -> Add to the beginning (string-rectangle)
    C-x r k -> Kill the text of the region-rectangle
-   inline-string-rectangle
+   C-x r c -> clear-rectangle
+   C-x r d -> delete-rectangle
+   C-x r k -> kill-rectangle
+   C-x r o -> open-rectangl
+   C-x r y -> yank-rectangle
 ** MC
    mc/edit-beginings-of-lines
    mc/edit-ends-of-lines (mark lines, C-e to end, edit)
    mc/mark-previous-like-this
    mc/mark-all-like-this
    mc/mark-next-like-this
-
 ** CUA
    Ctrl+Enter -> block select
    [M-a]: 将rect中的文字左对齐
@@ -339,12 +343,6 @@ I	#+INCLUDE: line
    [M-t]: 把rect整个替换为一个字符串(提示输入)
    [M-u]: 把rect中的内容全部转换为大写
    [M-|]: 对rect执行一个shell命令
-
-** SetGoalColumn
-   C-x C-n -> Set Goal Column
-   C-n -> next line
-   C-p -> prev line
-   C-u C-x C-n -> Disable Goal Column
 * Repeat
   C-x z -> repeat last command -> (z) repeat again
 * Align
