@@ -205,6 +205,7 @@ I	#+INCLUDE: line
 
   C-v/M-v -> scroll up/down
   C-l     -> re center
+  C-M-l   -> reposition to top
   C-c i   -> prelude-ido-goto-symbol
   M-9 M-9 M-9 C-f -> Move forward 999 char
 
@@ -400,6 +401,7 @@ I	#+INCLUDE: line
   M-x list-packages -> U (mark as upgrade) -> x (execute it) -> upgrade packages
   M+= -> show information in region
   C-x+= -> show information of cursor position
+  M-x tabify / untabify -> convert space to tab or tab to space
 * Magit
   c -> commit  ( -r commit amend)
   s -> stage
@@ -524,6 +526,7 @@ I	#+INCLUDE: line
 
   C-x C-k C-p -> kmacro-cycle-ring-previous -> (C-p previous)
   C-x C-k C-n -> kmacro-cycle-ring-next -> (C-n next)
+  C-x C-k C-d	-> kmacro-delete-ring-head
   C-x C-k SPC -> (kmacro-step-edit-macro) Stepwise Editing a Keyboard Macro
   C-x C-k n -> name last macro
   C-x C-k b -> bind last macro
