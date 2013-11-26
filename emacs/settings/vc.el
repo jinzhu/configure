@@ -12,6 +12,8 @@
 (require-package 'git-commit-mode)
 (require-package 'gitconfig-mode)
 (require-package 'gitignore-mode)
+(require-package 'git-messenger)
+(bind-key "C-x v p" 'git-messenger:popup-message)
 (setq
   magit-stage-all-confirm nil
   magit-unstage-all-confirm nil)

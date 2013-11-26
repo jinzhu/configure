@@ -47,3 +47,6 @@
 (setq settings-dir (expand-file-name "~/.emacs.d/settings"))
 (when (file-exists-p settings-dir)
   (mapc 'load (directory-files settings-dir 't "^[^#].*el$")))
+
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
