@@ -133,3 +133,25 @@ Equivalent to \\[set-mark-command] when \\[transient-mark-mode] is disabled"
   "Add entries to `auto-mode-alist' to use `MODE' for all given file `PATTERNS'."
   (dolist (pattern patterns)
     (add-to-list 'auto-mode-alist (cons pattern mode))))
+
+(defun replace-region-by (fn)
+  (let* ((beg (region-beginning))
+         (end (region-end))
+         (contents (buffer-substring beg end)))
+    (delete-region beg end)
+    (insert (funcall fn contents))))
+
+(defun create-scratch-buffer nil
+  "create a new scratch buffer to work in. (could be *scratch* - *scratchX*)"
+  (interactive)
+  (let ((n 0)
+        bufname)
+    (while (progn
+             (setq bufname (concat "*scratch"
+                                   (if (= n 0) "" (int-to-string n))
+                                   "*"))
+             (setq n (1+ n))
+             (get-buffer bufname)))
+    (switch-to-buffer (get-buffer-create bufname))
+    (emacs-lisp-mode)
+    ))

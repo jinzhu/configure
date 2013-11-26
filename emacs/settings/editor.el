@@ -127,6 +127,8 @@
 (require-package 'change-inner)
 (bind-key "<f4>i" 'change-inner)
 (bind-key "<f4>o" 'change-outer)
+(bind-key "<f4><f4>i" 'copy-inner)
+(bind-key "<f4><f4>o" 'copy-outer)
 
 ;; Ace Jump
 (require-package 'ace-jump-mode)
@@ -247,10 +249,18 @@
 
 ;; Smart Forward
 (require-package 'smart-forward)
-(global-set-key (kbd "M-<up>") 'smart-up)
-(global-set-key (kbd "M-<down>") 'smart-down)
-(global-set-key (kbd "M-<left>") 'smart-backward)
-(global-set-key (kbd "M-<right>") 'smart-forward)
+(bind-key "M-<up>" 'smart-up)
+(bind-key "M-<down>" 'smart-down)
+(bind-key "M-<left>" 'smart-backward)
+(bind-key "M-<right>" 'smart-forward)
 
 ;; wgrep
 (require-package 'wgrep)
+
+;; s.el
+(require-package 's)
+(bind-key "<f4>-" `(lambda () (interactive) (replace-region-by 's-dashed-words)))
+(bind-key "<f4>_" `(lambda () (interactive) (replace-region-by 's-snake-case)))
+(bind-key "<f4>SPC" `(lambda () (interactive) (replace-region-by (lambda (word) (s-replace "-" " " (s-dashed-words word))))))
+(bind-key "<f4>c" `(lambda () (interactive) (replace-region-by 's-lower-camel-case)))
+(bind-key "<f4>C" `(lambda () (interactive) (replace-region-by 's-upper-camel-case)))
