@@ -226,6 +226,7 @@
 (require-packages '(helm-descbinds helm-go-package))
 (defun my-helm()
   (interactive)
+  (require 'helm-eval)
   (require 'helm-files)
   (helm-other-buffer '(
                        helm-source-ido-virtual-buffers
