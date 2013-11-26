@@ -76,3 +76,5 @@
   autosquash = true
 [help]
   autocorrect = 1
+[rerere]
+	enabled = true

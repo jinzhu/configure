@@ -157,9 +157,15 @@
 
 ;; Multiple Cursors
 (require-package 'multiple-cursors)
-(require-package 'region-bindings-mode)
-(region-bindings-mode-enable)
-(bind-key "C-m" 'mc/mark-more-like-this-extended region-bindings-mode-map)
+(bind-key "<f5>a" 'mc/edit-beginnings-of-lines)
+(bind-key "<f5>e" 'mc/edit-ends-of-lines)
+(bind-key "<f5><down>" 'mc/mark-next-like-this)
+(bind-key "<f5><up>" 'mc/mark-previous-like-this)
+(bind-key "<f5><f5><down>" 'mc/skip-to-next-like-this)
+(bind-key "<f5><f5><up>" 'mc/skip-previous-like-this)
+(bind-key "<f5>m" 'mc/mark-more-like-this-extended)
+(bind-key "<f5><f5>a" 'mc/mark-all-dwim)
+(bind-key "C-S-<mouse-1>" 'mc/add-cursor-on-click)
 
 ;; White Space
 (setq whitespace-line-column 100)
