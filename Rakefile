@@ -15,7 +15,7 @@ IRREGULAR = {
   'scripts' => '~/.scripts'
 }
 
-Dir["emacs/*"].map do |file|
+Dir["emacs/*"].concat(Dir["emacs/.*el"]).map do |file|
   IRREGULAR.update(file => "~/.emacs.d/" + File.basename(file))
 end
 
