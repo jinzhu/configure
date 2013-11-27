@@ -170,7 +170,7 @@
    <s  <Tab>
    http://orgmode.org/manual/Easy-Templates.html#Easy-Templates
 
-#+BEGIN_SRC
+   #+BEGIN_SRC
 s	#+BEGIN_SRC ... #+END_SRC
 e	#+BEGIN_EXAMPLE ... #+END_EXAMPLE
 q	#+BEGIN_QUOTE ... #+END_QUOTE
@@ -184,7 +184,7 @@ a	#+BEGIN_ASCII ... #+END_ASCII
 A	#+ASCII:
 i	#+INDEX: line
 I	#+INCLUDE: line
-#+END_SRC
+   #+END_SRC
 
 ** Babel
    C-c C-c   -> run script in block
@@ -268,9 +268,9 @@ I	#+INCLUDE: line
   C-? -> redo
   C-x u -> undo tree
 ** undo tree
-  t -> toggle-timestamps
-  s -> Exit selection mode
-  d -> Toggle diff display
+   t -> toggle-timestamps
+   s -> Exit selection mode
+   d -> Toggle diff display
 
 * Indent
   C-x C-i -> Add tab to last mark place
@@ -399,19 +399,28 @@ I	#+INCLUDE: line
   C-x 5 2 -> create new top-level X windows
   M-x command-history -> show command history
   M-x htmlize-file/buffer -> htmlize a file
-  M-x vc-resolve-conflicts -> resolve conflicts.
-  (In ediff 'n' takes you to the next change, and 'a' or 'b' lets you choose the change from buffer A or B being compared)
   C-x v = -> show diff
   M-x list-packages -> U (mark as upgrade) -> x (execute it) -> upgrade packages
   M+= -> show information in region
   C-x+= -> show information of cursor position
   M-x tabify / untabify -> convert space to tab or tab to space
-* Magit
-  c -> commit  ( -r commit amend)
-  s -> stage
-  S -> stage all
-  u -> unstage
-  U -> unstage all
+* VC
+  C-x v l -> file log
+  C-x v L -> all log
+  C-x v ~ -> vc-revision-other-window
+  C-x v u -> vc-revert
+  C-x v = -> vc-diff
+  C-x v s -> vc-create-tag
+  M-x vc-resolve-conflicts -> resolve conflicts
+  (In ediff 'n' takes you to the next change, and 'a' or 'b' lets you choose the change from buffer A or B being compared)
+  d -> diff current file
+  D -> diff all files
+** Magit
+   c -> commit  ( -r commit amend)
+   s -> stage
+   S -> stage all
+   u -> unstage
+   U -> unstage all
 * Mu4e
   % -> mu4e-headers-mark-pattern
   ! -> mark as read
@@ -500,10 +509,10 @@ I	#+INCLUDE: line
   Search by imenu
   WhichFuncMode
 * Helm
- C-e -> 2nd action
- C-j -> 3nd action
- Tab -> View all actions
- helm-occur
+  C-e -> 2nd action
+  C-j -> 3nd action
+  Tab -> View all actions
+  helm-occur
 * Calc
   (calc-eval "1+2*9")
 * Keyboard Macros
