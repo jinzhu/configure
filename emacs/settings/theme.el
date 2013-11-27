@@ -44,9 +44,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (require 'uniquify)
-(setq
-  uniquify-buffer-name-style 'post-forward
-  uniquify-separator ":")
+(setq uniquify-buffer-name-style 'forward)
 
 ;; Show keystrokes in progress
 (setq echo-keystrokes 0.1)

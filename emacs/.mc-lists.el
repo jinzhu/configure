@@ -5,6 +5,7 @@
       '(
         kill-region
         org-beginning-of-line
+        org-delete-char
         org-end-of-line
         org-self-insert-command
         smarter-move-beginning-of-line
