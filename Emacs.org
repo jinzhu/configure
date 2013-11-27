@@ -214,8 +214,8 @@ I	#+INCLUDE: line
   M-h -> Mark paragraph
   C-x h -> Mark whole buffer
   C-u C-space -> last mark place -> then use C-space
-  C-space C-space -> set mark
-  C-x C-x -> select to last mark place
+  C-space -> set mark
+  C-x C-x -> Exchange point and mark position
 
 * Kill text
   C-d -> kill next char
@@ -399,7 +399,6 @@ I	#+INCLUDE: line
   C-x 5 2 -> create new top-level X windows
   M-x command-history -> show command history
   M-x htmlize-file/buffer -> htmlize a file
-  C-x v = -> show diff
   M-x list-packages -> U (mark as upgrade) -> x (execute it) -> upgrade packages
   M+= -> show information in region
   C-x+= -> show information of cursor position

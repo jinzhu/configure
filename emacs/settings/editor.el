@@ -181,10 +181,6 @@
 ;; White Space
 (setq whitespace-line-column 100)
 
-;; Cua Mode
-;; (cua-mode 'emacs)
-;; (setq cua-enable-cua-keys nil)
-
 ;; SQL Mode
 (add-hook 'sql-interactive-mode-hook (lambda ()
                                        (yas-minor-mode -1)))
@@ -209,13 +205,8 @@
 (bind-key "<mouse-2>" 'mouse-yank-at-click)
 (bind-key "<S-mouse-2>" 'mouse-yank-at-click)
 
-;; easy-kill
-;; (require-package 'easy-kill)
-;; (global-set-key [remap kill-ring-save] 'easy-kill)
-;; (global-set-key [remap mark-sexp] 'easy-mark-sexp)
-;; vim-region
-(require-package 'vim-region)
-(bind-key "C-SPC" 'vim-region-mode)
+;; overwrite region if any active
+(delete-selection-mode 1)
 
 ;; browse-kill-ring
 (require-package 'browse-kill-ring)
