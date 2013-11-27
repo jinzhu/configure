@@ -140,6 +140,9 @@
 ;; Ace Jump
 (require-package 'ace-jump-mode)
 
+;; Comment
+(bind-key "M-;" 'comment-dwim-line)
+
 ;; key-chord
 (require-package 'key-chord)
 (setq key-chord-two-keys-delay 0.2)
@@ -150,7 +153,6 @@
 (key-chord-define-global ";w" 'save-buffer)
 (key-chord-define-global "vv" 'select-current-line)
 (key-chord-define-global "JJ" 'mode-line-other-buffer) ; Switch to previous buffer
-(key-chord-define-global ",," 'comment-or-uncomment-region-or-line)
 (bind-key "M-j" 'indent-new-comment-line)
 
 (require-package 'ace-jump-buffer)
