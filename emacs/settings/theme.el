@@ -46,6 +46,10 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
+;; midnight mode purges buffers which haven't been displayed in 3 days
+(require 'midnight)
+(setq midnight-mode 't)
+
 ;; Show keystrokes in progress
 (setq echo-keystrokes 0.1)
 
