@@ -148,7 +148,7 @@
 (setq key-chord-two-keys-delay 0.2)
 
 (key-chord-define-global "uu" 'undo-tree-visualize)
-(key-chord-define-global "jj" 'ace-jump-char-mode)
+(key-chord-define-global "jj" 'ace-jump-word-mode)
 (key-chord-define-global "yy" 'copy-current-line)
 (key-chord-define-global ";w" 'save-buffer)
 (key-chord-define-global "vv" 'select-current-line)
