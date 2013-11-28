@@ -260,11 +260,8 @@
 (bind-key "<f1>t" 'google-translate-query-or-region)
 
 ;; Smart Forward
-(require-package 'smart-forward)
-(bind-key "M-<up>" 'smart-up)
-(bind-key "M-<down>" 'smart-down)
-(bind-key "M-<left>" 'smart-backward)
-(bind-key "M-<right>" 'smart-forward)
+(require-package 'drag-stuff)
+(drag-stuff-mode t)
 
 ;; wgrep
 (require-package 'wgrep)

@@ -42,12 +42,6 @@
 
 
 ;; eshell
-(require-package 'multi-eshell)
-(setq
- multi-eshell-name "*eshell*"
- multi-eshell-shell-function '(eshell)
- )
-
 (require-package 'eshell)
 (require-package 'esh-buf-stack)
 (require 'em-zle)
@@ -126,6 +120,50 @@
   (eshell-send-input use-region queue-p no-newline)
   )
 
+(defun eshell-projectile-filter (condp lst)
+  (delq nil (mapcar (lambda (x) (and (funcall condp x) x)) lst)))
+
+(defun eshell-projectile-matched-list (project-path)
+  (identity ;;used to be reverse
+   (sort
+    (eshell-projectile-filter
+     (lambda (x)
+       (and
+        (string-match "^\\*eshell\\*" (buffer-name x))
+        (string-match (concat project-path "$") (buffer-name x))
+        ))
+     (buffer-list))
+    #'(lambda (a b) (string< (buffer-name a) (buffer-name b)))))
+  )
+
+(defun eshell-projectile-next ()
+  (interactive)
+  (let ((project-path (if (projectile-project-p) (concat " - " (projectile-project-name)) ">")))
+    (let ((buffer)
+          (shell-buf-list (eshell-projectile-matched-list project-path)))
+
+      (if (string-match "^\\*eshell\\*" (buffer-name (current-buffer)))
+          (setq buffer (elt shell-buf-list (+ (position (current-buffer) shell-buf-list) 1))))
+
+      (unless buffer (setq buffer (elt shell-buf-list 0)))
+
+      (if buffer
+          (switch-to-buffer buffer)
+        (eshell-projectile-new)
+        ))))
+
+(defun eshell-projectile-new ()
+  (interactive)
+  (let ((suffix-name) (project-path (if (projectile-project-p) (concat " - " (projectile-project-name)) "")))
+    (setq suffix-name (concat
+                       "<"
+                       (number-to-string (length (eshell-projectile-matched-list project-path)))
+                       ">"
+                       project-path))
+    (eshell "-")
+    (rename-buffer (concat (buffer-name (current-buffer)) suffix-name))
+    ))
+
 (setup-eshell-buf-stack)
 (add-hook 'eshell-mode-hook (lambda ()
                               (bind-key "M-q"   'eshell-push-command                eshell-mode-map)
@@ -148,9 +186,9 @@
                               ))
 
 (bind-key "<f1>d" 'eshell)
-(bind-key "<f1>c" `(lambda () (interactive) (eshell "-")))
-(bind-key "<f1>n" 'multi-eshell-switch)
-(bind-key "<f1>p" 'multi-eshell-go-back)
+(bind-key "<f1>c" 'eshell-projectile-new)
+(bind-key "<f1>n" 'eshell-projectile-next)
+(bind-key "<f1>p" 'eshell-projectile-next)
 (bind-key "<f1><f1>l" 'eshell-show-output)
 (bind-key "<f1><f1>b" 'eshell-insert-buffer-name)
 
