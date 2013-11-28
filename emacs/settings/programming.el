@@ -34,7 +34,10 @@
 (add-hook 'ruby-mode-hook 'robe-mode)
 
 ;; Web
-(require-packages '(yaml-mode coffee-mode js2-mode js3-mode markdown-mode textile-mode web-beautify))
+(require-packages '(yaml-mode coffee-mode js2-mode js3-mode markdown-mode textile-mode web-beautify emmet-mode))
+
+(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 
 (setq web-beautify-args  '("--indent-size" "2" "-f" "-"))
 
