@@ -1,26 +1,27 @@
-alias print $2 n $*
-alias gci magit-status .
-alias gcount git shortlog -sn
-alias rdc rake db:create
-alias rdm rake db:migrate
-alias rvm `(rvm-activate-corresponding-ruby)
-alias gs git status
-alias gd magit-status .
-alias sp sudo yaourt $*
-alias ss bundle exec rails server $*
-alias sc bundle exec rails console $*
-alias sd bundle exec rails dbconsole $*
-alias lssize ls -rlS $*
-alias lsnew ls -rtl $*
-alias lsa ls -A $*
-alias ll ls -l $*
-alias gap git am $*
-alias gfp git format-patch origin/master
-alias df df -Tm $*
-alias dusort du -scm *|sort -n
-alias ... cd ../..
-alias .... cd ../../..
-alias w3m w3m-find-file $1
-alias emacs find-file $1
-alias ff find-file $1
+alias - cd (if (string= (projectile-project-root) default-directory) "-" (projectile-project-root))
 alias open xdg-open $*
+alias ff find-file $1
+alias emacs find-file $1
+alias w3m w3m-find-file $1
+alias .... cd ../../..
+alias ... cd ../..
+alias dusort du -scm *|sort -n
+alias df df -Tm $*
+alias gfp git format-patch origin/master
+alias gap git am $*
+alias ll ls -l $*
+alias lsa ls -A $*
+alias lsnew ls -rtl $*
+alias lssize ls -rlS $*
+alias sd bundle exec rails dbconsole $*
+alias sc bundle exec rails console $*
+alias ss bundle exec rails server $*
+alias sp sudo yaourt $*
+alias gd magit-status .
+alias gs git status
+alias rvm `(rvm-activate-corresponding-ruby)
+alias rdm rake db:migrate
+alias rdc rake db:create
+alias gcount git shortlog -sn
+alias gci magit-status .
+alias print $2 n $*
