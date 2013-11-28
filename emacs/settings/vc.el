@@ -7,16 +7,24 @@
 (bind-key "<escape><escape>d" 'git-gutter:popup-diff)
 (bind-key "<escape><escape>r" 'git-gutter:revert-hunk)
 
-
 (require-package 'magit)
+(defun magit-diff-project ()
+  (interactive)
+  (magit-diff-working-tree "HEAD")
+  (switch-to-buffer magit-diff-buffer-name)
+  (delete-other-windows))
+
+(bind-key "<escape><escape>m" `magit-diff-project)
+(bind-key "<f1><f1>m" `magit-diff-project)
+
 (require-package 'git-commit-mode)
 (require-package 'gitconfig-mode)
 (require-package 'gitignore-mode)
 (require-package 'git-messenger)
 (bind-key "C-x v p" 'git-messenger:popup-message)
 (setq
-  magit-stage-all-confirm nil
-  magit-unstage-all-confirm nil)
+ magit-stage-all-confirm nil
+ magit-unstage-all-confirm nil)
 
 (bind-key "<escape>m" 'magit-status)
 (bind-key "<f1>m" 'magit-status)

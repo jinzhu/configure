@@ -420,6 +420,8 @@ I	#+INCLUDE: line
    S -> stage all
    u -> unstage
    U -> unstage all
+   v -> revert item
+   1,2,3 -> change diff verbosity
 * Mu4e
   % -> mu4e-headers-mark-pattern
   ! -> mark as read
@@ -542,3 +544,8 @@ I	#+INCLUDE: line
   C-x C-k SPC -> (kmacro-step-edit-macro) Stepwise Editing a Keyboard Macro
   C-x C-k n -> name last macro
   C-x C-k b -> bind last macro
+* Edit
+  C-x n n or M-x narrow-to-region -> narrow to the current region (only show region, hidden other)
+  C-x n w or M-x widen -> restore
+* Auto Complete
+  M-1,2,3,...9 -> Quick Select

@@ -14,13 +14,13 @@
   (if (package-installed-p package min-version)
       t
     (if (or (assoc package package-archive-contents) no-refresh)
-	(package-install package)
+        (package-install package)
       (progn
         (package-refresh-contents)
         (require-package package min-version t))))
 
- (require package)
-)
+  (require package)
+  )
 
 (defun require-packages (packages)
   "Ensure PACKAGES are installed.
@@ -50,3 +50,4 @@
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
