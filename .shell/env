@@ -1,7 +1,7 @@
 #!/bin/sh
 # [ -f ~/.dir_colors ]      && eval   $(dircolors -b ~/.dir_colors)
 
-[[ ! $INSIDE_EMACS =~ "term" ]] && (tmux has-session -t terminal && exec tmux attach-session -t terminal || exec tmux new-session -s terminal) && exit
+[[ ! $NOTMUX == "1" ]] && [[ ! $INSIDE_EMACS =~ "term" ]] && (tmux has-session -t terminal && exec tmux attach-session -t terminal || exec tmux new-session -s terminal) && exit
 # Disabling Terminal Flow Control Keystrokes
 stty -ixon
 
