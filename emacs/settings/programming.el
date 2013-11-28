@@ -8,6 +8,9 @@
 
 (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
 
+;; Lisp
+(require-packages '(slime elisp-slime-nav))
+
 ;; Go Mode
 (require-packages '(go-mode go-eldoc gore-mode))
 
