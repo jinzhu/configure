@@ -63,5 +63,5 @@
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
-;; large gc threshold
-(setq gc-cons-threshold 20000000)
+;; large gc threshold (5G)
+(setq gc-cons-threshold 50000000)
