@@ -25,13 +25,13 @@
  ac-trigger-commands (cons 'backward-delete-char-untabify ac-trigger-commands)
  ;; ac-comphist-file "~/.emacs.d/auto-complete"
  ac-sources '(ac-source-imenu
-	      ac-source-dictionary
-	      ac-source-words-in-buffer
-	      ac-source-words-in-same-mode-buffers
-	      ac-source-words-in-all-buffer
-	      ac-source-dictionary
-	      ac-source-files-in-current-dir
-	      ac-source-filename)
+              ac-source-dictionary
+              ac-source-words-in-buffer
+              ac-source-words-in-same-mode-buffers
+              ac-source-words-in-all-buffer
+              ac-source-dictionary
+              ac-source-files-in-current-dir
+              ac-source-filename)
  )
 
 (defun ac-eshell-pcomplete ()
@@ -40,20 +40,20 @@
   (flet ((insert-and-inherit (&rest args)))
     ;; this code is stolen from `pcomplete' in pcomplete.el
     (let* (tramp-mode ;; do not automatically complete remote stuff
-	   (pcomplete-stub)
-	   (pcomplete-show-list t) ;; inhibit patterns like * being deleted
-	   pcomplete-seen pcomplete-norm-func
-	   pcomplete-args pcomplete-last pcomplete-index
-	   (pcomplete-autolist pcomplete-autolist)
-	   (pcomplete-suffix-list pcomplete-suffix-list)
-	   (candidates (pcomplete-completions))
-	   (beg (pcomplete-begin))
-	   ;; note, buffer text and completion argument may be
-	   ;; different because the buffer text may bet transformed
-	   ;; before being completed (e.g. variables like $HOME may be
-	   ;; expanded)
-	   (buftext (buffer-substring beg (point)))
-	   (arg (nth pcomplete-index pcomplete-args)))
+           (pcomplete-stub)
+           (pcomplete-show-list t) ;; inhibit patterns like * being deleted
+           pcomplete-seen pcomplete-norm-func
+           pcomplete-args pcomplete-last pcomplete-index
+           (pcomplete-autolist pcomplete-autolist)
+           (pcomplete-suffix-list pcomplete-suffix-list)
+           (candidates (pcomplete-completions))
+           (beg (pcomplete-begin))
+           ;; note, buffer text and completion argument may be
+           ;; different because the buffer text may bet transformed
+           ;; before being completed (e.g. variables like $HOME may be
+           ;; expanded)
+           (buftext (buffer-substring beg (point)))
+           (arg (nth pcomplete-index pcomplete-args)))
       ;; we auto-complete only if the stub is non-empty and matches
       ;; the end of the buffer text
       (when (and (not (zerop (length pcomplete-stub)))
@@ -96,16 +96,15 @@
 ;; Hippie Exp
 (require-package 'hippie-exp)
 (setq hippie-expand-try-functions-list
-      '(try-expand-dabbrev
-	try-expand-dabbrev-visible
-	try-expand-dabbrev-all-buffers
-	try-expand-dabbrev-from-kill
-	try-complete-file-name-partially
-	try-complete-file-name
-	try-expand-all-abbrevs
-	try-expand-list
-	try-expand-line
-	try-complete-lisp-symbol-partially
-	try-complete-lisp-symbol))
+      '(try-expand-dabbrev-visible
+        try-expand-all-abbrevs
+        try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-dabbrev-from-kill
+        try-expand-dabbrev-all-buffers
+        try-expand-dabbrev
+        try-expand-line
+        try-complete-lisp-symbol-partially
+        try-complete-lisp-symbol))
 
 (bind-key "M-/" 'hippie-expand)

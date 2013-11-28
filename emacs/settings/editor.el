@@ -168,6 +168,7 @@
 (require-package 'multiple-cursors)
 (bind-key "<f5>a" 'mc/edit-beginnings-of-lines)
 (bind-key "<f5>e" 'mc/edit-ends-of-lines)
+(bind-key "<f5><f5>e" 'mc/edit-lines)
 (bind-key "<f5><down>" 'mc/mark-next-like-this)
 (bind-key "<f5><up>" 'mc/mark-previous-like-this)
 (bind-key "<f5><left>" 'mc/unmark-next-like-this)

@@ -144,7 +144,6 @@
                               (ansi-color-for-comint-mode-on)
                               (set (make-local-variable 'outline-regexp) "\$" )
                               (add-to-list 'ac-sources `ac-source-eshell-pcomplete)
-                              (auto-complete-mode t)
                               (outline-minor-mode)
                               ))
 
