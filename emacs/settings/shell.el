@@ -96,9 +96,9 @@
 (defun eshell-zle-sudo-command ()
   (interactive "*")
   (let ((cmd (caar (eshell-hist-parse-arguments
-		    'silent
-		    (save-excursion (eshell-bol) (point))
-		    (point-at-eol)))))
+                    'silent
+                    (save-excursion (eshell-bol) (point))
+                    (point-at-eol)))))
     (when (not cmd) (eshell-zle-up-history 1))
     (eshell-bol)
     (insert "sudo ")
@@ -119,7 +119,7 @@
         after-change-functions)
 
     (if proc-running-p
-	(eshell-add-input-to-history (eshell-get-old-input))
+        (eshell-add-input-to-history (eshell-get-old-input))
       )
     )
 
@@ -147,8 +147,9 @@
                               (auto-complete-mode t)
                               (outline-minor-mode)
                               ))
+
 (bind-key "<f1>d" 'eshell)
-(bind-key "<f1>c" 'multi-eshell)
+(bind-key "<f1>c" `(lambda () (interactive) (eshell "-")))
 (bind-key "<f1>n" 'multi-eshell-switch)
 (bind-key "<f1>p" 'multi-eshell-go-back)
 (bind-key "<f1><f1>l" 'eshell-show-output)

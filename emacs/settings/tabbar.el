@@ -9,7 +9,7 @@
 
 (custom-set-variables '(tabbar-separator (quote (0.5))))
 
-(defun my-tabbar-buffer-groups ()
+(defun my-tabbar-buffer-groups-by-project ()
   (list
    (cond
     ((memq major-mode '(mu4e-view-mode mu4e-main-mode mu4e-headers-mode mu4e-view-raw-mode
@@ -27,7 +27,7 @@
     ;; ((memq major-mode '(fundamental-mode))
     ;;  "Emacs"
     ;; )
-   ((memq major-mode '(org-mode org-agenda-mode diary-mode))
+    ((memq major-mode '(org-mode org-agenda-mode diary-mode))
      "OrgMode"
      )
     (t
@@ -35,8 +35,21 @@
      )
     )))
 
-(setq tabbar-buffer-groups-function 'my-tabbar-buffer-groups)
+(defun my-tabbar-buffer-groups-by-all ()
+  (list
+   (cond
+    ((string-equal "*" (substring (buffer-name) 0 1))
+     "Emacs"
+     )
+    (t "All"))))
 
+(setq tabbar-buffer-groups-function 'my-tabbar-buffer-groups-by-project)
+
+(bind-key "<f1><f1><f1>" `(lambda () (interactive)
+                            (if (eq tabbar-buffer-groups-function 'my-tabbar-buffer-groups-by-all)
+                                (setq tabbar-buffer-groups-function 'my-tabbar-buffer-groups-by-project)
+                              (setq tabbar-buffer-groups-function 'my-tabbar-buffer-groups-by-all)
+                              )))
 (bind-key "<f1><f1><left>" 'tabbar-backward-group)
 (bind-key "<f1><f1><right>" 'tabbar-forward-group)
 (bind-key "<f1><left>" 'tabbar-backward-tab)
