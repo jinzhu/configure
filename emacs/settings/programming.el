@@ -10,6 +10,7 @@
 
 ;; Lisp
 (require-packages '(slime elisp-slime-nav))
+(slime-mode)
 
 ;; Go Mode
 (require-packages '(go-mode go-eldoc gore-mode))
@@ -32,7 +33,10 @@
 
 (require-package 'robe)
 (add-hook 'ruby-mode-hook 'robe-mode)
+
+(require-packages '(rinari rhtml-mode))
 (setq ruby-insert-encoding-magic-comment nil)
+(global-rinari-mode)
 
 ;; Web
 (require-packages '(yaml-mode coffee-mode js2-mode js3-mode markdown-mode textile-mode web-beautify emmet-mode))
