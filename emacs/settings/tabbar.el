@@ -18,15 +18,15 @@
                                        ))
      "Activity"
      )
-    ;; ((memq major-mode '(eshell-mode term-mode shell-mode))
-    ;;  "Shell"
-    ;;  )
-    ;; ((string-equal "*" (substring (buffer-name) 0 1))
-    ;;  "Emacs"
-    ;;  )
-    ;; ((memq major-mode '(fundamental-mode))
-    ;;  "Emacs"
-    ;; )
+    ((memq major-mode '(eshell-mode term-mode shell-mode))
+     (if (projectile-project-p) (projectile-project-name) "Common")
+     )
+    ((string-equal "*" (substring (buffer-name) 0 1))
+     "Emacs"
+     )
+    ((memq major-mode '(fundamental-mode))
+     "Emacs"
+     )
     ((memq major-mode '(org-mode org-agenda-mode diary-mode))
      "OrgMode"
      )
