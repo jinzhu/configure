@@ -157,7 +157,9 @@
 (bind-key "M-j" 'indent-new-comment-line)
 (bind-key "C-j" 'newline)
 (bind-key "RET" 'newline-and-indent)
+(bind-key "<C-return>" 'newline)
 (electric-indent-mode -1)
+(add-hook 'after-save-hook (lambda () (interactive) (indent-region (line-beginning-position) (line-end-position))))
 
 (require-package 'ace-jump-buffer)
 (key-chord-define-global "bb" 'ace-jump-buffer)
@@ -238,20 +240,24 @@
 (pomodoro-start nil)
 
 ;; Helm
-(require-packages '(helm-descbinds helm-go-package))
+(require-packages '(helm-descbinds helm-go-package helm-projectile))
 (defun my-helm()
   (interactive)
   (require 'helm-eval)
   (require 'helm-files)
-  (helm-other-buffer '(helm-source-buffers-list
-                       helm-source-ido-virtual-buffers
-                       helm-source-files-in-current-dir
-                       helm-source-bookmarks
-                       helm-source-etags-select
-                       helm-source-recentf
-                       helm-source-calculation-result
-                       helm-source-locate)
-                     "*my helm*"))
+  (setq sources nil)
+  (if (projectile-project-p)
+      (setq sources '(helm-source-projectile-buffers-list
+                      helm-source-projectile-files-list)))
+  (setq sources (append sources '(helm-source-buffers-list
+                                  helm-source-ido-virtual-buffers
+                                  helm-source-files-in-current-dir
+                                  helm-source-bookmarks
+                                  helm-source-etags-select
+                                  helm-source-recentf
+                                  helm-source-calculation-result)
+                        ))
+  (helm-other-buffer sources "*my helm*"))
 (bind-key "<escape>h" 'my-helm)
 
 

@@ -513,6 +513,7 @@ I	#+INCLUDE: line
   C-e -> 2nd action
   C-j -> 3nd action
   Tab -> View all actions
+  Fuzzy matching required intervals between the separate parts of the query
   helm-occur
 * Calc
   (calc-eval "1+2*9")
