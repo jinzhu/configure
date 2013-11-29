@@ -153,7 +153,11 @@
 (key-chord-define-global ";w" 'save-buffer)
 (key-chord-define-global "vv" 'select-current-line)
 (key-chord-define-global "JJ" 'mode-line-other-buffer) ; Switch to previous buffer
+
 (bind-key "M-j" 'indent-new-comment-line)
+(bind-key "C-j" 'newline)
+(bind-key "RET" 'newline-and-indent)
+(electric-indent-mode -1)
 
 (require-package 'ace-jump-buffer)
 (key-chord-define-global "bb" 'ace-jump-buffer)
@@ -239,7 +243,7 @@
   (interactive)
   (require 'helm-eval)
   (require 'helm-files)
-  (helm-other-buffer '(
+  (helm-other-buffer '(helm-source-buffers-list
                        helm-source-ido-virtual-buffers
                        helm-source-files-in-current-dir
                        helm-source-bookmarks
@@ -259,9 +263,9 @@
       google-translate-show-phonetic t)
 (bind-key "<f1>t" 'google-translate-query-or-region)
 
-;; Smart Forward
+;; Drag Stuff
 (require-package 'drag-stuff)
-(drag-stuff-mode t)
+(drag-stuff-global-mode)
 
 ;; wgrep
 (require-package 'wgrep)

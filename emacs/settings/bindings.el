@@ -42,11 +42,6 @@
 (bind-key "<S-right>" '(lambda () (interactive) (forward-word 3)))
 (bind-key "<S-left>" '(lambda () (interactive) (backward-word 3)))
 
-;; Move Text
-(require-package 'move-text)
-(bind-key "<C-S-up>" 'move-text-up)
-(bind-key "<C-S-down>" 'move-text-down)
-
 (bind-key "<f12>" 'menu-bar-mode)
 
 ;; Open Line
