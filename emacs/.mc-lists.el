@@ -4,6 +4,7 @@
 (setq mc/cmds-to-run-for-all
       '(
         kill-region
+        markdown-exdent-or-delete
         org-beginning-of-line
         org-delete-char
         org-end-of-line

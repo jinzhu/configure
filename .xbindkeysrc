@@ -29,6 +29,8 @@
     Mod4 + 6
 "wmctrl -xa Evince || evince"
     Mod4 + 7
+"wmctrl -xa Zeal || zeal"
+    Mod4 + 8
 
 "wmctrl -xa Terminal || gnome-terminal"
     Control+Mod4 + t

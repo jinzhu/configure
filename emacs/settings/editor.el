@@ -285,3 +285,7 @@
 (bind-key "<f4>C" `(lambda () (interactive) (replace-region-by 's-upper-camel-case)))
 (bind-key "<f4>t" `(lambda () (interactive) (replace-region-by 's-titleize)))
 (bind-key "<f4>d" `(lambda () (interactive) (replace-region-by 's-downcase)))
+
+;; Zeal At Point
+(require-package 'zeal-at-point)
+(bind-key "<M-f6>" 'zeal-at-point)
