@@ -3,12 +3,15 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        isearch-forward-regexp
+        isearch-printing-char
         kill-region
         markdown-exdent-or-delete
         org-beginning-of-line
         org-delete-char
         org-end-of-line
         org-self-insert-command
+        slime-space
         smarter-move-beginning-of-line
         sp--self-insert-command
         ))
