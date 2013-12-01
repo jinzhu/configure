@@ -31,7 +31,7 @@
                                           "%b"))))
 
 ;; nice scrolling
-(setq scroll-margin 0
+(setq scroll-margin 1
       scroll-conservatively 100000
       scroll-preserve-screen-position 1)
 

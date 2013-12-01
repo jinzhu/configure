@@ -11,27 +11,24 @@
 (global-auto-complete-mode t)
 
 (setq
- ac-auto-show-menu 0.2
+ ac-auto-start 1
+ ac-auto-show-menu 0.02
  ac-fuzzy-enable t
  ac-use-menu-map t
 
  ac-quick-help-prefer-pos-tip t
  ac-use-quick-help t
- ac-quick-help-delay 0.5
+ ac-quick-help-delay 0.01
 
- ac-auto-start 1
  ac-menu-height 20
  ac-ignore-case 'smart
  ac-trigger-commands (cons 'backward-delete-char-untabify ac-trigger-commands)
  ;; ac-comphist-file "~/.emacs.d/auto-complete"
  ac-sources '(ac-source-imenu
-              ac-source-dictionary
+              ac-source-yasnippet
               ac-source-words-in-buffer
               ac-source-words-in-same-mode-buffers
-              ac-source-words-in-all-buffer
-              ac-source-dictionary
-              ac-source-files-in-current-dir
-              ac-source-filename)
+              ac-source-words-in-all-buffer)
  )
 
 (defun ac-eshell-pcomplete ()
