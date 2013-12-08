@@ -14,14 +14,9 @@
 
 ;; Go Mode
 (require-packages '(go-mode go-eldoc gore-mode))
-
-;; Format / fix imports before every save.
-(dolist (path exec-path)
-  (if (file-exists-p (concat path "/goimports"))
-      (add-hook 'before-save-hook 'goimports-before-save) (add-hook 'before-save-hook 'gofmt-before-save)
-      ))
-
+(setq gofmt-command "goimports")
 (add-hook 'go-mode-hook 'go-eldoc-setup)
+(add-hook 'before-save-hook 'gofmt-before-save)
 
 ;; Ruby Mode
 (require-packages '(ruby-mode ruby-hash-syntax rvm yari ruby-compilation inf-ruby))

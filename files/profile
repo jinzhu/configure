@@ -15,7 +15,7 @@ export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS="@im=fcitx"
 
-export VBOX_USB=usbfs
+#export VBOX_USB=usbfs
 
 export GREP_OPTIONS='--color=auto'
 
