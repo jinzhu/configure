@@ -253,7 +253,7 @@ I	#+INCLUDE: line
 
 * Jump
   C-x C-SPACE - Jump between marks
-  C-u C-SPANCE - Jump between local marks
+  C-u C-SPACE - Jump between local marks
   C-x r SPACE [a-z] -> mark a point in the document
   C-x r j [a-z] -> jump to the point in the document
 ** Jump Window: (winner mode)
