@@ -40,23 +40,23 @@
       ag-highlight-search t)
 (projectile-global-mode)
 
-(bind-key "<escape>a" 'ag-project)
-(bind-key "<escape>A" 'ag)
-(bind-key "<escape>d" 'projectile-find-dir)
-(bind-key "<escape>D" 'projectile-dired)
-(bind-key "<escape>f" 'projectile-find-file)
-(bind-key "<escape>F" 'ido-find-file)
-(bind-key "<escape>C-f" 'projectile-find-file-in-directory)
-(bind-key "<escape>t" 'projectile-find-test-file)
-(bind-key "<escape>g" 'projectile-grep)
-(bind-key "<escape>T" 'projectile-regenerate-tags)
-(bind-key "<escape>R" 'projectile-replace)
-(bind-key "<escape>p" 'projectile-switch-project)
+(bind-key "s-a" 'ag-project)
+(bind-key "s-A" 'ag)
+(bind-key "s-d" 'projectile-find-dir)
+(bind-key "s-D" 'projectile-dired)
+(bind-key "s-f" 'projectile-find-file)
+(bind-key "s-F" 'ido-find-file)
+(bind-key "s-C-f" 'projectile-find-file-in-directory)
+(bind-key "s-t" 'projectile-find-test-file)
+(bind-key "s-g" 'projectile-grep)
+(bind-key "s-T" 'projectile-regenerate-tags)
+(bind-key "s-R" 'projectile-replace)
+(bind-key "s-p" 'projectile-switch-project)
 
-(bind-key "<escape>b" 'ido-switch-buffer)
-(bind-key "<escape>B" 'projectile-recentf)
-(bind-key "<escape>k" 'projectile-kill-buffers)
-(bind-key "<escape>r" 'recentf-ido-find-file)
+(bind-key "s-b" 'ido-switch-buffer)
+(bind-key "s-B" 'projectile-recentf)
+(bind-key "s-k" 'projectile-kill-buffers)
+(bind-key "s-r" 'recentf-ido-find-file)
 
 ;; Smartparens
 (require-package 'smartparens)
@@ -258,7 +258,7 @@
                                   helm-source-calculation-result)
                         ))
   (helm-other-buffer sources "*my helm*"))
-(bind-key "<escape>h" 'my-helm)
+(bind-key "s-h" 'my-helm)
 
 
 ;; Google Translation

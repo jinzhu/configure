@@ -1,5 +1,5 @@
-(bind-key "<escape>E" 'eval-buffer)
-(bind-key "<escape>e" 'eval-region)
+(bind-key "s-E" 'eval-buffer)
+(bind-key "s-e" 'eval-region)
 
 (bind-key "<f1>j" 'join-region-or-line)
 (bind-key "<f1>i" 'indent-region-or-buffer)
@@ -16,13 +16,10 @@
 (bind-key "<f1><f1>r" 'rename-buffer)
 (bind-key "<f1><f1>R" 'revert-buffer)
 
-(bind-key "<escape><up>"    'windmove-up)
-(bind-key "<escape><down>"  'windmove-down)
-(bind-key "<escape><right>" 'windmove-right)
-(bind-key "<escape><left>"  'windmove-left)
-
-(bind-key "<escape><escape>t" 'jump-to-register)
-(bind-key "<escape><escape>r" 'point-to-register)
+(bind-key "<s-up>"    'windmove-up)
+(bind-key "<s-down>"  'windmove-down)
+(bind-key "<s-right>" 'windmove-right)
+(bind-key "<s-left>"  'windmove-left)
 
 (bind-key "C-c C-f" 'find-file-at-point)
 

@@ -14,6 +14,7 @@
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (menu-bar-mode -1)
 (blink-cursor-mode -1)
+(setq evil-default-cursor t)
 (setq inhibit-startup-screen t)
 
 (display-time-mode t)
