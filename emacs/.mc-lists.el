@@ -3,8 +3,19 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        evil-backward-char
+        evil-backward-word-begin
+        evil-delete
+        evil-delete-char
+        evil-end-of-line
+        evil-forward-WORD-begin
+        evil-forward-char
+        evil-forward-word-begin
+        evil-previous-line
+        evil-scroll-line-down
         isearch-forward-regexp
         isearch-printing-char
+        keyboard-quit
         kill-region
         markdown-exdent-or-delete
         org-beginning-of-line

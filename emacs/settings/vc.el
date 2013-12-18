@@ -1,11 +1,11 @@
 (require-package 'git-gutter)
 (global-git-gutter-mode t)
 
-(bind-key "<escape><escape>t" 'git-gutter:toggle)
-(bind-key "<escape><escape>j" 'git-gutter:next-diff)
-(bind-key "<escape><escape>k" 'git-gutter:previous-diff)
-(bind-key "<escape><escape>d" 'git-gutter:popup-diff)
-(bind-key "<escape><escape>r" 'git-gutter:revert-hunk)
+(bind-key "<f4><f4>t" 'git-gutter:toggle)
+(bind-key "<f4>j" 'git-gutter:next-diff)
+(bind-key "<f4>k" 'git-gutter:previous-diff)
+(bind-key "<f4><f4>d" 'git-gutter:popup-diff)
+(bind-key "<f4><f4>r" 'git-gutter:revert-hunk)
 
 (require-package 'magit)
 (defun magit-diff-project ()

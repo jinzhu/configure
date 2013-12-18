@@ -148,8 +148,8 @@
 (setq key-chord-two-keys-delay 0.2)
 
 (key-chord-define-global "uu" 'undo-tree-visualize)
-(key-chord-define-global "jj" 'ace-jump-word-mode)
-(key-chord-define-global "yy" 'copy-current-line)
+(key-chord-define-global "  " 'ace-jump-word-mode)
+;; (key-chord-define-global "yy" 'copy-current-line)
 (key-chord-define-global ";w" 'save-buffer)
 (key-chord-define-global "vv" 'select-current-line)
 (key-chord-define-global "JJ" 'mode-line-other-buffer) ; Switch to previous buffer
@@ -162,7 +162,7 @@
 (add-hook 'after-save-hook (lambda () (interactive) (indent-region (line-beginning-position) (line-end-position))))
 
 (require-package 'ace-jump-buffer)
-(key-chord-define-global "bb" 'ace-jump-buffer)
+;; (key-chord-define-global "bb" 'ace-jump-buffer)
 
 (key-chord-mode +1)
 
