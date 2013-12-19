@@ -1,5 +1,6 @@
 (setq custom-theme-directory (concat user-emacs-directory "themes"))
 (load-theme 'monokai t)
+
 (set-default-font "Monaco-14")
 (setq default-frame-alist '((font . "Monaco-14"))) ;; emacs --daemon
 

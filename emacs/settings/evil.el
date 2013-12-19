@@ -37,6 +37,7 @@
   "A" 'projectile-ack
   "b" 'ido-switch-buffer
   ";b" 'ace-jump-buffer
+  "c" 'kill-this-buffer
   "B" 'projectile-switch-to-buffer
   "r" 'projectile-recentf
   "f" 'projectile-find-file
