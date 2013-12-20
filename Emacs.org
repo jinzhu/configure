@@ -322,7 +322,7 @@ I	#+INCLUDE: line
    C-x r c -> clear-rectangle
    C-x r d -> delete-rectangle
    C-x r k -> kill-rectangle
-   C-x r o -> open-rectangl
+   C-x r o -> open-rectangle
    C-x r y -> yank-rectangle
 ** MC
    mc/edit-beginings-of-lines
