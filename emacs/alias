@@ -2,7 +2,6 @@ alias gci magit-status .
 alias gcount git shortlog -sn
 alias rdc rake db:create
 alias rdm rake db:migrate
-alias rvm `(rvm-activate-corresponding-ruby)
 alias gs git status
 alias gd magit-status .
 alias sp sudo yaourt $*

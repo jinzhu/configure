@@ -19,7 +19,7 @@
 (add-hook 'before-save-hook 'gofmt-before-save)
 
 ;; Ruby Mode
-(require-packages '(ruby-mode ruby-hash-syntax rvm yari ruby-compilation inf-ruby))
+(require-packages '(ruby-mode ruby-hash-syntax yari ruby-compilation inf-ruby))
 (add-auto-mode 'ruby-mode
                "Rakefile\\'" "\\.rake\\'" "\\.rxml\\'"
                "\\.rjs\\'" ".irbrc\\'" "\\.builder\\'" "\\.ru\\'"

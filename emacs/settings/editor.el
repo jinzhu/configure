@@ -159,7 +159,7 @@
 (bind-key "RET" 'newline-and-indent)
 (bind-key "<C-return>" 'newline)
 (electric-indent-mode -1)
-(add-hook 'after-save-hook (lambda () (interactive) (indent-region (line-beginning-position) (line-end-position))))
+;; (add-hook 'after-save-hook (lambda () (interactive) (indent-region (line-beginning-position) (line-end-position))))
 
 (require-package 'ace-jump-buffer)
 ;; (key-chord-define-global "bb" 'ace-jump-buffer)
