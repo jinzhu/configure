@@ -12,6 +12,10 @@
 (require-packages '(slime elisp-slime-nav))
 (slime-mode)
 
+;; Android
+(require-packages '(android-mode))
+(setq android-mode-sdk-dir "/opt/android-sdk/")
+
 ;; Go Mode
 (require-packages '(go-mode go-eldoc gore-mode))
 (setq gofmt-command "goimports")
