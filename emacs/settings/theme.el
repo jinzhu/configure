@@ -1,6 +1,7 @@
 (setq custom-theme-directory (concat user-emacs-directory "themes"))
 ;; (load-theme 'monokai t)
 (load-theme 'spolsky t)
+(require-package 'sublime-themes)
 (setq linum-format " %4d  ")
 
 ;; abcdefghijklmnopqrstuvwxyz
