@@ -1,16 +1,24 @@
 (setq custom-theme-directory (concat user-emacs-directory "themes"))
-(load-theme 'monokai t)
+;; (load-theme 'monokai t)
+(load-theme 'spolsky t)
+(setq linum-format " %4d  ")
 
-(set-default-font "Monaco-14")
-(setq default-frame-alist '((font . "Monaco-14"))) ;; emacs --daemon
+;; abcdefghijklmnopqrstuvwxyz
+;; ABCDEFGHIJKLMNOPQRSTUVWXYZ
+;; 1234567890
+;; (set-default-font "UbuntuMono-18")
+;; (set-default-font "Monaco-14")
+;; (set-default-font "Inconsolata-17")
+(set-default-font "DejaVuSansMono-14")
+(setq default-frame-alist '((font . "DejaVuSansMono-14"))) ;; emacs --daemon
 
 ;; Smart Mode Line
 (require-package 'smart-mode-line)
-(setq sml/theme 'dark)
-(sml/setup)
-(setq sml/mode-width 5
-      sml/name-width 50
+(setq sml/theme 'respectful
+      sml/shorten-directory t
+      sml/shorten-modes t
       sml/show-encoding t)
+(sml/setup)
 
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (menu-bar-mode -1)

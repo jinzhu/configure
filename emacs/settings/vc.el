@@ -1,4 +1,6 @@
-(require-package 'git-gutter)
+;; (require-package 'git-gutter)
+(require-package 'git-gutter-fringe)
+(setq git-gutter-fr:side 'right-fringe)
 (global-git-gutter-mode t)
 
 (bind-key "<f4><f4>t" 'git-gutter:toggle)
