@@ -62,7 +62,8 @@
 (require-package 'smartparens)
 (require 'smartparens-config)
 (smartparens-global-mode t)
-(show-smartparens-global-mode t)
+(show-paren-mode)
+;; (show-smartparens-global-mode t)
 (setq sp-autoescape-string-quote nil)
 ;; https://github.com/Fuco1/smartparens/wiki/Example-configuration
 

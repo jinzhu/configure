@@ -10,7 +10,7 @@
 
 ;; Lisp
 (require-packages '(slime elisp-slime-nav))
-(slime-mode)
+(slime-setup)
 
 ;; Android
 (require-packages '(android-mode))

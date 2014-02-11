@@ -5,12 +5,14 @@
       '(
         evil-backward-char
         evil-backward-word-begin
+        evil-change
         evil-delete
         evil-delete-char
         evil-end-of-line
         evil-forward-WORD-begin
         evil-forward-char
         evil-forward-word-begin
+        evil-normal-state
         evil-previous-line
         evil-scroll-line-down
         isearch-forward-regexp

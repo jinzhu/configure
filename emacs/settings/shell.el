@@ -5,14 +5,19 @@
  )
 
 ;; Multi Term
-(require-package 'multi-term)
-(require-package 'shell-command)
-(shell-command-completion-mode)
-(require-package 'bash-completion)
-(bash-completion-setup)
-
-(setq multi-term-program "/bin/zsh"
-      multi-term-dedicated-select-after-open-p t)
+; (require-package 'multi-term)
+; (require-package 'shell-command)
+; (shell-command-completion-mode)
+; (require-package 'bash-completion)
+; (bash-completion-setup)
+;
+; (setq multi-term-program "/bin/zsh"
+;       multi-term-dedicated-select-after-open-p t)
+;
+; (bind-key "<f1><f1>d" 'multi-term-dedicated-toggle)
+; (bind-key "<f1><f1>c" 'multi-term)
+; (bind-key "<f1><f1>n" 'multi-term-next)
+; (bind-key "<f1><f1>p" 'multi-term-prev)
 
 (add-hook 'term-mode-hook (lambda ()
                             (bind-key "C-y"              'term-paste                term-raw-map)
@@ -34,12 +39,6 @@
                              (yas-minor-mode -1)
                              (ansi-color-for-comint-mode-on)
                              ))
-
-(bind-key "<f1><f1>d" 'multi-term-dedicated-toggle)
-(bind-key "<f1><f1>c" 'multi-term)
-(bind-key "<f1><f1>n" 'multi-term-next)
-(bind-key "<f1><f1>p" 'multi-term-prev)
-
 
 ;; eshell
 (require-package 'eshell)
