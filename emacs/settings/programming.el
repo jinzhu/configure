@@ -15,6 +15,10 @@
 ;; Android
 (require-packages '(android-mode))
 (setq android-mode-sdk-dir "/opt/android-sdk/")
+(gradle-mode 1)
+(evil-leader/set-key
+  ";i" '(lambda () (interactive) (gradle-execute '("installDebug" "--daemon")))
+  ";a" '(lambda () (interactive) (android-start-app)))
 
 ;; Go Mode
 (require-packages '(go-mode go-eldoc gore-mode))

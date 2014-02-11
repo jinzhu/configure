@@ -25,6 +25,10 @@
           :type github
           :pkgname "zhengyuli/DoubanMusic"
           )
+   (:name emacs-gradle-mode
+          :type github
+          :pkgname "jacobono/emacs-gradle-mode"
+          )
    (:name youdao
           :type github
           :pkgname "zhenze12345/youdao.el"
