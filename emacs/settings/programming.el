@@ -13,9 +13,13 @@
 (slime-setup)
 
 ;; Android
-(require-packages '(android-mode))
+(require-packages '(cedet semantic android-mode malabar-mode))
 (setq android-mode-sdk-dir "/opt/android-sdk/")
+(load "semantic/loaddefs.el")
+(semantic-mode 1);;
+(add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
 (gradle-mode 1)
+
 (evil-leader/set-key
   ";i" '(lambda () (interactive) (gradle-execute '("installDebug" "--daemon")))
   ";a" '(lambda () (interactive) (android-start-app)))

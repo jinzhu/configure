@@ -17,7 +17,7 @@
 
 "wmctrl -xa Emacs || emacsclient -c -a ''"
     Mod4 + 1
-"wmctrl -xa Chromium || chromium"
+"wmctrl -xa Chromium || wmctrl -xa Firefox || chromium || firefox"
     Mod4 + 2
 "wmctrl -xa Terminal || gnome-terminal"
     Mod4 + 3
@@ -31,6 +31,8 @@
     Mod4 + 7
 "wmctrl -xa Zeal || zeal"
     Mod4 + 8
+"wmctrl -xa Android || android-studio"
+    Mod4 + 9
 
 "wmctrl -xa Terminal || gnome-terminal"
     Control+Mod4 + t

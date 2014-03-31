@@ -90,8 +90,9 @@ Host qtb-dev
             User qintaobao
             HostName 54.248.102.248
 Host fast
-            HostName 175.41.252.65
-            Port 222
+            User xtv
+            HostName 106.187.103.77
+            Port 22
 Host usa
             HostName 175.41.251.74
 Host yyets
@@ -104,3 +105,7 @@ Host theplantvpn
 Host murenwu
             HostName 42.121.18.245
             User murenwu
+Host yhk
+            HostName 58.64.155.185
+            User www
+            Port 60002
