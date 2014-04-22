@@ -1,7 +1,5 @@
 "2.0 (created: 2009/03/28 23:48:07)
 
-set runtimepath=/home/mvp/.vimperator
-
 noremap <C-V> <C-v>
 noremap <C-Z> <C-z>
 noremap <C-c> <C-v><C-c>
@@ -29,7 +27,7 @@ noremap ;9 9gt
 noremap ;0 :tablast<CR>
 
 map <C-S-l> :open LiveHTTPHeaders<CR>
-map <C-l>   :open 
+map <C-l>   :open
 
 set nextpattern+=^下一页|››$
 set previouspattern+=^上一页|‹‹$

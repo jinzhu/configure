@@ -33,6 +33,8 @@
     Mod4 + 8
 "wmctrl -xa Android || android-studio"
     Mod4 + 9
+"wmctrl -xa player.Player || genymotion"
+    Mod4 + 0
 
 "wmctrl -xa Terminal || gnome-terminal"
     Control+Mod4 + t

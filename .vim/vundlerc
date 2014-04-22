@@ -144,11 +144,11 @@ vmap <Leader>a "zy:Ack <C-R>z
 " Bundle 'ZoomWin'
 
 " Snippet
-Bundle 'JazzCore/neocomplcache-ultisnips'
-Bundle 'SirVer/ultisnips'
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+" Bundle 'JazzCore/neocomplcache-ultisnips'
+" Bundle 'SirVer/ultisnips'
+" let g:UltiSnipsExpandTrigger="<Tab>"
+" let g:UltiSnipsJumpForwardTrigger="<Tab>"
+" let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 
 " Bundle 'honza/vim-snippets'
 " Bundle 'Shougo/neosnippet'

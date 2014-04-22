@@ -186,10 +186,12 @@ set t_Co=256
 
 if has("gui_running")
   set guioptions-=T
-  colorscheme vibrantink
+  " colorscheme vibrantink
+  colorscheme peachpuff
 else
   set background=dark
-  colorscheme vibrantink
+  " colorscheme vibrantink
+  colorscheme peachpuff
 endif
 
 set fileencoding=utf-8
