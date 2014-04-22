@@ -20,4 +20,5 @@ export EDITOR='emacsclient -t -a ""'
 if [ $TERM = eterm-color ]; then export TERM=screen-256color; fi
 
 xset b off
+unset MAILCHECK
 #xset s off

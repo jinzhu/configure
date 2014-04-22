@@ -1,20 +1,3 @@
-"2.0 (created: 2009/03/28 23:48:07)
-
-noremap <C-V> <C-v>
-noremap <C-Z> <C-z>
-noremap <C-c> <C-v><C-c>
-
-cnoremap <C-c> <C-v><C-c>
-cnoremap <C-v> <C-v><C-v>
-cnoremap <C-x> <C-v><C-x>
-
-inoremap <C-f> <C-v><C-a>
-inoremap <C-c> <C-v><C-c>
-inoremap <C-v> <C-v><C-v>
-inoremap <C-x> <C-v><C-x>
-inoremap <C-z> <C-v><C-z>
-inoremap <C-y> <C-v><C-y>
-
 noremap ;1 1gt
 noremap ;2 2gt
 noremap ;3 3gt
@@ -26,12 +9,7 @@ noremap ;8 8gt
 noremap ;9 9gt
 noremap ;0 :tablast<CR>
 
-map <C-S-l> :open LiveHTTPHeaders<CR>
-map <C-l>   :open
-
 set nextpattern+=^下一页|››$
 set previouspattern+=^上一页|‹‹$
 
-source! ~/.vimperatorrc.local
-
-" vim: set ft=vim:
+"vim: set ft=vim:
