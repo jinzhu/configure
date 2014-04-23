@@ -27,7 +27,7 @@ TriggerKey=SUPER_SPACE
 # Super+Right Ctrl
 # Disabled
 # Custom
-#SwitchKey=L_SHIFT
+SwitchKey=SHIFT Both
 # Custom switch key
 #CustomSwitchKey=
 # Activate input method
@@ -58,13 +58,13 @@ VKSwitchKey=
 # Switching Remind Mode
 #RemindSwitchKey=
 # Switching Full Width Character Mode
-#FullWidthSwitchKey=
+FullWidthSwitchKey=SHIFT_SPACE SHIFT_SPACE
 # Switch Full Width Punc Mode
-#PuncSwitchKey=CTRL_.
+PuncSwitchKey=CTRL_. CTRL_.
 # Prev Page
-#PrevPageKey=- UP
+PrevPageKey=- ,
 # Next Page
-#NextPageKey== DOWN
+NextPageKey== .
 # Choose Second and Third Candidate Word
 #SecondThirdCandWordKey=
 # Saving All Config and Input History
@@ -144,3 +144,4 @@ VKSwitchKey=
 # Available Value:
 # True False
 #HideInputWindowWhenOnlyOneCandidate=False
+

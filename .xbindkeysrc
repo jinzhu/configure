@@ -17,7 +17,7 @@
 
 "wmctrl -xa Emacs || emacsclient -c -a ''"
     Mod4 + 1
-"wmctrl -xa Chromium || wmctrl -xa Firefox || chromium || firefox"
+"wmctrl -xa Chromium || wmctrl -xa Firefox || firefox || chromium"
     Mod4 + 2
 "wmctrl -xa Terminal || gnome-terminal"
     Mod4 + 3
