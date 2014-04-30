@@ -9,7 +9,6 @@ IRREGULAR = {
   "files/openbox" => "~/.config/openbox",
   "files/tint2" => "~/.config/tint2",
   "files/obmenu-generator" => "~/.config/obmenu-generator",
-  "files/profile" => "/etc/profile",
   "files/ifup.sh" => "/etc/ppp/ip-up.d/01-ifup.sh",
   "files/fcitx_config" => "~/.config/fcitx/config",
   'scripts' => '~/.scripts'
@@ -23,6 +22,7 @@ COPYFILES = {
   "files/xmonad.desktop" => '/usr/share/xsessions/xmonad.desktop',
   "files/20-thinkpad.conf" => "/etc/X11/xorg.conf.d/20-thinkpad.conf",
   "files/rc.conf" => "/etc/rc.conf",
+  "files/profile" => "/etc/profile",
   "files/sudoer" => "/etc/sudoers.d/sudoer"
 }
 
@@ -57,7 +57,7 @@ end
 
 task :install => [:link_files] do
   system("mkdir ~/.cache/vim -p") unless File.exist?("#{ENV['HOME']}/.cache/vim")
-  system("git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle") unless File.exist?(File.expand_path("~/.vim/bundle/vundle"))
+  system("git clone git@github.com:gmarik/Vundle.vim.git ~/.vim/bundle/vundle") unless File.exist?(File.expand_path("~/.vim/bundle/vundle"))
   # For vim-preview
   system("gem install bluecloth github-markup RedCloth ronn RbST")
   system("vim +BundleInstall +qall")

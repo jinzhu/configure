@@ -3,58 +3,39 @@ if has('vim_starting')
     set runtimepath+=~/.vim/bundle/vundle/
 endif
 call vundle#rc()
-Bundle 'gmarik/vundle'
-Bundle 'L9'
+Plugin 'gmarik/vundle'
+Plugin 'L9'
 
-Bundle 'tpope/vim-sensible'
-Bundle 'hsitz/VimOrganizer'
-
-" Bundle 'yesmeck/tips.vim'
-Bundle 'spolu/dwm.vim'
-let g:dwm_map_keys=0
-nmap ,m <Plug>DWMFocus
-nmap ,n <Plug>DWMNew
-nmap ,c <Plug>DWMClose
-nmap ,l <Plug>DWMGrowMaster
-nmap ,h <Plug>DWMShrinkMaster
-nmap ,j <C-W>w
-nmap ,k <C-W>W
-nmap ,, <Plug>DWMRotateCounterclockwise
-nmap ,. <Plug>DWMRotateClockwise
+Plugin 'tpope/vim-sensible'
 
 " Ruby & Rails
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-rake'
-Bundle 'tpope/vim-bundler'
-Bundle 'tpope/vim-dispatch'
-Bundle 'tpope/vim-rsi'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-rake'
+Plugin 'tpope/vim-bundler'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-rsi'
 " ~/.vim/macros/rails.vim
 
 " Golang
-Bundle 'jnwhiteh/vim-golang'
-Bundle 'Blackrush/vim-gocode'
-au BufRead,BufNewFile *.go set filetype=go
-au BufRead,BufNewFile *.coffee set filetype=coffee
-au BufWritePost *.go !goimports -w expand('%:p')
+Plugin 'fatih/vim-go'
 
-Bundle 'AndrewRadev/splitjoin.vim'
-
-Bundle 'tpope/vim-characterize'
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'tpope/vim-characterize'
 " ga -> to print characterize
 " :help digraph-table
 
 " + to expand, - to shrink
-Bundle 'terryma/vim-expand-region'
+Plugin 'terryma/vim-expand-region'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TMUX
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Bundle 'tpope/vim-tbone'
+Plugin 'tpope/vim-tbone'
 " Tmux, Tput, Twrite, Tyank
 
 " Send command from vim to a running tmux session
-Bundle 'benmills/vimux'
+Plugin 'benmills/vimux'
 " Prompt for a command to run
 map <Leader>tp :VimuxPromptCommand<CR>
 " Run last command executed by VimuxRunCommand
@@ -69,28 +50,28 @@ map <Leader>tq :VimuxCloseRunner<CR>
 map <Leader>ts :VimuxInterruptRunner<CR>
 let g:VimuxHeight = "25"
 
-Bundle 'jgdavey/vim-turbux'
+Plugin 'jgdavey/vim-turbux'
 let g:no_turbux_mappings = 1
 let g:turbux_runner  = 'vimux'
 autocmd FileType ruby map <Leader>tr <Plug>SendFocusedTestToTmux
 autocmd FileType ruby map <Leader>tR <Plug>SendTestToTmux
 
-Bundle 'benmills/vimux-golang'
+Plugin 'benmills/vimux-golang'
 autocmd FileType go map <Leader>tr :GolangTestCurrentPackage<CR>
 
 
-Bundle 'mhinz/vim-signify'
+Plugin 'mhinz/vim-signify'
 let g:signify_mapping_next_hunk = '<leader>sj'
 let g:signify_mapping_prev_hunk = '<leader>sk'
 let g:signify_mapping_toggle = '<leader>sh'
 let g:signify_mapping_toggle_highlight = '<leader>sl'
 
-Bundle 'jade.vim'
-Bundle 'tpope/vim-ragtag'
+Plugin 'jade.vim'
+Plugin 'tpope/vim-ragtag'
 " <C-X>= <C-X>+ <C-X>- <C-X>_ <C-X>' <C-X>" <C-X><Space> <C-X><CR> <C-X>/ <C-X>! <C-X>@ <C-X># <C-X>$
-Bundle 'tpope/vim-eunuch'
+Plugin 'tpope/vim-eunuch'
 " :Unlink :Remove :Rename :SudoWrite :W
-Bundle 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-unimpaired'
 " ]o, [o, ]n, [n
 " ]e, [e               Exchange the current line with lines above/below it
 " ]<Space>, [<Spance>  Add [count] blank lines above/below the cursor.
@@ -102,19 +83,19 @@ let g:surround_{char2nr('8')} = "/* \r */"
 let g:surround_{char2nr('s')} = " \r"
 let g:surround_{char2nr('^')} = "/^\r$/"
 let g:surround_indent = 1
-Bundle 'tpope/vim-surround'
+Plugin 'tpope/vim-surround'
 " cs'<q>, cst", dst, ys2w), yss), v<move>S)
 
-Bundle 'tpope/vim-abolish'
+Plugin 'tpope/vim-abolish'
 " :Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}
 " :%Subvert/facilit{y,ies}/building{,s}/g
 
 " GIT
-Bundle 'tpope/vim-git'
-Bundle 'tpope/vim-fugitive'
-Bundle 'int3/vim-extradite'
-Bundle 'gregsexton/gitv'
-Bundle 'tpope/vim-rhubarb'
+Plugin 'tpope/vim-git'
+Plugin 'tpope/vim-fugitive'
+Plugin 'int3/vim-extradite'
+Plugin 'gregsexton/gitv'
+Plugin 'tpope/vim-rhubarb'
 autocmd FileType gitcommit nmap <buffer> U :Git checkout -- <C-r><C-g><CR>
 " ~/.vim/bundle/vim-fugitive/doc/fugitive.txt
 map <LocalLeader>gs :Gstatus<CR>
@@ -126,32 +107,32 @@ map <LocalLeader>gl :Extradite<CR>
 map <LocalLeader>gv :Gitv<CR>
 
 
-Bundle 'Gist.vim'
+Plugin 'Gist.vim'
 
-Bundle 'VisIncr'
-Bundle 'Align'
+Plugin 'VisIncr'
+Plugin 'Align'
 
-Bundle 'tComment'
+Plugin 'tComment'
 " ~/.vim/bundle/tComment/doc/tcomment.txt
 
-Bundle 'mileszs/ack.vim'
+Plugin 'mileszs/ack.vim'
 " let g:ackprg = 'ag --nogroup --nocolor --column' " the_silver_searcher
 nmap <Leader>a :Ack <C-R><C-W>
 " copy visual value to register 'z' first
 vmap <Leader>a "zy:Ack <C-R>z
 " o (open) go (preview open) t (tab) T (new tab silently) v (vertical) gv q (close)
 
-" Bundle 'ZoomWin'
+" Plugin 'ZoomWin'
 
 " Snippet
-" Bundle 'JazzCore/neocomplcache-ultisnips'
-" Bundle 'SirVer/ultisnips'
+" Plugin 'JazzCore/neocomplcache-ultisnips'
+" Plugin 'SirVer/ultisnips'
 " let g:UltiSnipsExpandTrigger="<Tab>"
 " let g:UltiSnipsJumpForwardTrigger="<Tab>"
 " let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 
-" Bundle 'honza/vim-snippets'
-" Bundle 'Shougo/neosnippet'
+" Plugin 'honza/vim-snippets'
+" Plugin 'Shougo/neosnippet'
 " " Plugin key-mappings.
 " imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 " smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -166,7 +147,7 @@ vmap <Leader>a "zy:Ack <C-R>z
 " let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 " let g:neosnippet#enable_snipmate_compatibility = 1
 
-Bundle 'Shougo/neocomplcache'
+Plugin 'Shougo/neocomplcache'
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_camel_case_completion = 1
@@ -218,104 +199,103 @@ let g:neocomplcache_omni_functions = {
             \ }
 
 
-Bundle 'jsbeautify'
-Bundle 'MultipleSearch'
-Bundle 'reorder-tabs'
+Plugin 'jsbeautify'
+Plugin 'MultipleSearch'
+Plugin 'reorder-tabs'
 " <M-PgUp> / <M-PgDn>
 
-Bundle 'sessionman.vim'
+Plugin 'sessionman.vim'
 map <Leader>s :SessionList<CR>
 " :SessionClose :SessionList :SessionOpen :SessionOpenLast :SessionSave :SessionSaveAs :SessionShowLast
 
-Bundle 'scrooloose/nerdtree'
-Bundle 'Glob-Edit'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Glob-Edit'
 " :edit plugin/*vim
 
-Bundle 'tsaleh/vim-matchit'
-" Bundle 'sketch.vim'
-" Bundle 'hallettj/jslint.vim'
-Bundle 'tyru/current-func-info.vim'
+" Plugin 'sketch.vim'
+" Plugin 'hallettj/jslint.vim'
+Plugin 'tyru/current-func-info.vim'
 
 " Maintains a history of yanks
-Bundle 'YankRing.vim'
+Plugin 'YankRing.vim'
 map <LocalLeader>p :YRShow<CR>
 let g:yankring_history_dir = '~/.cache/vim'
 " s search, also have value in clipboard
 
 " LaTex
-" Bundle 'imaps.vim'
-" Bundle 'gerw/vim-latex-suite'
+" Plugin 'imaps.vim'
+" Plugin 'gerw/vim-latex-suite'
 
-Bundle 'Raimondi/delimitMate'
+Plugin 'Raimondi/delimitMate'
 " automatic closing of quotes, parenthesis, brackets
 
 " ColorScheme
-Bundle 'tpope/vim-vividchalk'
+Plugin 'tpope/vim-vividchalk'
 
 " Syntax Support
-Bundle 'zim-syntax'
-Bundle 'juvenn/mustache.vim'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-liquid'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'kogent/vim-nagios'
-Bundle 'pangloss/vim-javascript'
-Bundle 'cespare/mxml.vim'
-Bundle 'nono/jquery.vim'
-Bundle 'actionscript.vim'
-Bundle 'sunaku/vim-ruby-minitest'
+Plugin 'zim-syntax'
+Plugin 'juvenn/mustache.vim'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-liquid'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'kogent/vim-nagios'
+Plugin 'pangloss/vim-javascript'
+Plugin 'cespare/mxml.vim'
+Plugin 'nono/jquery.vim'
+Plugin 'actionscript.vim'
+Plugin 'sunaku/vim-ruby-minitest'
 
 " Preview:
 " markdown (gem: bluecloth), rdoc (gem: github-markup), textile (gem: RedCloth)
 " ronn (gem: ronn), html, reStructuredText (gem: RbST) and (util: rst2html)
 let g:PreviewBrowsers='chromium,firefox'
-Bundle 'greyblake/vim-preview'
+Plugin 'greyblake/vim-preview'
 
-Bundle 'LargeFile'
+Plugin 'LargeFile'
 
-" Bundle 'css_color.vim'
-" Bundle 'skammer/vim-css-color'
+" Plugin 'css_color.vim'
+" Plugin 'skammer/vim-css-color'
 " let g:cssColorVimDoNotMessMyUpdatetime = 0
-Bundle 'VIM-Color-Picker'
+Plugin 'VIM-Color-Picker'
 " <F6> :ColorPicker
-Bundle 'thinca/vim-quickrun'
+Plugin 'thinca/vim-quickrun'
 " :QuickRun ruby / :QuickRun
-Bundle 'Lokaltog/vim-easymotion'
+Plugin 'Lokaltog/vim-easymotion'
 " <Leader><Leader> f/F/w/e/b/ge/j/k
-Bundle 'spiiph/vim-space'
+Plugin 'spiiph/vim-space'
 " smart <Space>
 
-Bundle 'sjl/gundo.vim'
+Plugin 'sjl/gundo.vim'
 let g:gundo_width = 60
 let g:gundo_preview_height = 22
 map <F9> :GundoToggle<CR>
 
-Bundle 'Yggdroot/indentLine'
+Plugin 'Yggdroot/indentLine'
 let g:indentLine_enabled=0
 " map <F7> :IndentGuidesToggle <CR>
 
-Bundle 'bling/vim-airline'
+Plugin 'bling/vim-airline'
 let g:airline_theme='bubblegum'
 let g:airline_detect_modified=1
 let g:airline_detect_paste=1
 let g:airline#extensions#hunks#enabled = 1
 
-" Bundle 'Lokaltog/vim-powerline'
+" Plugin 'Lokaltog/vim-powerline'
 " let g:Powerline_stl_path_style='full'
 " autocmd! bufwritepost .vimrc source ~/.vimrc
 " autocmd! bufwritepost .vimrc call Pl#Load()
 " autocmd! BufREAD * call Pl#Load()
 " autocmd! BufDelete * call Pl#Load()
 
-Bundle 'gregsexton/MatchTag'
-Bundle 'bronson/vim-visual-star-search'
+Plugin 'gregsexton/MatchTag'
+Plugin 'bronson/vim-visual-star-search'
 
-Bundle 'majutsushi/tagbar'
+Plugin 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
-Bundle 'AutoTag'
+Plugin 'AutoTag'
 
-Bundle 'kien/ctrlp.vim'
+Plugin 'kien/ctrlp.vim'
 let g:ctrlp_extensions = ['changes', 'line', 'tag', 'buffertag']
 let g:ctrlp_lazy_update = 1
 let g:ctrlp_max_files = 20000
@@ -373,7 +353,7 @@ let g:ctrlp_buftag_types = {
             \ }
 
 
-Bundle 'gmarik/github-search.vim'
+Plugin 'gmarik/github-search.vim'
 " :GHSearchRepo something
 
 " vim:tw=78:sw=4:ts=8:et:fdm=marker:ft=vim:norl:
