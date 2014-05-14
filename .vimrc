@@ -8,7 +8,8 @@ if filereadable(expand("~/.vim/vundlerc"))
 endif
 
 " ================ General Config ====================
-
+" disable error sounds and screen flashing
+set vb t_vb=
 set history=1000                "Store lots of :cmdline history
 set lazyredraw                  " Don't redraw screen during macros
 set tf                          " Improves redrawing for newer computers
@@ -182,16 +183,6 @@ endfor
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Color
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set t_Co=256
-
-if has("gui_running")
-  set guioptions-=T
-  colorscheme vibrantink
-else
-  set background=dark
-  colorscheme vibrantink
-endif
-
 set fileencoding=utf-8
 set fileencodings=utf-8,gb18030,ucs-bom,gbk,gb2312,cp936
 set encoding=utf8
@@ -244,9 +235,6 @@ noremap <silent> <Leader>yF :let @+=expand('%')<CR>:echo @+<CR>
 noremap <silent> <Leader>yd :let @+=expand('%:p:h')<CR>:echo @+<CR>
 " copy yanked text to clipboard
 noremap <silent> <Leader>yy :let @+=@"<CR>:echo @+<CR>
-
-
-autocmd! BufWritePost *.go execute ':Fmt'
 
 map <LocalLeader>cd :lcd %:p:h<CR>:pwd<CR>
 

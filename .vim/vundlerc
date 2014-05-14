@@ -5,8 +5,16 @@ endif
 call vundle#rc()
 Plugin 'gmarik/vundle'
 Plugin 'L9'
-
 Plugin 'tpope/vim-sensible'
+
+" Theme
+set t_Co=256
+Plugin 'tomasr/molokai'
+colorscheme molokai
+
+if has("gui_running")
+  set guioptions-=T
+endif
 
 " Ruby & Rails
 Plugin 'vim-ruby/vim-ruby'
