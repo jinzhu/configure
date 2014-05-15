@@ -348,10 +348,10 @@ augroup filetypedetect
   au BufNewFile,BufRead  *.erb set filetype=eruby.html
 augroup END
 
+hi Visual ctermbg=240
+hi CursorLine ctermbg=240 cterm=none
+
 " q: -> open your command history
 " q/ -> open your search history
 " :verbose map -> list all your maps
 " :verbose abbr -> list all your maps
-
-hi Visual ctermbg=240
-hi CursorLine ctermbg=240 cterm=none
