@@ -17,7 +17,7 @@ export CDPATH=".:~"
 export HAXE_LIBRARY_PATH=/opt/haxe/std:.
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.vim/gdbmgr/src
 
-export EDITOR='emacsclient -t -a ""'
+export EDITOR='vim'
 
 xset b off
 unset MAILCHECK

@@ -132,9 +132,9 @@ function sv {
 }
 function v {
   if [ -n "$*" ]; then
-    emacsclient -t -a "" $*
+    vim $*
   else
-    emacsclient -t -a ""
+    vim
   fi
 }
 
