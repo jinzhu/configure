@@ -352,3 +352,6 @@ augroup END
 " q/ -> open your search history
 " :verbose map -> list all your maps
 " :verbose abbr -> list all your maps
+
+hi Visual ctermbg=240
+hi CursorLine ctermbg=240 cterm=none
