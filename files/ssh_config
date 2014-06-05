@@ -109,3 +109,6 @@ Host yhk
             HostName 58.64.155.185
             User www
             Port 60002
+Host qortex-payment
+            HostName 54.199.22.150
+            User app

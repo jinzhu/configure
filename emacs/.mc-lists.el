@@ -12,6 +12,7 @@
         evil-forward-WORD-begin
         evil-forward-char
         evil-forward-word-begin
+        evil-next-line
         evil-normal-state
         evil-previous-line
         evil-scroll-line-down
