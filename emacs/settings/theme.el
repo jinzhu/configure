@@ -10,8 +10,8 @@
 ;; (set-default-font "UbuntuMono-18")
 ;; (set-default-font "Monaco-14")
 ;; (set-default-font "Inconsolata-17")
-(set-default-font "DejaVuSansMono-14")
-(setq default-frame-alist '((font . "DejaVuSansMono-14"))) ;; emacs --daemon
+(set-default-font "DejaVuSansMono-16")
+(setq default-frame-alist '((font . "DejaVuSansMono-16"))) ;; emacs --daemon
 
 ;; Smart Mode Line
 (require-package 'smart-mode-line)

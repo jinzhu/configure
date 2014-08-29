@@ -112,3 +112,6 @@ Host yhk
 Host qortex-payment
             HostName 54.199.22.150
             User app
+Host work.github.com
+  HostName github.com
+  User git

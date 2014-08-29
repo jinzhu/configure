@@ -32,7 +32,7 @@
                             ],
 
     | icon_dirs_second    : Look in this directories after looked in the directories of the
-                            current icons theme. (Before /usr/share/pixmaps)
+                            current icon theme. (Before /usr/share/pixmaps)
                             Example: [
                                 "/usr/share/icons/gnome",
                             ],
@@ -45,16 +45,13 @@
                             ],
 
     | strict_icon_dirs    : A true value will make the module to look only inside the directories
-                            specified by you in either one of the above tree options.
+                            specified by you in either one of the above three options.
 
     | gtk_rc_filename     : Absolute path to the GTK configuration file.
     | missing_image       : Use this icon for missing icons (default: gtk-missing-image)
 
 
 || KEYS
-    | tooltip_keys        : Valid keys for the tooltip text.
-                            Example: ['Comment[es]', 'Comment'],
-
     | name_keys           : Valid keys for the item names.
                             Example: ['Name[fr]', 'GenericName[fr]', 'Name'],   # french menu
 
@@ -96,5 +93,5 @@ our $CONFIG = {
   "missing_icon"        => "gtk-missing-image",
   "name_keys"           => ["Name"],
   "terminal"            => "gnome-terminal",
-  "VERSION"             => 0.58,
+  "VERSION"             => 0.59,
 }

@@ -1,6 +1,5 @@
-project_name: qor
-project_root: ~/GIT/qor_core/
-tabs:
-  - qor_test: cd ~/GIT/qor_test; vim
-  - qor_dsl: cd ~/GIT/qor_dsl; vim
-  - qor_cache: cd ~/GIT/qor_cache; vim
+name: qor
+root: ~/GIT/qor
+windows:
+  - qor:
+  - autotest: goconvey --port=9999 -cover=true -depth=-1

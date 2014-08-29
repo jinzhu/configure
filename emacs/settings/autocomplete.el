@@ -1,7 +1,7 @@
 ;; Go Autocomplete
+(add-hook 'go-mode-hook (lambda () (local-set-key (kbd "M-.") 'godef-jump)))
 (require-package 'go-autocomplete)
 (require-package 'go-snippets)
-(add-hook 'go-mode-hook (lambda () (local-set-key (kbd "M-.") 'godef-jump)))
 
 ;; Auto Complete
 (require-package 'auto-complete)
@@ -12,15 +12,15 @@
 
 (setq
  ac-auto-start 1
- ac-auto-show-menu 0.02
- ac-fuzzy-enable t
+ ac-auto-show-menu 0.001
+ ac-fuzzy-enable 0
  ac-use-menu-map t
 
  ac-quick-help-prefer-pos-tip t
  ac-use-quick-help t
- ac-quick-help-delay 0.01
+ ac-quick-help-delay 0.001
 
- ac-menu-height 20
+ ac-menu-height 15
  ac-ignore-case 'smart
  ac-trigger-commands (cons 'backward-delete-char-untabify ac-trigger-commands)
  ;; ac-comphist-file "~/.emacs.d/auto-complete"

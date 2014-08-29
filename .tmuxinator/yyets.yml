@@ -1,7 +1,0 @@
-project_name: yyets
-project_root: ~/GIT/yyets_plugin/
-tabs:
-  - vim: vim
-  - shell: ./run.sh
-  - shell:
-

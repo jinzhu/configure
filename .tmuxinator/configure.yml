@@ -1,5 +1,5 @@
-project_name: configure
-project_root: ~/GIT/configure
-tabs:
+name: configure
+root: ~/GIT/configure
+windows:
   - shell:
   - openvpn:
