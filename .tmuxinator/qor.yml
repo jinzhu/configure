@@ -1,5 +1,6 @@
 name: qor
 root: ~/GIT/qor
+tmux_command: byobu
 windows:
   - qor:
   - autotest: goconvey --port=9999 -cover=true -depth=-1

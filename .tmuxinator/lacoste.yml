@@ -1,6 +1,7 @@
-project_name: lacoste
-project_root: ~/GIT/lacoste/
-tabs:
+name: lacoste
+root: ~/GIT/lacoste/
+tmux_command: byobu
+windows:
   - vim: vim
   - shell:
   - console: bundle exec rails c

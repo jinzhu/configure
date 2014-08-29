@@ -18,27 +18,33 @@ endif
 " Ruby & Rails
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-rsi'
 " ~/.vim/macros/rails.vim
+Plugin 'tpope/vim-rsi' "readline key binding
 
 " Golang
 Plugin 'fatih/vim-go'
 let g:gofmt_command='goimports'
 
 Plugin 'AndrewRadev/splitjoin.vim'
+" SplitjoinSplit, SplitjoinJoin
+
 Plugin 'tpope/vim-characterize'
 " ga -> to print characterize
 " :help digraph-table
 
+
+Plugin 'terryma/vim-multiple-cursors'
 " + to expand, - to shrink
 Plugin 'terryma/vim-expand-region'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TMUX
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plugin 'tpope/vim-dispatch'
+" Dispatch, Dispatch! (run in the background), Copen (view outputs from background job)
+
 Plugin 'tpope/vim-tbone'
-" Tmux, Tput, Twrite, Tyank
+" Tmux, Twrite (write to buffer), Tyank (copy to tmux paste buffer), Tput (paste from tmux paste buffer)
 
 " Send command from vim to a running tmux session
 Plugin 'benmills/vimux'
@@ -77,7 +83,7 @@ Plugin 'tpope/vim-ragtag'
 Plugin 'tpope/vim-eunuch'
 " :Unlink :Remove :Rename :SudoWrite :W
 Plugin 'tpope/vim-unimpaired'
-" ]o, [o, ]n, [n
+" ]f, [f, ]n, [n
 " ]e, [e               Exchange the current line with lines above/below it
 " ]<Space>, [<Spance>  Add [count] blank lines above/below the cursor.
 " `[x` XML encode, `]x` XML decode, `[u` URL encode, `]u` URL decode, `[y` C String encode, `]y` C String decode
@@ -124,13 +130,14 @@ nmap <Leader>a :Ack <C-R><C-W>
 vmap <Leader>a "zy:Ack <C-R>z
 " o (open) go (preview open) t (tab) T (new tab silently) v (vertical) gv q (close)
 
+
 Plugin 'Valloric/YouCompleteMe'
 
 " Snippet
+Plugin 'honza/vim-snippets'
 Plugin 'SirVer/ultisnips'
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsEditSplit="vertical"
 
 " Maintains a history of yanks
 Plugin 'YankRing.vim'
@@ -169,7 +176,7 @@ Plugin 'spiiph/vim-space'
 Plugin 'sjl/gundo.vim'
 let g:gundo_width = 60
 let g:gundo_preview_height = 22
-map <F9> :GundoToggle<CR>
+map <LocalLeader>u :GundoToggle<CR>
 
 Plugin 'Yggdroot/indentLine'
 let g:indentLine_enabled=0
@@ -185,7 +192,7 @@ Plugin 'bronson/vim-visual-star-search'
 Plugin 'gregsexton/MatchTag'
 
 Plugin 'majutsushi/tagbar'
-nmap <F8> :TagbarToggle<CR>
+" nmap <F8> :TagbarToggle<CR>
 Plugin 'AutoTag'
 
 Plugin 'kien/ctrlp.vim'
@@ -246,4 +253,4 @@ let g:ctrlp_buftag_types = {
 Plugin 'gmarik/github-search.vim'
 " :GHSearchRepo something
 
-" vim:tw=78:sw=4:ts=8:et:fdm=marker:ft=vim:norl:
+" vim:tw=77:sw=4:ts=8:et:fdm=marker:ft=vim:norl:

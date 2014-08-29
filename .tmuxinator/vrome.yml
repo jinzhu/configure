@@ -1,5 +1,6 @@
 name: vrome
 root: ~/GIT/vrome
+tmux_command: byobu
 windows:
   - shell:
   - shell:
