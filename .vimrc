@@ -16,7 +16,14 @@ set tf                          " Improves redrawing for newer computers
 set sc                          " Show incomplete command at bottom right
 set timeoutlen=500              " Lower timeout for mappings
 set cot=menu                    " Don't show extra info on completions
+set mousemodel=popup
 set spelllang=en_us
+set complete+=kspell
+set spell
+" z= correct, 1z= take the first suggestion
+" zg add good word, zw add bad word
+" ]s next err, ]S next bad error, [s previous error, [S previous bad error
+" nmap <F12> :set spell! spelllang=en_us<CR>
 
 " set dictionary+=/usr/share/dict/words
 " set isk+=-
@@ -46,7 +53,7 @@ set novisualbell                " No blinking
 set visualbell t_vb=            " disable any beeps or flashes on error
 set shortmess=atI
 
-set laststatus=2   " Always show the statusline
+set laststatus=2   " Always show the status line
 
 "some stuff to get the mouse going in term
 set selectmode+=mouse
@@ -213,8 +220,6 @@ vmap <F6> <Del><Esc>h:ColorPicker<Cr>a
 map <F7> :IndentLinesToggle <CR>
 set pastetoggle=<F10>          " toggle between paste and normal: for 'safer' pasting from keyboard
 nmap <F11> <Plug>ToggleAutoCloseMappings
-" ]s - next spell error, [s - previous spell error
-nmap <F12> :set spell! spelllang=en_us<CR>
 
 map <LocalLeader>C :%s/\s\+$//<CR>
 

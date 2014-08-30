@@ -23,7 +23,15 @@ Plugin 'tpope/vim-rsi' "readline key binding
 
 " Golang
 Plugin 'fatih/vim-go'
+let g:go_auto_type_info = 0
+let g:go_highlight_extra_types = 1
+let g:go_highlight_operators = 1
 let g:gofmt_command='goimports'
+au FileType go nmap <LocalLeader>d <Plug>(go-doc-vertical)
+au FileType go nmap <LocalLeader>i <Plug>(go-info)
+au FileType go nmap <LocalLeader>r <Plug>(go-run)
+au FileType go nmap <LocalLeader>b <Plug>(go-build)
+au FileType go nmap <LocalLeader>t <Plug>(go-test)
 
 Plugin 'AndrewRadev/splitjoin.vim'
 " SplitjoinSplit, SplitjoinJoin
@@ -34,8 +42,18 @@ Plugin 'tpope/vim-characterize'
 
 
 Plugin 'terryma/vim-multiple-cursors'
-" + to expand, - to shrink
 Plugin 'terryma/vim-expand-region'
+" + to expand, - to shrink
+
+Plugin 'AndrewRadev/inline_edit.vim'
+" :InlineEdit
+
+Plugin 'scrooloose/syntastic'
+let g:syntastic_auto_jump=1
+let g:syntastic_check_on_open = 1
+let g:syntastic_always_populate_loc_list = 1
+map <Leader>n :lnext<CR>
+map <Leader>p :lprevious<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TMUX
@@ -123,11 +141,11 @@ Plugin 'Align'
 Plugin 'tComment'
 " ~/.vim/bundle/tComment/doc/tcomment.txt
 
-Plugin 'mileszs/ack.vim'
+Plugin 'rking/ag.vim'
 " let g:ackprg = 'ag --nogroup --nocolor --column' " the_silver_searcher
-nmap <Leader>a :Ack <C-R><C-W>
+nmap <Leader>a :Ag <C-R><C-W>
 " copy visual value to register 'z' first
-vmap <Leader>a "zy:Ack <C-R>z
+vmap <Leader>a "zy:Ag <C-R>z
 " o (open) go (preview open) t (tab) T (new tab silently) v (vertical) gv q (close)
 
 
@@ -164,8 +182,8 @@ Plugin 'greyblake/vim-preview'
 " Plugin 'css_color.vim'
 " Plugin 'skammer/vim-css-color'
 " let g:cssColorVimDoNotMessMyUpdatetime = 0
-Plugin 'VIM-Color-Picker'
-" <F6> :ColorPicker
+Plugin 'KabbAmine/vCoolor.vim'
+" :VCoolor (Color Picker)
 Plugin 'thinca/vim-quickrun'
 " :QuickRun ruby / :QuickRun
 Plugin 'Lokaltog/vim-easymotion'
@@ -210,7 +228,7 @@ let g:ctrlp_max_height = 35
 let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\.git$\|\.hg$\|\.svn$\|public\/system$\|tmp$',
+            \ 'dir':  '\v[\/](public\/system|node_modules|tmp|target|dist)|(\.(swp|ico|git|svn|hg))$',
             \ 'file': '\.jpg$\|\.png$\|\.gif$\|tags$'
             \ }
 let g:ctrlp_user_command = {
@@ -252,5 +270,8 @@ let g:ctrlp_buftag_types = {
 
 Plugin 'gmarik/github-search.vim'
 " :GHSearchRepo something
+
+Plugin 'SearchComplete'
+" Complete with search with '/'
 
 " vim:tw=77:sw=4:ts=8:et:fdm=marker:ft=vim:norl:
