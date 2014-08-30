@@ -222,11 +222,11 @@ Plugin 'majutsushi/tagbar'
 " nmap <F8> :TagbarToggle<CR>
 Plugin 'AutoTag'
 
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_extensions = ['changes', 'line', 'tag', 'buffertag']
 let g:ctrlp_lazy_update = 1
-let g:ctrlp_max_files = 20000
-let g:ctrlp_max_depth = 8
+let g:ctrlp_max_files = 0
+let g:ctrlp_max_depth = 20
 let g:ctrlp_use_caching = 1
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_clear_cache_on_exit = 1
@@ -240,13 +240,17 @@ let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/](public\/system|node_modules|tmp|target|dist)|(\.(swp|ico|git|svn|hg))$',
             \ 'file': '\.jpg$\|\.png$\|\.gif$\|tags$'
             \ }
-let g:ctrlp_user_command = {
-            \ 'types': {
-            \ 1: ['.git', 'cd %s && git ls-files -oc --exclude-standard'],
-            \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-            \ },
-            \ 'fallback': 'find %s -type f'
-            \ }
+
+Plugin 'JazzCore/ctrlp-cmatcher'
+let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
+
+"let g:ctrlp_user_command = {
+"            \ 'types': {
+"            \ 1: ['.git', 'cd %s && git ls-files -oc --exclude-standard'],
+"            \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+"            \ },
+"            \ 'fallback': 'find %s -type f'
+"            \ }
 
 let g:ctrlp_prompt_mappings = {
       \ 'PrtSelectMove("j")':   ['<c-n>'],
