@@ -186,10 +186,14 @@ Plugin 'KabbAmine/vCoolor.vim'
 " :VCoolor (Color Picker)
 Plugin 'thinca/vim-quickrun'
 " :QuickRun ruby / :QuickRun
-Plugin 'Lokaltog/vim-easymotion'
-" <Leader><Leader> f/F/w/e/b/ge/j/k
+
 Plugin 'spiiph/vim-space'
 " smart <Space>
+
+Plugin 'Lokaltog/vim-easymotion'
+let g:EasyMotion_smartcase = 1
+nmap <Leader>f <Plug>(easymotion-s)
+nmap <Leader>F <Plug>(easymotion-jumptoanywhere)
 
 Plugin 'mbbill/undotree'
 let g:undotree_SplitWidth = 40
