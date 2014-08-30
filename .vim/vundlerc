@@ -89,12 +89,6 @@ autocmd FileType ruby map <Leader>tR <Plug>SendTestToTmux
 Plugin 'benmills/vimux-golang'
 autocmd FileType go map <Leader>tr :GolangTestCurrentPackage<CR>
 
-Plugin 'mhinz/vim-signify'
-let g:signify_mapping_next_hunk = '<leader>sj'
-let g:signify_mapping_prev_hunk = '<leader>sk'
-let g:signify_mapping_toggle = '<leader>sh'
-let g:signify_mapping_toggle_highlight = '<leader>sl'
-
 Plugin 'jade.vim'
 Plugin 'tpope/vim-ragtag'
 " <C-X>= <C-X>+ <C-X>- <C-X>_ <C-X>' <C-X>" <C-X><Space> <C-X><CR> <C-X>/ <C-X>! <C-X>@ <C-X># <C-X>$
@@ -134,6 +128,12 @@ map <LocalLeader>gD :Git! diff<CR>
 map <LocalLeader>gc :Gcommit<CR>
 map <LocalLeader>gl :Extradite<CR>
 map <LocalLeader>gv :Gitv<CR>
+
+Plugin 'mhinz/vim-signify'
+let g:signify_mapping_next_hunk = ']h'
+let g:signify_mapping_prev_hunk = '[h'
+let g:signify_mapping_toggle = '<leader>sh'
+let g:signify_mapping_toggle_highlight = '<leader>sl'
 
 Plugin 'VisIncr'
 Plugin 'Align'
@@ -191,10 +191,15 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'spiiph/vim-space'
 " smart <Space>
 
-Plugin 'sjl/gundo.vim'
-let g:gundo_width = 60
-let g:gundo_preview_height = 22
-map <LocalLeader>u :GundoToggle<CR>
+Plugin 'mbbill/undotree'
+let g:undotree_SplitWidth = 40
+let g:undotree_DiffpanelHeight = 22
+let g:undotree_SetFocusWhenToggle = 1
+function g:Undotree_CustomMap()
+    map <buffer> n J
+    map <buffer> p K
+endfunction
+map <LocalLeader>u :UndotreeToggle<CR>
 
 Plugin 'Yggdroot/indentLine'
 let g:indentLine_enabled=0
