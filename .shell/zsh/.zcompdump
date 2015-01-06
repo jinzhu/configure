@@ -32,7 +32,6 @@ _comps=(
 '-value-,CFLAGS,-default-' '_gcc'
 '-value-,CPPFLAGS,-default-' '_gcc'
 '-value-,DISPLAY,-default-' '_x_display'
-'-value-,GREP_OPTIONS,-default-' '_grep'
 '-value-,GZIP,-default-' '_gzip'
 '-value-,LANG,-default-' '_locales'
 '-value-,LANGUAGE,-default-' '_locales'

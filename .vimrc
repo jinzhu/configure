@@ -19,7 +19,7 @@ set cot=menu                    " Don't show extra info on completions
 set mousemodel=popup
 set spelllang=en_us
 set complete+=kspell
-set spell
+" set spell
 " z= correct, 1z= take the first suggestion
 " zg add good word, zw add bad word
 " ]s next err, ]S next bad error, [s previous error, [S previous bad error
@@ -211,15 +211,15 @@ let g:html_tag_case     = 'lowercase'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ My Hot Keys
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <F2> :tabedit<CR>
-map <F3> :lcd %:p:h<CR>:shell<CR>
-map <F4> :set nu!<CR>
-autocmd BufRead,BufNewFile *.rb map <F5>      :% w !ruby<CR>
-imap <F6> <Esc>:ColorPicker<Cr>a
-vmap <F6> <Del><Esc>h:ColorPicker<Cr>a
-map <F7> :IndentLinesToggle <CR>
-set pastetoggle=<F10>          " toggle between paste and normal: for 'safer' pasting from keyboard
-nmap <F11> <Plug>ToggleAutoCloseMappings
+" map <F2> :tabedit<CR>
+" map <F3> :lcd %:p:h<CR>:shell<CR>
+" map <F4> :set nu!<CR>
+" autocmd BufRead,BufNewFile *.rb map <F5>      :% w !ruby<CR>
+" imap <F6> <Esc>:ColorPicker<Cr>a
+" vmap <F6> <Del><Esc>h:ColorPicker<Cr>a
+" map <F7> :IndentLinesToggle <CR>
+" set pastetoggle=<F10>          " toggle between paste and normal: for 'safer' pasting from keyboard
+" nmap <F11> <Plug>ToggleAutoCloseMappings
 
 map <LocalLeader>C :%s/\s\+$//<CR>
 

@@ -15,7 +15,8 @@
 # "amixer sset Master toggle"
 #     XF86AudioMute
 
-"wmctrl -xa Emacs || emacsclient -c -a ''"
+#"wmctrl -xa Emacs || emacsclient -c -a ''"
+"wmctrl -xa Terminal || gnome-terminal"
     Mod4 + 1
 "wmctrl -xa Chromium || wmctrl -xa Firefox || firefox || chromium"
     Mod4 + 2

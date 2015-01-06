@@ -10,108 +10,126 @@ Protocol 2
 User app
 
 Host amn
-            HostName ec2.joblet.jp
-            User amn
+  HostName ec2.joblet.jp
+  User amn
 Host atom
-            HostName ec2.joblet.jp
-            User metropolis
+  HostName ec2.joblet.jp
+  User metropolis
 Host joblet
-            HostName joblet.jp
-            User joblet.jp
+  HostName joblet.jp
+  User joblet.jp
 Host piqshare
-            HostName piqshare.com
-            User piqshare
+  HostName piqshare.com
+  User piqshare
 Host dev3
-            HostName dev3.asics.eu
-            User asics
+  HostName dev3.asics.eu
+  User asics
 Host dev2
-            HostName dev2.asics.eu
-            User asics
+  HostName dev2.asics.eu
+  User asics
 Host theplant
-            HostName theplant.jp
-            User theplant
+  HostName theplant.jp
+  User theplant
 Host smtp
-            HostName 67.23.1.16
-            User smtp
+  HostName 67.23.1.16
+  User smtp
 Host delonghi
-            HostName 218.45.229.54
-            User delonghi
-            Port 222
+  HostName 218.45.229.54
+  User delonghi
+  Port 222
 Host theplant-backup
-            HostName 122.248.240.13
-            User theplant
-            Port 222
+  HostName 122.248.240.13
+  User theplant
+  Port 222
 Host theplant-ci
-            HostName 10.0.1.229
-            User theplant
-            Port 222
+  HostName 10.0.1.229
+  User theplant
+  Port 222
 Host lacoste-dev
-            HostName 175.41.251.74
-            Port 222
+  HostName 175.41.251.74
+  Port 222
 Host lacoste1
-            HostName 175.41.252.65
-            Port 222
+  HostName 175.41.252.65
+  Port 222
 Host lacoste2
-            HostName 175.41.242.254
-            Port 222
+  HostName 175.41.242.254
+  Port 222
 Host lacoste3
-            HostName 54.249.237.25
-            Port 222
+  HostName 54.249.237.25
+  Port 222
 Host lacoste4
-            HostName 54.249.237.24
-            Port 222
+  HostName 54.249.237.24
+  Port 222
 Host lacoste5
-            HostName 54.248.204.153
-            Port 222
+  HostName 54.248.204.153
+  Port 222
 Host lacostedb
-            HostName 54.249.254.127
-            Port 222
+  HostName 54.249.254.127
+  Port 222
+Host lacoste-es-1
+  HostName 54.95.87.113
+  User app
+  Port 222
+Host lacoste-es-2
+  HostName 54.199.110.174
+  User app
+  Port 222 
 Host asics-dev
-            HostName 79.125.17.184
+  HostName 79.125.17.184
 Host asics1
-            HostName 46.137.66.152
+  HostName 46.137.66.152
 Host asics2
-            HostName 46.137.46.173
+  HostName 46.137.46.173
 Host danone-dev
-            HostName 175.41.216.78
+  HostName 175.41.216.78
 Host danone
-            User app
-            HostName localhost
-            Port 9999
-            ProxyCommand ssh middleman exec nc %h %p
+  User app
+  HostName localhost
+  Port 9999
+  ProxyCommand ssh middleman exec nc %h %p
 Host middleman
-            User ubuntu
-            HostName middleman.theplant-dev.com
-            Port 443
+  User ubuntu
+  HostName middleman.theplant-dev.com
+  Port 443
 Host qtb
-            User qintaobao
-            HostName 58.215.173.182
+  User qintaobao
+  HostName 58.215.173.182
 Host qtb-dev
-            User qintaobao
-            HostName 54.248.102.248
+  User qintaobao
+  HostName 54.248.102.248
 Host fast
-            User xtv
-            HostName 106.187.103.77
-            Port 22
+  User xtv
+  HostName 106.187.103.77
+  Port 22
 Host usa
-            HostName 175.41.251.74
+  HostName 175.41.251.74
 Host yyets
-            HostName 60.190.171.239
+  HostName 60.190.171.239
 Host yyets-dev
-            HostName 175.41.252.65
+  HostName 175.41.252.65
 Host theplantvpn
-            HostName theplant-vpn.theplant-dev.com
-            User theplantvpn
+  HostName theplant-vpn.theplant-dev.com
+  User theplantvpn
 Host murenwu
-            HostName 42.121.18.245
-            User murenwu
+  HostName 42.121.18.245
+  User murenwu
 Host yhk
-            HostName 58.64.155.185
-            User www
-            Port 60002
+  HostName 58.64.155.185
+  User www
+  Port 60002
 Host qortex-payment
-            HostName 54.199.22.150
-            User app
+  HostName 54.199.22.150
+  User app
+Host fc_staging
+  HostName 54.183.100.76
+  User core
+  IdentityFile /jinzhu/Dropbox/Foxcomm/aws-core-west.pem
+Host bk_solr
+  User ubuntu
+  HostName 54.183.91.154
+Host foxcomm_pair
+  User ubuntu
+  HostName pair1.foxcommerce.com
 Host work.github.com
   HostName github.com
   User git

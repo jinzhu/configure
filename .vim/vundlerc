@@ -26,7 +26,7 @@ Plugin 'fatih/vim-go'
 let g:go_auto_type_info = 0
 let g:go_highlight_extra_types = 1
 let g:go_highlight_operators = 1
-let g:gofmt_command='goimports'
+let g:go_fmt_command='goimports'
 au FileType go nmap <LocalLeader>d <Plug>(go-doc-vertical)
 au FileType go nmap <LocalLeader>i <Plug>(go-info)
 au FileType go nmap <LocalLeader>r <Plug>(go-run)
@@ -50,7 +50,7 @@ Plugin 'AndrewRadev/inline_edit.vim'
 
 Plugin 'scrooloose/syntastic'
 let g:syntastic_auto_jump=1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_always_populate_loc_list = 1
 map <Leader>n :lnext<CR>
 map <Leader>p :lprevious<CR>
@@ -195,6 +195,7 @@ Plugin 'Lokaltog/vim-easymotion'
 let g:EasyMotion_smartcase = 1
 nmap <Leader>f <Plug>(easymotion-s)
 nmap <Leader>F <Plug>(easymotion-jumptoanywhere)
+nmap <Space><Space> <Plug>(easymotion-s)
 
 Plugin 'mbbill/undotree'
 let g:undotree_SplitWidth = 40
@@ -223,89 +224,90 @@ Plugin 'majutsushi/tagbar'
 " nmap <F8> :TagbarToggle<CR>
 Plugin 'AutoTag'
 
-" Plugin 'ctrlpvim/ctrlp.vim'
-" let g:ctrlp_extensions = ['changes', 'line', 'tag', 'buffertag']
-" let g:ctrlp_lazy_update = 1
-" let g:ctrlp_max_files = 0
-" let g:ctrlp_max_depth = 20
-" let g:ctrlp_use_caching = 1
-" let g:ctrlp_show_hidden = 1
-" let g:ctrlp_clear_cache_on_exit = 1
-" let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
-" let g:ctrlp_mruf_last_entered = 1
-" let g:ctrlp_follow_symlinks = 1
-" let g:ctrlp_max_height = 35
-" let g:ctrlp_match_window_reversed = 0
-" let g:ctrlp_working_path_mode = 'ra'
-" let g:ctrlp_custom_ignore = {
-"             \ 'dir':  '\v[\/](public\/system|node_modules|tmp|target|dist)|(\.(swp|ico|git|svn|hg))$',
-"             \ 'file': '\.jpg$\|\.png$\|\.gif$\|tags$'
-"             \ }
-"
+Plugin 'ctrlpvim/ctrlp.vim'
+let g:ctrlp_extensions = ['changes', 'line', 'tag', 'buffertag']
+let g:ctrlp_lazy_update = 1
+let g:ctrlp_max_files = 0
+let g:ctrlp_max_depth = 20
+let g:ctrlp_use_caching = 1
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_clear_cache_on_exit = 1
+let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
+let g:ctrlp_mruf_last_entered = 1
+let g:ctrlp_follow_symlinks = 1
+let g:ctrlp_max_height = 35
+let g:ctrlp_match_window_reversed = 0
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = {
+            \ 'dir':  '\v[\/](public\/system|node_modules|tmp|target|dist)|(\.(swp|ico|git|svn|hg))$',
+            \ 'file': '\.jpg$\|\.png$\|\.gif$\|tags$'
+            \ }
+
 " Plugin 'JazzCore/ctrlp-cmatcher'
 " let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
-"
-" "let g:ctrlp_user_command = {
-" "            \ 'types': {
-" "            \ 1: ['.git', 'cd %s && git ls-files -oc --exclude-standard'],
-" "            \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-" "            \ },
-" "            \ 'fallback': 'find %s -type f'
-" "            \ }
-"
-" let g:ctrlp_prompt_mappings = {
-"       \ 'PrtSelectMove("j")':   ['<c-n>'],
-"       \ 'PrtSelectMove("k")':   ['<c-p>'],
-"       \ 'PrtHistory(-1)':       ['<c-j>'],
-"       \ 'PrtHistory(1)':        ['<c-k>']
-"       \}
-"
-" let g:ctrlp_cmd = 'CtrlP'
-" map <Leader>b :CtrlPBuffer<CR>
-" map <Leader>r :CtrlPMRUFiles<CR>
-" map <Leader>gr :CtrlPRoot<CR>
-" map <Leader>gf :CtrlPCurFile<CR>
-" map <Leader>gl :CtrlPLine<CR>
-" map <Leader>gt :CtrlPTag<CR>
-" map <Leader>gb :CtrlPBufTag<CR>
-" map <Leader>gq :CtrlPQuickfix<CR>
-" map <Leader>gc :CtrlPChange<CR>
-" map <Leader>gC :CtrlPChangeAll<CR>
-" map <Leader>gm :CtrlPMixed<CR>
-" map <Leader>gp :CtrlPRTS<CR>
-" let g:ctrlp_buftag_types = {
-"             \ 'go'     : '--language-force=go',
-"             \ 'css'     : '--language-force=css',
-"             \ 'scss'     : '--language-force=scss',
-"             \ 'js'     : '--language-force=js',
-"             \ 'coffee'     : '--language-force=coffee',
-"             \ 'markdown'     : '--language-force=markdown'
-"             \ }
-"
-Plugin 'thinca/vim-unite-history'
-Plugin 'Shougo/neomru.vim'
-Plugin 'mattn/webapi-vim'
-Plugin 'farseer90718/unite-workflow'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'Shougo/unite.vim'
-let g:unite_source_find_default_opts = "-L"
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#custom#source('file_rec/async', 'ignore_pattern', 'node_modules/\|bower_components/\|.git/\|.cache/')
-call unite#custom#profile('default', 'context', {
-            \  'start_insert': 1
-            \ })
 
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()
-    imap <buffer> <ESC> <Plug>(unite_exit)
-    imap <buffer> <TAB> <Plug>(unite_select_next_line)
-endfunction
+"let g:ctrlp_user_command = {
+"            \ 'types': {
+"            \ 1: ['.git', 'cd %s && git ls-files -oc --exclude-standard'],
+"            \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+"            \ },
+"            \ 'fallback': 'find %s -type f'
+"            \ }
 
-nnoremap <C-p> :Unite file_rec/async<CR>
-map <Leader>r :Unite file_mru<CR>
-map <Leader>b :Unite buffer_tab<CR>
-map <Leader><Space> :Unite 
+let g:ctrlp_prompt_mappings = {
+      \ 'PrtSelectMove("j")':   ['<c-n>'],
+      \ 'PrtSelectMove("k")':   ['<c-p>'],
+      \ 'PrtHistory(-1)':       ['<c-j>'],
+      \ 'PrtHistory(1)':        ['<c-k>']
+      \}
+
+let g:ctrlp_cmd = 'CtrlP'
+map <Leader>b :CtrlPBuffer<CR>
+map <Leader>r :CtrlPMRUFiles<CR>
+map <Leader>gr :CtrlPRoot<CR>
+map <Leader>gf :CtrlPCurFile<CR>
+map <Leader>gl :CtrlPLine<CR>
+map <Leader>gt :CtrlPTag<CR>
+map <Leader>gb :CtrlPBufTag<CR>
+map <Leader>gq :CtrlPQuickfix<CR>
+map <Leader>gc :CtrlPChange<CR>
+map <Leader>gC :CtrlPChangeAll<CR>
+map <Leader>gm :CtrlPMixed<CR>
+map <Leader>gp :CtrlPRTS<CR>
+let g:ctrlp_buftag_types = {
+            \ 'go'     : '--language-force=go',
+            \ 'css'     : '--language-force=css',
+            \ 'scss'     : '--language-force=scss',
+            \ 'js'     : '--language-force=js',
+            \ 'coffee'     : '--language-force=coffee',
+            \ 'markdown'     : '--language-force=markdown'
+            \ }
+
+" Plugin 'thinca/vim-unite-history'
+" Plugin 'Shougo/neomru.vim'
+" Plugin 'mattn/webapi-vim'
+" Plugin 'farseer90718/unite-workflow'
+" Plugin 'Shougo/vimproc.vim'
+" Plugin 'Shougo/unite.vim'
+" let g:unite_source_find_default_opts = "-L"
+" call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" call unite#filters#sorter_default#use(['sorter_rank'])
+" call unite#custom#source('file_rec/async', 'ignore_pattern', 'node_modules/\|bower_components/\|.git/\|.cache/')
+" call unite#custom#profile('default', 'context', {
+"             \  'start_insert': 1
+"             \ })
+"
+" autocmd FileType unite call s:unite_my_settings()
+" function! s:unite_my_settings()
+"     imap <buffer> <ESC> <Plug>(unite_exit)
+"     imap <buffer> <TAB> <Plug>(unite_select_next_line)
+"     imap <buffer> <C-]> <Plug>(unite_choose_action)
+" endfunction
+"
+" nnoremap <C-p> :Unite file_rec/async<CR>
+" map <Leader>r :Unite file_mru<CR>
+" map <Leader>b :Unite buffer_tab<CR>
+" map <Leader><Space> :Unite source<CR>
 
 Plugin 'gmarik/github-search.vim'
 " :GHSearchRepo something

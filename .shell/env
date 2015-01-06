@@ -17,6 +17,7 @@ stty -ixon
 export CDPATH=".:~"
 export HAXE_LIBRARY_PATH=/opt/haxe/std:.
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.vim/gdbmgr/src
+export CLOUDSDK_PYTHON=/usr/bin/python2
 
 export EDITOR='vim'
 
