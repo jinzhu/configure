@@ -25,7 +25,7 @@ setopt NOTIFY
 
 setopt PROMPT_SUBST
 setopt CORRECT
-setopt CORRECT_ALL       # Try to autocorrect commands & file names
+unsetopt CORRECT_ALL       # Try to autocorrect commands & file names
 setopt COMPLETE_IN_WORD
 setopt IGNORE_EOF
 

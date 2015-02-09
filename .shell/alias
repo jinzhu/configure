@@ -130,12 +130,17 @@ function sv {
     sudo vim
   fi
 }
+
 function v {
   if [ -n "$*" ]; then
     vim $*
   else
     vim
   fi
+}
+
+function vim {
+  /usr/bin/vim $(echo $* | sed "s/:/ +/g")
 }
 
 function e {
@@ -218,7 +223,6 @@ alias gi='git ci'
 alias gmt='git mergetool'
 alias gp='git push origin master'
 alias gsb='git show-branch'
-alias gdv='git diff -w "$@" | vim -R -'
 alias gdc='git diff --cached'
 alias gcount='git shortlog -sn'
 

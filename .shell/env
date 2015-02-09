@@ -21,6 +21,9 @@ export CLOUDSDK_PYTHON=/usr/bin/python2
 
 export EDITOR='vim'
 
+eval `ssh-agent 2>/dev/null`
+eval `ssh-add 2>/dev/null`
+
 xset b off
 unset MAILCHECK
 #xset s off

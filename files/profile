@@ -7,7 +7,7 @@ export GOROOT="/usr/lib/go/"
 export GOPATH="/usr/lib/go/site/"
 export EDITOR="vim"
 
-PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin/:$GOROOT/bin:$GOPATH/bin:/home/jinzhu/.rbenv/shims/"
+PATH="/usr/local/heroku/bin:/usr/local/bin:/usr/bin:/usr/sbin/:$GOROOT/bin:$GOPATH/bin:/home/jinzhu/.rbenv/shims/"
 export PATH
 
 export LC_CTYPE="zh_CN.utf8"

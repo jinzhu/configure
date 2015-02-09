@@ -17,9 +17,9 @@ fi
 /usr/bin/gnome-keyring-daemon --start --components=ssh
 
 # Add the 3 lines below to Convert caps-lock into Control
-xmodmap -e 'remove Lock = Caps_Lock'
-xmodmap -e 'keysym Caps_Lock = Control_L'
-xmodmap -e 'add Control = Control_L'
+# xmodmap -e 'remove Lock = Caps_Lock'
+# xmodmap -e 'keysym Caps_Lock = Control_L'
+# xmodmap -e 'add Control = Control_L'
 
 # Fix flash with nvidia
 export VDPAU_NVIDIA_NO_OVERLAY=1

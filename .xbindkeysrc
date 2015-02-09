@@ -16,11 +16,9 @@
 #     XF86AudioMute
 
 #"wmctrl -xa Emacs || emacsclient -c -a ''"
-"wmctrl -xa Terminal || gnome-terminal"
-    Mod4 + 1
-"wmctrl -xa Chromium || wmctrl -xa Firefox || firefox || chromium"
+"wmctrl -xa Firefox || firefox"
     Mod4 + 2
-"wmctrl -xa Terminal || gnome-terminal"
+"wmctrl -xa Chromium || chromium"
     Mod4 + 3
 "wmctrl -xa jnlp || javaws https://www.dukascopy.com/client/live/jclient/jforex.jnlp"
     Mod4 + 4
