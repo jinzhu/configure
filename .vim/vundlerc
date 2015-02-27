@@ -36,7 +36,6 @@ Plugin 'tpope/vim-characterize'
 " ga -> to print characterize
 " :help digraph-table
 
-
 Plugin 'terryma/vim-multiple-cursors'
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
@@ -61,6 +60,8 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_always_populate_loc_list = 1
 map <Leader>n :lnext<CR>
 map <Leader>p :lprevious<CR>
+
+Plugin 'Chiel92/vim-autoformat'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TMUX
@@ -176,9 +177,9 @@ Plugin 'Raimondi/delimitMate'
 
 " Syntax Support
 Plugin 'juvenn/mustache.vim'
-Plugin 'tpope/vim-markdown'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'pangloss/vim-javascript'
+Plugin 'tpope/vim-markdown'
 Plugin 'nono/jquery.vim'
 
 " Preview:
@@ -186,6 +187,8 @@ Plugin 'nono/jquery.vim'
 " ronn (gem: ronn), html, reStructuredText (gem: RbST) and (util: rst2html)
 let g:PreviewBrowsers='firefox,chromium'
 Plugin 'greyblake/vim-preview'
+let g:instant_markdown_autostart = 0
+Plugin 'suan/vim-instant-markdown'
 
 " Plugin 'css_color.vim'
 " Plugin 'skammer/vim-css-color'
@@ -281,36 +284,7 @@ let g:ctrlp_buftag_types = {
             \ 'markdown'     : '--language-force=markdown'
             \ }
 
-" Plugin 'thinca/vim-unite-history'
-" Plugin 'Shougo/neomru.vim'
-" Plugin 'mattn/webapi-vim'
-" Plugin 'farseer90718/unite-workflow'
-" Plugin 'Shougo/vimproc.vim'
-" Plugin 'Shougo/unite.vim'
-" let g:unite_source_find_default_opts = "-L"
-" call unite#filters#matcher_default#use(['matcher_fuzzy'])
-" call unite#filters#sorter_default#use(['sorter_rank'])
-" call unite#custom#source('file_rec/async', 'ignore_pattern', 'node_modules/\|bower_components/\|.git/\|.cache/')
-" call unite#custom#profile('default', 'context', {
-"             \  'start_insert': 1
-"             \ })
-"
-" autocmd FileType unite call s:unite_my_settings()
-" function! s:unite_my_settings()
-"     imap <buffer> <ESC> <Plug>(unite_exit)
-"     imap <buffer> <TAB> <Plug>(unite_select_next_line)
-"     imap <buffer> <C-]> <Plug>(unite_choose_action)
-" endfunction
-"
-" nnoremap <C-p> :Unite file_rec/async<CR>
-" map <Leader>r :Unite file_mru<CR>
-" map <Leader>b :Unite buffer_tab<CR>
-" map <Leader><Space> :Unite source<CR>
-
 Plugin 'gmarik/github-search.vim'
 " :GHSearchRepo something
-
-Plugin 'SearchComplete'
-" Complete with search with '/'
 
 " vim:tw=77:sw=4:ts=8:et:fdm=marker:ft=vim:norl:

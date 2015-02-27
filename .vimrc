@@ -10,7 +10,7 @@ endif
 " ================ General Config ====================
 " disable error sounds and screen flashing
 set vb t_vb=
-set history=1000                "Store lots of :cmdline history
+set history=1000                " Store lots of :cmdline history
 set lazyredraw                  " Don't redraw screen during macros
 set tf                          " Improves redrawing for newer computers
 set sc                          " Show incomplete command at bottom right
@@ -43,11 +43,11 @@ set modelines=5                " default numbers of lines to read for modeline i
 
 " set autochdir
 let bufpane_showhelp = 0
-" set number                      "Line numbers are good
-set backspace=indent,eol,start  "Allow backspace in insert mode
-set showcmd                     "Show incomplete cmds down the bottom
-set showmode                    "Show current mode down the bottom
-set gcr=a:blinkon0              "Disable cursor blink
+" set number                      " Line numbers are good
+set backspace=indent,eol,start  " Allow backspace in insert mode
+set showcmd                     " Show incomplete cmds down the bottom
+set showmode                    " Show current mode down the bottom
+set gcr=a:blinkon0              " Disable cursor blink
 set noerrorbells                " No noise
 set novisualbell                " No blinking
 set visualbell t_vb=            " disable any beeps or flashes on error
@@ -89,7 +89,7 @@ set smartcase                  " be case sensitive when input has a capital lett
 set incsearch                  " show matches while typing
 set gdefault                    " search/replace "globally" (on a line) by default
 
-set viminfo='100,f1            "Save up to 100 marks, enable capital marks
+set viminfo='100,f1            " Save up to 100 marks, enable capital marks
 
 " ================ Turn Off Swap Files ==============
 
@@ -100,7 +100,7 @@ set noswapfile
 set nowb
 
 set autowrite                   " Writes on make/shell commands
-set autoread                    "Reload files changed outside vim
+set autoread                    " Reload files changed outside vim
 
 " no ex mode
 nnoremap Q <nop>
@@ -133,8 +133,8 @@ set expandtab
 filetype plugin on
 filetype indent on
 
-set wrap       "Don't wrap lines
-set linebreak    "Wrap lines at convenient points
+set wrap       " Don't wrap lines
+set linebreak    " Wrap lines at convenient points
 
 " ================ Folds ============================
 
@@ -156,8 +156,8 @@ set splitright
 set wildmode=list:longest
 set completeopt+=preview
 
-set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
+set wildmenu                " enable ctrl-n and ctrl-p to scroll thru matches
+set wildignore=*.o,*.obj,*~ " stuff to ignore when tab completing
 set wildignore+=*vim/backups*
 set wildignore+=*sass-cache*
 set wildignore+=*DS_Store*
@@ -178,7 +178,7 @@ set wildignore+=*/.git/*,*/.hg/*,*/.svn/*  " Linux/MacOSX
 
 " ================ Scrolling ========================
 
-set scrolloff=0         "Start scrolling when we're 8 lines away from margins
+set scrolloff=0         " Start scrolling when we're 8 lines away from margins
 set sidescrolloff=15
 set sidescroll=1
 
