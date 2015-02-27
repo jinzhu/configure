@@ -15,7 +15,8 @@
 # "amixer sset Master toggle"
 #     XF86AudioMute
 
-#"wmctrl -xa Emacs || emacsclient -c -a ''"
+"xdotool windowminimize $(xdotool search --onlyvisible --classname Terminal | grep $(xdotool getactivewindow)) || wmctrl -xR Terminal || gnome-terminal"
+    F1
 "wmctrl -xa Firefox || firefox"
     Mod4 + 2
 "wmctrl -xa Chromium || chromium"

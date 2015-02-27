@@ -8,12 +8,8 @@ Plugin 'L9'
 Plugin 'tpope/vim-sensible'
 
 " Theme
-set t_Co=256
 Plugin 'tomasr/molokai'
 colorscheme molokai
-if has("gui_running")
-  set guioptions-=T
-endif
 
 " Ruby & Rails
 Plugin 'vim-ruby/vim-ruby'
@@ -42,11 +38,22 @@ Plugin 'tpope/vim-characterize'
 
 
 Plugin 'terryma/vim-multiple-cursors'
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
 Plugin 'terryma/vim-expand-region'
 " + to expand, - to shrink
 
 Plugin 'AndrewRadev/inline_edit.vim'
 " :InlineEdit
+
+" Plugin 'benekastah/neomake'
+" let g:neomake_open_list=0
+" let g:neomake_serialize=1
+" let g:neomake_serialize_abort_on_error=1
+" let g:neomake_verbose=1
+" let g:neomake_go_enabled_makers = ['go']
 
 Plugin 'scrooloose/syntastic'
 let g:syntastic_auto_jump=1
@@ -129,11 +136,11 @@ map <LocalLeader>gc :Gcommit<CR>
 map <LocalLeader>gl :Extradite<CR>
 map <LocalLeader>gv :Gitv<CR>
 
-Plugin 'mhinz/vim-signify'
-let g:signify_mapping_next_hunk = ']h'
-let g:signify_mapping_prev_hunk = '[h'
-let g:signify_mapping_toggle = '<leader>sh'
-let g:signify_mapping_toggle_highlight = '<leader>sl'
+Plugin 'airblade/vim-gitgutter'
+let g:gitgutter_map_keys = 1
+nmap <LocalLeader>] <Plug>GitGutterNextHunk
+nmap <LocalLeader>[ <Plug>GitGutterPrevHunk
+nmap <LocalLeader>v <Plug>GitGutterPreviewHunk
 
 Plugin 'VisIncr'
 Plugin 'Align'
@@ -193,13 +200,12 @@ Plugin 'spiiph/vim-space'
 
 Plugin 'Lokaltog/vim-easymotion'
 let g:EasyMotion_smartcase = 1
-nmap <Leader>f <Plug>(easymotion-s)
-nmap <Leader>F <Plug>(easymotion-jumptoanywhere)
-nmap <Space><Space> <Plug>(easymotion-s)
+nmap <M-Space> <Plug>(easymotion-s)
+nmap <Space><Space> <Plug>(easymotion-jumptoanywhere)
 
 Plugin 'mbbill/undotree'
 let g:undotree_SplitWidth = 40
-let g:undotree_DiffpanelHeight = 22
+let g:undotree_DiffpanelHeight = 20
 let g:undotree_SetFocusWhenToggle = 1
 function g:Undotree_CustomMap()
     map <buffer> n J
@@ -227,7 +233,7 @@ Plugin 'AutoTag'
 Plugin 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_extensions = ['changes', 'line', 'tag', 'buffertag']
 let g:ctrlp_lazy_update = 1
-let g:ctrlp_max_files = 0
+let g:ctrlp_max_files = 20000
 let g:ctrlp_max_depth = 20
 let g:ctrlp_use_caching = 1
 let g:ctrlp_show_hidden = 1
@@ -237,22 +243,14 @@ let g:ctrlp_mruf_last_entered = 1
 let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_max_height = 35
 let g:ctrlp_match_window_reversed = 0
-let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_working_path_mode = 'w'
 let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/](public\/system|node_modules|tmp|target|dist)|(\.(swp|ico|git|svn|hg))$',
             \ 'file': '\.jpg$\|\.png$\|\.gif$\|tags$'
             \ }
 
-" Plugin 'JazzCore/ctrlp-cmatcher'
-" let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
-
-"let g:ctrlp_user_command = {
-"            \ 'types': {
-"            \ 1: ['.git', 'cd %s && git ls-files -oc --exclude-standard'],
-"            \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-"            \ },
-"            \ 'fallback': 'find %s -type f'
-"            \ }
+Plugin 'JazzCore/ctrlp-cmatcher'
+let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 
 let g:ctrlp_prompt_mappings = {
       \ 'PrtSelectMove("j")':   ['<c-n>'],
