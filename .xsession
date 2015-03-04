@@ -8,7 +8,6 @@ if [ -x /usr/bin/xscreensaver ] ; then xscreensaver & fi
 if [ -x /usr/bin/dropboxd ] ; then dropboxd & fi
 
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
-[[ -s $HOME/.scripts/start_tmux ]] && ruby $HOME/.scripts/start_tmux
 
 ps aux |grep vrome |grep -v grep | awk '{print $2}' | xargs kill -9
 nohup vrome > /dev/null &

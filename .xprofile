@@ -4,7 +4,6 @@ xbindkeys &
 gocode &
 fcitx-autostart &
 emacs --daemon &
-guake &
 
 [[ -f ~/.screenlayout/layout.sh ]] && ~/.screenlayout/layout.sh
 # [ -f ~/.xsession ] && source ~/.xsession

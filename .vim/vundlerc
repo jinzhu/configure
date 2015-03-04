@@ -203,8 +203,8 @@ Plugin 'spiiph/vim-space'
 
 Plugin 'Lokaltog/vim-easymotion'
 let g:EasyMotion_smartcase = 1
-nmap <M-Space> <Plug>(easymotion-s)
-nmap <Space><Space> <Plug>(easymotion-jumptoanywhere)
+nmap <M-Space> <Plug>(easymotion-jumptoanywhere)
+nmap <Space><Space> <Plug>(easymotion-s)
 
 Plugin 'mbbill/undotree'
 let g:undotree_SplitWidth = 40
