@@ -125,9 +125,9 @@ alias sgl='sudo gem list'
 # VIM
 function sv {
   if [ -n "$*" ]; then
-    sudo nvim $*
+    sudo vim $*
   else
-    sudo nvim
+    sudo vim
   fi
 }
 
@@ -140,7 +140,7 @@ function v {
 }
 
 function vim {
-  /usr/bin/nvim $(echo $* | sed "s/:/ +/g")
+  /usr/bin/vim $(echo $* | sed "s/:/ +/g")
 }
 
 function e {

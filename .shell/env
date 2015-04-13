@@ -3,7 +3,7 @@
 
 export DISPLAY=:0
 export TERM=screen-256color;
-[[ ! $NOTMUX == "1" ]] && [[ ! $INSIDE_EMACS =~ "term" ]] && byobu
+[[ $TMUX == "" ]] && [[ ! $NOTMUX == "1" ]] && [[ ! $INSIDE_EMACS =~ "term" ]] && byobu-tmux
 
 # Disabling Terminal Flow Control Keystrokes
 stty -ixon
@@ -20,6 +20,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.vim/gdbmgr/src
 export CLOUDSDK_PYTHON=/usr/bin/python2
 
 export EDITOR='vim'
+export TMPDIR=/tmp
 
 eval `ssh-agent 2>/dev/null`
 eval `ssh-add 2>/dev/null`

@@ -166,6 +166,7 @@ set wildignore+=*vendor/cache/**
 set wildignore+=*.gem
 set wildignore+=*log/**
 set wildignore+=*tmp/**
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip 
 set wildignore+=*.png,*.jpg,*.gif
 set wildignore+=*.a,*.lib,*.so,CVS,vendor/qor,public/system
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*  " Linux/MacOSX

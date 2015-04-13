@@ -1,14 +1,15 @@
 " =============== Vundle Initialization ===============
 if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/vundle/
+    set runtimepath+=~/.vim/bundle/Vundle.vim/
 endif
 call vundle#rc()
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 Plugin 'L9'
 Plugin 'tpope/vim-sensible'
 
 " Theme
 Plugin 'tomasr/molokai'
+let g:molokai_original = 1
 colorscheme molokai
 
 " Ruby & Rails
