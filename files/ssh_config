@@ -89,6 +89,10 @@ Host aussie-dev
   HostName aussie-parking.theplant-dev.com
   Port 56222
   User app
-Host youta
+Host youta-dev
   HostName 121.42.141.171
+  User youta
+Host youta
+  HostName 114.215.174.35
+  Port 222
   User youta

@@ -26,16 +26,16 @@ export VDPAU_NVIDIA_NO_OVERLAY=1
 
 DEFAULT_SESSION=xmonad
 case $1 in
-xmonad)
-    xsetroot -cursor_name left_ptr
-    source .xprofile
-    exec ck-launch-session xmonad
-    ;;
-gnome)
-    exec ck-launch-session gnome-session
-    ;;
-*)
-    source .xprofile
-    exec openbox-session
-    ;;
-esac
+ xmonad)
+     xsetroot -cursor_name left_ptr
+     source .xprofile
+     exec ck-launch-session xmonad
+     ;;
+ gnome)
+     exec ck-launch-session gnome-session
+     ;;
+ *)
+     source .xprofile
+     exec openbox-session
+     ;;
+ esac

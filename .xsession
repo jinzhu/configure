@@ -6,8 +6,3 @@ if [ -x /usr/bin/nm-applet ] ; then nm-applet --sm-disable & fi
 if [ -x /usr/bin/gnome-power-manager ] ; then gnome-power-manager & fi
 if [ -x /usr/bin/xscreensaver ] ; then xscreensaver & fi
 if [ -x /usr/bin/dropboxd ] ; then dropboxd & fi
-
-[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
-
-ps aux |grep vrome |grep -v grep | awk '{print $2}' | xargs kill -9
-nohup vrome > /dev/null &
