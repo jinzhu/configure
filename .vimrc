@@ -105,13 +105,6 @@ set autoread                    " Reload files changed outside vim
 " no ex mode
 nnoremap Q <nop>
 
-" ================ Persistent Undo ==================
-" Keep undo history across sessions, by storing in file.
-" Only works all the time.
-
-set undofile
-set undodir=~/.cache/vim,/tmp
-
 " ================ Indentation ======================
 
 set autoindent

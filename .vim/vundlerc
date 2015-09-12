@@ -3,7 +3,7 @@ if has('vim_starting')
     set runtimepath+=~/.vim/bundle/Vundle.vim/
 endif
 call vundle#rc()
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'L9'
 Plugin 'tpope/vim-sensible'
 
@@ -104,7 +104,8 @@ Plugin 'tpope/vim-ragtag'
 Plugin 'tpope/vim-eunuch'
 " :Unlink :Remove :Rename :SudoWrite :W
 Plugin 'tpope/vim-unimpaired'
-" ]f, [f, ]n, [n
+" ]f, [f               go to the next/previous file in the directory
+" ]n, [n               jump between SCM conflict markers
 " ]e, [e               Exchange the current line with lines above/below it
 " ]<Space>, [<Spance>  Add [count] blank lines above/below the cursor.
 " `[x` XML encode, `]x` XML decode, `[u` URL encode, `]u` URL decode, `[y` C String encode, `]y` C String decode
@@ -140,9 +141,9 @@ map <LocalLeader>gv :Gitv<CR>
 
 Plugin 'airblade/vim-gitgutter'
 let g:gitgutter_map_keys = 1
-nmap <LocalLeader>] <Plug>GitGutterNextHunk
-nmap <LocalLeader>[ <Plug>GitGutterPrevHunk
-nmap <LocalLeader>v <Plug>GitGutterPreviewHunk
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
+nmap <LocalLeader>gV <Plug>GitGutterPreviewHunk
 
 Plugin 'VisIncr'
 Plugin 'Align'
@@ -206,6 +207,11 @@ Plugin 'Lokaltog/vim-easymotion'
 let g:EasyMotion_smartcase = 1
 nmap <M-Space> <Plug>(easymotion-jumptoanywhere)
 nmap <Space><Space> <Plug>(easymotion-s)
+
+" ================ Persistent Undo ==================
+" Keep undo history across sessions, by storing in file.
+set undofile
+set undodir=~/.cache/vim,/tmp
 
 Plugin 'mbbill/undotree'
 let g:undotree_SplitWidth = 40
