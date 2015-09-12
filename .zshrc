@@ -12,3 +12,5 @@ limit coredumpsize 0
 WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

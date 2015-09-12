@@ -1,25 +1,25 @@
-" =============== Vundle Initialization ===============
-if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/Vundle.vim/
-endif
-call vundle#rc()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'L9'
-Plugin 'tpope/vim-sensible'
+" =============== Plug Initialization ===============
+call plug#begin('~/.vim/plugins')
+
+Plug 'VundleVim/Vundle.vim'
+Plug 'L9'
+Plug 'tpope/vim-sensible'
 
 " Theme
-Plugin 'tomasr/molokai'
+Plug 'mhinz/vim-startify'
+Plug 'tomasr/molokai'
 let g:molokai_original = 1
-colorscheme molokai
 
 " Ruby & Rails
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'tpope/vim-rails'
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-rails'
 " ~/.vim/macros/rails.vim
-Plugin 'tpope/vim-rsi' "readline key binding
+
+Plug 'tpope/vim-rsi' "readline key binding
+Plug 'tpope/vim-commentary'
 
 " Golang
-Plugin 'fatih/vim-go'
+Plug 'fatih/vim-go'
 let g:go_auto_type_info = 0
 let g:go_highlight_extra_types = 1
 let g:go_highlight_operators = 1
@@ -30,51 +30,51 @@ au FileType go nmap <LocalLeader>r <Plug>(go-run)
 au FileType go nmap <LocalLeader>b <Plug>(go-build)
 au FileType go nmap <LocalLeader>t <Plug>(go-test)
 
-Plugin 'AndrewRadev/splitjoin.vim'
+Plug 'AndrewRadev/splitjoin.vim'
 " SplitjoinSplit, SplitjoinJoin
 
-Plugin 'tpope/vim-characterize'
+Plug 'tpope/vim-characterize'
 " ga -> to print characterize
 " :help digraph-table
 
-Plugin 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
-Plugin 'terryma/vim-expand-region'
+Plug 'terryma/vim-expand-region'
 " + to expand, - to shrink
 
-Plugin 'AndrewRadev/inline_edit.vim'
+Plug 'AndrewRadev/inline_edit.vim'
 " :InlineEdit
 
-" Plugin 'benekastah/neomake'
+" Plug 'benekastah/neomake'
 " let g:neomake_open_list=0
 " let g:neomake_serialize=1
 " let g:neomake_serialize_abort_on_error=1
 " let g:neomake_verbose=1
 " let g:neomake_go_enabled_makers = ['go']
 
-Plugin 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 let g:syntastic_auto_jump=1
 let g:syntastic_check_on_open = 0
 let g:syntastic_always_populate_loc_list = 1
 map <Leader>n :lnext<CR>
 map <Leader>p :lprevious<CR>
 
-Plugin 'Chiel92/vim-autoformat'
+Plug 'Chiel92/vim-autoformat'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TMUX
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plugin 'tpope/vim-dispatch'
+Plug 'tpope/vim-dispatch'
 " Dispatch, Dispatch! (run in the background), Copen (view outputs from background job)
 
-Plugin 'tpope/vim-tbone'
+Plug 'tpope/vim-tbone'
 " Tmux, Twrite (write to buffer), Tyank (copy to tmux paste buffer), Tput (paste from tmux paste buffer)
 
 " Send command from vim to a running tmux session
-Plugin 'benmills/vimux'
+Plug 'benmills/vimux'
 " Prompt for a command to run
 map <Leader>tp :VimuxPromptCommand<CR>
 " Run last command executed by VimuxRunCommand
@@ -89,21 +89,21 @@ map <Leader>tq :VimuxCloseRunner<CR>
 map <Leader>ts :VimuxInterruptRunner<CR>
 let g:VimuxHeight = "25"
 
-Plugin 'jgdavey/vim-turbux'
+Plug 'jgdavey/vim-turbux'
 let g:no_turbux_mappings = 1
 let g:turbux_runner  = 'vimux'
 autocmd FileType ruby map <Leader>tr <Plug>SendFocusedTestToTmux
 autocmd FileType ruby map <Leader>tR <Plug>SendTestToTmux
 
-Plugin 'benmills/vimux-golang'
+Plug 'benmills/vimux-golang'
 autocmd FileType go map <Leader>tr :GolangTestCurrentPackage<CR>
 
-Plugin 'jade.vim'
-Plugin 'tpope/vim-ragtag'
+Plug 'jade.vim'
+Plug 'tpope/vim-ragtag'
 " <C-X>= <C-X>+ <C-X>- <C-X>_ <C-X>' <C-X>" <C-X><Space> <C-X><CR> <C-X>/ <C-X>! <C-X>@ <C-X># <C-X>$
-Plugin 'tpope/vim-eunuch'
+Plug 'tpope/vim-eunuch'
 " :Unlink :Remove :Rename :SudoWrite :W
-Plugin 'tpope/vim-unimpaired'
+Plug 'tpope/vim-unimpaired'
 " ]f, [f               go to the next/previous file in the directory
 " ]n, [n               jump between SCM conflict markers
 " ]e, [e               Exchange the current line with lines above/below it
@@ -116,19 +116,19 @@ let g:surround_{char2nr('8')} = "/* \r */"
 let g:surround_{char2nr('s')} = " \r"
 let g:surround_{char2nr('^')} = "/^\r$/"
 let g:surround_indent = 1
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 " cs'<q>, cst", dst, ys2w), yss), v<move>S)
 
-Plugin 'tpope/vim-abolish'
+Plug 'tpope/vim-abolish'
 " :Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}
 " :%Subvert/facilit{y,ies}/building{,s}/g
 
 " GIT
-Plugin 'tpope/vim-git'
-Plugin 'tpope/vim-fugitive'
-Plugin 'int3/vim-extradite'
-Plugin 'gregsexton/gitv'
-Plugin 'tpope/vim-rhubarb'
+Plug 'tpope/vim-git'
+Plug 'tpope/vim-fugitive'
+Plug 'int3/vim-extradite'
+Plug 'gregsexton/gitv'
+Plug 'tpope/vim-rhubarb'
 autocmd FileType gitcommit nmap <buffer> U :Git checkout -- <C-r><C-g><CR>
 " ~/.vim/bundle/vim-fugitive/doc/fugitive.txt
 map <LocalLeader>gs :Gstatus<CR>
@@ -139,21 +139,18 @@ map <LocalLeader>gc :Gcommit<CR>
 map <LocalLeader>gl :Extradite<CR>
 map <LocalLeader>gv :Gitv<CR>
 
-Plugin 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 let g:gitgutter_map_keys = 1
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
 nmap <LocalLeader>gV <Plug>GitGutterPreviewHunk
 
-Plugin 'VisIncr'
-Plugin 'junegunn/vim-easy-align'
+Plug 'VisIncr'
+Plug 'junegunn/vim-easy-align'
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
 
-Plugin 'tComment'
-" ~/.vim/bundle/tComment/doc/tcomment.txt
-
-Plugin 'rking/ag.vim'
+Plug 'rking/ag.vim'
 " let g:ackprg = 'ag --nogroup --nocolor --column' " the_silver_searcher
 nmap <Leader>a :Ag <C-R><C-W>
 " copy visual value to register 'z' first
@@ -161,54 +158,55 @@ vmap <Leader>a "zy:Ag <C-R>z
 " o (open) go (preview open) t (tab) T (new tab silently) v (vertical) gv q (close)
 
 
-Plugin 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
 " Snippet
-Plugin 'honza/vim-snippets'
-Plugin 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsEditSplit="vertical"
 
 " Maintains a history of yanks
-Plugin 'YankRing.vim'
+Plug 'YankRing.vim'
 let g:yankring_replace_n_pkey = '<Nop>'
 let g:yankring_history_dir = '~/.cache/vim'
 map <LocalLeader>p :YRShow<CR>
 " s search, also have value in clipboard
 
-Plugin 'Raimondi/delimitMate'
+Plug 'Raimondi/delimitMate'
 " automatic closing of quotes, parenthesis, brackets
 
 " Syntax Support
-Plugin 'juvenn/mustache.vim'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'pangloss/vim-javascript'
-Plugin 'tpope/vim-markdown'
-Plugin 'nono/jquery.vim'
+Plug 'juvenn/mustache.vim'
+Plug 'kchmck/vim-coffee-script'
+Plug 'nono/jquery.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'tpope/vim-markdown'
 
 " Preview:
 " markdown (gem: bluecloth), rdoc (gem: github-markup), textile (gem: RedCloth)
 " ronn (gem: ronn), html, reStructuredText (gem: RbST) and (util: rst2html)
 let g:PreviewBrowsers='firefox,chromium'
-Plugin 'greyblake/vim-preview'
+Plug 'greyblake/vim-preview'
+" sudo npm -g install instant-markdown-d
 let g:instant_markdown_autostart = 0
-Plugin 'suan/vim-instant-markdown'
+Plug 'suan/vim-instant-markdown'
 
-" Plugin 'css_color.vim'
-" Plugin 'skammer/vim-css-color'
+" Plug 'css_color.vim'
+" Plug 'skammer/vim-css-color'
 " let g:cssColorVimDoNotMessMyUpdatetime = 0
-Plugin 'KabbAmine/vCoolor.vim'
+Plug 'KabbAmine/vCoolor.vim'
 " :VCoolor (Color Picker)
-Plugin 'thinca/vim-quickrun'
+Plug 'thinca/vim-quickrun'
 " :QuickRun ruby / :QuickRun
 
-Plugin 'bronson/vim-trailing-whitespace'
+Plug 'bronson/vim-trailing-whitespace'
 let g:extra_whitespace_ignored_filetypes = ['unite']
 
-Plugin 'spiiph/vim-space'
+Plug 'spiiph/vim-space'
 " smart <Space>
 
-Plugin 'Lokaltog/vim-easymotion'
+Plug 'Lokaltog/vim-easymotion'
 let g:EasyMotion_smartcase = 1
 nmap <M-Space> <Plug>(easymotion-jumptoanywhere)
 nmap <Space><Space> <Plug>(easymotion-s)
@@ -218,7 +216,7 @@ nmap <Space><Space> <Plug>(easymotion-s)
 set undofile
 set undodir=~/.cache/vim,/tmp
 
-Plugin 'mbbill/undotree'
+Plug 'mbbill/undotree'
 let g:undotree_SplitWidth = 40
 let g:undotree_DiffpanelHeight = 20
 let g:undotree_SetFocusWhenToggle = 1
@@ -228,24 +226,25 @@ function g:Undotree_CustomMap()
 endfunction
 map <LocalLeader>u :UndotreeToggle<CR>
 
-Plugin 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'
 let g:indentLine_enabled=0
 " map <F7> :IndentGuidesToggle <CR>
 
-Plugin 'bling/vim-airline'
+Plug 'bling/vim-airline'
 let g:airline_theme='bubblegum'
 let g:airline_detect_modified=1
 let g:airline_detect_paste=1
 let g:airline#extensions#hunks#enabled = 1
 
-Plugin 'bronson/vim-visual-star-search'
-Plugin 'gregsexton/MatchTag'
+Plug 'bronson/vim-visual-star-search'
+Plug 'gregsexton/MatchTag'
 
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 " nmap <F8> :TagbarToggle<CR>
-Plugin 'AutoTag'
+Plug 'AutoTag'
 
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_extensions = ['changes', 'line', 'tag', 'buffertag']
 let g:ctrlp_lazy_update = 1
 let g:ctrlp_max_files = 20000
@@ -264,7 +263,7 @@ let g:ctrlp_custom_ignore = {
             \ 'file': '\.jpg$\|\.png$\|\.gif$\|tags$'
             \ }
 
-Plugin 'JazzCore/ctrlp-cmatcher'
+Plug 'JazzCore/ctrlp-cmatcher'
 let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 
 let g:ctrlp_prompt_mappings = {
@@ -296,7 +295,10 @@ let g:ctrlp_buftag_types = {
             \ 'markdown'     : '--language-force=markdown'
             \ }
 
-Plugin 'gmarik/github-search.vim'
+Plug 'gmarik/github-search.vim'
 " :GHSearchRepo something
 
+call plug#end()
+
+colorscheme molokai
 " vim:tw=77:sw=4:ts=8:et:fdm=marker:ft=vim:norl:
