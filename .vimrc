@@ -7,6 +7,8 @@ if filereadable(expand("~/.vim/vundlerc"))
   source ~/.vim/vundlerc
 endif
 
+colorscheme molokai
+
 " ================ General Config ====================
 " disable error sounds and screen flashing
 set vb t_vb=
@@ -30,7 +32,7 @@ set complete+=kspell
 
 " Search home directory path on cd. But can't complete.
 set cdpath+=~
-set cdpath+=~/GIT
+set cdpath+=~/Projects
 
 set shiftround                 " round indent to multiple of 'shiftwidth'
 set tags=tags,./tags,tmp/tags,doc/tags

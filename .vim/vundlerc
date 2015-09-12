@@ -240,7 +240,6 @@ Plug 'bronson/vim-visual-star-search'
 Plug 'gregsexton/MatchTag'
 
 Plug 'majutsushi/tagbar'
-" nmap <F8> :TagbarToggle<CR>
 Plug 'AutoTag'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
@@ -300,5 +299,4 @@ Plug 'gmarik/github-search.vim'
 
 call plug#end()
 
-colorscheme molokai
 " vim:tw=77:sw=4:ts=8:et:fdm=marker:ft=vim:norl:
