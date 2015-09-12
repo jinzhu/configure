@@ -18,6 +18,57 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rsi' "readline key binding
 Plug 'tpope/vim-commentary'
 
+" Text Object
+" v -> visually select, c -> change, d -> delete, y -> yank
+" a -> all, i -> inner, t -> till, f -> find forward, F -> find backward
+" w -> word, s -> sentences, p -> paragraphs, t -> tags, f -> function
+" combined commands: vaw, v3i}
+Plug 'kana/vim-textobj-user'
+
+Plug 'bkad/CamelCaseMotion'
+" ,w ,b ,e
+
+Plug 'michaeljsmith/vim-indent-object'
+" i/I -> indent level
+" ai  -> (I)ndentation level and line above.
+" aI  -> (I)ndentation level and line above and below.
+" ii/iI -> (I)nner (I)ndentation level (no line above/below).
+
+Plug 'glts/vim-textobj-comment'
+" c -> comment
+
+Plug 'whatyouhide/vim-textobj-xmlattr'
+" x -> xml attribute
+
+Plug 'mattn/vim-textobj-url'
+" u -> url
+
+Plug 'coderifous/textobj-word-column.vim'
+let g:skip_default_textobj_word_column_mappings=1
+xnoremap <silent> av :<C-u>call TextObjWordBasedColumn("aw")<cr>
+xnoremap <silent> aV :<C-u>call TextObjWordBasedColumn("aW")<cr>
+xnoremap <silent> iv :<C-u>call TextObjWordBasedColumn("iw")<cr>
+xnoremap <silent> iV :<C-u>call TextObjWordBasedColumn("iW")<cr>
+onoremap <silent> av :call TextObjWordBasedColumn("aw")<cr>
+onoremap <silent> aV :call TextObjWordBasedColumn("aW")<cr>
+onoremap <silent> iv :call TextObjWordBasedColumn("iw")<cr>
+onoremap <silent> iV :call TextObjWordBasedColumn("iW")<cr>
+
+Plug 'wellle/targets.vim'
+" A/I -> Like a/i, but exclude whitespace at both ends.
+" l/n -> next/last pair
+" a -> argument
+" , . : -> more https://github.com/wellle/targets.vim/blob/master/cheatsheet.md
+
+let g:surround_{char2nr('-')} = "<% \r %>"
+let g:surround_{char2nr('=')} = "<%= \r %>"
+let g:surround_{char2nr('8')} = "/* \r */"
+let g:surround_{char2nr('s')} = " \r"
+let g:surround_{char2nr('^')} = "/^\r$/"
+let g:surround_indent = 1
+Plug 'tpope/vim-surround'
+" cs'<q>, cst", dst, ys2w), yss), v<move>S)
+
 " Golang
 Plug 'fatih/vim-go'
 let g:go_auto_type_info = 0
@@ -109,15 +160,6 @@ Plug 'tpope/vim-unimpaired'
 " ]e, [e               Exchange the current line with lines above/below it
 " ]<Space>, [<Spance>  Add [count] blank lines above/below the cursor.
 " `[x` XML encode, `]x` XML decode, `[u` URL encode, `]u` URL decode, `[y` C String encode, `]y` C String decode
-
-let g:surround_{char2nr('-')} = "<% \r %>"
-let g:surround_{char2nr('=')} = "<%= \r %>"
-let g:surround_{char2nr('8')} = "/* \r */"
-let g:surround_{char2nr('s')} = " \r"
-let g:surround_{char2nr('^')} = "/^\r$/"
-let g:surround_indent = 1
-Plug 'tpope/vim-surround'
-" cs'<q>, cst", dst, ys2w), yss), v<move>S)
 
 Plug 'tpope/vim-abolish'
 " :Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}

@@ -347,3 +347,4 @@ hi CursorLine ctermbg=240 cterm=none
 " q/ -> open your search history
 " :verbose map -> list all your maps
 " :verbose abbr -> list all your maps
+" :earlier 2m -> go to 2 minutes ago
