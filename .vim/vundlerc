@@ -5,7 +5,6 @@ Plug 'L9'
 Plug 'tpope/vim-sensible'
 
 " Theme
-Plug 'mhinz/vim-startify'
 Plug 'tomasr/molokai'
 let g:molokai_original = 1
 
@@ -338,3 +337,5 @@ Plug 'gmarik/github-search.vim'
 " :GHSearchRepo something
 
 call plug#end()
+
+" vim:tw=77:sw=4:ts=8:et:fdm=marker:ft=vim:norl:
