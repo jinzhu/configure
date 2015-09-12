@@ -15,6 +15,7 @@ dwm/dwm
 dwm/dwm.o
 .vim/.netrwhist
 .vim/bundle
+.vim/plugins
 .vim/sessions
 .xmonad/STATUSBAR
 .xmonad/STOCK

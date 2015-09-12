@@ -1,7 +1,6 @@
 " =============== Plug Initialization ===============
 call plug#begin('~/.vim/plugins')
 
-Plug 'VundleVim/Vundle.vim'
 Plug 'L9'
 Plug 'tpope/vim-sensible'
 
@@ -339,4 +338,3 @@ Plug 'gmarik/github-search.vim'
 " :GHSearchRepo something
 
 call plug#end()
-

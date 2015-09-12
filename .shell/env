@@ -3,7 +3,8 @@
 
 export DISPLAY=:0
 export TERM=screen-256color;
-[[ $TMUX == "" ]] && [[ ! $NOTMUX == "1" ]] && [[ ! $INSIDE_EMACS =~ "term" ]] && byobu-tmux
+export GOPATH=/usr/share/go;
+export NODE_PATH=/usr/local/lib/node_modules;
 
 # Disabling Terminal Flow Control Keystrokes
 stty -ixon
@@ -12,7 +13,7 @@ stty -ixon
 [ -f ~/.ec2/rc ] && source ~/.ec2/rc
 # [ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm &> /dev/null
 # [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-[ -f ~/.rbenv/bin/rbenv ] && PATH=$HOME/.rbenv/bin:$PATH && eval "$(rbenv init -)"
+PATH=$HOME/.rbenv/shims/:$GOPATH/bin:$PATH && eval "$(rbenv init -)"
 
 export CDPATH=".:~"
 export HAXE_LIBRARY_PATH=/opt/haxe/std:.
@@ -25,6 +26,5 @@ export TMPDIR=/tmp
 eval `ssh-agent 2>/dev/null`
 eval `ssh-add 2>/dev/null`
 
-xset b off
 unset MAILCHECK
 #xset s off
