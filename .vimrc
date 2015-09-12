@@ -342,9 +342,19 @@ augroup END
 hi Visual ctermbg=240
 hi CursorLine ctermbg=240 cterm=none
 
-" q: -> open your command history
-" @: -> run last command -> @@ rerun
-" q/ -> open your search history
 " :verbose map -> list all your maps
 " :verbose abbr -> list all your maps
 " :earlier 2m -> go to 2 minutes ago
+" :.! date -> insert shell command result
+"
+" q: -> open your command history (<C-f> after :)
+" q/ -> open your search history
+" @: -> run last command -> @@ rerun
+"
+" gv -> reselect last visual selection
+" g; / g, -> to move (forward, backward) through the changelist.
+" gi  -> Go to position where Insert mode was stopped last
+" '. -> will go to the last edited line, And `. will go to the last edited
+"
+" :g/match/y A -> will yank (copy) all lines containing "match" into the "a/@a register. (The capitalization as A makes vim append yankings instead of replacing the previous register contents.)
+" :g!/match/normal dd -> delete all lines that don't containing "match" (same as :v/match/normal dd)
