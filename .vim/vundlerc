@@ -200,6 +200,9 @@ Plugin 'KabbAmine/vCoolor.vim'
 Plugin 'thinca/vim-quickrun'
 " :QuickRun ruby / :QuickRun
 
+Plugin 'bronson/vim-trailing-whitespace'
+let g:extra_whitespace_ignored_filetypes = ['unite']
+
 Plugin 'spiiph/vim-space'
 " smart <Space>
 
