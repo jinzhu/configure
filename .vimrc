@@ -159,7 +159,7 @@ set wildignore+=*vendor/cache/**
 set wildignore+=*.gem
 set wildignore+=*log/**
 set wildignore+=*tmp/**
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip 
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wildignore+=*.png,*.jpg,*.gif
 set wildignore+=*.a,*.lib,*.so,CVS,vendor/qor,public/system
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*  " Linux/MacOSX
@@ -195,14 +195,6 @@ highlight clear SignColumn
 runtime macros/matchit.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" HTML
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:do_xhtml_mappings = 'yes'
-let g:force_html_menu   = 'yes'
-let g:html_tag_case     = 'lowercase'
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ My Hot Keys
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " map <F2> :tabedit<CR>
@@ -214,8 +206,6 @@ let g:html_tag_case     = 'lowercase'
 " map <F7> :IndentLinesToggle <CR>
 " set pastetoggle=<F10>          " toggle between paste and normal: for 'safer' pasting from keyboard
 " nmap <F11> <Plug>ToggleAutoCloseMappings
-
-map <LocalLeader>C :%s/\s\+$//<CR>
 
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 map <Leader>ew :e %%

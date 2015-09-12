@@ -146,7 +146,9 @@ nmap [h <Plug>GitGutterPrevHunk
 nmap <LocalLeader>gV <Plug>GitGutterPreviewHunk
 
 Plugin 'VisIncr'
-Plugin 'Align'
+Plugin 'junegunn/vim-easy-align'
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
 
 Plugin 'tComment'
 " ~/.vim/bundle/tComment/doc/tcomment.txt
