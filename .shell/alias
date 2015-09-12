@@ -230,7 +230,7 @@ function gci {
   if [ -d '.hg' ]; then
     hg commit -m $*
   else
-    git ci -am $*
+    git commit -am $*
   fi
 }
 
