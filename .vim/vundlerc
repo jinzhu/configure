@@ -192,8 +192,7 @@ Plug 'greyblake/vim-preview'
 let g:instant_markdown_autostart = 0
 Plug 'suan/vim-instant-markdown'
 
-" Plug 'css_color.vim'
-" Plug 'skammer/vim-css-color'
+Plug 'ap/vim-css-color'
 " let g:cssColorVimDoNotMessMyUpdatetime = 0
 Plug 'KabbAmine/vCoolor.vim'
 " :VCoolor (Color Picker)
