@@ -61,7 +61,6 @@ set laststatus=2   " Always show the status line
 set selectmode+=mouse
 set mouse=a
 set mousehide                 " Hide mouse after chars typed
-set ttymouse=xterm2
 
 set showmatch           " Show matching brackets.
 " Highlight when CursorMoved.
