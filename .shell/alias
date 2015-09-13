@@ -140,7 +140,11 @@ function v {
 }
 
 function vim {
-  /usr/bin/vim $(echo $* | sed "s/:/ +/g")
+  if [ -f '/usr/local/bin/nvim' ];then
+    /usr/local/bin/nvim $(echo $* | sed "s/:/ +/g")
+  else
+    /usr/bin/vim $(echo $* | sed "s/:/ +/g")
+  fi
 }
 
 function e {
