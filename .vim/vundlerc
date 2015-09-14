@@ -280,6 +280,14 @@ Plug 'majutsushi/tagbar'
 Plug 'AutoTag'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+
+" find similar file
+Plug 'derwiath/vim-flipit'
+let g:flipit_cycles = [
+    \    ['go:_test']
+    \ ]
+noremap <silent> <Leader>f :FlipIt<CR>
+
 Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_extensions = ['changes', 'line', 'tag', 'buffertag']
 let g:ctrlp_lazy_update = 1
