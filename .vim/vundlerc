@@ -5,8 +5,7 @@ Plug 'L9'
 Plug 'tpope/vim-sensible'
 
 " Theme
-Plug 'tomasr/molokai'
-let g:molokai_original = 1
+Plug 'NLKNguyen/papercolor-theme'
 
 " Ruby & Rails
 Plug 'vim-ruby/vim-ruby'
@@ -190,11 +189,10 @@ Plug 'junegunn/vim-easy-align'
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
 
-Plug 'rking/ag.vim'
-" let g:ackprg = 'ag --nogroup --nocolor --column' " the_silver_searcher
-nmap <Leader>a :Ag <C-R><C-W>
+Plug 'dyng/ctrlsf.vim'
+nmap <Leader>a :CtrlSF <C-R><C-W>
 " copy visual value to register 'z' first
-vmap <Leader>a "zy:Ag <C-R>z
+vmap <Leader>a "zy:CtrlSF <C-R>z
 " o (open) go (preview open) t (tab) T (new tab silently) v (vertical) gv q (close)
 
 

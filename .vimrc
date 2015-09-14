@@ -7,7 +7,10 @@ if filereadable(expand("~/.vim/vundlerc"))
   source ~/.vim/vundlerc
 endif
 
-colorscheme molokai
+" Color Theme
+set background=dark
+let g:airline_theme='PaperColor'
+colorscheme PaperColor
 
 " ================ General Config ====================
 " disable error sounds and screen flashing
