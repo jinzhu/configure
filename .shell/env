@@ -26,5 +26,7 @@ export TMPDIR=/tmp
 eval `ssh-agent 2>/dev/null`
 eval `ssh-add 2>/dev/null`
 
+ulimit -n 10240
+
 unset MAILCHECK
 #xset s off
