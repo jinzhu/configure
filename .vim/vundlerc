@@ -15,15 +15,20 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rsi' "readline key binding
 Plug 'tpope/vim-commentary'
 
+map <silent> ,w <Plug>CamelCaseMotion_w
+map <silent> ,b <Plug>CamelCaseMotion_b
+map <silent> ,e <Plug>CamelCaseMotion_e
+sunmap ,w
+sunmap ,b
+sunmap ,e
+Plug 'bkad/CamelCaseMotion'
+
 " Text Object
 " v -> visually select, c -> change, d -> delete, y -> yank
 " a -> all, i -> inner, t -> till, f -> find forward, F -> find backward
 " w -> word, s -> sentences, p -> paragraphs, t -> tags, f -> function
 " combined commands: vaw, v3i}
 Plug 'kana/vim-textobj-user'
-
-Plug 'bkad/CamelCaseMotion'
-" ,w ,b ,e
 
 Plug 'michaeljsmith/vim-indent-object'
 " i/I -> indent level
@@ -95,13 +100,6 @@ Plug 'terryma/vim-expand-region'
 
 Plug 'AndrewRadev/inline_edit.vim'
 " :InlineEdit
-
-" Plug 'benekastah/neomake'
-" let g:neomake_open_list=0
-" let g:neomake_serialize=1
-" let g:neomake_serialize_abort_on_error=1
-" let g:neomake_verbose=1
-" let g:neomake_go_enabled_makers = ['go']
 
 Plug 'scrooloose/syntastic'
 let g:syntastic_auto_jump=1
@@ -228,7 +226,7 @@ let g:PreviewBrowsers='firefox,chromium'
 Plug 'greyblake/vim-preview'
 " sudo npm -g install instant-markdown-d
 let g:instant_markdown_autostart = 0
-Plug 'suan/vim-instant-markdown'
+P#FFAABBlug 'suan/vim-instant-markdown'
 
 Plug 'ap/vim-css-color'
 " let g:cssColorVimDoNotMessMyUpdatetime = 0
@@ -243,7 +241,7 @@ let g:extra_whitespace_ignored_filetypes = ['unite']
 Plug 'spiiph/vim-space'
 " smart <Space>
 
-Plug 'Lokaltog/vim-easymotion'
+Plug 'easymotion/vim-easymotion'
 let g:EasyMotion_smartcase = 1
 nmap <M-Space> <Plug>(easymotion-jumptoanywhere)
 nmap <Space><Space> <Plug>(easymotion-s)

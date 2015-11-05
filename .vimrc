@@ -11,8 +11,6 @@ endif
 set background=dark
 let g:airline_theme='PaperColor'
 colorscheme PaperColor
-let g:seoul256_background = 234
-colorscheme seoul256
 
 " ================ General Config ====================
 " disable error sounds and screen flashing
