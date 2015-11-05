@@ -226,7 +226,7 @@ let g:PreviewBrowsers='firefox,chromium'
 Plug 'greyblake/vim-preview'
 " sudo npm -g install instant-markdown-d
 let g:instant_markdown_autostart = 0
-P#FFAABBlug 'suan/vim-instant-markdown'
+Plug 'suan/vim-instant-markdown'
 
 Plug 'ap/vim-css-color'
 " let g:cssColorVimDoNotMessMyUpdatetime = 0
