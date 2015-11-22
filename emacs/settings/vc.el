@@ -4,9 +4,9 @@
 (global-git-gutter-mode t)
 
 (bind-key "<f4><f4>t" 'git-gutter:toggle)
-(bind-key "<f4>j" 'git-gutter:next-diff)
-(bind-key "<f4>k" 'git-gutter:previous-diff)
-(bind-key "<f4><f4>d" 'git-gutter:popup-diff)
+(bind-key "<f4>j" 'git-gutter:next-hunk)
+(bind-key "<f4>k" 'git-gutter:previous-hunk)
+(bind-key "<f4><f4>d" 'git-gutter:popup-hunk)
 (bind-key "<f4><f4>r" 'git-gutter:revert-hunk)
 
 (require-package 'magit)
