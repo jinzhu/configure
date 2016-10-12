@@ -15,6 +15,9 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rsi' "readline key binding
 Plug 'tpope/vim-commentary'
 
+Plug 'editorconfig/editorconfig-vim'
+Plug 'mitsuhiko/vim-jinja'
+
 map <silent> ,w <Plug>CamelCaseMotion_w
 map <silent> ,b <Plug>CamelCaseMotion_b
 map <silent> ,e <Plug>CamelCaseMotion_e
@@ -71,17 +74,27 @@ let g:surround_indent = 1
 Plug 'tpope/vim-surround'
 " cs'<q>, cst", dst, ys2w), yss), v<move>S)
 
+" React
+Plug 'pangloss/vim-javascript'
+let g:jsx_ext_required = 0
+Plug 'mxw/vim-jsx'
+
 " Golang
 Plug 'fatih/vim-go'
-let g:go_auto_type_info = 0
-let g:go_highlight_extra_types = 1
-let g:go_highlight_operators = 1
 let g:go_fmt_command='goimports'
-au FileType go nmap <LocalLeader>d <Plug>(go-doc-vertical)
-au FileType go nmap <LocalLeader>i <Plug>(go-info)
-au FileType go nmap <LocalLeader>r <Plug>(go-run)
-au FileType go nmap <LocalLeader>b <Plug>(go-build)
-au FileType go nmap <LocalLeader>t <Plug>(go-test)
+" let g:go_auto_type_info = 1
+" let g:go_highlight_functions = 1
+" let g:go_highlight_methods = 1
+" let g:go_highlight_structs = 1
+" let g:go_highlight_interfaces = 1
+" let g:go_highlight_operators = 1
+" let g:go_highlight_build_constraints = 1
+" au FileType go nmap <LocalLeader>i <Plug>(go-implements)
+" au FileType go nmap <LocalLeader>r <Plug>(go-run)
+" au FileType go nmap <LocalLeader>b <Plug>(go-build)
+" au FileType go nmap <LocalLeader>t <Plug>(go-test)
+" au FileType go nmap <LocalLeader>d <Plug>(go-doc-vertical)
+" au FileType go nmap <LocalLeader>b <Plug>(go-doc-browser)
 
 Plug 'AndrewRadev/splitjoin.vim'
 " SplitjoinSplit, SplitjoinJoin
@@ -101,12 +114,14 @@ Plug 'terryma/vim-expand-region'
 Plug 'AndrewRadev/inline_edit.vim'
 " :InlineEdit
 
-Plug 'scrooloose/syntastic'
-let g:syntastic_auto_jump=1
-let g:syntastic_check_on_open = 0
-let g:syntastic_always_populate_loc_list = 1
-map <Leader>n :lnext<CR>
-map <Leader>p :lprevious<CR>
+" Plug 'scrooloose/syntastic'
+" let g:syntastic_auto_jump=1
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+" map <Leader>n :lnext<CR>
+" map <Leader>p :lprevious<CR>
 
 Plug 'Chiel92/vim-autoformat'
 
@@ -193,6 +208,8 @@ nmap <Leader>a :CtrlSF <C-R><C-W>
 vmap <Leader>a "zy:CtrlSF <C-R>z
 " o (open) go (preview open) t (tab) T (new tab silently) v (vertical) gv q (close)
 
+" Plug 'wellle/tmux-complete.vim'
+" let g:tmuxcomplete#trigger = 'omnifunc' " for YouCompleteMe
 
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
@@ -203,9 +220,11 @@ let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsEditSplit="vertical"
 
 " Maintains a history of yanks
-Plug 'YankRing.vim'
 let g:yankring_replace_n_pkey = '<Nop>'
 let g:yankring_history_dir = '~/.cache/vim'
+let g:yankring_clipboard_monitor=0
+set clipboard+=unnamed
+Plug 'YankRing.vim'
 map <LocalLeader>p :YRShow<CR>
 " s search, also have value in clipboard
 
@@ -216,8 +235,8 @@ Plug 'Raimondi/delimitMate'
 Plug 'juvenn/mustache.vim'
 Plug 'kchmck/vim-coffee-script'
 Plug 'nono/jquery.vim'
-Plug 'pangloss/vim-javascript'
 Plug 'tpope/vim-markdown'
+let g:markdown_fenced_languages = ['go', 'ruby', 'html', 'bash=sh']
 
 " Preview:
 " markdown (gem: bluecloth), rdoc (gem: github-markup), textile (gem: RedCloth)
@@ -305,8 +324,11 @@ let g:ctrlp_custom_ignore = {
             \ 'file': '\.jpg$\|\.png$\|\.gif$\|tags$'
             \ }
 
-Plug 'JazzCore/ctrlp-cmatcher'
-let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
+Plug 'nixprime/cpsm', { 'do': './install.sh' }
+let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
+
+" Plug 'JazzCore/ctrlp-cmatcher'
+" let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 
 let g:ctrlp_prompt_mappings = {
       \ 'PrtSelectMove("j")':   ['<c-n>'],

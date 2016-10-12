@@ -8,9 +8,10 @@ if filereadable(expand("~/.vim/vundlerc"))
 endif
 
 " Color Theme
-set background=dark
 let g:airline_theme='PaperColor'
+set background=dark
 colorscheme PaperColor
+set foldcolumn=1
 
 " ================ General Config ====================
 " disable error sounds and screen flashing
@@ -103,6 +104,8 @@ set directory=~/.cache/vim,/tmp   " directory is the directory for temp file
 set noswapfile
 set nowb
 
+autocmd filetype crontab setlocal nobackup nowritebackup
+
 set autowrite                   " Writes on make/shell commands
 set autoread                    " Reload files changed outside vim
 
@@ -177,7 +180,7 @@ set wildignore+=*/.git/*,*/.hg/*,*/.svn/*  " Linux/MacOSX
 " ================ Scrolling ========================
 
 set scrolloff=0         " Start scrolling when we're 8 lines away from margins
-set sidescrolloff=15
+set sidescrolloff=18
 set sidescroll=1
 
 for f in split(glob('~/.vim/plugin/settings/*.vim'), '\n')
@@ -191,7 +194,7 @@ endfor
 set fileencoding=utf-8
 set fileencodings=utf-8,gb18030,ucs-bom,gbk,gb2312,cp936
 set encoding=utf8
-set guifont=Monaco\ 14
+set guifont=Monaco\ 16
 highlight clear SignColumn
 " GUI - color：guifg, guibg, gui
 " Terminal：ctermfg, ctermbg

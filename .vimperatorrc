@@ -1,15 +1,46 @@
-noremap ;1 1gt
-noremap ;2 2gt
-noremap ;3 3gt
-noremap ;4 4gt
-noremap ;5 5gt
-noremap ;6 6gt
-noremap ;7 7gt
-noremap ;8 8gt
-noremap ;9 9gt
-noremap ;0 :tablast<CR>
-
 set nextpattern+=^下一页|››$
 set previouspattern+=^上一页|‹‹$
+
+" Hint Mode
+set hintchars=asdfghjklqwertyuiopzxcvbnm
+hi Hint font-family: Mono, 'Deja Vu Sans Mono', Monaco; min-width: 10px; text-transform: uppercase; box-shadow: rgba(0, 0, 0, 0.298039) 0px 3px 7px 0px; background-color: rgb(204, 0, 0); color: rgb(255, 255, 255); line-height: 12px; font-weight: 600; font-size: 12px; opacity: 0.7; border: 1px solid rgb(153, 0, 0); padding: 2px !important; border-radius: 3px !important; z-index: 2147483646; display: block !important; position: absolute;
+hi HintElem background-color: transparent;
+hi HintActive background-color: transparent;
+
+hi StatusLine     color: #93a1a1; background: #002b36; font-weight: normal; font-size: 12pt;
+hi Normal     color:  #93a1a1;  background: #002b36; font-size: 12pt; opacity: 0.9;
+hi CmdLine    color:  #93a1a1;  background: #002b36; font-size: 12pt;
+hi InfoMsg    color:  #93a1a1;  background: #002b36; font-size: 12pt;
+hi ModeMsg    color:  #93a1a1;  background: #002b36; font-size: 12pt;
+hi MoreMsg    color:  #859900; background: #002b36;
+hi LineNr   color:  #dc322f; background: #002b36; font-size: 12pt;
+hi Question   color: #b58900;  background: #002b36;  font-size: 12pt;
+hi WarningMsg   color: #dc322f;  background: #002b36;  font-size: 12pt;
+hi ErrorMsg   color: #002b36;  background: red;  font-size: 12pt;
+hi NonText    background: #000;
+hi Null     color: CornflowerBlue;
+hi Tag      color: CornflowerBlue;
+hi Number   color: CornflowerBlue;
+
+hi CompTitle    background: #1c1c1c;
+hi CompTitle>*  color: #cb4b16; border-bottom: 1px solid #3c3c3f; padding: 1px 0.5ex;
+hi CompItem[selected] color: cyan;  background: #333;
+hi CompDesc   color: #d33682;
+
+hi Title    color:  #002b36;
+hi Indicator    color:  #b58900;
+hi String   color:  #002b36;
+hi Number   color:  #002b36;
+hi Object   color: #2aa198;
+hi Function   color:  #268bd2;
+hi URL    color:  #859900;
+
+hi TabNumber  color: #002b36; font-weight: bold; font-size:10pt;
+
+style -name tab chrome://* <<EOM
+  .tabbrowser-strip {
+    background                         : #002b36 !important;
+  }
+EOM
 
 "vim: set ft=vim:
