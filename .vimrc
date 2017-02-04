@@ -8,7 +8,7 @@ if filereadable(expand("~/.vim/vundlerc"))
 endif
 
 " Color Theme
-let g:airline_theme='PaperColor'
+let g:airline_theme='papercolor'
 set background=dark
 colorscheme PaperColor
 set foldcolumn=1

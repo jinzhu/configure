@@ -21,6 +21,8 @@ export HAXE_LIBRARY_PATH=/opt/haxe/std:.
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.vim/gdbmgr/src
 export CLOUDSDK_PYTHON=/usr/bin/python2
 
+export PGHOST=127.0.0.1
+export MYSQL_HOST=127.0.0.1
 export EDITOR='vim'
 export TMPDIR=/tmp
 

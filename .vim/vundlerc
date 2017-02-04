@@ -6,6 +6,7 @@ Plug 'tpope/vim-sensible'
 
 " Theme
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'vim-airline/vim-airline-themes'
 
 " Ruby & Rails
 Plug 'vim-ruby/vim-ruby'
@@ -16,7 +17,6 @@ Plug 'tpope/vim-rsi' "readline key binding
 Plug 'tpope/vim-commentary'
 
 Plug 'editorconfig/editorconfig-vim'
-Plug 'mitsuhiko/vim-jinja'
 
 map <silent> ,w <Plug>CamelCaseMotion_w
 map <silent> ,b <Plug>CamelCaseMotion_b
@@ -79,16 +79,19 @@ Plug 'pangloss/vim-javascript'
 let g:jsx_ext_required = 0
 Plug 'mxw/vim-jsx'
 
+" Asynchronous Lint Engine
+Plug 'w0rp/ale'
+
 " Golang
 Plug 'fatih/vim-go'
 let g:go_fmt_command='goimports'
-" let g:go_auto_type_info = 1
-" let g:go_highlight_functions = 1
-" let g:go_highlight_methods = 1
-" let g:go_highlight_structs = 1
-" let g:go_highlight_interfaces = 1
-" let g:go_highlight_operators = 1
-" let g:go_highlight_build_constraints = 1
+let g:go_auto_type_info = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
 " au FileType go nmap <LocalLeader>i <Plug>(go-implements)
 " au FileType go nmap <LocalLeader>r <Plug>(go-run)
 " au FileType go nmap <LocalLeader>b <Plug>(go-build)
@@ -212,8 +215,24 @@ vmap <Leader>a "zy:CtrlSF <C-R>z
 " let g:tmuxcomplete#trigger = 'omnifunc' " for YouCompleteMe
 
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+" Plug 'Shougo/neocomplcache'
+" vim-plug
+" Plug 'Shougo/deoplete.nvim'
+" Plug 'zchee/deoplete-go', { 'do': 'make'}
+" Run deoplete.nvim automatically
+" let g:deoplete#enable_at_startup = 1
+" deoplete-go settings
+" let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+" let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+" let g:deoplete#sources#go#use_cache = 1
+" let g:deoplete#sources#go#json_directory = '~/.cache/deoplete/go/$GOOS_$GOARCH'
 
 " Snippet
+" neocomplete like
+set completeopt+=noinsert
+" deoplete.nvim recommend
+set completeopt+=noselect
+
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger="<C-j>"
@@ -254,6 +273,7 @@ Plug 'KabbAmine/vCoolor.vim'
 Plug 'thinca/vim-quickrun'
 " :QuickRun ruby / :QuickRun
 
+" :FixWhitespace
 Plug 'bronson/vim-trailing-whitespace'
 let g:extra_whitespace_ignored_filetypes = ['unite']
 
