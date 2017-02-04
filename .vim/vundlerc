@@ -4,33 +4,149 @@ call plug#begin('~/.vim/plugins')
 Plug 'L9'
 Plug 'tpope/vim-sensible'
 
-" Theme
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Theme
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'vim-airline/vim-airline-themes'
 
-" Ruby & Rails
-Plug 'vim-ruby/vim-ruby'
-Plug 'tpope/vim-rails'
-" ~/.vim/macros/rails.vim
+Plug 'bling/vim-airline'
+let g:airline_theme='bubblegum'
+let g:airline_detect_modified=1
+let g:airline_detect_paste=1
+let g:airline#extensions#hunks#enabled = 1
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Basic
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'mhinz/vim-startify'
+" :Startify  reopen the start screen
+" :SLoad     load a session
+" :SSave     save a session
+" :SDelete   delete a session
+" :SClose    close current session
+
+Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-rsi' "readline key binding
 Plug 'tpope/vim-commentary'
 
-Plug 'editorconfig/editorconfig-vim'
+Plug 'ConradIrwin/vim-bracketed-paste'
+" Handles bracketed-paste-mode in vim (aka. automatic `:set paste`)
 
+Plug 'junegunn/vim-peekaboo'
+" extends " and @ in normal mode and <CTRL-R> in insert mode so you can see the contents of the registers.
+
+" Maintains a history of yanks
+let g:yankring_replace_n_pkey = '<Nop>'
+let g:yankring_history_dir = '~/.cache/vim'
+let g:yankring_clipboard_monitor=0
+set clipboard+=unnamed
+Plug 'YankRing.vim'
+map <LocalLeader>p :YRShow<CR>
+" s search, also have value in clipboard
+
+Plug 'Raimondi/delimitMate'
+" automatic closing of quotes, parenthesis, brackets
+
+
+Plug 'tpope/vim-characterize'
+" ga -> to print characterize
+" :help digraph-table
+
+Plug 'tpope/vim-eunuch'
+" :Unlink :Remove :Rename :SudoWrite :W
+
+Plug 'tpope/vim-unimpaired'
+" ]f, [f               go to the next/previous file in the directory
+" ]n, [n               jump between SCM conflict markers
+" ]e, [e               Exchange the current line with lines above/below it
+" ]<Space>, [<Spance>  Add [count] blank lines above/below the cursor.
+" `[x` XML encode, `]x` XML decode, `[u` URL encode, `]u` URL decode, `[y` C String encode, `]y` C String decode
+
+Plug 'tpope/vim-abolish'
+" :Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}
+" :%Subvert/facilit{y,ies}/building{,s}/g
+
+Plug 'drwx/calutil.vim'
+Plug 'VisIncr'
+" The visincr plugin facilitates making a column of increasing or decreasing numbers, dates, or daynames.
+" https://github.com/vim-scripts/VisIncr
+" :I :IYMD
+
+Plug 'junegunn/vim-easy-align'
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+
+Plug 'dyng/ctrlsf.vim'
+" like ack.vim or :vimgrep but together with more context, and let you edit in-place with powerful edit mode.
+nmap <Leader>a :CtrlSF <C-R><C-W>
+" copy visual value to register 'z' first
+vmap <Leader>a "zy:CtrlSF <C-R>z
+" o (open) go (preview open) t (tab) T (new tab silently) v (vertical) gv q (close)
+
+Plug 'Yggdroot/indentLine'
+let g:indentLine_enabled=0
+" map <F7> :IndentGuidesToggle <CR>
+
+Plug 'bronson/vim-visual-star-search'
+Plug 'gregsexton/MatchTag'
+
+Plug 'majutsushi/tagbar'
+Plug 'AutoTag'
+
+" find similar file
+Plug 'derwiath/vim-flipit'
+let g:flipit_cycles = [
+            \    ['go:_test']
+            \ ]
+noremap <silent> <Leader>f :FlipIt<CR>
+
+Plug 'spiiph/vim-space'
+" smart <Space>
+
+Plug 'bronson/vim-trailing-whitespace'
+let g:extra_whitespace_ignored_filetypes = ['unite']
+" :FixWhitespace
+
+" Keep undo history across sessions, by storing in file.
+set undofile
+set undodir=~/.cache/vim,/tmp
+Plug 'mbbill/undotree'
+let g:undotree_SplitWidth = 40
+let g:undotree_DiffpanelHeight = 20
+let g:undotree_SetFocusWhenToggle = 1
+function g:Undotree_CustomMap()
+    map <buffer> n J
+    map <buffer> p K
+endfunction
+map <LocalLeader>u :UndotreeToggle<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Movement
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'rhysd/clever-f.vim'
+" Extended f, F, t and T key mappings for Vim
+
+Plug 'bkad/CamelCaseMotion'
 map <silent> ,w <Plug>CamelCaseMotion_w
 map <silent> ,b <Plug>CamelCaseMotion_b
 map <silent> ,e <Plug>CamelCaseMotion_e
 sunmap ,w
 sunmap ,b
 sunmap ,e
-Plug 'bkad/CamelCaseMotion'
 
-" Text Object
-" v -> visually select, c -> change, d -> delete, y -> yank
-" a -> all, i -> inner, t -> till, f -> find forward, F -> find backward
-" w -> word, s -> sentences, p -> paragraphs, t -> tags, f -> function
-" combined commands: vaw, v3i}
+Plug 'easymotion/vim-easymotion'
+let g:EasyMotion_smartcase = 1
+nmap <M-Space> <Plug>(easymotion-jumptoanywhere)
+nmap <Space><Space> <Plug>(easymotion-s)
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Text Object
+"    v -> visually select, c -> change, d -> delete, y -> yank
+"    a -> all, i -> inner, t -> till, f -> find forward, F -> find backward
+"    w -> word, s -> sentences, p -> paragraphs, t -> tags, f -> function
+"    combined commands: vaw, v3i}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'kana/vim-textobj-user'
 
 Plug 'michaeljsmith/vim-indent-object'
@@ -60,10 +176,16 @@ onoremap <silent> iv :call TextObjWordBasedColumn("iw")<cr>
 onoremap <silent> iV :call TextObjWordBasedColumn("iW")<cr>
 
 Plug 'wellle/targets.vim'
-" A/I -> Like a/i, but exclude whitespace at both ends.
-" l/n -> next/last pair
-" a -> argument
-" , . : -> more https://github.com/wellle/targets.vim/blob/master/cheatsheet.md
+" A/I          -> Like a/i, but exclude whitespace at both ends.
+" l/n          -> next/last pair
+" a            -> argument (doesn't works well, use vim-argumentative instead)
+" , . : ' "..  -> quotes
+" refer: https://github.com/wellle/targets.vim/blob/master/cheatsheet.md
+
+Plug 'PeterRincker/vim-argumentative'
+" Shifting arguments with <, and >,
+" Moving between argument boundaries with [, and ],
+" a, i,  -> text object argument
 
 let g:surround_{char2nr('-')} = "<% \r %>"
 let g:surround_{char2nr('=')} = "<%= \r %>"
@@ -74,63 +196,55 @@ let g:surround_indent = 1
 Plug 'tpope/vim-surround'
 " cs'<q>, cst", dst, ys2w), yss), v<move>S)
 
-" React
-Plug 'pangloss/vim-javascript'
-let g:jsx_ext_required = 0
-Plug 'mxw/vim-jsx'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" GIT
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'tpope/vim-git'
+Plug 'tpope/vim-fugitive'
+Plug 'int3/vim-extradite' " A git commit browser for vim. Extends fugitive.vim
+Plug 'junegunn/gv.vim'
+" :GV - open commit browser
+" :GV! will only list commits that affected the current file
+Plug 'tpope/vim-rhubarb'
+" :Gbrowse - open GitHub URLs
+autocmd FileType gitcommit nmap <buffer> U :Git checkout -- <C-r><C-g><CR>
+" ~/.vim/plugins/vim-fugitive/doc/fugitive.txt
+map <LocalLeader>gs :Gstatus<CR>
+map <LocalLeader>gb :Gblame<CR>
+map <LocalLeader>gd :Git! diff %<CR>
+map <LocalLeader>gD :Git! diff<CR>
+map <LocalLeader>gc :Gcommit<CR>
+map <LocalLeader>gl :Extradite<CR>
+map <LocalLeader>gv :GV<CR>
 
-" Asynchronous Lint Engine
-Plug 'w0rp/ale'
+Plug 'airblade/vim-gitgutter'
+" A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
+let g:gitgutter_map_keys = 1
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
+nmap <LocalLeader>gV <Plug>GitGutterPreviewHunk
 
-" Golang
-Plug 'fatih/vim-go'
-let g:go_fmt_command='goimports'
-let g:go_auto_type_info = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_interfaces = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-" au FileType go nmap <LocalLeader>i <Plug>(go-implements)
-" au FileType go nmap <LocalLeader>r <Plug>(go-run)
-" au FileType go nmap <LocalLeader>b <Plug>(go-build)
-" au FileType go nmap <LocalLeader>t <Plug>(go-test)
-" au FileType go nmap <LocalLeader>d <Plug>(go-doc-vertical)
-" au FileType go nmap <LocalLeader>b <Plug>(go-doc-browser)
+Plug 'rhysd/committia.vim'
+" A Vim plugin for more pleasant editing on commit messages
+let g:committia_hooks = {}
+function! g:committia_hooks.edit_open(info)
+    " Additional settings
+    setlocal spell
 
-Plug 'AndrewRadev/splitjoin.vim'
-" SplitjoinSplit, SplitjoinJoin
+    " If no commit message, start with insert mode
+    if a:info.vcs ==# 'git' && getline(1) ==# ''
+        startinsert
+    end
 
-Plug 'tpope/vim-characterize'
-" ga -> to print characterize
-" :help digraph-table
+    " Scroll the diff window from insert mode
+    " Map <C-n> and <C-p>
+    imap <buffer><C-n> <Plug>(committia-scroll-diff-down-half)
+    imap <buffer><C-p> <Plug>(committia-scroll-diff-up-half)
 
-Plug 'terryma/vim-multiple-cursors'
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<Esc>'
-Plug 'terryma/vim-expand-region'
-" + to expand, - to shrink
-
-Plug 'AndrewRadev/inline_edit.vim'
-" :InlineEdit
-
-" Plug 'scrooloose/syntastic'
-" let g:syntastic_auto_jump=1
-" let g:syntastic_check_on_open = 0
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-" map <Leader>n :lnext<CR>
-" map <Leader>p :lprevious<CR>
-
-Plug 'Chiel92/vim-autoformat'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+endfunction
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TMUX
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'tpope/vim-dispatch'
 " Dispatch, Dispatch! (run in the background), Copen (view outputs from background job)
 
@@ -162,93 +276,68 @@ autocmd FileType ruby map <Leader>tR <Plug>SendTestToTmux
 Plug 'benmills/vimux-golang'
 autocmd FileType go map <Leader>tr :GolangTestCurrentPackage<CR>
 
-Plug 'jade.vim'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Programming
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Asynchronous Lint Engine
+Plug 'w0rp/ale'
+" Plug 'scrooloose/syntastic'
+
+Plug 'Chiel92/vim-autoformat'
+let g:autoformat_autoindent = 1
+let g:autoformat_retab = 1
+let g:autoformat_remove_trailing_spaces = 1
+autocmd FileType go let b:autoformat_autoindent=0
+" Provide easy code formatting in Vim by integrating existing code formatters.
+
+Plug 'AndrewRadev/inline_edit.vim'
+" Edit code that's embedded within other code, for example, editing javascript within HTML, edit code in markdown
+" :InlineEdit
+
+Plug 'AndrewRadev/splitjoin.vim'
+"" A vim plugin that simplifies the transition between multiline and single-line code (Ruby, HTML, Go Struct, YAML...)
+" gJ  - join to one line `SplitjoinJoin`
+" gS  - split to multiline `SplitjoinSplit`
+
+Plug 'terryma/vim-multiple-cursors'
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
+Plug 'terryma/vim-expand-region'
+" + to expand, - to shrink
+
+" HTML
+Plug 'rstacruz/sparkup'
+
+" React
+Plug 'pangloss/vim-javascript'
+let g:jsx_ext_required = 0
+Plug 'mxw/vim-jsx'
+
+" Ruby & Rails
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-rails'
+" ~/.vim/macros/rails.vim
 Plug 'tpope/vim-ragtag'
 " <C-X>= <C-X>+ <C-X>- <C-X>_ <C-X>' <C-X>" <C-X><Space> <C-X><CR> <C-X>/ <C-X>! <C-X>@ <C-X># <C-X>$
-Plug 'tpope/vim-eunuch'
-" :Unlink :Remove :Rename :SudoWrite :W
-Plug 'tpope/vim-unimpaired'
-" ]f, [f               go to the next/previous file in the directory
-" ]n, [n               jump between SCM conflict markers
-" ]e, [e               Exchange the current line with lines above/below it
-" ]<Space>, [<Spance>  Add [count] blank lines above/below the cursor.
-" `[x` XML encode, `]x` XML decode, `[u` URL encode, `]u` URL decode, `[y` C String encode, `]y` C String decode
 
-Plug 'tpope/vim-abolish'
-" :Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}
-" :%Subvert/facilit{y,ies}/building{,s}/g
-
-" GIT
-Plug 'tpope/vim-git'
-Plug 'tpope/vim-fugitive'
-Plug 'int3/vim-extradite'
-Plug 'gregsexton/gitv'
-Plug 'tpope/vim-rhubarb'
-autocmd FileType gitcommit nmap <buffer> U :Git checkout -- <C-r><C-g><CR>
-" ~/.vim/bundle/vim-fugitive/doc/fugitive.txt
-map <LocalLeader>gs :Gstatus<CR>
-map <LocalLeader>gb :Gblame<CR>
-map <LocalLeader>gd :Git! diff %<CR>
-map <LocalLeader>gD :Git! diff<CR>
-map <LocalLeader>gc :Gcommit<CR>
-map <LocalLeader>gl :Extradite<CR>
-map <LocalLeader>gv :Gitv<CR>
-
-Plug 'airblade/vim-gitgutter'
-let g:gitgutter_map_keys = 1
-nmap ]h <Plug>GitGutterNextHunk
-nmap [h <Plug>GitGutterPrevHunk
-nmap <LocalLeader>gV <Plug>GitGutterPreviewHunk
-
-Plug 'VisIncr'
-Plug 'junegunn/vim-easy-align'
-" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-vmap <Enter> <Plug>(EasyAlign)
-
-Plug 'dyng/ctrlsf.vim'
-nmap <Leader>a :CtrlSF <C-R><C-W>
-" copy visual value to register 'z' first
-vmap <Leader>a "zy:CtrlSF <C-R>z
-" o (open) go (preview open) t (tab) T (new tab silently) v (vertical) gv q (close)
-
-" Plug 'wellle/tmux-complete.vim'
-" let g:tmuxcomplete#trigger = 'omnifunc' " for YouCompleteMe
-
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-" Plug 'Shougo/neocomplcache'
-" vim-plug
-" Plug 'Shougo/deoplete.nvim'
-" Plug 'zchee/deoplete-go', { 'do': 'make'}
-" Run deoplete.nvim automatically
-" let g:deoplete#enable_at_startup = 1
-" deoplete-go settings
-" let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-" let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-" let g:deoplete#sources#go#use_cache = 1
-" let g:deoplete#sources#go#json_directory = '~/.cache/deoplete/go/$GOOS_$GOARCH'
-
-" Snippet
-" neocomplete like
-set completeopt+=noinsert
-" deoplete.nvim recommend
-set completeopt+=noselect
-
-Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
-let g:UltiSnipsExpandTrigger="<C-j>"
-let g:UltiSnipsEditSplit="vertical"
-
-" Maintains a history of yanks
-let g:yankring_replace_n_pkey = '<Nop>'
-let g:yankring_history_dir = '~/.cache/vim'
-let g:yankring_clipboard_monitor=0
-set clipboard+=unnamed
-Plug 'YankRing.vim'
-map <LocalLeader>p :YRShow<CR>
-" s search, also have value in clipboard
-
-Plug 'Raimondi/delimitMate'
-" automatic closing of quotes, parenthesis, brackets
+" Golang
+Plug 'fatih/vim-go'
+let g:go_fmt_command='goimports'
+let g:go_auto_type_info = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+" au FileType go nmap <LocalLeader>i <Plug>(go-implements)
+" au FileType go nmap <LocalLeader>r <Plug>(go-run)
+" au FileType go nmap <LocalLeader>b <Plug>(go-build)
+" au FileType go nmap <LocalLeader>t <Plug>(go-test)
+" au FileType go nmap <LocalLeader>d <Plug>(go-doc-vertical)
+" au FileType go nmap <LocalLeader>b <Plug>(go-doc-browser)
 
 " Syntax Support
 Plug 'juvenn/mustache.vim'
@@ -273,57 +362,36 @@ Plug 'KabbAmine/vCoolor.vim'
 Plug 'thinca/vim-quickrun'
 " :QuickRun ruby / :QuickRun
 
-" :FixWhitespace
-Plug 'bronson/vim-trailing-whitespace'
-let g:extra_whitespace_ignored_filetypes = ['unite']
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Auto Complete
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'maralla/completor.vim'
+let g:completor_gocode_binary = $GOPATH.'/bin/gocode'
+Plug 'Shougo/denite.nvim'
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+" Plug 'Shougo/neocomplcache'
+" Plug 'Shougo/deoplete.nvim'
+" Plug 'zchee/deoplete-go', { 'do': 'make'}
+" Run deoplete.nvim automatically
+" let g:deoplete#enable_at_startup = 1
+" deoplete-go settings
+" let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+" let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+" let g:deoplete#sources#go#use_cache = 1
+" let g:deoplete#sources#go#json_directory = '~/.cache/deoplete/go/$GOOS_$GOARCH'
 
-Plug 'spiiph/vim-space'
-" smart <Space>
+" Snippet
+" neocomplete like
+set completeopt+=noinsert
+" deoplete.nvim recommend
+set completeopt+=noselect
 
-Plug 'easymotion/vim-easymotion'
-let g:EasyMotion_smartcase = 1
-nmap <M-Space> <Plug>(easymotion-jumptoanywhere)
-nmap <Space><Space> <Plug>(easymotion-s)
-
-" ================ Persistent Undo ==================
-" Keep undo history across sessions, by storing in file.
-set undofile
-set undodir=~/.cache/vim,/tmp
-
-Plug 'mbbill/undotree'
-let g:undotree_SplitWidth = 40
-let g:undotree_DiffpanelHeight = 20
-let g:undotree_SetFocusWhenToggle = 1
-function g:Undotree_CustomMap()
-    map <buffer> n J
-    map <buffer> p K
-endfunction
-map <LocalLeader>u :UndotreeToggle<CR>
-
-Plug 'Yggdroot/indentLine'
-let g:indentLine_enabled=0
-" map <F7> :IndentGuidesToggle <CR>
-
-Plug 'bling/vim-airline'
-let g:airline_theme='bubblegum'
-let g:airline_detect_modified=1
-let g:airline_detect_paste=1
-let g:airline#extensions#hunks#enabled = 1
-
-Plug 'bronson/vim-visual-star-search'
-Plug 'gregsexton/MatchTag'
-
-Plug 'majutsushi/tagbar'
-Plug 'AutoTag'
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsEditSplit="vertical"
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-
-" find similar file
-Plug 'derwiath/vim-flipit'
-let g:flipit_cycles = [
-    \    ['go:_test']
-    \ ]
-noremap <silent> <Leader>f :FlipIt<CR>
 
 Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_extensions = ['changes', 'line', 'tag', 'buffertag']
@@ -351,11 +419,11 @@ let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
 " let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 
 let g:ctrlp_prompt_mappings = {
-      \ 'PrtSelectMove("j")':   ['<c-n>'],
-      \ 'PrtSelectMove("k")':   ['<c-p>'],
-      \ 'PrtHistory(-1)':       ['<c-j>'],
-      \ 'PrtHistory(1)':        ['<c-k>']
-      \}
+            \ 'PrtSelectMove("j")':   ['<c-n>'],
+            \ 'PrtSelectMove("k")':   ['<c-p>'],
+            \ 'PrtHistory(-1)':       ['<c-j>'],
+            \ 'PrtHistory(1)':        ['<c-k>']
+            \}
 
 let g:ctrlp_cmd = 'CtrlP'
 map <Leader>b :CtrlPBuffer<CR>
@@ -378,9 +446,6 @@ let g:ctrlp_buftag_types = {
             \ 'coffee'     : '--language-force=coffee',
             \ 'markdown'     : '--language-force=markdown'
             \ }
-
-Plug 'gmarik/github-search.vim'
-" :GHSearchRepo something
 
 call plug#end()
 

@@ -23,6 +23,7 @@ dwm/dwm.o
 .vim/gdbmgr/src/gdbmgr.o
 .vim/gdbmgr/src/gdbmgr.so
 .vim/gdbmgr/progs
+.vim/session
 /secret_files/
 *#
 *pyc
