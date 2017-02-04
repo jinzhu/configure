@@ -325,7 +325,7 @@ Plug 'tpope/vim-ragtag'
 " Golang
 Plug 'fatih/vim-go'
 let g:go_fmt_command='goimports'
-let g:go_auto_type_info = 1
+let g:go_auto_type_info = 0
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
@@ -365,11 +365,11 @@ Plug 'thinca/vim-quickrun'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Auto Complete
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'maralla/completor.vim'
-let g:completor_gocode_binary = $GOPATH.'/bin/gocode'
-Plug 'Shougo/denite.nvim'
-" Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-" Plug 'Shougo/neocomplcache'
+" Plug 'maralla/completor.vim'
+" let g:completor_gocode_binary = $GOPATH.'/bin/gocode'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
+
+" NeoVIM
 " Plug 'Shougo/deoplete.nvim'
 " Plug 'zchee/deoplete-go', { 'do': 'make'}
 " Run deoplete.nvim automatically
