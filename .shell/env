@@ -12,6 +12,7 @@ stty -ixon
 
 [ -f ~/.amazon_keys ] && source ~/.amazon_keys
 [ -f ~/.ec2/rc ] && source ~/.ec2/rc
+[ -f ~/.gvm/scripts/gvm ] && source ~/.gvm/scripts/gvm
 # [ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm &> /dev/null
 # [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 PATH=$HOME/.rbenv/shims/:$GOPATH/bin:$PATH && eval "$(rbenv init -)"
