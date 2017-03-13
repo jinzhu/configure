@@ -391,61 +391,67 @@ Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsEditSplit="vertical"
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+let g:fzf_command_prefix = 'Fzf'
+noremap <silent><C-p>      :FzfFiles<CR>
+noremap <silent><Leader>r  :FzfHistory<CR>
+noremap <silent><Leader>b  :FzfBuffers<CR>
+let g:fzf_layout = { 'down': '~50%' }
 
-Plug 'ctrlpvim/ctrlp.vim'
-let g:ctrlp_extensions = ['changes', 'line', 'tag', 'buffertag']
-let g:ctrlp_lazy_update = 1
-let g:ctrlp_max_files = 20000
-let g:ctrlp_max_depth = 20
-let g:ctrlp_use_caching = 1
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_clear_cache_on_exit = 1
-let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
-let g:ctrlp_mruf_last_entered = 1
-let g:ctrlp_follow_symlinks = 1
-let g:ctrlp_max_height = 35
-let g:ctrlp_match_window_reversed = 0
-let g:ctrlp_working_path_mode = 'w'
-let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\v[\/](public\/system|node_modules|tmp|target|dist)|(\.(swp|ico|git|svn|hg))$',
-            \ 'file': '\.jpg$\|\.png$\|\.gif$\|tags$'
-            \ }
+" Plug 'ctrlpvim/ctrlp.vim'
+" let g:ctrlp_extensions = ['changes', 'line', 'tag', 'buffertag']
+" let g:ctrlp_lazy_update = 1
+" let g:ctrlp_max_files = 20000
+" let g:ctrlp_max_depth = 20
+" let g:ctrlp_use_caching = 1
+" let g:ctrlp_show_hidden = 1
+" let g:ctrlp_clear_cache_on_exit = 1
+" let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
+" let g:ctrlp_mruf_last_entered = 1
+" let g:ctrlp_follow_symlinks = 1
+" let g:ctrlp_max_height = 35
+" let g:ctrlp_match_window_reversed = 0
+" let g:ctrlp_working_path_mode = 'w'
+" let g:ctrlp_custom_ignore = {
+"             \ 'dir':  '\v[\/](public\/system|node_modules|tmp|target|dist)|(\.(swp|ico|git|svn|hg))$',
+"             \ 'file': '\.jpg$\|\.png$\|\.gif$\|tags$'
+"             \ }
 
-Plug 'nixprime/cpsm', { 'do': './install.sh' }
-let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
+" Plug 'nixprime/cpsm', { 'do': './install.sh' }
+" let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
 
 " Plug 'JazzCore/ctrlp-cmatcher'
 " let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 
-let g:ctrlp_prompt_mappings = {
-            \ 'PrtSelectMove("j")':   ['<c-n>'],
-            \ 'PrtSelectMove("k")':   ['<c-p>'],
-            \ 'PrtHistory(-1)':       ['<c-j>'],
-            \ 'PrtHistory(1)':        ['<c-k>']
-            \}
+" let g:ctrlp_prompt_mappings = {
+"             \ 'PrtSelectMove("j")':   ['<c-n>'],
+"             \ 'PrtSelectMove("k")':   ['<c-p>'],
+"             \ 'PrtHistory(-1)':       ['<c-j>'],
+"             \ 'PrtHistory(1)':        ['<c-k>']
+"             \}
 
-let g:ctrlp_cmd = 'CtrlP'
-map <Leader>b :CtrlPBuffer<CR>
-map <Leader>r :CtrlPMRUFiles<CR>
-map <Leader>gr :CtrlPRoot<CR>
-map <Leader>gf :CtrlPCurFile<CR>
-map <Leader>gl :CtrlPLine<CR>
-map <Leader>gt :CtrlPTag<CR>
-map <Leader>gb :CtrlPBufTag<CR>
-map <Leader>gq :CtrlPQuickfix<CR>
-map <Leader>gc :CtrlPChange<CR>
-map <Leader>gC :CtrlPChangeAll<CR>
-map <Leader>gm :CtrlPMixed<CR>
-map <Leader>gp :CtrlPRTS<CR>
-let g:ctrlp_buftag_types = {
-            \ 'go'     : '--language-force=go',
-            \ 'css'     : '--language-force=css',
-            \ 'scss'     : '--language-force=scss',
-            \ 'js'     : '--language-force=js',
-            \ 'coffee'     : '--language-force=coffee',
-            \ 'markdown'     : '--language-force=markdown'
-            \ }
+" let g:ctrlp_cmd = 'CtrlP'
+" map <Leader>b :CtrlPBuffer<CR>
+" map <Leader>r :CtrlPMRUFiles<CR>
+" map <Leader>gr :CtrlPRoot<CR>
+" map <Leader>gf :CtrlPCurFile<CR>
+" map <Leader>gl :CtrlPLine<CR>
+" map <Leader>gt :CtrlPTag<CR>
+" map <Leader>gb :CtrlPBufTag<CR>
+" map <Leader>gq :CtrlPQuickfix<CR>
+" map <Leader>gc :CtrlPChange<CR>
+" map <Leader>gC :CtrlPChangeAll<CR>
+" map <Leader>gm :CtrlPMixed<CR>
+" map <Leader>gp :CtrlPRTS<CR>
+" let g:ctrlp_buftag_types = {
+"             \ 'go'     : '--language-force=go',
+"             \ 'css'     : '--language-force=css',
+"             \ 'scss'     : '--language-force=scss',
+"             \ 'js'     : '--language-force=js',
+"             \ 'coffee'     : '--language-force=coffee',
+"             \ 'markdown'     : '--language-force=markdown'
+"             \ }
 
 call plug#end()
 
