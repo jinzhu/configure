@@ -54,7 +54,7 @@ Host lacoste-es-1
 Host lacoste-es-2
   HostName 54.199.110.174
   User app
-  Port 222 
+  Port 222
 Host asics-dev
   User app
   HostName 79.125.17.184
@@ -93,6 +93,6 @@ Host youta-dev
   HostName 121.42.141.171
   User youta
 Host youta
-  HostName 114.215.174.35
+  HostName youtapet.com
   Port 222
   User youta

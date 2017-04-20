@@ -11,6 +11,7 @@ endif
 let g:airline_theme='papercolor'
 set background=dark
 colorscheme PaperColor
+" colorscheme shime
 set foldcolumn=1
 
 " ================ General Config ====================
