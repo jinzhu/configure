@@ -53,16 +53,16 @@ parse_go_version() {
 echo -e "[$(go version | awk '{print $3}')]"
 }
 
-set_last_dir() {
-  pwd > /tmp/.last_dir
-}
+# set_last_dir() {
+#   pwd > /tmp/.last_dir
+# }
 
 # don't show time in emacs's term
 #[[ ! $INSIDE_EMACS =~ "term" ]] && RPROMPT=$(echo '%{\033[31m%}%D %T%{\033[0m%}')
 # PROMPT=$(echo -e '%{\033[01;30m%}[%n@%m] %{\033[01;36m%}[%t] %{\033[01;34m%}[%1~] $(parse_scm)%{\033[0m%}$(parse_jobs)
 # %{\033[01;32m%}\$%{\033[0m%} ')
 PROMPT=$(echo -e '%{\033[00;36m%}[%1~] $(parse_scm)%{\033[0m%} $(parse_jobs) $(parse_go_version) $(parse_ruby_version) $(battery_pct_prompt)
-%{\033[01;32m%}\$%{\033[0m%}$(set_last_dir) ')
+%{\033[01;32m%}\$%{\033[0m%} ')
 
 case $TERM in
 (xterm*)
