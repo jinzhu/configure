@@ -1,0 +1,9 @@
+# ~/.tmuxinator/qor.yml
+
+name: gorm
+root: <%= ENV['GOPATH'] %>/src/github.com/jinzhu/gorm
+tmux_command: byobu
+
+windows:
+  - editor:
+  - test: goconvey

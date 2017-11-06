@@ -1,0 +1,10 @@
+# ~/.tmuxinator/qor-example.yml
+
+name: qor-example
+root: <%= ENV['GOPATH'] %>/src/github.com/qor/qor-example
+
+tmux_command: byobu
+
+windows:
+  - editor:
+  - server: RUNNER_EXTRA_DIRS="/usr/local/go/src/github.com/qor,/usr/local/go/src/github.com/jinzhu,/usr/local/go/src/enterprise.getqor.com" fresh

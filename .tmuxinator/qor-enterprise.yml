@@ -1,0 +1,8 @@
+name: qor-enterprise
+root: <%= ENV['GOPATH'] %>/src/enterprise.getqor.com
+tmux_command: byobu
+
+windows:
+  - editor:
+  - server:
+  - logs:
