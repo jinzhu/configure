@@ -1,5 +1,5 @@
 name: configure
-root: ~/GIT/configure
+root: ~/Projects/configure
 tmux_command: byobu
 windows:
   - shell:

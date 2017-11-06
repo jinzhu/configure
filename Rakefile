@@ -57,13 +57,8 @@ end
 
 task :install => [:link_files] do
   system("mkdir ~/.cache/vim -p") unless File.exist?("#{ENV['HOME']}/.cache/vim")
-  system("git clone git@github.com:gmarik/Vundle.vim.git ~/.vim/bundle/vundle") unless File.exist?(File.expand_path("~/.vim/bundle/vundle"))
   # For vim-preview
-  system("gem install bluecloth github-markup RedCloth ronn RbST")
-  system("vim +BundleInstall +qall")
-  system("sudo rm -rf /usr/lib/go/site")
-  system("sudo ln -nfs /home/jinzhu/Lab/go /usr/lib/go/site")
-  system("curl -L http://git.io/epre | sh")
+  system("vim +PlugInstall +qall")
 end
 
 task :remove do

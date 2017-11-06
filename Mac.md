@@ -9,3 +9,5 @@ brew reinstall ffmpeg --with-faac --with-libvpx --with-libvorbis
 brew install android-sdk
 
 brew cask install genymotion
+
+chsh -s /bin/zsh

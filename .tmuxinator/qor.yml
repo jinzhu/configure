@@ -1,5 +1,5 @@
 name: qor
-root: ~/GIT/qor
+root: <%= ENV["GOPATH"] %>/src/github.com/qor/qor
 tmux_command: byobu
 windows:
   - qor:
