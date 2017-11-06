@@ -1,8 +1,8 @@
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-brew install curl docker git go macvim vim mysql postgresql nginx zsh zsh-completions postgres tmux byobu
+brew install curl git go vim nginx zsh zsh-completions tmux byobu ngrok postgres mysql docker sqlite3
 
-brew install rbenv ruby-build nodejs imagemagick the_silver_searcher
+brew install rbenv ruby-build nodejs imagemagick vips the_silver_searcher
 
 brew reinstall ffmpeg --with-faac --with-libvpx --with-libvorbis
 
