@@ -281,6 +281,7 @@ autocmd FileType go map <Leader>tr :GolangTestCurrentPackage<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Asynchronous Lint Engine
 Plug 'w0rp/ale'
+let g:ale_linters = {'go': ['gometalinter']}
 " Plug 'scrooloose/syntastic'
 
 Plug 'Chiel92/vim-autoformat'
@@ -339,6 +340,9 @@ let g:go_highlight_build_constraints = 1
 " au FileType go nmap <LocalLeader>d <Plug>(go-doc-vertical)
 " au FileType go nmap <LocalLeader>b <Plug>(go-doc-browser)
 
+Plug 'posva/vim-vue'
+au BufRead,BufNewFile *.wpy setlocal filetype=vue.html.javascript.css
+
 " Syntax Support
 Plug 'juvenn/mustache.vim'
 Plug 'kchmck/vim-coffee-script'
@@ -365,9 +369,9 @@ Plug 'thinca/vim-quickrun'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Auto Complete
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plug 'maralla/completor.vim'
-" let g:completor_gocode_binary = $GOPATH.'/bin/gocode'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
+Plug 'maralla/completor.vim'
+let g:completor_gocode_binary = $GOPATH.'/bin/gocode'
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
 
 " NeoVIM
 " Plug 'Shougo/deoplete.nvim'

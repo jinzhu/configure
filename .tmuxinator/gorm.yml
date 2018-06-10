@@ -6,4 +6,6 @@ tmux_command: byobu
 
 windows:
   - editor:
+  - site: cd ~/Projects/gorm.io
+  - site-server: cd ~/Projects/gorm.io; hexo serve
   - test: goconvey

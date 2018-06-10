@@ -15,7 +15,8 @@ stty -ixon
 # [ -f ~/.gvm/scripts/gvm ] && source ~/.gvm/scripts/gvm
 # [ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm &> /dev/null
 # [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-PATH=$HOME/.rbenv/shims/:$GOPATH/bin:$PATH && eval "$(rbenv init -)"
+export PATH=$HOME/.rbenv/shims/:$GOPATH/bin:$PATH
+eval "$(rbenv init -)"
 
 export CDPATH=".:~"
 export HAXE_LIBRARY_PATH=/opt/haxe/std:.
